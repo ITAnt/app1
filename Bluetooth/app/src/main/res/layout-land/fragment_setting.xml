@@ -1,0 +1,229 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px80">
+
+                <TextView
+                    style="@style/txt_normal_px22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/px60"
+                    android:paddingTop="@dimen/px10"
+                    android:text="@string/tv_setting_name" />
+
+                <TextView
+                    android:id="@+id/tv_setting_edit_name"
+                    style="@style/txt_normal_px22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/px40"
+                    android:drawablePadding="@dimen/px10"
+                    android:drawableRight="@drawable/setting_back_selector"
+                    android:paddingTop="@dimen/px10"
+                    tools:text="蓝牙0909" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px2"
+                android:layout_marginLeft="@dimen/px30"
+                android:layout_marginRight="@dimen/px30"
+                android:background="@drawable/lin_bt_dail" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px80">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/px60"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/txt_normal_px22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv_setting_bluetooth" />
+
+                    <TextView
+                        android:id="@+id/tv_blutooth_close"
+                        style="@style/txt_tip_px16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/px10"
+                        android:text="@string/tv_setting_close" />
+                </LinearLayout>
+
+                <com.jancar.bluetooth.phone.widget.SwitchButton
+                    android:id="@+id/iv_setting_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/px40"
+                    android:src="@drawable/setting_switch_off" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px2"
+                android:layout_marginLeft="@dimen/px32"
+                android:layout_marginRight="@dimen/px32"
+                android:background="@drawable/lin_bt_dail" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px80">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/px60"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/txt_normal_px22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv_setting_check" />
+
+                    <TextView
+                        android:id="@+id/check_des_close"
+                        style="@style/txt_tip_px16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/px10"
+                        android:text="@string/tv_setting_check_des" />
+                </LinearLayout>
+
+                <com.jancar.bluetooth.phone.widget.SwitchButton
+                    android:id="@+id/iv_setting_check_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/px40"
+                    android:src="@drawable/setting_switch_off" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px2"
+                android:layout_marginLeft="@dimen/px32"
+                android:layout_marginRight="@dimen/px32"
+                android:background="@drawable/lin_bt_dail" />
+
+            <RelativeLayout
+                android:id="@+id/rela_del"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px20"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_paired"
+                    style="@style/txt_normal_px22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/px60"
+                    android:text="@string/tv_setting_pair" />
+
+                <TextView
+                    android:id="@+id/tv_del_all"
+                    style="@style/txt_normal_tip_px22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/px60"
+                    android:text="@string/tv_setting_del_all" />
+            </RelativeLayout>
+
+            <com.jancar.bluetooth.phone.widget.MyListView
+                android:id="@+id/setting_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/px10"
+                tools:listitem="@layout/item_equip_list" />
+
+            <TextView
+                style="@style/txt_normal_px22"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:layout_marginLeft="@dimen/px60"
+                android:layout_marginTop="@dimen/px20"
+                android:text="@string/tv_setting_available" />
+
+            <com.jancar.bluetooth.phone.widget.MyListView
+                android:id="@+id/setting_available"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/px10"
+                tools:listitem="@layout/item_equip_list" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linear_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="@dimen/px10"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_setting_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/loading_animation" />
+
+        <TextView
+            style="@style/txt_normal_tip_px22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/iv_setting_search"
+            android:layout_marginTop="@dimen/px10"
+            android:text="@string/tv_setting_search_ing" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_setting_search"
+        style="@style/txt_normal_px22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="@dimen/px10"
+        android:drawablePadding="-10px"
+        android:drawableTop="@drawable/setting_search_selector"
+        android:text="@string/tv_setting_start_search" />
+
+</FrameLayout>

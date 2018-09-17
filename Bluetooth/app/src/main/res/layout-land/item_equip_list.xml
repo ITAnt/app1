@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px60">
+
+        <TextView
+            android:id="@+id/tv_setting_equit_name"
+            style="@style/txt_tip_20"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/px90"
+            android:text="蓝牙09080" />
+
+        <ImageView
+            android:id="@+id/iv_setting_del"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/px60"
+            android:background="@drawable/setting_del_selector" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px2"
+        android:layout_marginLeft="@dimen/px60"
+        android:layout_marginRight="@dimen/px60"
+        android:background="@drawable/lin_bt_dail" />
+</LinearLayout>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@drawable/bg"
+    android:orientation="horizontal">
+    <!--拨号键盘-->
+    <RelativeLayout
+        android:id="@+id/tab_dial_manager"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        android:background="@drawable/relative_selector_bg">
+
+        <TextView
+            style="@style/txt_px16"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:drawablePadding="@dimen/bar"
+            android:drawableTop="@drawable/btn_bt_keypad_n"
+            android:gravity="center_horizontal"
+            android:text="拨号键盘" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/px2"
+        android:layout_marginRight="@dimen/px2"
+        android:background="@drawable/lin_bt_dail_n" />
+
+    <!--联系人-->
+    <RelativeLayout
+        android:id="@+id/tab_contact_manager"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        android:background="@drawable/relative_selector_bg">
+
+        <TextView
+            style="@style/txt_px16"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:drawablePadding="@dimen/bar"
+            android:drawableTop="@drawable/btn_bt_contacts_n"
+            android:gravity="center_horizontal"
+            android:text="联系人" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/px2"
+        android:layout_marginRight="@dimen/px2"
+        android:background="@drawable/lin_bt_dail_n" />
+
+
+    <!--通话记录-->
+    <RelativeLayout
+        android:id="@+id/tab_records_manager"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        android:background="@drawable/relative_selector_bg">
+
+        <TextView
+            style="@style/txt_px16"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:drawablePadding="@dimen/bar"
+            android:drawableTop="@drawable/btn_bt_mail_list_n"
+            android:gravity="center_horizontal"
+            android:text="通话记录" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/px2"
+        android:layout_marginRight="@dimen/px2"
+        android:background="@drawable/lin_bt_dail_n" />
+
+    <!--设备管理-->
+    <RelativeLayout
+        android:id="@+id/tab_statics_manager"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        android:background="@drawable/relative_selector_bg">
+
+        <TextView
+            style="@style/txt_px16"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:drawablePadding="@dimen/bar"
+            android:drawableTop="@drawable/btn_bt_device_management__n"
+            android:gravity="center_horizontal"
+            android:text="设备管理" />
+    </RelativeLayout>
+
+</LinearLayout>
+
+

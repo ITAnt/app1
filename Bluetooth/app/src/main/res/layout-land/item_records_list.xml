@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/px80"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px78">
+
+        <ImageView
+            android:id="@+id/iv_records_call_type"
+            android:layout_width="@dimen/px45"
+            android:layout_height="@dimen/px45"
+            android:layout_centerVertical="true"
+            android:src="@drawable/iv_records_call_in" />
+
+        <TextView
+            android:id="@+id/iv_records_call_name"
+            style="@style/txt_normal_px22"
+            android:layout_width="@dimen/px200"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/px30"
+            android:layout_marginRight="@dimen/px30"
+            android:layout_toRightOf="@+id/iv_records_call_type"
+            android:maxLines="1"
+            android:minWidth="@dimen/px100"
+            tools:text="阿华阿华阿华阿华" />
+
+        <ImageView
+            android:id="@+id/iv_records_call"
+            android:layout_width="@dimen/px45"
+            android:layout_height="@dimen/px45"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/contact_call_selector" />
+
+        <TextView
+            android:id="@+id/iv_records_call_number"
+            style="@style/txt_normal_px22"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/iv_records_call"
+            android:layout_toRightOf="@+id/iv_records_call_name"
+            tools:text="13500000000" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px2"
+        android:background="@drawable/lin_bt_dail" />
+
+
+</LinearLayout>

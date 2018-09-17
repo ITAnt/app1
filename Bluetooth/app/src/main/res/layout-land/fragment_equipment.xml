@@ -1,0 +1,130 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px30"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/iv_equipment_car" />
+
+        <ImageView
+            android:id="@+id/iv_equipment_connet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px80"
+            android:layout_marginRight="@dimen/px80"
+            android:src="@drawable/iv_equipment_connet" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/iv_equipment_phone" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px36"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="@dimen/px200"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/txt_normal_px22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_equipment_myequip"
+                android:paddingRight="@dimen/px30"/>
+
+            <TextView
+                android:id="@+id/tv_equipment_setting_name"
+                style="@style/txt_normal_px22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px24"
+                tools:text="BT Call"
+                android:maxLines="1"
+                android:paddingRight="@dimen/px30"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_equipment_close"
+            style="@style/txt_normal_px22"
+            android:layout_width="@dimen/px80"
+            android:layout_height="@dimen/px80"
+            android:layout_marginLeft="@dimen/px60"
+            android:layout_marginRight="@dimen/px60"
+            android:background="@drawable/iv_equipment_red"
+            android:gravity="center"
+            android:text="@string/tv_equipment_disconn"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btn_equipment_conn"
+            style="@style/txt_normal_px22"
+            android:layout_width="@dimen/px80"
+            android:layout_height="@dimen/px80"
+            android:background="@drawable/iv_equiment_green"
+            android:gravity="center"
+            android:text="@string/tv_equipment_conn"
+            android:layout_marginLeft="@dimen/px60"
+            android:layout_marginRight="@dimen/px60"/>
+
+        <LinearLayout
+            android:layout_width="@dimen/px200"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/txt_normal_px22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_equipment_other" />
+
+            <TextView
+                android:id="@+id/tv_equipment_setting_conne_name"
+                style="@style/txt_normal_px22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px24"
+                tools:text="XXXXXX" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px60"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_equipment_setting"
+            style="@style/txt_normal_px22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/equiment_setting_btn_selector"
+            android:gravity="center"
+            android:text="蓝牙设置" />
+    </LinearLayout>
+
+
+</LinearLayout>

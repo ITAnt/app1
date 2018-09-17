@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">蓝牙电话</string>
+    <string name="calling_hangup">挂断</string>
+    <string name="calling_keypad">键盘</string>
+    <string name="calling_vehicle">车载</string>
+    <string name="calling_phone">手机</string>
+    <string name="dial_show_voice">静音</string>
+    <string name="str_phone_unkonow">未知号码</string>
+    <string name="str_phone_mobile">中国移动</string>
+    <string name="str_phone_unicom">中国联通</string>
+    <string name="str_phone_telecom">中国电信</string>
+    <string name="str_phone_outgoing">正在呼叫中...</string>
+    <string name="str_phone_missed">来电</string>
+    <string name="tv_equipment_other">其他设备</string>
+    <string name="tv_equipment_conn">连接</string>
+    <string name="tv_equipment_disconn">断开</string>
+    <string name="tv_equipment_myequip">我的设备</string>
+    <string name="tv_setting_close">关闭</string>
+    <string name="tv_setting_bluetooth">蓝牙</string>
+    <string name="tv_setting_name">本机蓝牙</string>
+    <string name="tv_setting_check">开启检测</string>
+    <string name="tv_setting_check_des">已关闭，只允许配对设备检测</string>
+    <string name="tv_setting_check_">已开启，只允许配对设备检测</string>
+    <string name="tv_setting_pair">已配对设备</string>
+    <string name="tv_setting_del_all">删除全部</string>
+    <string name="tv_setting_search_ing">正在搜索设备...</string>
+    <string name="tv_setting_start_search">开始搜索</string>
+    <string name="tv_setting_available">可用设备</string>
+</resources>

@@ -1,0 +1,45 @@
+package com.jancar.bluetooth.phone.presenter;
+
+import com.jancar.bluetooth.lib.BluetoothManager;
+import com.jancar.bluetooth.phone.contract.ContactContract;
+import com.jancar.bluetooth.phone.model.ContactModel;
+import com.jancar.bluetooth.phone.model.ContactRepository;
+import com.jancar.bluetooth.phone.util.CheckPhoneUtil;
+import com.ui.mvp.presenter.BaseModelPresenter;
+
+/**
+ * @author Tzq
+ * @date 2018-8-21 16:36:54
+ * 联系人P层
+ */
+public class ContactPresenter extends BaseModelPresenter<ContactContract.View, ContactModel> implements ContactContract.Presenter, ContactModel.Callback {
+
+
+    @Override
+    public ContactModel createModel() {
+        return new ContactRepository(this);
+    }
+
+
+    @Override
+    public void getSynContact() {
+        BluetoothManager.getBluetoothManagerInstance(getUi().getUIContext()).downloadContacts();
+    }
+
+    @Override
+    public void getSearchConatct(String searchString) {
+        if (CheckPhoneUtil.CheckPhoneNum(searchString)) {
+            getUi().getManager().queryContactsByNumber(searchString);
+        } else {
+            getUi().getManager().queryContactsByName(searchString);
+        }
+
+    }
+
+
+    @Override
+    public boolean isSynContact() {
+        boolean syncedPhoneBooks = getUi().getManager().isSyncedPhoneBooks();
+        return syncedPhoneBooks;
+    }
+}

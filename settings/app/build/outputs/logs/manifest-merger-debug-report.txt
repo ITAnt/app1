@@ -1,0 +1,168 @@
+-- Merging decision tree log ---
+manifest
+ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:2:1-41:12
+INJECTED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:2:1-41:12
+INJECTED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:2:1-41:12
+INJECTED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:2:1-41:12
+MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\6b232c6e641cc601c9a55ee4475d1c2c\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support.constraint:constraint-layout:1.1.2] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.2.aar\4573d95c2d0f99f3d48fad3315596fc1\AndroidManifest.xml:2:1-11:12
+MERGED from [com.jakewharton:butterknife:8.8.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\butterknife-8.8.1.aar\87fec025729a018aa99479a9f0f90914\AndroidManifest.xml:2:1-7:12
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\fafd4233754715434903b7627613e5b1\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:27.1.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.1.aar\09b8b51f813ef778c786cf44951b2ed7\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\83a2433d1744a548869177a58131747e\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\88a2419f20973bf213a8b2234d149eb2\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:27.1.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.1.aar\d412ea463d79771b050106ece32a6e88\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\c7bd2a5d6d2d9f8fbe1733a6ebfa978c\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\23eba9e90482a957fac212f2df772284\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\90f9f460472af82cd892c318bcd19674\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\751f645f1a4a2e9bd76c64d1a3418ffe\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\fcd9d71c32f1d8aeded2b9f803ca4dec\AndroidManifest.xml:17:1-22:12
+INJECTED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:2:1-41:12
+INJECTED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:2:1-41:12
+INJECTED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:2:1-41:12
+	package
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:4:5-34
+		INJECTED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml
+		INJECTED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml
+	android:sharedUserId
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:5:5-46
+	android:versionName
+		INJECTED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:2:1-41:12
+		INJECTED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml
+	xmlns:tools
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:2:1-41:12
+		INJECTED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:6:5-76
+	android:name
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:6:22-73
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:7:5-76
+	android:name
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:7:22-73
+uses-permission#android.permission.CHANGE_CONFIGURATION
+ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:8:5-79
+	android:name
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:8:22-76
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:9:5-80
+	android:name
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:9:22-78
+uses-permission#android.permission.WRITE_SETTINGS
+ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:10:5-72
+	android:name
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:10:22-70
+uses-permission#android.permission.GET_PACKAGE_SIZE
+ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:11:5-75
+	android:name
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:11:22-72
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:12:5-81
+	android:name
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:12:22-78
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:13:5-79
+	android:name
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:13:22-76
+uses-permission#android.permission.SET_TIME_ZONE
+ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:14:5-71
+	android:name
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:14:22-69
+uses-permission#android.permission.SET_TIME
+ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:15:5-67
+	android:name
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:15:22-64
+uses-permission#android.permission.WRITE_SECURE_SETTINGS
+ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:16:5-79
+	android:name
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:16:22-77
+application
+ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:17:5-39:19
+MERGED from [com.android.support.constraint:constraint-layout:1.1.2] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.2.aar\4573d95c2d0f99f3d48fad3315596fc1\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.2] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.2.aar\4573d95c2d0f99f3d48fad3315596fc1\AndroidManifest.xml:9:5-20
+	android:supportsRtl
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:22:9-35
+	android:label
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:20:9-41
+	android:roundIcon
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:21:9-54
+	android:icon
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:19:9-43
+	android:allowBackup
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:18:9-35
+	android:theme
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:23:9-40
+activity#com.jancar.settings.view.activity.MainActivity
+ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:24:9-30:20
+	android:name
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:24:19-61
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:25:13-29:29
+action#android.intent.action.MAIN
+ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:26:17-69
+	android:name
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:26:25-66
+category#android.intent.category.LAUNCHER
+ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:28:17-77
+	android:name
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:28:27-74
+activity#com.jancar.settings.view.activity.TimeZoneActivity
+ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:31:9-33:20
+	android:name
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:31:19-65
+service#com.jancar.settings.service.SetDataTimeService
+ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:34:9-38:19
+	android:name
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:34:18-60
+intent-filter#com.android.aidl.setdatetime
+ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:35:13-37:29
+action#com.android.aidl.setdatetime
+ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:36:17-71
+	android:name
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml:36:25-68
+uses-sdk
+INJECTED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml
+INJECTED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml
+MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\6b232c6e641cc601c9a55ee4475d1c2c\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\6b232c6e641cc601c9a55ee4475d1c2c\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.constraint:constraint-layout:1.1.2] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.2.aar\4573d95c2d0f99f3d48fad3315596fc1\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.1.2] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.2.aar\4573d95c2d0f99f3d48fad3315596fc1\AndroidManifest.xml:5:5-7:41
+MERGED from [com.jakewharton:butterknife:8.8.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\butterknife-8.8.1.aar\87fec025729a018aa99479a9f0f90914\AndroidManifest.xml:5:5-43
+MERGED from [com.jakewharton:butterknife:8.8.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\butterknife-8.8.1.aar\87fec025729a018aa99479a9f0f90914\AndroidManifest.xml:5:5-43
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\fafd4233754715434903b7627613e5b1\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\fafd4233754715434903b7627613e5b1\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.1.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.1.aar\09b8b51f813ef778c786cf44951b2ed7\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.1.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.1.aar\09b8b51f813ef778c786cf44951b2ed7\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\83a2433d1744a548869177a58131747e\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\83a2433d1744a548869177a58131747e\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\88a2419f20973bf213a8b2234d149eb2\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\88a2419f20973bf213a8b2234d149eb2\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.1.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.1.aar\d412ea463d79771b050106ece32a6e88\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.1.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.1.aar\d412ea463d79771b050106ece32a6e88\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\c7bd2a5d6d2d9f8fbe1733a6ebfa978c\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\c7bd2a5d6d2d9f8fbe1733a6ebfa978c\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\23eba9e90482a957fac212f2df772284\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\23eba9e90482a957fac212f2df772284\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\90f9f460472af82cd892c318bcd19674\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\90f9f460472af82cd892c318bcd19674\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\751f645f1a4a2e9bd76c64d1a3418ffe\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\751f645f1a4a2e9bd76c64d1a3418ffe\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\fcd9d71c32f1d8aeded2b9f803ca4dec\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\tzq\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\fcd9d71c32f1d8aeded2b9f803ca4dec\AndroidManifest.xml:20:5-44
+INJECTED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml
+INJECTED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml
+		INJECTED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml
+		ADDED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml
+		INJECTED from G:\and\pro\AC8227L-AP1\settings\app\src\main\AndroidManifest.xml

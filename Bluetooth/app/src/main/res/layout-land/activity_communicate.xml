@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_dial_show"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/liner_comm_key"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px60"
+            android:layout_marginLeft="@dimen/px50"
+            android:layout_marginRight="@dimen/px40"
+            android:layout_marginTop="@dimen/px20"
+            android:background="@drawable/ip_bt_reception_dail">
+
+            <TextView
+                android:id="@+id/dial_tv_number"
+                style="@style/txt_px20"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/px20"
+                tools:text="13055555556" />
+
+        </RelativeLayout>
+
+        <include layout="@layout/item_dial_show_keyboard" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="6"
+        android:orientation="horizontal">
+
+        <include layout="@layout/item_dial_show_message" />
+    </LinearLayout>
+
+</LinearLayout>

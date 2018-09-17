@@ -1,0 +1,82 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px20"
+            android:layout_marginRight="@dimen/px20"
+            android:layout_marginTop="@dimen/px10"
+            android:background="@drawable/ip_bt_dail">
+
+            <TextView
+                android:id="@+id/dial_tv_number"
+                style="@style/txt_px20"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/px60"
+                android:gravity="center_vertical"
+                android:maxLength="18"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/px15"
+                tools:text="13055555550000000" />
+
+            <ImageView
+                android:id="@+id/dial_iv_del_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/px10"
+                android:background="@drawable/dial_del_number_selector" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/px15"
+            android:layout_marginLeft="@dimen/px20"
+            android:layout_marginRight="@dimen/px10"
+            android:layout_marginTop="@dimen/px5"
+            android:background="@drawable/frame_bt_dail"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/recy_dial_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/px10"
+                android:visibility="gone"
+                tools:listitem="@layout/item_dial_number_list" />
+
+            <TextView
+                android:id="@+id/tv_dial_syn_contact"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="请先同步联系人！"
+                style="@style/txt_tip_20" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <include
+        layout="@layout/item_dial_number_keyboard"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+</LinearLayout>
