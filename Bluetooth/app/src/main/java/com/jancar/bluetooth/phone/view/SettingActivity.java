@@ -18,6 +18,7 @@ import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.adapter.SettingAdapter;
 import com.jancar.bluetooth.phone.contract.SettingContract;
 import com.jancar.bluetooth.phone.presenter.SettingPresenter;
+import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.widget.SettingDialog;
 import com.jancar.bluetooth.phone.widget.SwitchButton;
 import com.ui.mvp.view.BaseActivity;
@@ -127,8 +128,12 @@ public class SettingActivity extends BaseActivity<SettingContract.Presenter, Set
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    String remote_device_macaddr = unPairedDataListList.get(i).getRemote_device_macaddr();
-                    getPresenter().connBlutoth(remote_device_macaddr);
+                    String remote_device_macaddr = pairedDataListList.get(i).getRemote_device_macaddr();
+                    int status = pairedDataListList.get(i).getRemote_connect_status();
+                    if (status == 0) {//未连接
+                        getPresenter().connBlutoth(remote_device_macaddr);
+                    }
+
                 }
             });
         }
@@ -155,15 +160,7 @@ public class SettingActivity extends BaseActivity<SettingContract.Presenter, Set
             getPresenter().searchPairedList();
         } else {
             tvClose.setText("关闭");
-<<<<<<< HEAD
-        }
-        if (isDisCovering) {
-            tvClose.setText("打开");
-        } else {
-            ivCheckSw.setImageResource(R.drawable.setting_switch_off);
-=======
 
->>>>>>> 08499a21928bf56b95edebb0cc70675d5df29e59
         }
         ivCheckSw.setThumbDrawableRes(R.drawable.switch_custom_thumb_selector);
         ivCheckSw.setBackDrawableRes(R.drawable.switch_custom_track_selector);

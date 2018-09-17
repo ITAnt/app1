@@ -1,9 +1,7 @@
 package com.jancar.bluetooth.phone.view.fragment;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,12 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.Listener.BTPhonebookListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.lib.BluetoothPhoneBookData;
@@ -29,9 +25,9 @@ import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.adapter.DialNumberAdapter;
 import com.jancar.bluetooth.phone.contract.DialContract;
 import com.jancar.bluetooth.phone.presenter.DialPresenter;
+import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.IntentUtil;
 import com.jancar.bluetooth.phone.util.NumberFormatUtil;
-import com.jancar.bluetooth.phone.view.CommunicateActivity;
 import com.jancar.bluetooth.phone.view.MusicActivity;
 import com.ui.mvp.view.support.BaseFragment;
 
@@ -51,7 +47,7 @@ import butterknife.Unbinder;
  * @date 2018-8-21 16:34:02
  * 拨号键盘界面
  */
-public class DialFragment extends BaseFragment<DialContract.Presenter, DialContract.View> implements DialContract.View, BTPhonebookListener {
+public class DialFragment extends BaseFragment<DialContract.Presenter, DialContract.View> implements DialContract.View, BTPhonebookListener, BTConnectStatusListener {
     private static final String TAG = "DialFragment";
     private Unbinder unbinder;
     private View mRootView;
@@ -71,6 +67,34 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     private volatile String mStrKeyNum;
 
     private Handler mHandler = new InternalHandler(this);
+
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == Constants.BT_CONNECT_IS_NONE) {
+                tvSynContact.setVisibility(View.VISIBLE);
+                tvSynContact.setText(R.string.tv_bt_connect_is_none);
+                listView.setVisibility(View.GONE);
+//                Toast.makeText(mActivity, "蓝牙未连接", Toast.LENGTH_SHORT).show();
+
+            } else if (msg.what == Constants.BT_CONNECT_IS_CONNECTED) {
+                showListView();
+//                tvSynContact.setVisibility(View.GONE);
+//                tvSynContact.setText(mActivity.getString(R.string.tv_bt_connect_is_none));
+//                listView.setVisibility(View.GONE);
+//                Toast.makeText(mActivity, "蓝牙连接：", Toast.LENGTH_SHORT).show();
+
+            } else if (msg.what == Constants.BT_CONNECT_IS_CLOSE) {
+                tvSynContact.setVisibility(View.VISIBLE);
+                tvSynContact.setText(R.string.tv_bt_connect_is_close);
+                listView.setVisibility(View.GONE);
+//                Toast.makeText(mActivity, "蓝牙已经关闭", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    };
 
     @Override
     public void onAttach(Context context) {
@@ -109,6 +133,7 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     public void onResume() {
         super.onResume();
         getManager().registerBTPhonebookListener(this);
+        getManager().setBTConnectStatusListener(this);
         if (!hidden) {
             showListView();
         }
@@ -143,22 +168,6 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
             Fragment fragment = weakRefActivity.get();
         }
     }
-
-    private final static int MSG_REFRESH_CONTACTS_UI = 0;
-    @SuppressLint("HandlerLeak")
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case MSG_REFRESH_CONTACTS_UI:
-                    if (isSynContact()) {
-                        adapter.setBookDataList(bookDataList);
-                    }
-                    break;
-            }
-        }
-    };
 
     @Override
     public DialContract.Presenter createPresenter() {
@@ -202,9 +211,8 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String number = charSequence.toString();
-                if (isSynContact()) {
-                    getPresenter().getDialContactList(number);
-                }
+                getPresenter().getDialContactList(number);
+
             }
 
             @Override
@@ -213,7 +221,7 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
                 if (TextUtils.isEmpty(string)) {
                     mStrKeyNum = null;
                     bookDataList.clear();
-                    adapter.setBookDataList(bookDataList);
+                    adapter.notifyDataSetChanged();
                 }
             }
         });
@@ -365,7 +373,14 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     public void onNotifyDownloadContactsList(final List<BluetoothPhoneBookData> list) {
         Log.e(TAG, "listDail:" + list.size());
         this.bookDataList = list;
-        handler.sendEmptyMessage(MSG_REFRESH_CONTACTS_UI);
+        if (!mActivity.isFinishing()) {
+            runOnUIThread(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.setBookDataList(bookDataList);
+                }
+            });
+        }
     }
 
     @Override
@@ -387,4 +402,12 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     public void onNotifyDownloadContactsFinish() {
 
     }
+
+    @Override
+    public void onNotifyBTConnectStateChange(byte b) {
+        Message msg = handler.obtainMessage();
+        msg.what = b;
+        handler.sendMessage(msg);
+    }
+
 }

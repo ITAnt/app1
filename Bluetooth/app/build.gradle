@@ -65,5 +65,5 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
-    implementation files('libs/classes(6).jar')
+    implementation files('libs/classes(7).jar')
 }

@@ -20,10 +20,11 @@
     <string name="tv_setting_name">本机蓝牙</string>
     <string name="tv_setting_check">开启检测</string>
     <string name="tv_setting_check_des">已关闭，只允许配对设备检测</string>
-    <string name="tv_setting_check_">已开启，只允许配对设备检测</string>
     <string name="tv_setting_pair">已配对设备</string>
     <string name="tv_setting_del_all">删除全部</string>
     <string name="tv_setting_search_ing">正在搜索设备...</string>
     <string name="tv_setting_start_search">开始搜索</string>
     <string name="tv_setting_available">可用设备</string>
+    <string name="tv_bt_connect_is_none">蓝牙未连接</string>
+    <string name="tv_bt_connect_is_close">蓝牙已关闭</string>
 </resources>

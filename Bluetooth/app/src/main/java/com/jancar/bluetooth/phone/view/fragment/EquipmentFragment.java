@@ -25,6 +25,7 @@ import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.contract.EquipmentContract;
 import com.jancar.bluetooth.phone.presenter.EquipmentPresenter;
+import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.IntentUtil;
 import com.jancar.bluetooth.phone.view.SettingActivity;
 import com.ui.mvp.view.support.BaseFragment;
@@ -60,11 +61,6 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
     private Activity mActivity;
     private boolean isConnet;
     private boolean hidden = false;
-
-
-    public static byte BT_CONNECT_IS_NONE = (byte) 0x01;//蓝牙未连接
-    public static byte BT_CONNECT_IS_CONNECTED = (byte) 0x02;//蓝牙已连接
-    public static byte BT_CONNECT_IS_CLOSE = (byte) 0x00;//蓝牙已关闭
 
 
     private Handler mHandler = new EquipmentFragment.InternalHandler(this);
@@ -144,21 +140,21 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what == BT_CONNECT_IS_NONE) {
+            if (msg.what == Constants.BT_CONNECT_IS_NONE) {
                 ivConnet.setImageResource(R.drawable.iv_equipment_disconnect);
                 btnConn.setVisibility(View.VISIBLE);
                 btnClose.setVisibility(View.GONE);
                 tvConnName.setText(getPresenter().getConnetName());
                 Toast.makeText(mActivity, "蓝牙未连接", Toast.LENGTH_SHORT).show();
 
-            } else if (msg.what == BT_CONNECT_IS_CONNECTED) {
+            } else if (msg.what == Constants.BT_CONNECT_IS_CONNECTED) {
                 ivConnet.setImageResource(R.drawable.iv_equipment_connet);
                 btnConn.setVisibility(View.GONE);
                 btnClose.setVisibility(View.VISIBLE);
                 tvConnName.setText(getPresenter().getConnetName());
                 Toast.makeText(mActivity, "蓝牙连接：" + getPresenter().getConnetName(), Toast.LENGTH_SHORT).show();
 
-            } else if (msg.what == BT_CONNECT_IS_CLOSE) {
+            } else if (msg.what == Constants.BT_CONNECT_IS_CLOSE) {
                 Toast.makeText(mActivity, "蓝牙已经关闭", Toast.LENGTH_SHORT).show();
             }
 
