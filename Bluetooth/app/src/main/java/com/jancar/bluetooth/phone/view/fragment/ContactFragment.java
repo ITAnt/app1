@@ -140,7 +140,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getManager().unRegisterBTPhonebookListener(this);
+        getManager().unRegisterBTPhonebookListener();
     }
 
     public ContactFragment() {
@@ -351,7 +351,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     public void onNotifyDownloadContactsList(final List<BluetoothPhoneBookData> list) {
         Log.d(TAG, "list.size():" + list.size());
         if (!mActivity.isFinishing()) {
-            runOnUIThread(new Runnable() {
+            mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     if (list != null && list.size() > 0) {
@@ -368,7 +368,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                         tvEmpty.setVisibility(View.VISIBLE);
                     }
                 }
-            });
+            }, 100);
         }
 
     }

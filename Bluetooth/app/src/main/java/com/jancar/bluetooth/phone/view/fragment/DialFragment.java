@@ -148,7 +148,7 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
-        getManager().unRegisterBTPhonebookListener(this);
+        getManager().unRegisterBTPhonebookListener();
     }
 
     public DialFragment() {
@@ -374,12 +374,12 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
         Log.e(TAG, "listDail:" + list.size());
         this.bookDataList = list;
         if (!mActivity.isFinishing()) {
-            runOnUIThread(new Runnable() {
+            mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     adapter.setBookDataList(bookDataList);
                 }
-            });
+            }, 100);
         }
     }
 

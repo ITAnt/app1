@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.jancar.bluetooth.lib.BluetoothDeviceData;
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.phone.R;
+import com.jancar.bluetooth.phone.util.Constants;
 
 import java.util.List;
 
@@ -25,7 +26,6 @@ public class SettingAdapter extends BaseAdapter {
     private boolean isShow;
     private Context mContext;
     private List<BluetoothDeviceData> list;
-    public static byte BT_CONNECT_IS_CONNECTED = (byte) 0x02;//蓝牙已连接
 
 
     public SettingAdapter(Context mContext, List<BluetoothDeviceData> list) {
@@ -53,7 +53,7 @@ public class SettingAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         final BluetoothDeviceData deviceData = list.get(position);
-        int status =  deviceData.getRemote_connect_status();
+        int status = deviceData.getRemote_connect_status();
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(mContext).inflate(
@@ -71,7 +71,7 @@ public class SettingAdapter extends BaseAdapter {
         } else {
             viewHolder.ivDel.setVisibility(View.GONE);
         }
-        if (status == 3) {
+        if (status == Constants.BLUETOOTH_DEVICE_STATE_CONNECT) {
             viewHolder.tvName.setTextColor(mContext.getResources().getColor(R.color.white));
         } else {
             viewHolder.tvName.setTextColor(mContext.getResources().getColor(R.color.tipColor));
@@ -98,6 +98,4 @@ public class SettingAdapter extends BaseAdapter {
         ImageView ivDel;
 
     }
-
-
 }
