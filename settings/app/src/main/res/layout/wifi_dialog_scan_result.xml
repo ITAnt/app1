@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_scan_result"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/record_voice_dialog"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/wifi_name_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/wifi_text_name"
+
+        android:textColor="@android:color/black" />
+
+
+    <EditText
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/bg_dialog_edt"
+        android:id="@+id/wifi_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/wifi_text_password"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:textColor="@color/text_txt"
+        android:textColorHint="@color/windowBackground" />
+
+    <CheckBox
+        android:visibility="gone"
+        android:id="@+id/show_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/wifi_text_show_password"
+        android:textColor="@android:color/black" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <Button
+            android:background="@color/bg_dialog_btn"
+            android:layout_marginRight="30dp"
+            android:id="@+id/wifi_connect_btn_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wifi_text_connect"
+            android:textColor="@color/text_txt" />
+        <Button
+            android:layout_marginLeft="30dp"
+            android:background="@color/bg_dialog_btn"
+            android:id="@+id/wifi_cancel_btn_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wifi_text_cancel"
+
+            android:textColor="@color/text_txt" />
+
+
+    </LinearLayout>
+</LinearLayout>

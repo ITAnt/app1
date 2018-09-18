@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/rlayout_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <RelativeLayout
+                android:id="@+id/rlayout_software_navigation"
+                style="@style/style_rlayout">
+
+                <TextView
+                    android:id="@+id/txt_software_title"
+                    style="@style/style_txt"
+                    android:text="@string/tab_software_navigation"
+                    />
+
+
+                <ImageView
+                    android:id="@+id/img_software_navigation_arrow"
+                    style="@style/style_img"
+                    android:src="@drawable/balance_btn_right_state" />
+
+                <TextView
+                    android:id="@+id/txt_software_navigation"
+                    style="@style/style_txt"
+                    android:layout_marginRight="5dp"
+                    android:layout_toStartOf="@+id/img_software_navigation_arrow" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_software_navigation_line"
+                style="@style/style_line_txt"
+                android:layout_below="@+id/rlayout_software_navigation" />
+
+            <RelativeLayout
+                android:id="@+id/rlayout_mixing_navigation"
+                style="@style/style_rlayout"
+                android:layout_below="@+id/txt_software_navigation_line">
+
+                <com.jancar.settings.widget.SwitchButton
+                    android:id="@+id/switch_mixing"
+                    style="@style/style_switch"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                     />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@id/switch_adjust"
+                    android:gravity="center|left"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_adjust_title"
+                        style="@style/style_title_txt"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="2.5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/tab_switch_mixing" />
+
+                    <TextView
+                        android:id="@+id/txt_adjust_summary"
+                        style="@style/style_summary_txt"
+                        android:text="@string/label_adjust_off"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_mixing_navigation_line"
+                style="@style/style_line_txt"
+                android:layout_below="@+id/rlayout_mixing_navigation" />
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/rlayout_p_mixing_navigation"
+                style="@style/style_rlayout"
+                android:layout_below="@+id/txt_mixing_navigation_line">
+
+                <TextView
+                    android:id="@+id/txt_p_mixing_software_title"
+                    style="@style/style_txt"
+                    android:text="@string/tab_proportion_mixing" />
+
+
+                <ImageView
+                    android:id="@+id/img_p_mixing_navigation_arrow"
+                    style="@style/style_img"
+                    android:src="@drawable/balance_btn_right_state" />
+
+                <TextView
+                    android:id="@+id/txt_p_mixing_navigation"
+                    style="@style/style_txt"
+                    android:layout_marginRight="5dp"
+                    android:layout_toStartOf="@+id/img_p_mixing_navigation_arrow" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/txt_p_mixing_navigation_line"
+                style="@style/style_line_txt"
+                android:layout_below="@+id/rlayout_p_mixing_navigation" />
+
+
+            <RelativeLayout
+
+                android:id="@+id/rlayout_sound_mixing"
+                style="@style/style_rlayout"
+                android:layout_below="@+id/txt_p_mixing_navigation_line">
+
+                <TextView
+                    android:id="@+id/txt_sound_mixing_title"
+                    style="@style/style_txt"
+                    android:text="@string/tab_sound_mixing" />
+
+
+                <TextView
+                    android:text="0%"
+                    android:layout_width="60px"
+                    android:id="@+id/txt_dsound_mixing_value"
+                    style="@style/style_txt"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center|right"
+                    android:src="@drawable/balance_btn_right_state" />
+
+
+                <SeekBar
+                    android:id="@+id/seekbar_sound_mixing_value"
+                    style="@style/style_seekbar"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/txt_dsound_mixing_value" />
+
+            </RelativeLayout>
+            -->
+
+            <TextView
+
+                android:id="@+id/txt_sound_mixing_line"
+                style="@style/style_line_txt"
+                android:layout_below="@+id/rlayout_sound_mixing" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <ListView
+        android:id="@+id/list_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:visibility="gone">
+
+    </ListView>
+</FrameLayout>

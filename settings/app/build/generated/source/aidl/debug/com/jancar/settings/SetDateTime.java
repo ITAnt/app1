@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: G:\\and\\pro\\AC8227L-AP1\\settings\\app\\src\\main\\aidl\\com\\jancar\\settings\\SetDateTime.aidl
+ * Original file: E:\\work\\AC8227L-AP1\\settings\\app\\src\\main\\aidl\\com\\jancar\\settings\\SetDateTime.aidl
  */
 package com.jancar.settings;
 // Declare any non-default types here with import statements

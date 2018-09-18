@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/llayout_item"
+   >
+
+
+    <RelativeLayout
+        android:gravity="center_vertical"
+        android:id="@+id/rlayout_time_list_item"
+        style="@style/llayout_item_child_px32">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+             android:layout_marginLeft="@dimen/px28"
+            android:id="@+id/llayout"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="sdfsf"
+                android:id="@+id/txt_name_title"
+                style="@style/style_title_txt" />
+
+            <TextView
+                android:id="@+id/txt_summary"
+                style="@style/style_summary_txt"
+                />
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+    <TextView
+        style="@style/style_line_txt"
+        android:layout_below="@+id/rlayout_time_list_item" />
+</RelativeLayout>

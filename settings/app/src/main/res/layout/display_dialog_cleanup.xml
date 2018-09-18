@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog_scan_result"
+    style="@style/record_voice_dialogs"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+
+    android:windowBackground="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/flayout_schedule"
+            android:layout_width="100dp"
+            android:layout_height="100dp">
+
+            <com.jancar.settings.widget.CircleProgressView
+                android:id="@+id/circle_progress_view"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:background="@drawable/switch_custom_thumb_off"
+                app:circle_color="@color/normal_bg_wifi__btn"
+                app:circle_stoken="3dp" />
+
+            <com.jancar.settings.widget.CircleBarView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                app:bar_width="2dp"
+                app:bg_color="@color/bg_dialog" />
+
+            <TextView
+                android:id="@+id/txt_schedule"
+                style="@style/style_txt"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/textsize_s"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+        </FrameLayout>
+        <TextView
+            android:text="@string/tab_cleaning_up"
+            android:id="@+id/txt_status"
+            style="@style/style_txt"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:layout_below="@+id/flayout_schedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_scan_result"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/record_voice_dialog"
+ android:gravity="center"
+    android:orientation="vertical">
+
+
+<RelativeLayout
+    android:padding="10px"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:focusable="false"
+        android:layout_marginTop="7px"
+        android:layout_marginLeft="4px"
+        android:layout_marginRight="4px"
+        android:layout_marginBottom="9px"
+        android:background="@drawable/bg_dialog_edts"
+        android:id="@+id/edit_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/wifi_text_password"
+        android:inputType="textPassword"
+        android:padding="15px"
+        android:textColor="@color/text_txt"
+        android:textColorHint="@color/windowBackground" />
+
+    <TextView
+        android:id="@+id/txt_dialog_1"
+        style="@style/style_txt_dialog"
+        android:text="@string/dialog_1"
+        android:layout_marginTop="9px"
+        android:layout_marginLeft="16px"
+        android:layout_below="@+id/edit_password"
+        />
+    <TextView
+        android:id="@+id/txt_dialog_2"
+        style="@style/style_txt_dialog"
+        android:layout_toRightOf="@+id/txt_dialog_1"
+        android:text="@string/dialog_2"
+        android:layout_marginTop="9px"
+        android:layout_marginLeft="22px"
+        android:layout_below="@+id/edit_password"
+     />
+    <TextView
+        android:id="@+id/txt_dialog_3"
+        style="@style/style_txt_dialog"
+        android:layout_toRightOf="@+id/txt_dialog_2"
+        android:text="@string/dialog_3"
+        android:layout_marginTop="9px"
+        android:layout_marginLeft="22px"
+        android:layout_below="@+id/edit_password"
+   />
+
+    <TextView
+        android:id="@+id/txt_dialog_4"
+        style="@style/style_txt_dialog"
+        android:text="@string/dialog_4"
+        android:layout_marginTop="15px"
+        android:layout_marginLeft="16px"
+        android:layout_below="@+id/txt_dialog_1"
+     />
+    <TextView
+        android:id="@+id/txt_dialog_5"
+        style="@style/style_txt_dialog"
+        android:layout_toRightOf="@+id/txt_dialog_4"
+        android:text="@string/dialog_5"
+        android:layout_marginTop="15px"
+        android:layout_marginLeft="22px"
+        android:layout_below="@+id/txt_dialog_2"
+ />
+    <TextView
+        android:id="@+id/txt_dialog_6"
+        style="@style/style_txt_dialog"
+        android:layout_toRightOf="@+id/txt_dialog_5"
+        android:text="@string/dialog_6"
+        android:layout_marginTop="15px"
+        android:layout_marginLeft="22px"
+        android:layout_below="@+id/txt_dialog_3"
+     />
+
+
+    <TextView
+        android:id="@+id/txt_dialog_7"
+        style="@style/style_txt_dialog"
+        android:text="@string/dialog_7"
+        android:layout_marginTop="15px"
+        android:layout_marginLeft="16px"
+        android:layout_below="@+id/txt_dialog_4"
+     />
+    <TextView
+        android:id="@+id/txt_dialog_8"
+        style="@style/style_txt_dialog"
+        android:layout_toRightOf="@+id/txt_dialog_4"
+        android:text="@string/dialog_8"
+        android:layout_marginTop="15px"
+        android:layout_marginLeft="22px"
+        android:layout_below="@+id/txt_dialog_5"
+      />
+    <TextView
+        android:id="@+id/txt_dialog_9"
+        style="@style/style_txt_dialog"
+        android:layout_toRightOf="@+id/txt_dialog_5"
+        android:text="@string/dialog_9"
+        android:layout_marginTop="15px"
+        android:layout_marginLeft="22px"
+        android:layout_below="@+id/txt_dialog_6"
+ />
+
+
+    <TextView
+        android:id="@+id/txt_dialog_determine"
+        style="@style/style_txt_dialog"
+        android:text="@string/dialog_connect"
+        android:layout_marginTop="15px"
+        android:layout_marginLeft="16px"
+        android:layout_below="@+id/txt_dialog_7"
+ />
+    <TextView
+        android:id="@+id/txt_dialog_0"
+        style="@style/style_txt_dialog"
+        android:layout_toRightOf="@+id/txt_dialog_4"
+        android:text="@string/dialog_0"
+        android:layout_marginTop="15px"
+        android:layout_marginLeft="22px"
+        android:layout_below="@+id/txt_dialog_8"
+   />
+    <TextView
+        android:id="@+id/txt_dialog_cancel"
+        style="@style/style_txt_dialog"
+        android:layout_toRightOf="@+id/txt_dialog_5"
+        android:text="@string/wifi_text_cancel"
+        android:layout_marginTop="15px"
+        android:layout_marginLeft="22px"
+        android:layout_below="@+id/txt_dialog_9"
+        />
+</RelativeLayout>
+
+
+
+</LinearLayout>

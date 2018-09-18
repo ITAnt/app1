@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+
+    <header
+        android:icon="@mipmap/bg_wifi_scan"
+        android:fragment="com.jancar.settings.view.fragment.WifiFragment"
+        android:title="@string/tab_wifi"
+        />
+    <header
+        android:icon="@mipmap/bg_bt_stp_scan"
+        android:fragment="com.jancar.settings.view.fragment.BluetoothFragment"
+        android:title="@string/tab_bluetooth"
+       /> >
+
+    <header
+        android:icon="@mipmap/bg_disp_stp_scan"
+        android:fragment="com.jancar.settings.view.fragment.DisplayFragment"
+        android:title="@string/tab_display"
+        />
+    <header
+        android:icon="@mipmap/bg_eq_stp_scan"
+        android:fragment="com.jancar.settings.view.fragment.SoundFragment"
+        android:title="@string/tab_sound_effect"
+        />
+    <header
+        android:icon="@mipmap/bg_time_stp_scan"
+        android:fragment="com.jancar.settings.view.fragment.TimeFragment"
+        android:title="@string/tab_time"
+        />
+    <header
+        android:icon="@mipmap/bg_nav_stp_scan"
+        android:fragment="com.jancar.settings.view.fragment.NavigationFragment"
+        android:title="@string/tab_navigation"
+        />
+    <header
+        android:icon="@mipmap/bg_vehicle_stp_scan"
+        android:fragment="com.jancar.settings.view.fragment.VehicleFragment"
+        android:title="@string/tab_vehicle"
+        />
+    <header
+        android:icon="@mipmap/bg_nav_stp_system"
+        android:fragment="com.jancar.settings.view.fragment.SystemFragment"
+        android:title="@string/tab_system"
+
+        />
+
+
+    <header
+        android:icon="@mipmap/bg_nav_stp_on"
+        android:fragment="com.jancar.settings.view.fragment.OnFragment"
+        android:title="@string/tab_on"
+        />
+</preference-headers>

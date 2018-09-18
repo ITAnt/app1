@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/rlayout_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <RelativeLayout
+                android:id="@+id/rlayout_model_selection"
+                style="@style/style_rlayout">
+
+                <TextView
+                    android:id="@+id/txt_model_selection_title"
+                    style="@style/style_txt"
+                    android:text="@string/tab_model_selection"
+                    android:textColor="@color/bg_d" />
+
+
+                <ImageView
+                    android:id="@+id/img_model_selection_arrow"
+                    style="@style/style_img" />
+
+                <TextView
+                    android:id="@+id/txt_model_selection"
+                    style="@style/style_txt"
+                    android:layout_marginRight="5dp"
+                    android:layout_toStartOf="@+id/img_model_selection_arrow" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_model_selection_line"
+                style="@style/style_line_txt"
+
+                android:layout_below="@+id/rlayout_model_selection" />
+
+
+            <RelativeLayout
+                android:id="@+id/rlayout_reversing_mirror"
+                style="@style/style_rlayout"
+                android:layout_below="@+id/txt_model_selection_line">
+
+                <TextView
+                    android:id="@+id/txt_reversing_mirror_title"
+                    style="@style/style_txt"
+                    android:text="@string/tab_reversing_mirror" />
+
+
+                <ImageView
+                    android:id="@+id/img_reversing_mirror_arrow"
+                    style="@style/style_img"
+                    android:src="@drawable/balance_btn_right_state" />
+
+                <TextView
+                    android:id="@+id/txt_reversing_mirror"
+                    style="@style/style_txt"
+                    android:layout_marginRight="5dp"
+                    android:layout_toStartOf="@+id/img_reversing_mirror_arrow" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_reversing_mirror_line"
+                style="@style/style_line_txt"
+                android:layout_below="@+id/rlayout_reversing_mirror" />
+
+            <RelativeLayout
+                android:id="@+id/rlayout_mirror"
+                style="@style/style_rlayout"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_reversing_mirror_line"
+                android:layout_marginLeft="0dp"
+                android:padding="0dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/llayout_mirror_s"
+                    style="@style/style_rlayout">
+
+                    <RadioButton
+                        android:id="@+id/rbtn_mirror_normal_system"
+                        style="@style/style_rbtns"
+                        android:drawableLeft="@drawable/btn_radio"
+                        android:text="@string/tab_mirror_normal" />
+
+                    <RadioButton
+                        android:id="@+id/rbtn_mirror_up_down_system"
+                        style="@style/style_rbtns"
+                        android:layout_marginLeft="100dp"
+                        android:drawableLeft="@drawable/btn_radio"
+                        android:text="@string/tab_up_down_normal" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txt_mirror_s_line"
+                    style="@style/style_line_txt"
+                    android:layout_below="@+id/llayout_mirror_s" />
+
+
+                <LinearLayout
+                    android:id="@+id/llayout_mirror_x"
+                    style="@style/style_rlayout"
+                    android:layout_below="@+id/llayout_mirror_s">
+
+                    <RadioButton
+                        android:id="@+id/rbtn_about_normal_system"
+                        style="@style/style_rbtns"
+                        android:drawableLeft="@drawable/radio_button_style"
+                        android:text="@string/tab_about_normal" />
+
+                    <RadioButton
+                        android:id="@+id/rbtn_tab_up_down_left_right_system"
+                        style="@style/style_rbtns"
+                        android:layout_marginLeft="100dp"
+
+                        android:drawableLeft="@drawable/btn_radio"
+                        android:text="@string/tab_up_down_left_right_normal" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txt_mirror_x_line"
+                    style="@style/style_line_txt"
+                    android:layout_below="@+id/llayout_mirror_x" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rlayout_reverse_display"
+                style="@style/style_rlayout"
+                android:layout_below="@+id/rlayout_mirror">
+
+                <TextView
+                    android:id="@+id/txt_reverse_display_title"
+                    style="@style/style_txt"
+                    android:text="@string/tab_reverse_display" />
+
+
+                <ImageView
+                    android:id="@+id/img_reverse_display_arrow"
+                    style="@style/style_img"
+                    android:src="@drawable/balance_btn_right_state" />
+
+                <TextView
+                    android:id="@+id/txt_reverse_display"
+                    style="@style/style_txt"
+                    android:layout_marginRight="5dp"
+                    android:layout_toStartOf="@+id/img_reverse_display_arrow" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_reverse_display_line"
+                style="@style/style_line_txt"
+                android:layout_below="@+id/rlayout_reverse_display" />
+
+
+            <RelativeLayout
+                android:id="@+id/rlayout_key_learning"
+                style="@style/style_rlayout"
+                android:layout_below="@+id/txt_reverse_display_line">
+
+                <TextView
+                    android:id="@+id/txt_reverse_key_learning"
+                    style="@style/style_txt"
+                    android:text="@string/tab_key_learning" />
+
+
+                <ImageView
+                    android:id="@+id/img_key_learning_arrow"
+                    style="@style/style_img"
+                    android:src="@drawable/balance_btn_right_state" />
+
+                <TextView
+                    android:id="@+id/txt_key_learning"
+                    style="@style/style_txt"
+                    android:layout_marginRight="5dp"
+                    android:layout_toStartOf="@+id/img_key_learning_arrow" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_key_learning_line"
+                style="@style/style_line_txt"
+                android:layout_below="@+id/rlayout_key_learning" />
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/llayout_vehicle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+    </LinearLayout>
+</FrameLayout>

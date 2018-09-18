@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/fragment_time_interface"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <RelativeLayout
+                android:id="@+id/rlayout_system_version_number"
+                style="@style/style_rlayout">
+
+                <TextView
+                    android:id="@+id/txt_system_version_number_title"
+                    style="@style/style_txt"
+                    android:text="@string/label_system_version_number" />
+
+                <TextView
+                    android:id="@+id/txt_system_version_number_summary"
+                    style="@style/style_txt"
+                    android:maxLines="2"
+                    android:layout_marginLeft="@dimen/on_margin_left"
+                    android:layout_toRightOf="@+id/txt_system_version_number_title" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_system_version_number_line"
+                style="@style/style_line_txt"
+                android:layout_below="@+id/rlayout_system_version_number" />
+
+
+            <RelativeLayout
+                android:id="@+id/rlayout_MCU_version_number"
+                style="@style/style_rlayout"
+                android:layout_below="@+id/txt_system_version_number_line">
+
+                <TextView
+                    android:id="@+id/txt_MCU_version_number_title"
+                    style="@style/style_txt"
+                    android:text="@string/label_MCU_version_number" />
+
+                <TextView
+                    android:id="@+id/txt_MCU_version_number_summary"
+                    style="@style/style_txt"
+                    android:layout_marginLeft="@dimen/on_margin_left"
+                    android:layout_toRightOf="@+id/txt_MCU_version_number_title" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_MCU_version_number_line"
+                style="@style/style_line_txt"
+                android:layout_below="@+id/rlayout_MCU_version_number" />
+
+            <RelativeLayout
+                android:id="@+id/rlayout_CAN_version_number"
+                style="@style/style_rlayout"
+                android:layout_below="@+id/txt_MCU_version_number_line">
+
+                <TextView
+                    android:id="@+id/txt_CAN_version_number_title"
+                    style="@style/style_txt"
+                    android:text="@string/label_CAN_version_number"
+                    android:textColor="@color/bg_d" />
+
+                <TextView
+                    android:id="@+id/txt_CAN_version_number_summary"
+                    style="@style/style_txt"
+                    android:layout_marginLeft="@dimen/on_margin_left"
+                    android:layout_toRightOf="@+id/txt_CAN_version_number_title" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_CAN_version_number_line"
+                style="@style/style_line_txt"
+                android:layout_below="@+id/rlayout_CAN_version_number" />
+
+
+            <RelativeLayout
+                android:id="@+id/rlayout_identifier"
+                style="@style/style_rlayout"
+                android:layout_below="@+id/txt_CAN_version_number_line">
+
+                <TextView
+                    android:id="@+id/txt_identifier_title"
+                    style="@style/style_txt"
+                    android:text="@string/label_identifier" />
+
+
+                <ImageView
+                    android:id="@+id/img_identifier_arrow"
+                    style="@style/style_img"
+                    android:src="@drawable/balance_btn_right_state" />
+
+                <TextView
+                    android:id="@+id/txt_identifier"
+                    style="@style/style_txt"
+                    android:layout_marginLeft="@dimen/on_margin_left"
+                    android:layout_marginRight="5dp"
+                    android:layout_toRightOf="@+id/txt_identifier_title" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_identifier_line"
+                style="@style/style_line_txt"
+                android:layout_below="@+id/rlayout_identifier" />
+
+            <RelativeLayout
+
+                android:id="@+id/rlayout_android_version"
+                style="@style/style_rlayout"
+                android:layout_below="@+id/txt_identifier_line">
+
+                <TextView
+                    android:id="@+id/txt_android_version_title"
+                    style="@style/style_txt"
+                    android:text="@string/label_android_version" />
+
+                <TextView
+                    android:id="@+id/txt_android_version_summary"
+                    style="@style/style_txt"
+                    android:layout_marginLeft="@dimen/on_margin_left"
+                    android:layout_toRightOf="@+id/txt_android_version_title" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_android_version_line"
+                style="@style/style_line_txt"
+                android:layout_below="@+id/rlayout_android_version" />
+
+
+            <RelativeLayout
+
+                android:id="@+id/rlayout_kernel_version"
+                style="@style/style_rlayout"
+                android:layout_below="@+id/txt_android_version_line">
+
+                <TextView
+                    android:id="@+id/txt_kernel_version_title"
+                    style="@style/style_txt"
+                    android:text="@string/label_kernel_version" />
+
+                <TextView
+                    android:id="@+id/txt_kernel_version_summary"
+                    style="@style/style_txt"
+                    android:layout_marginLeft="@dimen/on_margin_left"
+                    android:layout_toRightOf="@+id/txt_kernel_version_title" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_kernel_version_line"
+                style="@style/style_line_txt"
+                android:layout_below="@+id/rlayout_kernel_version" />
+
+
+            <RelativeLayout
+                android:id="@+id/rlayout_upgrade_update"
+                style="@style/style_rlayout"
+                android:layout_below="@+id/txt_kernel_version_line">
+
+                <TextView
+                    android:id="@+id/txt_upgrade_update_title"
+                    style="@style/style_txt"
+                    android:text="@string/label_upgrade_update" />
+
+
+                <ImageView
+                    android:id="@+id/img_upgrade_update_arrow"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="8dp"
+                    android:src="@drawable/balance_btn_right_state" />
+
+                <TextView
+                    android:id="@+id/txt_upgrade_update"
+                    style="@style/style_txt"
+                    android:layout_marginRight="5dp"
+                    android:layout_toStartOf="@+id/img_upgrade_update_arrow" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_upgrade_update_line"
+                style="@style/style_line_txt"
+                android:layout_below="@+id/rlayout_upgrade_update" />
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <ListView
+        android:id="@+id/list_time_zone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:visibility="gone">
+
+    </ListView>
+</FrameLayout>

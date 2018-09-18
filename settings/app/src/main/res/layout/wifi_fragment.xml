@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/wifilayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:orientation="vertical">
+    <!--android:background="@drawable/atcbackground">-->
+    <RelativeLayout
+        android:id="@+id/switchBar"
+        style="@style/layout_default_"
+   >
+
+        <com.jancar.settings.widget.SwitchButton
+            android:id="@+id/switchB"
+            style="@style/style_switch"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@id/switch_adjust"
+            android:gravity="center|left"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/wifiText"
+                style="@style/style_title_txt"
+                android:text="@string/wifi" />
+
+            <TextView
+                android:id="@+id/txt_wifi_summary"
+                style="@style/style_summary_txt"
+                android:text="@string/label_adjust_off"
+          />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        style="@style/style_line_txt"
+       />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/fragment_scanning"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_scan"
+                style="@style/txt_btn_normal_wifi"
+                android:text="@string/str_scanning" />
+
+            <ListView
+                android:divider="@null"
+                android:id="@+id/scan_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </ListView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:clickable="true"
+            android:id="@+id/fragment_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:id="@+id/wifi_refresh_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:indeterminateDrawable="@drawable/wifi_scan_loading"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/fragment_prompt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/style_title_txt"
+                android:text="@string/toast_wifi_open" />
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>
+
