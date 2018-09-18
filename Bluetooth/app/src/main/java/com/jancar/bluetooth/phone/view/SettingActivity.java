@@ -130,10 +130,9 @@ public class SettingActivity extends BaseActivity<SettingContract.Presenter, Set
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     String remote_device_macaddr = pairedDataListList.get(i).getRemote_device_macaddr();
                     int status = pairedDataListList.get(i).getRemote_connect_status();
-                    if (status == 0) {//未连接
+                    if (status == Constants.BLUETOOTH_DEVICE_BONDED) {//未连接
                         getPresenter().connBlutoth(remote_device_macaddr);
                     }
-
                 }
             });
         }

@@ -130,7 +130,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
     public void onDestroy() {
         super.onDestroy();
         mUnbinder.unbind();
-        getManager().unRegisterBTCallLogListener(this);
+        getManager().unRegisterBTCallLogListener();
     }
 
     public RecordsFragment() {
@@ -238,7 +238,6 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
 
     @Override
     public void onNotifyDownloadCallLogsList(final List<BluetoothPhoneBookData> list) {
-        Log.e("list", "list:" + list.size());
         if (!mActivity.isFinishing()) {
             if (list != null && list.size() > 0) {
                 mRootView.post(new Runnable() {
