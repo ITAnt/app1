@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -28,6 +29,7 @@ import com.jancar.settings.listener.Contract.BluetoothContractImpl;
 import com.jancar.settings.listener.IPresenter;
 import com.jancar.settings.manager.BaseFragments;
 import com.jancar.settings.presenter.BluetoothPresenter;
+import com.jancar.settings.util.Constants;
 import com.jancar.settings.widget.SettingDialog;
 import com.jancar.settings.widget.SwitchButton;
 
@@ -151,7 +153,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     String remote_device_macaddr = pairedDataListList.get(i).getRemote_device_macaddr();
                     int status = pairedDataListList.get(i).getRemote_connect_status();
-                    if (status == 0) {
+                    if (status == Constants.BLUETOOTH_DEVICE_BONDED) {
                         mPresenter.connBlutoth(remote_device_macaddr);
                     }
 
