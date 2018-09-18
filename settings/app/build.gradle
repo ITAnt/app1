@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
 
     buildToolsVersion rootProject.ext.buildToolsVersion
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion 26
     defaultConfig {
         applicationId "com.jancar.settings"
         minSdkVersion rootProject.ext.minSdk

@@ -254,36 +254,24 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         int ValuePTxt = progress - 7;
-
-        SharedPreferences.Editor editor = getActivity().getSharedPreferences("EQ", MODE_WORLD_WRITEABLE).edit();
+        
         switch (seekBar.getId()) {
             case R.id.seekbar_treble_sound_value:
 
                 trebleSoundValueTxt.setText(ValuePTxt + "");
                 mAudioEffectManager.setAudioEffectTreble(progress);
-                if (value == 0) {
-                    editor.putInt("ValueTTxt", progress);
-                }
-
                 break;
             case R.id.seekbar_midrange_sound_value:
                 mAudioEffectManager.setAudioEffectMiddle(progress);
-                if (value == 0) {
-                    editor.putInt("ValueMTxt", progress);
-                }
                 midrangeSoundValueTxt.setText(ValuePTxt + "");
                 // midrangeSoundValueNTxt.setText(ValueNTxt + "");
                 break;
             case R.id.seekbar_bass_sound_value:
                 mAudioEffectManager.setAudioEffectBass(progress);
                 bassSoundValueTxt.setText(ValuePTxt + "");
-                if (value == 0) {
-                    editor.putInt("ValueBTxt", progress);
-                }
                 //bassSoundValueNTxt.setText(ValueNTxt + "");
                 break;
         }
-        editor.commit();
     }
 
     @Override
@@ -291,8 +279,6 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
 
         if (!spinnerLlinear.getSpinnerOperatingText().equals(stringList.get(5).getName())) {
             showRestoreDefaultDialog(seekBar);
-        }else {
-            setSeekBar(seekBar);
         }
 
     }
@@ -305,6 +291,7 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
         Button connect = (Button) dialog.findViewById(R.id.btn_connect_btn);
         TextView textView = (TextView) dialog.findViewById(R.id.txt_display_dialog_title);
         /*textView.setText(R.string.);*/
+        textView.setText("是否要保存为自定义？");
         Button cancel = (Button) dialog.findViewById(R.id.btn_cancel);
         View.OnClickListener buttonListener = new View.OnClickListener() {
             @Override
@@ -349,18 +336,24 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
         switch (seekBar.getId()) {
             case R.id.seekbar_treble_sound_value:
                 editor.putInt("ValueTTxt", progress);
+                editor.putInt("ValueMTxt", midrangeSoundValueSeekBar.getProgress());
+                editor.putInt("ValueBTxt",  bassSoundValueSeekbar.getProgress());
                 trebleSoundValueTxt.setText(ValuePTxt + "");
                 mAudioEffectManager.setAudioEffectTreble(progress);
 
                 break;
             case R.id.seekbar_midrange_sound_value:
                 mAudioEffectManager.setAudioEffectMiddle(progress);
+                editor.putInt("ValueTTxt", trebleSoundValueSeekBar.getProgress());
                 editor.putInt("ValueMTxt", progress);
+                editor.putInt("ValueBTxt",  bassSoundValueSeekbar.getProgress());
                 midrangeSoundValueTxt.setText(ValuePTxt + "");
                 // midrangeSoundValueNTxt.setText(ValueNTxt + "");
                 break;
             case R.id.seekbar_bass_sound_value:
                 mAudioEffectManager.setAudioEffectBass(progress);
+                editor.putInt("ValueTTxt", trebleSoundValueSeekBar.getProgress());
+                editor.putInt("ValueMTxt", bassSoundValueSeekbar.getProgress());
                 editor.putInt("ValueBTxt", progress);
                 bassSoundValueTxt.setText(ValuePTxt + "");
                 //bassSoundValueNTxt.setText(ValueNTxt + "");
@@ -376,7 +369,9 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
     }
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-
+        if (spinnerLlinear.getSpinnerOperatingText().equals(stringList.get(5).getName())) {
+            setSeekBar(seekBar);
+        }
     }
 
     @Override

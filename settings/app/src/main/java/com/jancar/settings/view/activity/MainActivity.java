@@ -114,10 +114,7 @@ public class MainActivity extends BasePreferenceActivityImpl implements MainCont
     @Override
     protected void onPause() {
         super.onPause();
-        Bundle     outState = new Bundle();
-        outState.putInt("position", position);
-        outState.putParcelableArrayList("mCopyHeaders", (ArrayList<? extends Parcelable>) mCopyHeaders);
-        onSaveInstanceState( outState);
+
     }
 
     @Override
