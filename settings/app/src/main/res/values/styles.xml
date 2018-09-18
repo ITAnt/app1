@@ -216,7 +216,7 @@
     </style>
 
     <style name="style_rbtn">
-
+        <item name="android:textSize">@dimen/px22</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:button">@null</item>
         <item name="android:drawablePadding">10dp</item>
@@ -227,7 +227,7 @@
     </style>
 
     <style name="style_rbtns">
-
+        <item name="android:textSize">@dimen/px22</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:button">@null</item>
         <item name="android:drawablePadding">10dp</item>

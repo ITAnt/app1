@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<source>
+    <item package="com.jancar.service"              class="com.jancar.service.action.core"                   />
+    <item package="com.autochips.backcarapp"        class="com.autochips.backcarapp.BackCarService"          />
+    <item package="com.autochips.bluetoothservice"  class="com.autochips.bluetoothservice.BluetoothService"  />
+    <item package="com.jancar.mediaprovider"        class="com.jancar.mediaprovider.MediaScanService"        />
+    <item package="com.jancar.service"           	class="com.jancar.service.globaldata.GlobaldataService"   />
+	<item package="com.jancar.service"             	class="com.jancar.service.bluetooth.BluetoothService"    />
+    <item package="com.jancar.service"             class="com.jancar.service.settings.SettingsService"               />
+</source>

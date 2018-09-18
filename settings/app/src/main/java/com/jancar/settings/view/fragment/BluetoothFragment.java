@@ -47,7 +47,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     private static final String TAG = "BluetoothFragment";
     private Activity mActivity;
     private View view;
-    Unbinder unbinder;
+   // Unbinder unbinder;
     SwitchButton ivOnSw;
     SwitchButton ivCheckSw;
     LinearLayout linearSearch;
@@ -87,7 +87,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unbinder.unbind();
+    //    unbinder.unbind();
         getBluetManger().unRegisterBTSettingListener(this);
     }
 

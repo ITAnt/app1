@@ -16,10 +16,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.jancar.settings.R;
+import com.jancar.settings.lib.SettingManager;
 import com.jancar.settings.listener.Contract.NavigationContractImpl;
 import com.jancar.settings.listener.Contract.VehicleContractImpl;
 import com.jancar.settings.listener.IPresenter;
@@ -40,10 +42,15 @@ public class VehicleFragment extends BaseFragments<VehiclePresenter> implements 
     private RelativeLayout mirrorRlayout;
     private RelativeLayout reverseDisplayRlayout;
     private RelativeLayout keyLearningRlayout;
+    private RadioButton mirrorNormalSystemRbtn;
+    private RadioButton mirrorUpDownSystemRbtn;
+    private RadioButton aboutNormalSystemRbtn;
+    private RadioButton rbtnTabUpDownLeftRightRbtn;
     private ImageView reversingMirrorArrowImg;
     SettingsWheelFragment settingsWheelFragment;
     private LinearLayout navigationLlayout;
     private ScrollView rlayoutScrollview;
+    private SettingManager settingManager;
     Handler mHadler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -57,6 +64,7 @@ public class VehicleFragment extends BaseFragments<VehiclePresenter> implements 
             super.handleMessage(msg);
         }
     };
+
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
         if (view != null) {
@@ -68,6 +76,10 @@ public class VehicleFragment extends BaseFragments<VehiclePresenter> implements 
             rlayoutScrollview = (ScrollView) view.findViewById(R.id.rlayout_scrollview);
             reversingMirrorArrowImg = (ImageView) view.findViewById(R.id.img_reversing_mirror_arrow);
             settingsWheelFragment = new SettingsWheelFragment();
+            mirrorNormalSystemRbtn = (RadioButton) view.findViewById(R.id.rbtn_mirror_normal_system);
+            mirrorUpDownSystemRbtn = (RadioButton) view.findViewById(R.id.rbtn_mirror_up_down_system);
+            aboutNormalSystemRbtn = (RadioButton) view.findViewById(R.id.rbtn_about_normal_system);
+            rbtnTabUpDownLeftRightRbtn = (RadioButton) view.findViewById(R.id.rbtn_tab_up_down_left_right_system);
         }
     }
 
@@ -105,6 +117,34 @@ public class VehicleFragment extends BaseFragments<VehiclePresenter> implements 
                 fragmentTransaction.replace(R.id.llayout_vehicle, settingsWheelFragment);
                 fragmentTransaction.commit();
                 break;
+            case R.id.rbtn_mirror_normal_system:
+                settingManager.setBackCarScreen((byte) 0);
+                mirrorNormalSystemRbtn.setChecked(true);
+                mirrorUpDownSystemRbtn.setChecked(false);
+                aboutNormalSystemRbtn.setChecked(false);
+                rbtnTabUpDownLeftRightRbtn.setChecked(false);
+                break;
+            case R.id.rbtn_mirror_up_down_system:
+                settingManager.setBackCarScreen((byte) 1);
+                mirrorNormalSystemRbtn.setChecked(false);
+                mirrorUpDownSystemRbtn.setChecked(true);
+                aboutNormalSystemRbtn.setChecked(false);
+                rbtnTabUpDownLeftRightRbtn.setChecked(false);
+                break;
+            case R.id.rbtn_about_normal_system:
+                settingManager.setBackCarScreen((byte) 2);
+                mirrorNormalSystemRbtn.setChecked(false);
+                mirrorUpDownSystemRbtn.setChecked(false);
+                aboutNormalSystemRbtn.setChecked(true);
+                rbtnTabUpDownLeftRightRbtn.setChecked(false);
+                break;
+            case R.id.rbtn_tab_up_down_left_right_system:
+                settingManager.setBackCarScreen((byte) 3);
+                mirrorNormalSystemRbtn.setChecked(false);
+                mirrorUpDownSystemRbtn.setChecked(false);
+                aboutNormalSystemRbtn.setChecked(false);
+                rbtnTabUpDownLeftRightRbtn.setChecked(true);
+                break;
         }
     }
 
@@ -130,9 +170,45 @@ public class VehicleFragment extends BaseFragments<VehiclePresenter> implements 
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        settingManager = SettingManager.getSettingManager(this.getActivity());
+        initBackCarScreen();
+        mirrorNormalSystemRbtn.setOnClickListener(this);
+        mirrorUpDownSystemRbtn.setOnClickListener(this);
+        aboutNormalSystemRbtn.setOnClickListener(this);
+        rbtnTabUpDownLeftRightRbtn.setOnClickListener(this);
         reversingMirrorRlayout.setOnClickListener(this);
         reverseDisplayRlayout.setOnClickListener(this);
         keyLearningRlayout.setOnClickListener(this);
+    }
+
+    private void initBackCarScreen() {
+        switch (settingManager.getBackCarScreen()) {
+            case 0:
+                // 上下镜像:1 左右镜像:2 上下左右镜像:3 不调整:0
+                mirrorNormalSystemRbtn.setChecked(true);
+                mirrorUpDownSystemRbtn.setChecked(false);
+                aboutNormalSystemRbtn.setChecked(false);
+                rbtnTabUpDownLeftRightRbtn.setChecked(false);
+                break;
+            case 1:
+                mirrorNormalSystemRbtn.setChecked(false);
+                mirrorUpDownSystemRbtn.setChecked(true);
+                aboutNormalSystemRbtn.setChecked(false);
+                rbtnTabUpDownLeftRightRbtn.setChecked(false);
+                break;
+            case 2:
+                mirrorNormalSystemRbtn.setChecked(false);
+                mirrorUpDownSystemRbtn.setChecked(false);
+                aboutNormalSystemRbtn.setChecked(true);
+                rbtnTabUpDownLeftRightRbtn.setChecked(false);
+                break;
+            case 3:
+                mirrorNormalSystemRbtn.setChecked(false);
+                mirrorUpDownSystemRbtn.setChecked(false);
+                aboutNormalSystemRbtn.setChecked(false);
+                rbtnTabUpDownLeftRightRbtn.setChecked(true);
+                break;
+        }
     }
 
     @Override

@@ -33,7 +33,6 @@ import com.jancar.settings.manager.BaseFragments;
 import com.jancar.settings.presenter.SoundPresenter;
 import com.jancar.settings.presenter.TimePresenter;
 import com.jancar.settings.widget.DspBalance;
-import com.jancar.settings.widget.EQSoundFiledView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,11 +47,11 @@ import static com.jancar.settings.util.Tool.setDialogParam;
  * Created by ouyan on 2018/9/7.
  */
 
-public class SoundFragment extends BaseFragments<SoundPresenter> implements SoundContractImpl.View, com.jancar.settings.widget.Spinner.spinnerListener, SeekBar.OnSeekBarChangeListener, AudioEffectManager.AudioListener, View.OnClickListener, EQSoundFiledView.EQSoundFiledListener {
+public class SoundFragment extends BaseFragments<SoundPresenter> implements SoundContractImpl.View, com.jancar.settings.widget.Spinner.spinnerListener, SeekBar.OnSeekBarChangeListener, AudioEffectManager.AudioListener, View.OnClickListener {
     private View view;
     List<EqEntity> stringList;
     SoundListAdapter adapter;
-    EQSoundFiledView balanceDsp;
+    DspBalance balanceDsp;
     SeekBar trebleSoundValueSeekBar;
     TextView trebleSoundValueTxt;
     SeekBar midrangeSoundValueSeekBar;
@@ -72,7 +71,7 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
     public void initView(@Nullable Bundle savedInstanceState) {
         if (view != null) {
             spinnerLlinear = (com.jancar.settings.widget.Spinner) view.findViewById(R.id.llinear_spinner);
-            balanceDsp = (EQSoundFiledView) view.findViewById(R.id.dsp_balance);
+            balanceDsp = (DspBalance) view.findViewById(R.id.dsp_balance);
             resetTxt = (TextView) view.findViewById(R.id.txt_reset);
             trebleSoundValueSeekBar = (SeekBar) view.findViewById(R.id.seekbar_treble_sound_value);
             midrangeSoundValueSeekBar = (SeekBar) view.findViewById(R.id.seekbar_midrange_sound_value);
@@ -136,19 +135,16 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
         bassSoundValueSeekbar.setMax(14);
         bassSoundValueSeekbar.setProgress(Bass);
         bassSoundValueSeekbar.setOnSeekBarChangeListener(this);
-/*        balanceDsp.setDefVal(24);
-        balanceDsp.setMaxVal(24);*/
-
-
-        balanceDsp.setEQSoundFiledListener(this);
+        balanceDsp.setMaxVal(16);
+        balanceDsp.setDefVal(18);
+        balanceDsp.setBalenceListener(objListener);
         resetTxt.setOnClickListener(this);
         balanceDsp.post(new Runnable() {
             @Override
             public void run() {
                 int ibanlce = mAudioEffectManager.getBalanceSpeakerValue();
-                balanceDsp.setxValue(AudioEffectParam.getBalance(ibanlce) );
-                balanceDsp.setyValue(AudioEffectParam.getFade(ibanlce) );
-              /*  balanceDsp. AudioEffectParam.getFade(ibanlce)*/
+                SharedPreferences read = getActivity().getSharedPreferences("MainActivity", MODE_WORLD_READABLE);
+                balanceDsp.updateBalance(AudioEffectParam.getBalance(6946923), AudioEffectParam.getFade(6946923 ));
             }
         });
 
@@ -165,6 +161,12 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
     private DspBalance.OnTouchListener objListener = new DspBalance.OnTouchListener() {
         @Override
         public void onBalance(float fFad, float fBal) {
+            float i= fFad%1;
+            float s= fBal%1;
+            SharedPreferences.Editor editor = getActivity().getSharedPreferences("MainActivity", MODE_WORLD_WRITEABLE).edit();
+            editor.putFloat("fFad", i);
+            editor.putFloat("fBal", i);
+            editor.commit();
             miBal = (int) fFad;
             miFad = (int) fBal;
             Log.e("DspBalance1", "fBal=%d" + miBal + "fFad" + miFad);
@@ -186,6 +188,23 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
         }
     };
 
+    public static int  floatToByte4(float f) {
+        int i = Float.floatToIntBits(f);
+        return i;
+    }
+
+    @Override
+    public void onClick(View v) {
+        onItemClick(null,null, 0, 1);
+        spinnerLlinear.setSpinnerOperatingText(stringList.get(0).getName());
+        if (mAudioEffectManager != null) {
+            mAudioEffectManager.setBalanceSpeakerValue(AudioEffectParam.getBalanceFadeCombine(0, 0 ));
+        }
+        int ibanlce = mAudioEffectManager.getBalanceSpeakerValue();
+        SharedPreferences read = getActivity().getSharedPreferences("MainActivity", MODE_WORLD_READABLE);
+        balanceDsp.updateBalance(AudioEffectParam.getBalance(ibanlce)+read.getFloat("fFad", 0), AudioEffectParam.getFade(ibanlce)+read.getFloat("fBal", 0));
+
+    }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -387,19 +406,5 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
 
     }
 
-    @Override
-    public void onClick(View v) {
-        onItemClick(null,null, 0, 1);
-        spinnerLlinear.setSpinnerOperatingText(stringList.get(0).getName());
-        if (mAudioEffectManager != null) {
-            mAudioEffectManager.setBalanceSpeakerValue(AudioEffectParam.getBalanceFadeCombine(9 - 7, 9 - 7));
-        }
-        int ibanlce = mAudioEffectManager.getBalanceSpeakerValue();
-    //    balanceDsp.updateBalance(AudioEffectParam.getBalance(ibanlce) + 7, AudioEffectParam.getFade(ibanlce) + 7);
-    }
 
-    @Override
-    public void notifyLeftRightPisionChange(int left, int right) {
-        mAudioEffectManager.setBalanceSpeakerValue(AudioEffectParam.getBalanceFadeCombine(left , right ));
-    }
 }

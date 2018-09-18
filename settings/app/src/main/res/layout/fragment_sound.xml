@@ -188,10 +188,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.jancar.settings.widget.EQSoundFiledView
+            <com.jancar.settings.widget.DspBalance
                 android:id="@+id/dsp_balance"
-                android:layout_width="210px"
-                android:layout_height="240px"
+                android:layout_width="240px"
+                android:layout_height="300px"
                 android:layout_margin="@dimen/px58"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/toyota_balance_sound_view" />

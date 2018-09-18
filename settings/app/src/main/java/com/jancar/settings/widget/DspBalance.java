@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -28,6 +29,7 @@ import com.jancar.settings.R;
 public class DspBalance extends View {
     private Paint mHorizontalPaint = new Paint();
     private Paint mVerticalPaint = new Paint();
+    private Paint mVerticalPaints = new Paint();
     private Bitmap mObjPoint;
     private float mfFad, mfBal;
     private float mObjWidthParent, mObjHeightParent;
@@ -63,7 +65,13 @@ public class DspBalance extends View {
 
 /*		mObjPoint.setWidth(mObjPoint.getWidth()/2);
         mObjPoint.setHeight(mObjPoint.get/2);*/
-        mObjPoint = resizeBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.toyota_dsp_seekbar_point), 30, 30);
+        mObjPoint =BitmapFactory.decodeResource(getResources(), R.mipmap.toyota_dsp_seekbar_point);
+       // mObjPoint.setAntiAlias(true);//消除锯齿
+        BitmapDrawable bd = new BitmapDrawable(mObjPoint);//接收bitmap
+        bd.setAntiAlias(true);//消除锯齿
+        mVerticalPaints.setAntiAlias(true);
+        mObjPoint= bd.getBitmap();
+       // bgPaint.setAntiAlias(true);//设置抗锯齿
         w_ajust = mObjPoint.getWidth() / 2;
         y_ajust = mObjPoint.getHeight() / 2;
         mHorizontalPaint.setColor(Color.RED);
@@ -96,9 +104,9 @@ public class DspBalance extends View {
         }
     }
 
-    public void updateBalance(int iBal, int iFad) {
+    public void updateBalance(float iBal, float iFad) {
         //	Toast.makeText(getContext(), ""+getWidth(), Toast.LENGTH_SHORT).show();
-        this.move(iBal * this.getWidth() / miDefBal, iFad * this.getHeight() / miDefFad);
+        this.move(iBal *(getWidth() - w_ajust * 2)/miDefBal, iFad * (getHeight() - w_ajust * 2)/miDefFad);
         invalidate();
     }
 
@@ -113,7 +121,7 @@ public class DspBalance extends View {
         canvas.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight(), mVerticalPaint);
         canvas.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2, mHorizontalPaint);
         canvas.drawBitmap(mObjPoint, mfBal - mObjPoint.getWidth() / 2, mfFad - mObjPoint.getHeight()
-                / 2, null);
+                / 2, mVerticalPaints);
     }
 
     @Override

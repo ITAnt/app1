@@ -1,8 +1,11 @@
 package com.jancar.settings.view.fragment;
 
 import android.app.Dialog;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.ContentObserver;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.net.wifi.WifiConfiguration;
 import android.os.Bundle;
 import android.os.Handler;
@@ -137,53 +140,20 @@ public class DisplayFragment extends BaseFragments<DisplayPresenter> implements 
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (outState == null) {
-            outState = new Bundle();
-        }
-        ((MainActivity) getActivity()).anInt = 1;
-        outState.putInt("Visibility", languageList.getVisibility());
-        //   outState.putString("DisplayFragment", "否");
-
-    }
-
-    @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         stringList = new ArrayList<>();
-        stringList.add("中文（繁体）");
         stringList.add("中文（简体）");
+        stringList.add("中文（繁体）");
         stringList.add("English");
         adapter = new LanguageListAdapter(getContext(), stringList);
         languageList.setAdapter(adapter);
         languageList.setOnItemClickListener(this);
         settingManager = SettingManager.getSettingManager(this.getActivity());
-        if (settingManager.getDefaultlanguage() == 0) {
-            languageSummaryText.setText(R.string.rbtn_english);
-            adapter.setID(2);
-            // englishRbtn.setChecked(true);
-        }else if (settingManager.getDefaultlanguage() == 2){
-            languageSummaryText.setText(R.string.rbtn_chinese_);
-            adapter.setID(0);
-            //  chineseRbtn.setChecked(true);
-        } else {
-            languageSummaryText.setText(R.string.rbtn_chinese);
-            adapter.setID(1);
-            //  chineseRbtn.setChecked(true);
-        }
-        if (savedInstanceState != null) {
-            languageList.setVisibility(savedInstanceState.getInt("Visibility"));
-
-            if (savedInstanceState.getInt("Visibility") == View.GONE) {
-                displayScrollView.setVisibility(View.VISIBLE);
-            } else {
-                ((MainActivity) getActivity()).mHadler = mHadler;
-                displayScrollView.setVisibility(View.GONE);
-            }
-        }
+        languageSummaryText.setText(stringList.get(settingManager.getLanguage()));
+        adapter.setID(settingManager.getLanguage());
         seekbar_dimming_day_value.setMax(settingManager.getBrightnessMax());
-        seekbar_dimming_day_value.setProgress(settingManager.getDayBrightness());
         dimmingNightValueSeekbar.setMax(settingManager.getBrightnessMax());
+        seekbar_dimming_day_value.setProgress(settingManager.getDayBrightness());
         dimmingNightValueSeekbar.setProgress(settingManager.getNightBrightness());
 
     }
@@ -194,19 +164,6 @@ public class DisplayFragment extends BaseFragments<DisplayPresenter> implements 
     }
 
 
-    public void setLanguageRadioVisibility(int languageRadioVisibility) {
-        if (languageRadioVisibility == View.GONE) {
-            //  languageRadio.setVisibility(View.VISIBLE);
-            languageSystemLineTxt.setVisibility(View.VISIBLE);
-            languageArrowImg.setImageResource(R.drawable.balance_btn_bottom_state);
-
-        } else {
-            // languageRadio.setVisibility(View.GONE);
-            languageSystemLineTxt.setVisibility(View.GONE);
-            languageArrowImg.setImageResource(R.drawable.balance_btn_right_state);
-        }
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -216,14 +173,6 @@ public class DisplayFragment extends BaseFragments<DisplayPresenter> implements 
                 displayScrollView.setVisibility(View.GONE);
                 languageList.setVisibility(View.VISIBLE);
                 // setLanguageRadioVisibility(languageRadio.getVisibility());
-                break;
-            case R.id.rbtn_chinese:
-                // 当用户选择中文
-                setLanguage("中文", 1, "language");
-                break;
-            case R.id.rbtn_english:
-                // 当用户选择英文
-                setLanguage("English", 0, "language");
                 break;
             case R.id.rlayout_restore_default:
                 showRestoreDefaultDialog();
@@ -304,7 +253,7 @@ public class DisplayFragment extends BaseFragments<DisplayPresenter> implements 
                 switch (view.getId()) {
                     case R.id.btn_connect_btn:
                         //     dropLanguage.setLaguageVisibility(View.GONE);
-                        SettingManager.getSettingManager(getContext()).setAutoBrightness(true);
+                       /* SettingManager.getSettingManager(getContext()).setAutoBrightness(true);
                         if (!settingManager.getTailState()) {
                             settingManager.setBrightness(100, false);
                         }
@@ -313,8 +262,7 @@ public class DisplayFragment extends BaseFragments<DisplayPresenter> implements 
                             settingManager.setBrightness(100, false);
                         }
                         settingManager.setNightBrightness(100, true);
-                        setLanguage("中文", 1, "language");
-                        // Toast.makeText(MainActivity.this,"点击了--确定--按钮",Toast.LENGTH_LONG).show();
+*/                      settingManager.resetDeafaultSettings();
                         dialog.dismiss();
                         break;
                     case R.id.btn_cancel:
@@ -332,40 +280,99 @@ public class DisplayFragment extends BaseFragments<DisplayPresenter> implements 
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        switch (position) {
-            case 0:
-                setLanguage("中文繁体", 2, "language");
-                break;
-            case 1:
-                setLanguage("中文", 1, "language");
-                break;
-            case 2:
-                setLanguage("English", 0, "language");
-                break;
-        }
+        displayScrollView.setVisibility(View.VISIBLE);
+        languageList.setVisibility(View.GONE);
+        settingManager.changeSystemLanguage(settingManager.locales[position],position);
     }
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        registerOberver();
+    //    MLog.info(TAG, "onStart");
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        unregisterOberver();
+      //  MLog.info(TAG, "onStop");
+    }
 
     @Override
     public void notifyRefreshUI() {
         initData(null);
     }
+    private final Uri BRIGHTNESS_MODE_URI =
+            Settings.System.getUriFor(Settings.System.SCREEN_BRIGHTNESS_MODE);
+    private final Uri BRIGHTNESS_URI =
+            Settings.System.getUriFor(Settings.System.SCREEN_BRIGHTNESS);
+    private final Uri BRIGHTNESS_ADJ_URI =
+            Settings.System.getUriFor("screen_auto_brightness_adj");//Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ);
+    private boolean isRegistered = false;
 
-
-    public void setLanguage(String value, int position, String key) {
-        Log.e(TAG,"onItemSelected=="+position+"value=="+value);
-        for (SettingManager.LaunguageType lan:
-                SettingManager.LaunguageType.values()) {
-            Log.e(TAG,"lan.name().equals(value)=="+lan.name().equals(value));
-            if(lan.name().equals(value)){
-                settingManager.changeSystemLanguage(lan.getLocale(),position);
-                Log.e(TAG,"lan.getLocale=="+lan.getLocale());
-                return;
+    private void registerOberver() {
+        try {
+            if (BrightnessObserver != null) {
+                if (!isRegistered) {
+                    //MLog.debug(TAG, "[ouyangyj] register BrightnessObserver");
+                    final ContentResolver cr = getActivity().getContentResolver();
+                    cr.unregisterContentObserver(BrightnessObserver);
+                    cr.registerContentObserver(BRIGHTNESS_MODE_URI, false, BrightnessObserver);
+                    cr.registerContentObserver(BRIGHTNESS_URI, false, BrightnessObserver);
+                    cr.registerContentObserver(BRIGHTNESS_ADJ_URI, false, BrightnessObserver);
+                    isRegistered = true;
+                }
             }
+        } catch (Throwable throwable) {
+           // MLog.debug(TAG, "[ouyangyj] register BrightnessObserver error! " + throwable);
         }
-
     }
 
+    private void unregisterOberver() {
+        try {
+            if (BrightnessObserver != null) {
+                if (isRegistered) {
+                   // MLog.debug(TAG, "[ouyangyj] unregister BrightnessObserver");
+                  getActivity().  getContentResolver().unregisterContentObserver(BrightnessObserver);
+                    isRegistered = false;
+                }
+            }
+        } catch (Throwable throwable) {
+           // MLog.debug(TAG, "[ouyangyj] unregister BrightnessObserver error! " + throwable);
+        }
+    }
+
+    private ContentObserver BrightnessObserver = new ContentObserver(new Handler()) {
+        @Override
+        public void onChange(boolean selfChange) {
+            onChange(selfChange, null);
+        }
+
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            super.onChange(selfChange);
+            if (selfChange) return;
+         //   MLog.debug(TAG, "[ouyangyj] BrightnessObserver onChange");
+            if (BRIGHTNESS_MODE_URI.equals(uri)) {
+              //  Toast.makeText(getContext(), "1", Toast.LENGTH_SHORT).show();
+            //    MLog.debug(this, "[ouyangyj] 亮度模式改变");
+//                updateBrightnessInfo();
+            } else if (BRIGHTNESS_URI.equals(uri)) {
+                //settingManager.setDayBrightness(settingManager.getBrightness(), false);
+              //  initData(null);
+             //   Toast.makeText(getContext(), "2", Toast.LENGTH_SHORT).show();
+            //    MLog.debug(this, "[ouyangyj] 亮度模式为手动模式 值改变");
+//                updateBrightnessInfo();
+            }else if (BRIGHTNESS_ADJ_URI.equals(uri)) {
+               // MLog.debug(this, "[ouyangyj] 亮度模式为自动模式 值改变");
+//                updateBrightnessInfo();
+               // Toast.makeText(getContext(), "3", Toast.LENGTH_SHORT).show();
+            } else {
+              //  Toast.makeText(getContext(), "4", Toast.LENGTH_SHORT).show();
+             //   MLog.debug(this, "[ouyangyj] 亮度调整 其他");
+//                updateBrightnessInfo();
+            }
+        }
+    };
     @Override
     public void setData(@Nullable Object data) {
 

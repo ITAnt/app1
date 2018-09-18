@@ -165,7 +165,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         final Dialog dialog = new Dialog(getContext(), R.style.record_voice_dialog);
         dialog.setContentView(R.layout.dialog_restart);
         final TextView nameDialogTxt = dialog.findViewById(R.id.text_name_dialog);
-        dialog.setCanceledOnTouchOutside(true);
+        dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(true);
         final Handler mHandler = new Handler() {
             public void handleMessage(Message msg) {
@@ -209,11 +209,12 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
             public void onClick(View view) {
                 switch (view.getId()) {
                     case R.id.btn_connect_btn:
-                        Intent intent = new Intent();
+                        settingManager.resetDeafaultSettings();
+                /*        Intent intent = new Intent();
                         intent.setAction("com.qucii.sendreset");
 
                         getActivity().sendBroadcast(intent);
-                        dialog.dismiss();
+                        dialog.dismiss();*/
                         break;
                     case R.id.btn_cancel:
                         dialog.dismiss();

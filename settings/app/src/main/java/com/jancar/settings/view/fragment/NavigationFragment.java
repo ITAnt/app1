@@ -108,10 +108,10 @@ public class NavigationFragment extends BaseFragments<NavigationPresenter> imple
         mixingSwitch.setBackDrawableRes(R.drawable.switch_custom_track_selector);
         mixingSwitch.setBackRadius(60);
         mixingSwitch.setOnClickListener(this);
-      //  mixingSwitch.
+        //  mixingSwitch.
         soundMixingValueSeekbar.setMax(99);
         soundMixingValueSeekbar.setProgress(settingManager.getNaviMixValue());
-        dsoundMixingValueTxt.setText(settingManager.getNaviMixValue()+"%");
+        dsoundMixingValueTxt.setText(settingManager.getNaviMixValue() + "%");
         soundMixingValueSeekbar.setOnSeekBarChangeListener(this);
         navigationEntityList = mPresenter.getListData();
         listAdapter = new NavigationListAdapter(getContext(), navigationEntityList);
@@ -136,7 +136,7 @@ public class NavigationFragment extends BaseFragments<NavigationPresenter> imple
             case R.id.switch_mixing:
               /*  settingManager.setIsNeedKeySound();
                 setDrivingStopVedio*/
-             //   mixingSwitch.setCheckedImmediately(settingManager.getNaviMixState());
+                //   mixingSwitch.setCheckedImmediately(settingManager.getNaviMixState());
               /*  settingManager.getNaviMixState();
                 settingManager.setNaviMixValue();*/
                 settingManager.setNaviMixState(!settingManager.getNaviMixState());
@@ -149,19 +149,22 @@ public class NavigationFragment extends BaseFragments<NavigationPresenter> imple
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         int progres = progress + 1;
         dsoundMixingValueTxt.setText(progres + "%");
-        settingManager.setNaviMixValue(progres,false);
+        settingManager.setNaviMixValue(progres, false);
 
     }
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-
+        if (!settingManager.getNaviMixState()) {
+            mixingSwitch.setCheckedImmediately(true);
+            settingManager.setNaviMixState(true);
+        }
     }
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         int progres = seekBar.getProgress() + 1;
-        settingManager.setNaviMixValue(progres,true);
+        settingManager.setNaviMixValue(progres, true);
     }
 
     public void setVisibility() {

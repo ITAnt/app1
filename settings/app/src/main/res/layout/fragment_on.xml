@@ -27,6 +27,8 @@
                     android:id="@+id/txt_system_version_number_summary"
                     style="@style/style_txt"
                     android:maxLines="2"
+                    android:singleLine="false"
+                    android:layout_marginRight="20dp"
                     android:layout_marginLeft="@dimen/on_margin_left"
                     android:layout_toRightOf="@+id/txt_system_version_number_title" />
             </RelativeLayout>
