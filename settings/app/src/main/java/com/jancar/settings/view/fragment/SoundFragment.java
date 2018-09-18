@@ -291,6 +291,8 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
 
         if (!spinnerLlinear.getSpinnerOperatingText().equals(stringList.get(5).getName())) {
             showRestoreDefaultDialog(seekBar);
+        }else {
+            setSeekBar(seekBar);
         }
 
     }
@@ -307,39 +309,10 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
         View.OnClickListener buttonListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences.Editor editor = getActivity().getSharedPreferences("EQ", MODE_WORLD_WRITEABLE).edit();
+
                 switch (view.getId()) {
                     case R.id.btn_connect_btn:
-                        int progress = seekBar.getProgress();
-                        int ValuePTxt = progress - 7;
-
-                        spinnerLlinear.setSpinnerOperatingText(stringList.get(5).getName());
-                        switch (seekBar.getId()) {
-                            case R.id.seekbar_treble_sound_value:
-                                editor.putInt("ValueTTxt", progress);
-                                trebleSoundValueTxt.setText(ValuePTxt + "");
-                                mAudioEffectManager.setAudioEffectTreble(progress);
-
-                                break;
-                            case R.id.seekbar_midrange_sound_value:
-                                mAudioEffectManager.setAudioEffectMiddle(progress);
-                                editor.putInt("ValueMTxt", progress);
-                                midrangeSoundValueTxt.setText(ValuePTxt + "");
-                                // midrangeSoundValueNTxt.setText(ValueNTxt + "");
-                                break;
-                            case R.id.seekbar_bass_sound_value:
-                                mAudioEffectManager.setAudioEffectBass(progress);
-                                editor.putInt("ValueBTxt", progress);
-                                bassSoundValueTxt.setText(ValuePTxt + "");
-                                //bassSoundValueNTxt.setText(ValueNTxt + "");
-                                break;
-                        }
-
-                        //步骤2-2：将获取过来的值放入文件
-                        editor.putInt("Types", 5);
-                        value = 5;
-                        //步骤3：提交
-                        editor.commit();
+                        setSeekBar(seekBar);
                         dialog.dismiss();
                         break;
                     case R.id.btn_cancel:
@@ -368,7 +341,39 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
         dialog.show();
         setDialogParam(dialog, 500, 316);
     }
+    public void setSeekBar(final SeekBar seekBar){
+        int progress = seekBar.getProgress();
+        int ValuePTxt = progress - 7;
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences("EQ", MODE_WORLD_WRITEABLE).edit();
+        spinnerLlinear.setSpinnerOperatingText(stringList.get(5).getName());
+        switch (seekBar.getId()) {
+            case R.id.seekbar_treble_sound_value:
+                editor.putInt("ValueTTxt", progress);
+                trebleSoundValueTxt.setText(ValuePTxt + "");
+                mAudioEffectManager.setAudioEffectTreble(progress);
 
+                break;
+            case R.id.seekbar_midrange_sound_value:
+                mAudioEffectManager.setAudioEffectMiddle(progress);
+                editor.putInt("ValueMTxt", progress);
+                midrangeSoundValueTxt.setText(ValuePTxt + "");
+                // midrangeSoundValueNTxt.setText(ValueNTxt + "");
+                break;
+            case R.id.seekbar_bass_sound_value:
+                mAudioEffectManager.setAudioEffectBass(progress);
+                editor.putInt("ValueBTxt", progress);
+                bassSoundValueTxt.setText(ValuePTxt + "");
+                //bassSoundValueNTxt.setText(ValueNTxt + "");
+                break;
+        }
+
+        //步骤2-2：将获取过来的值放入文件
+        editor.putInt("Types", 5);
+        value = 5;
+        //步骤3：提交
+        editor.commit();
+
+    }
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
