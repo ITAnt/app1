@@ -127,13 +127,13 @@ public class DisplayFragment extends BaseFragments<DisplayPresenter> implements 
     @Override
     public void onResume() {
         super.onResume();
-        //  settingManager.setListener(this);
+        settingManager.setListener(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        //  settingManager.setListener(null);
+         settingManager.setListener(null);
     }
 
     @Override
@@ -353,16 +353,17 @@ public class DisplayFragment extends BaseFragments<DisplayPresenter> implements 
 
 
     public void setLanguage(String value, int position, String key) {
-        Log.e(TAG, "onItemSelected==" + position + "value==" + value);
-        for (SettingManager.LaunguageType lan :
+        Log.e(TAG,"onItemSelected=="+position+"value=="+value);
+        for (SettingManager.LaunguageType lan:
                 SettingManager.LaunguageType.values()) {
-            Log.e(TAG, "lan.name().equals(value)==" + lan.name().equals(value));
-            if (lan.name().equals(value)) {
-                settingManager.changeSystemLanguage(lan.getLocale(), position);
-                Log.e(TAG, "lan.getLocale==" + lan.getLocale());
+            Log.e(TAG,"lan.name().equals(value)=="+lan.name().equals(value));
+            if(lan.name().equals(value)){
+                settingManager.changeSystemLanguage(lan.getLocale(),position);
+                Log.e(TAG,"lan.getLocale=="+lan.getLocale());
                 return;
             }
         }
+
     }
 
     @Override

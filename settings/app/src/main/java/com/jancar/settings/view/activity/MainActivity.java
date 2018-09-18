@@ -3,6 +3,7 @@ package com.jancar.settings.view.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
@@ -27,6 +28,8 @@ import com.jancar.settings.listener.Contract.MainContractImpl;
 import com.jancar.settings.manager.BasePreferenceActivityImpl;
 import com.jancar.settings.presenter.MainPresenter;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,7 +119,9 @@ public class MainActivity extends BasePreferenceActivityImpl implements MainCont
         super.onPause();
 
     }
-
+    private Method noteStateNotSavedMethod;
+    private Object fragmentMgr;
+    private String[] activityClassName = {"MainActivity", "DisplayFragment"};
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -124,12 +129,66 @@ public class MainActivity extends BasePreferenceActivityImpl implements MainCont
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        invokeFragmentManagerNoteStateNotSaved();
         if (outState == null) {
             outState = new Bundle();
         }
         outState.putInt("position", position);
         outState.putParcelableArrayList("mCopyHeaders", (ArrayList<? extends Parcelable>) mCopyHeaders);
         outState.putInt("anInt", anInt);
+    }
+    private void invokeFragmentManagerNoteStateNotSaved() {
+        //java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+            return;
+        }
+        try {
+            if (noteStateNotSavedMethod != null && fragmentMgr != null) {
+                noteStateNotSavedMethod.invoke(fragmentMgr);
+                return;
+            }
+            Class cls = getClass();
+            do {
+                cls = cls.getSuperclass();
+            } while (!(activityClassName[0].equals(cls.getSimpleName())
+                    || activityClassName[1].equals(cls.getSimpleName())));
+
+            Field fragmentMgrField = prepareField(cls, "mFragments");
+            if (fragmentMgrField != null) {
+                fragmentMgr = fragmentMgrField.get(this);
+                noteStateNotSavedMethod = getDeclaredMethod(fragmentMgr, "noteStateNotSaved");
+                if (noteStateNotSavedMethod != null) {
+                    noteStateNotSavedMethod.invoke(fragmentMgr);
+                }
+            }
+
+        } catch (Exception ex) {
+        }
+    }
+
+    private Field prepareField(Class<?> c, String fieldName) throws NoSuchFieldException {
+        while (c != null) {
+            try {
+                Field f = c.getDeclaredField(fieldName);
+                f.setAccessible(true);
+                return f;
+            } finally {
+                c = c.getSuperclass();
+            }
+        }
+        throw new NoSuchFieldException();
+    }
+
+    private Method getDeclaredMethod(Object object, String methodName, Class<?>... parameterTypes) {
+        Method method = null;
+        for (Class<?> clazz = object.getClass(); clazz != Object.class; clazz = clazz.getSuperclass()) {
+            try {
+                method = clazz.getDeclaredMethod(methodName, parameterTypes);
+                return method;
+            } catch (Exception e) {
+            }
+        }
+        return null;
     }
 
     @Override

@@ -109,7 +109,7 @@ public class WifiEnabler {
     private void setSwitchBarChecked(boolean checked) {
         Log.d(TAG, "setSwitchChecked, checked = " + checked); 
         mStateMachineEvent = true;
-        mSwitch.setChecked(checked);
+        mSwitch.setCheckedImmediately(checked);
         mStateMachineEvent = false;
         if (checked) {
             mScanHandler.sendEmptyMessage(MSG_START_SCAN);

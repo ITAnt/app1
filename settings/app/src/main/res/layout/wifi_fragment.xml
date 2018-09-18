@@ -76,13 +76,13 @@
             android:gravity="center"
             android:visibility="gone">
 
-            <ProgressBar
+
+            <ImageView
                 android:id="@+id/wifi_refresh_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:indeterminate="true"
-                android:indeterminateDrawable="@drawable/wifi_scan_loading"
-                android:visibility="invisible" />
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/loading_animation" />
         </LinearLayout>
 
 

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
@@ -32,12 +33,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.android.internal.telephony.DctConstants;
 import com.jancar.settings.R;
 import com.jancar.settings.listener.Contract.WifiContractImpl;
 import com.jancar.settings.listener.IPresenter;
@@ -71,7 +74,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
     private static final int WIFICIPHER_NOPASS = 0;
     private static final int WIFICIPHER_WEP = 1;
     private static final int WIFICIPHER_WPA = 2;
-
+    private AnimationDrawable animationDrawable;
     private final int ERROR = -1;
     private final int LIST_HEADER = 0;
 
@@ -92,7 +95,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
     private ListView mScanList;
 
     private TextView wifiSummary;
-    private ProgressBar mLoading;
+    private ImageView mLoading;
     private LayoutInflater mInflater;
     private AlertDialog.Builder mBuilder;
 
@@ -112,7 +115,8 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
             Log.d(TAG, "onReceive:" + action);
             if (WifiManager.WIFI_STATE_CHANGED_ACTION.equals(action)) {
                 Log.d(TAG, "onReceive: WIFI_STATE_CHANGED_ACTION");
-
+                mSwitch.setEnabled(false);
+                scanTxt.setTextColor(Color.parseColor("#484949"));
                 handleWifiStateChanged(intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, WifiManager.WIFI_STATE_UNKNOWN));
 
             } else if (WifiManager.SCAN_RESULTS_AVAILABLE_ACTION.equals(action)) {
@@ -246,11 +250,14 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
         Log.d(TAG, "handleWifiStateChanged, state = " + state);
         switch (state) {
             case WifiManager.WIFI_STATE_ENABLING:
+                scanTxt.setEnabled(false);
                 mSwitch.setEnabled(false);
+                scanTxt.setTextColor(Color.parseColor("#484949"));
                 showListView();
                 loadingStartRefresh();
                 break;
             case WifiManager.WIFI_STATE_ENABLED://已打开
+                mSwitch.setEnabled(true);
                 long end_time = System.currentTimeMillis();
                 Log.d(TAG, "calculate enable time [end] [WifiEnable]: " + Long.toString(end_time));
                 //just a test
@@ -258,23 +265,36 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
                     initListView();
                 } else {
                     showListView();
+                    loadingStartRefresh();
+                    scanTxt.setEnabled(false);
+                    scanTxt.setTextColor(Color.parseColor("#484949"));
                     //   loadingStartRefresh();
                 }
+
                 wifiSummary.setText(R.string.label_adjust_open);
-                mSwitch.setEnabled(true);
+
                 break;
             case WifiManager.WIFI_STATE_DISABLING:
+
                 mSwitch.setEnabled(false);
+                scanTxt.setEnabled(false);
+                scanTxt.setTextColor(Color.parseColor("#484949"));
                 break;
             case WifiManager.WIFI_STATE_DISABLED://已关闭
+
                 hideListView();
                 wifiSummary.setText(R.string.label_adjust_off);
                 mSwitch.setEnabled(true);
+                scanTxt.setEnabled(true);
+                scanTxt.setTextColor(Color.parseColor("#ffffff"));
                 break;
             default:
                 mSwitch.setEnabled(true);
+                scanTxt.setEnabled(true);
+                scanTxt.setTextColor(Color.parseColor("#ffffff"));
         }
     }
+
 
     /**
      * when we receive the wifi is enabled, we should call this method
@@ -284,7 +304,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
 
         showListView();
         //scan_result
-        mLoading = (ProgressBar) view.findViewById(R.id.wifi_refresh_image);
+        mLoading = (ImageView) view.findViewById(R.id.wifi_refresh_image);
         mScanAdapter = new WifiListAdapter(this.getContext(), mScanResults);
         mScanAdapter.setOnClickListener(this);
         mScanList.setAdapter(mScanAdapter);
@@ -391,6 +411,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
      * to show the list when wifi is on
      */
     private void showListView() {
+
         Log.d(TAG, "showListView()");
         llayoutFragmentPrompt.setVisibility(View.GONE);
         //  llayoutFragmentScanning.setVisibility(View.VISIBLE);
@@ -399,20 +420,33 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
 
     private void hideListView() {
         Log.d(TAG, "hideListView()");
-        llayoutFragmentScanning.setVisibility(View.GONE);
-        llayoutFragmentPrompt.setVisibility(View.VISIBLE);
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                llayoutFragmentScanning.setVisibility(View.GONE);
+                llayoutFragmentPrompt.setVisibility(View.VISIBLE);
+                llayoutFragmentLoading.setVisibility(View.GONE);
+                mLoading.setVisibility(View.GONE);
+                animationDrawable.stop();
+            }
+        });
+
     }
 
     /**
      * 开始刷新动画
      */
     public void loadingStartRefresh() {
-        mLoading.setIndeterminateDrawable(getResources().getDrawable(
-                R.drawable.wifi_scan_loading));
-        mLoading.setProgressDrawable(getResources().getDrawable(
-                R.drawable.wifi_scan_loading));
-        mLoading.setVisibility(View.VISIBLE);
-        llayoutFragmentLoading.setVisibility(View.VISIBLE);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                llayoutFragmentLoading.setVisibility(View.VISIBLE);
+                mLoading.setVisibility(View.VISIBLE);
+                animationDrawable.start();
+            }
+        });
+
     }
 
     /**
@@ -422,10 +456,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
         llayoutFragmentLoading.setVisibility(View.GONE);
         mLoading.setVisibility(View.GONE);
         llayoutFragmentScanning.setVisibility(View.VISIBLE);
-        mLoading.setIndeterminateDrawable(getResources().getDrawable(
-                R.drawable.setting_wifi_loading_1));
-        mLoading.setProgressDrawable(getResources().getDrawable(
-                R.drawable.setting_wifi_loading_1));
+
     }
 
     @Override
@@ -434,7 +465,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
             mSwitch = (SwitchButton) view.findViewById(R.id.switchB);
             scanTxt = (TextView) view.findViewById(R.id.txt_scan);
             wifiSummary = (TextView) view.findViewById(R.id.txt_wifi_summary);
-            mLoading = (ProgressBar) view.findViewById(R.id.wifi_refresh_image);
+            mLoading = (ImageView) view.findViewById(R.id.wifi_refresh_image);
             mScanList = (ListView) view.findViewById(R.id.scan_list);
             llayoutFragmentLoading = (LinearLayout) view.findViewById(R.id.fragment_loading);
             llayoutFragmentPrompt = (LinearLayout) view.findViewById(R.id.fragment_prompt);
@@ -450,34 +481,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
         view = inflater.inflate(R.layout.wifi_fragment, null);
         initView(savedInstanceState);
         initData(savedInstanceState);
-        registerWifiReceiver();
-        boolean b = false;
-        ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(CONNECTIVITY_SERVICE);
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            Network[] networks = connectivityManager.getAllNetworks();
-            for(Network network : networks) {
-                NetworkInfo networkInfo = connectivityManager.getNetworkInfo(network);
-                if(networkInfo.getType() == connectivityManager.TYPE_WIFI){
-                  b=  networkInfo.isConnected();
-                }
-            }
 
-        }else {
-            NetworkInfo[] networkInfos = connectivityManager.getAllNetworkInfo();
-            for (NetworkInfo networkInfo : networkInfos) {
-                if (networkInfo.getType() == connectivityManager.TYPE_WIFI) {
-                    b = networkInfo.isConnected();
-                }
-            }
-        }
-        mWifiController = WifiController.getInstance(this.getContext());
-        mWifiEnabler = new WifiEnabler(this.getContext(), mSwitch);
-        mSwitch.setOnCheckedChangeListener(mSwitchListener);
-        mSwitch.setThumbDrawableRes(R.drawable.switch_custom_thumb_selector);
-        mSwitch.setBackDrawableRes(R.drawable.switch_custom_track_selector);
-        mSwitch.setCheckedImmediately(b);
-        mBgThread = new HandlerThread(TAG);
-        mBgThread.start();
         return view;
     }
 
@@ -512,8 +516,18 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        handleWifiStateChanged(getActivity().getIntent().getIntExtra(WifiManager.EXTRA_WIFI_STATE, WifiManager.WIFI_STATE_UNKNOWN));
-
+        mLoading.setImageResource(R.drawable.loading_animation);
+        animationDrawable = (AnimationDrawable) mLoading.getDrawable();
+        //handleWifiStateChangeds(getActivity().getIntent().getIntExtra(WifiManager.EXTRA_WIFI_STATE, WifiManager.WIFI_STATE_UNKNOWN));
+        registerWifiReceiver();
+        mWifiController = WifiController.getInstance(this.getContext());
+        mWifiEnabler = new WifiEnabler(this.getContext(), mSwitch);
+        mSwitch.setOnCheckedChangeListener(mSwitchListener);
+        mSwitch.setThumbDrawableRes(R.drawable.switch_custom_thumb_selector);
+        mSwitch.setBackDrawableRes(R.drawable.switch_custom_track_selector);
+   /*     mSwitch.setCheckedImmediately(b);*/
+        mBgThread = new HandlerThread(TAG);
+        mBgThread.start();
     }
 
     @Override
