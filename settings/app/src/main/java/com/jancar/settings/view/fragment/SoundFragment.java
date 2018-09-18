@@ -147,7 +147,8 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
             public void run() {
                 int ibanlce = mAudioEffectManager.getBalanceSpeakerValue();
                 balanceDsp.setxValue(AudioEffectParam.getBalance(ibanlce) );
-                //balanceDsp. AudioEffectParam.getFade(ibanlce)
+                balanceDsp.setyValue(AudioEffectParam.getFade(ibanlce) );
+              /*  balanceDsp. AudioEffectParam.getFade(ibanlce)*/
             }
         });
 
