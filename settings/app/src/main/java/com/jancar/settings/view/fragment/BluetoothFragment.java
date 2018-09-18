@@ -1,6 +1,8 @@
 package com.jancar.settings.view.fragment;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -23,30 +25,26 @@ import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.settings.R;
 import com.jancar.settings.adapter.BluetoothAdapter;
 import com.jancar.settings.listener.Contract.BluetoothContractImpl;
-import com.jancar.settings.listener.Contract.CacheContractImpl;
 import com.jancar.settings.listener.IPresenter;
-import com.jancar.settings.manager.BaseFragment;
 import com.jancar.settings.manager.BaseFragments;
 import com.jancar.settings.presenter.BluetoothPresenter;
-import com.jancar.settings.presenter.CachePresenter;
 import com.jancar.settings.widget.SettingDialog;
 import com.jancar.settings.widget.SwitchButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
  * Created by ouyan on 2018/9/17.
  */
 
-public class BluetoothFragment extends BaseFragments<BluetoothPresenter> implements BluetoothContractImpl.View,BTSettingListener, View.OnClickListener {
+public class BluetoothFragment extends BaseFragments<BluetoothPresenter> implements BluetoothContractImpl.View, BTSettingListener, View.OnClickListener {
+
+    private static final String TAG = "BluetoothFragment";
+    private Activity mActivity;
     private View view;
-    private static final String TAG = "SettingActivity";
     Unbinder unbinder;
     SwitchButton ivOnSw;
     SwitchButton ivCheckSw;
@@ -60,7 +58,6 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     TextView tvDelAll;
     ListView listAvailable;                 //可用设备列表
     TextView tvSearch;
-    //private SettingDialog settingDialog;
     private AnimationDrawable animationDrawable;
     BluetoothAdapter pairAdapter, avaAdapter;
     SettingDialog settingDialog;
@@ -69,6 +66,29 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     private boolean isDisCovering;
     private boolean isBTon;
     private String tvBlutName;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mActivity = (Activity) context;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getBluetManger().registerBTSettingListener(this);
+        tvBlutName = mPresenter.getBlutoothName();
+        tvBtName.setText(tvBlutName);
+        getBluetManger().getBondDevice();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+        getBluetManger().unRegisterBTSettingListener(this);
+    }
+
     @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_setting, null);
@@ -79,40 +99,25 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
-       if (view!=null){
-           ivOnSw=(SwitchButton)view.findViewById(R.id.iv_setting_switch);
-           ivCheckSw=(SwitchButton)view.findViewById(R.id.iv_setting_check_switch);
-           linearSearch=(LinearLayout)view.findViewById(R.id.linear_search);
-           ivSearch=(ImageView)view.findViewById(R.id.iv_setting_search);
-           listView=(ListView)view.findViewById(R.id.setting_recyclerview);
-           listAvailable=(ListView)view.findViewById(R.id.setting_available);
-           tvClose=(TextView) view.findViewById(R.id.tv_blutooth_close);
-           tvCheckSw=(TextView) view.findViewById(R.id.txt_inspection_prompt);
-           tvBtName=(TextView) view.findViewById(R.id.tv_setting_edit_name);
-           tvPaired=(TextView) view.findViewById(R.id.tv_paired);
-           tvDelAll=(TextView) view.findViewById(R.id.tv_del_all);
-           tvSearch=(TextView) view.findViewById(R.id.tv_setting_search);
-           ivOnSw.setOnClickListener(this);
-           ivCheckSw.setOnClickListener(this);
-           tvDelAll.setOnClickListener(this);
-           tvBtName.setOnClickListener(this);
-           tvSearch.setOnClickListener(this);
-       }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        getBluetManger().registerBTSettingListener(this);
-        tvBlutName =mPresenter.getBlutoothName();
-        tvBtName.setText(tvBlutName);
-        getBluetManger().getBondDevice();
-    }
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        unbinder.unbind();
-        getBluetManger().unRegisterBTSettingListener(this);
+        if (view != null) {
+            ivOnSw = (SwitchButton) view.findViewById(R.id.iv_setting_switch);
+            ivCheckSw = (SwitchButton) view.findViewById(R.id.iv_setting_check_switch);
+            linearSearch = (LinearLayout) view.findViewById(R.id.linear_search);
+            ivSearch = (ImageView) view.findViewById(R.id.iv_setting_search);
+            listView = (ListView) view.findViewById(R.id.setting_recyclerview);
+            listAvailable = (ListView) view.findViewById(R.id.setting_available);
+            tvClose = (TextView) view.findViewById(R.id.tv_blutooth_close);
+            tvCheckSw = (TextView) view.findViewById(R.id.txt_inspection_prompt);
+            tvBtName = (TextView) view.findViewById(R.id.tv_setting_edit_name);
+            tvPaired = (TextView) view.findViewById(R.id.tv_paired);
+            tvDelAll = (TextView) view.findViewById(R.id.tv_del_all);
+            tvSearch = (TextView) view.findViewById(R.id.tv_setting_search);
+            ivOnSw.setOnClickListener(this);
+            ivCheckSw.setOnClickListener(this);
+            tvDelAll.setOnClickListener(this);
+            tvBtName.setOnClickListener(this);
+            tvSearch.setOnClickListener(this);
+        }
     }
 
     @Override
@@ -144,8 +149,12 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    String remote_device_macaddr = unPairedDataListList.get(i).getRemote_device_macaddr();
-                    mPresenter.connBlutoth(remote_device_macaddr);
+                    String remote_device_macaddr = pairedDataListList.get(i).getRemote_device_macaddr();
+                    int status = pairedDataListList.get(i).getRemote_connect_status();
+                    if (status == 0) {
+                        mPresenter.connBlutoth(remote_device_macaddr);
+                    }
+
                 }
             });
         }
@@ -175,7 +184,6 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
 
         }
         if (isDisCovering) {
-         /*   mPresenter.searchPairedList();*/
             tvCheckSw.setText(R.string.tv_setting_check_);
         } else {
             tvCheckSw.setText(R.string.tv_setting_check_des);
@@ -185,12 +193,12 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         ivCheckSw.setBackDrawableRes(R.drawable.switch_custom_track_selector);
         ivCheckSw.setCheckedImmediately(isDisCovering);
     }
+
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_setting_check_switch:
                 isDisCovering = !isDisCovering;
                 if (isDisCovering) {
-         /*   mPresenter.searchPairedList();*/
                     tvCheckSw.setText(R.string.tv_setting_check_);
                 } else {
                     tvCheckSw.setText(R.string.tv_setting_check_des);
@@ -252,7 +260,6 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     }
 
 
-
     @Override
     public void onNotifyBTSwitchStateOn() {
         mPresenter.searchPairedList();
@@ -260,7 +267,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
 
     @Override
     public void onNotifyBTSwitchStateOff() {
-        getActivity().runOnUiThread(new Runnable() {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Toast.makeText(getContext(), "蓝牙关闭nnnnn", Toast.LENGTH_SHORT).show();
@@ -272,7 +279,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     public void onNotifyOnUpdateUIPairedList(final List<BluetoothDeviceData> list) {
         Log.d(TAG, "UIlist.size():" + list.size());
         if (list != null && list.size() > 0) {
-            getActivity(). runOnUiThread(new Runnable() {
+            getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     if (!getActivity().isFinishing()) {
@@ -292,10 +299,10 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     public void onNotifyOnUpdateUIUnpairedList(final List<BluetoothDeviceData> list) {
         Log.d(TAG, "UNlist.size():" + list.size());
         if (list != null && list.size() > 0) {
-            getActivity().  runOnUiThread(new Runnable() {
+            mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (!getActivity().isFinishing()) {
+                    if (!mActivity.isFinishing()) {
                         unPairedDataListList.clear();
                         for (BluetoothDeviceData deviceData : list) {
                             unPairedDataListList.add(deviceData);
@@ -310,7 +317,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
 
     @Override
     public void onNotifyScanDeviceStart() {
-        getActivity().runOnUiThread(new Runnable() {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 tvSearch.setVisibility(View.GONE);
@@ -322,7 +329,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
 
     @Override
     public void onNotifyScanDeviceEnd() {
-        getActivity().runOnUiThread(new Runnable() {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 animationDrawable.stop();
@@ -331,10 +338,12 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
             }
         });
     }
+
     @Override
     public void setData(@Nullable Object data) {
 
     }
+
     @Override
     public void showLoading() {
 
