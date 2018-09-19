@@ -191,7 +191,7 @@
             <com.jancar.settings.widget.DspBalance
                 android:id="@+id/dsp_balance"
                 android:layout_width="240px"
-                android:layout_height="300px"
+                android:layout_height="240px"
                 android:layout_margin="@dimen/px58"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/toyota_balance_sound_view" />

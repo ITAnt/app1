@@ -105,8 +105,9 @@ public class DspBalance extends View {
     }
 
     public void updateBalance(float iBal, float iFad) {
+        //this.move(iBal * this.getWidth() / miDefBal, iFad * getHeight() / miDefFad);
         //	Toast.makeText(getContext(), ""+getWidth(), Toast.LENGTH_SHORT).show();
-        this.move(iBal *(getWidth() - w_ajust * 2)/miDefBal, iFad * (getHeight() - w_ajust * 2)/miDefFad);
+       this.move(iBal *(getWidth() - w_ajust * 2)/miDefBal, iFad * (getHeight() - w_ajust * 2)/miDefFad);
         invalidate();
     }
 
