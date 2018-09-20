@@ -68,6 +68,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     private boolean isDisCovering;
     private boolean isBTon;
     private String tvBlutName;
+    private boolean hidden;
 
     @Override
     public void onAttach(Context context) {
@@ -82,6 +83,18 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         tvBlutName = mPresenter.getBlutoothName();
         tvBtName.setText(tvBlutName);
         getBluetManger().getBondDevice();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        this.hidden = hidden;
+        if (!hidden) {
+            getBluetManger().registerBTSettingListener(this);
+            tvBlutName = mPresenter.getBlutoothName();
+            tvBtName.setText(tvBlutName);
+            getBluetManger().getBondDevice();
+        }
     }
 
     @Override
