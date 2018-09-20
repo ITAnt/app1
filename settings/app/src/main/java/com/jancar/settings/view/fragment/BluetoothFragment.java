@@ -47,7 +47,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     private static final String TAG = "BluetoothFragment";
     private Activity mActivity;
     private View view;
-   // Unbinder unbinder;
+    // Unbinder unbinder;
     SwitchButton ivOnSw;
     SwitchButton ivCheckSw;
     LinearLayout linearSearch;
@@ -68,7 +68,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     private boolean isDisCovering;
     private boolean isBTon;
     private String tvBlutName;
-    private boolean hidden;
+    private boolean hidden = false;
 
     @Override
     public void onAttach(Context context) {
@@ -79,10 +79,13 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     @Override
     public void onResume() {
         super.onResume();
-        getBluetManger().registerBTSettingListener(this);
-        tvBlutName = mPresenter.getBlutoothName();
-        tvBtName.setText(tvBlutName);
-        getBluetManger().getBondDevice();
+        if (!hidden) {
+            getBluetManger().registerBTSettingListener(this);
+            tvBlutName = mPresenter.getBlutoothName();
+            tvBtName.setText(tvBlutName);
+            getBluetManger().getBondDevice();
+        }
+
     }
 
     @Override
@@ -100,7 +103,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     @Override
     public void onDestroy() {
         super.onDestroy();
-    //    unbinder.unbind();
+        //    unbinder.unbind();
         getBluetManger().unRegisterBTSettingListener(this);
     }
 
