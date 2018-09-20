@@ -187,6 +187,9 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
             getManager().registerBTPhonebookListener(this);
             getManager().setBTConnectStatusListener(this);
             isConneView();
+        } else {
+            getManager().setBTConnectStatusListener(null);
+            getManager().unRegisterBTPhonebookListener();
         }
     }
 
@@ -300,7 +303,6 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     private void SynContactView() {
 //        isSynContact = getPresenter().isSynContact();
         if (isDownLoding()) {
-
             linerSyn.setVisibility(View.VISIBLE);
             tvSynContact.setText(R.string.tv_syning_contact);
             ivSynContact.setVisibility(View.GONE);
@@ -430,8 +432,8 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                 public void run() {
                     if (isBluConn()) {
                         if (list != null && list.size() > 0) {
-//                            relativeLayout.setVisibility(View.VISIBLE);
-//                            linerSyn.setVisibility(View.GONE);
+                            relativeLayout.setVisibility(View.VISIBLE);
+                            linerSyn.setVisibility(View.GONE);
                             bookSearchList = list;
                             searchAdapter.setBookContact(list);
 
@@ -439,9 +441,9 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                             adapter.setPhoneBooks(bookDataList);
                             adapter.notifyDataSetChanged();
                         } else {
-//                            relativeLayout.setVisibility(View.GONE);
-//                            ShowSynText();
-//                            tvSynContact.setText(R.string.tv_contact_empty);
+                            relativeLayout.setVisibility(View.GONE);
+                            ShowSynText();
+                            tvSynContact.setText(R.string.tv_contact_empty);
                         }
                     } else {
                         relativeLayout.setVisibility(View.GONE);
@@ -449,7 +451,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                         tvSynContact.setText(R.string.tv_bt_connect_is_none);
                     }
                 }
-            }, 100);
+            }, 10);
         }
     }
 

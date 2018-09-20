@@ -125,7 +125,6 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
     @Override
     public void onStart() {
         super.onStart();
-        Log.d("RecordsFragment", "onStart");
     }
 
     @Override
@@ -141,13 +140,11 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
     @Override
     public void onPause() {
         super.onPause();
-        Log.d("RecordsFragment", "onPause");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.d("RecordsFragment", "onStop");
         selectPos = -1;
         adapter.setNormalPosition();
     }
@@ -284,6 +281,9 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
             getManager().registerBTCallLogListener(this);
             getManager().setBTConnectStatusListener(this);
             isConneView();
+        } else {
+            getManager().unRegisterBTCallLogListener();
+            getManager().setBTConnectStatusListener(null);
         }
     }
 
@@ -296,6 +296,14 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
     @Override
     public void onNotifyDownloadCallLogsCount(int i) {
         Log.d("RecordsFragment", "i:" + i);
+        runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                showText();
+                listView.setVisibility(View.GONE);
+                tvSynRecord.setText(R.string.tv_record_log);
+            }
+        });
 
     }
 
@@ -328,7 +336,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
                     }
 
                 }
-            }, 100);
+            }, 10);
         }
     }
 

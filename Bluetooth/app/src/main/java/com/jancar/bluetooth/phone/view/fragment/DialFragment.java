@@ -143,6 +143,9 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
         getManager().setBTConnectStatusListener(this);
         if (!hidden) {
             isConneView();
+            if (mStrKeyNum != null && listView.getVisibility() == View.VISIBLE) {
+                getPresenter().getDialContactList(mStrKeyNum);
+            }
         }
     }
 
@@ -176,6 +179,9 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
             if (mStrKeyNum != null && listView.getVisibility() == View.VISIBLE) {
                 getPresenter().getDialContactList(mStrKeyNum);
             }
+        } else {
+            getManager().unRegisterBTPhonebookListener();
+            getManager().setBTConnectStatusListener(null);
         }
     }
 

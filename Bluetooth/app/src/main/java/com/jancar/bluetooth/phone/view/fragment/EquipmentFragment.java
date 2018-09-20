@@ -225,6 +225,8 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
             ConnShowView();
             tvselfName.setText(getPresenter().getSelfName());
             tvConnName.setText(getPresenter().getConnetName());
+        } else {
+            getManager().setBTConnectStatusListener(null);
         }
     }
 

@@ -1,5 +1,7 @@
 package com.jancar.bluetooth.phone.presenter;
 
+import android.util.Log;
+
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.phone.contract.ContactContract;
 import com.jancar.bluetooth.phone.model.ContactModel;
@@ -54,7 +56,8 @@ public class ContactPresenter extends BaseModelPresenter<ContactContract.View, C
     public boolean isDownLoading() {
         boolean isDomnLoading = true;
         int downState = getUi().getManager().getContactsDownState();
-        if (downState == Constants.PHONEBOOK_STATE_FINSH || downState == Constants.PHONEBOOK_STATE_ERR) {
+        Log.d("ContactPresenter", "downState:" + downState);
+        if (downState == Constants.PHONEBOOK_STATE_FINSH || downState == Constants.PHONEBOOK_STATE_ERR || downState == Constants.PHONEBOOK_STATE_STOP) {
             isDomnLoading = false;
         }
 
