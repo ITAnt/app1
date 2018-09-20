@@ -5,6 +5,7 @@ import com.jancar.bluetooth.phone.contract.ContactContract;
 import com.jancar.bluetooth.phone.model.ContactModel;
 import com.jancar.bluetooth.phone.model.ContactRepository;
 import com.jancar.bluetooth.phone.util.CheckPhoneUtil;
+import com.jancar.bluetooth.phone.util.Constants;
 import com.ui.mvp.presenter.BaseModelPresenter;
 
 /**
@@ -41,5 +42,22 @@ public class ContactPresenter extends BaseModelPresenter<ContactContract.View, C
     public boolean isSynContact() {
         boolean syncedPhoneBooks = getUi().getManager().isSyncedPhoneBooks();
         return syncedPhoneBooks;
+    }
+
+    /**
+     * 判断是否正在下载电话本
+     *
+     * @return
+     */
+
+    @Override
+    public boolean isDownLoading() {
+        boolean isDomnLoading = true;
+        int downState = getUi().getManager().getContactsDownState();
+        if (downState == Constants.PHONEBOOK_STATE_FINSH || downState == Constants.PHONEBOOK_STATE_ERR) {
+            isDomnLoading = false;
+        }
+
+        return isDomnLoading;
     }
 }

@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class MainActivity extends AppCompatActivity implements BTConnectStatusListener {
+public class MainActivity extends AppCompatActivity  {
     private static final String TAG = "MainActivity";
     public static final int TAB_DIAL_MANAGER = 1;
     public static final int TAB_CONTACT_MANAGER = 2;
@@ -251,24 +251,5 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
         }
     }
 
-    public static byte BT_CONNECT_IS_CLOSE = (byte) 0x00;//蓝牙已关闭
 
-    @Override
-    public void onNotifyBTConnectStateChange(byte b) {
-        Message msg = handler.obtainMessage();
-        msg.what = b;
-        handler.sendMessage(msg);
-
-    }
-
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if (msg.what == BT_CONNECT_IS_CLOSE) {
-                Toast.makeText(MainActivity.this, "蓝牙已经关闭", Toast.LENGTH_SHORT).show();
-            }
-
-        }
-    };
 }

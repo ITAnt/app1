@@ -5,6 +5,7 @@ import com.jancar.bluetooth.phone.contract.DialContract;
 import com.jancar.bluetooth.phone.model.DialModel;
 import com.jancar.bluetooth.phone.model.DialRepository;
 import com.jancar.bluetooth.phone.util.CheckPhoneUtil;
+import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.NumberFormatUtil;
 import com.ui.mvp.presenter.BaseModelPresenter;
 
@@ -83,6 +84,17 @@ public class DialPresenter extends BaseModelPresenter<DialContract.View, DialMod
     public boolean isSynContact() {
         boolean syncedPhoneBooks = BluetoothManager.getBluetoothManagerInstance(getUi().getUIContext()).isSyncedPhoneBooks();
         return syncedPhoneBooks;
+    }
+
+    @Override
+    public boolean isDownLoading() {
+        boolean isDomnLoading = true;
+        int downState = getUi().getManager().getContactsDownState();
+        if (downState == Constants.PHONEBOOK_STATE_FINSH || downState == Constants.PHONEBOOK_STATE_ERR) {
+            isDomnLoading = false;
+        }
+
+        return isDomnLoading;
     }
 
 }

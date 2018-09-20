@@ -1,7 +1,6 @@
 package com.jancar.bluetooth.phone.view.fragment;
 
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -9,18 +8,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jancar.bluetooth.Listener.BTConnectStatusListener;
-import com.jancar.bluetooth.Listener.BTSettingListener;
-import com.jancar.bluetooth.lib.BluetoothDeviceData;
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.contract.EquipmentContract;
@@ -31,7 +26,6 @@ import com.jancar.bluetooth.phone.view.SettingActivity;
 import com.ui.mvp.view.support.BaseFragment;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -127,9 +121,15 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        handler.removeCallbacksAndMessages(null);
     }
 
     public EquipmentFragment() {
@@ -145,17 +145,19 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
                 btnConn.setVisibility(View.VISIBLE);
                 btnClose.setVisibility(View.GONE);
                 tvConnName.setText(getPresenter().getConnetName());
-                Toast.makeText(mActivity, "蓝牙未连接", Toast.LENGTH_SHORT).show();
 
             } else if (msg.what == Constants.BT_CONNECT_IS_CONNECTED) {
                 ivConnet.setImageResource(R.drawable.iv_equipment_connet);
                 btnConn.setVisibility(View.GONE);
                 btnClose.setVisibility(View.VISIBLE);
                 tvConnName.setText(getPresenter().getConnetName());
-                Toast.makeText(mActivity, "蓝牙连接：" + getPresenter().getConnetName(), Toast.LENGTH_SHORT).show();
 
             } else if (msg.what == Constants.BT_CONNECT_IS_CLOSE) {
-                Toast.makeText(mActivity, "蓝牙已经关闭", Toast.LENGTH_SHORT).show();
+                ivConnet.setImageResource(R.drawable.iv_equipment_disconnect);
+                btnConn.setVisibility(View.VISIBLE);
+                btnClose.setVisibility(View.GONE);
+                tvConnName.setText(getPresenter().getConnetName());
+
             }
 
         }
@@ -219,8 +221,10 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
         super.onHiddenChanged(hidden);
         this.hidden = hidden;
         if (!hidden) {
+            getManager().setBTConnectStatusListener(this);
             ConnShowView();
             tvselfName.setText(getPresenter().getSelfName());
+            tvConnName.setText(getPresenter().getConnetName());
         }
     }
 
@@ -237,9 +241,9 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
 
     @Override
     public void onNotifyBTConnectStateChange(final byte b) {
-        Log.e(TAG, "b:" + b);
         Message msg = handler.obtainMessage();
         msg.what = b;
         handler.sendMessage(msg);
+
     }
 }

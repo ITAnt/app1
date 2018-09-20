@@ -77,6 +77,7 @@ public interface DialContract {
 
 
         boolean isSynContact();
+        boolean isDownLoading();
 
 
     }

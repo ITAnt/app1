@@ -42,5 +42,7 @@ public interface ContactContract {
         //是否同步了联系人
         boolean isSynContact();
 
+        boolean isDownLoading();
+
     }
 }

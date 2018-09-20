@@ -112,12 +112,12 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
         initView();
         findView();
         handIntent(intent);
-        getManager().registerBTPhoneListener(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        getManager().registerBTPhoneListener(this);
         showView();
         ivVoice.setEnabled(false);
         ivKeyPad.setEnabled(false);
@@ -155,6 +155,7 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
                     break;
                 case MSG_UPDATA_CALL_TIME:
                     tvCommunType.setText(TimeUtil.updataCallTime(mCallTime));
+                    tvHalfComing.setText(TimeUtil.updataCallTime(mCallTime));
                     break;
                 case MSG_BLUETOOTH_SERVICE_READY:
                     updataView(mCallType, mCallNumber);
@@ -393,6 +394,7 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_INCOMING:
                 mCallPhoneType = CALLHISTROY_TYPE_MISSED;
                 tvNumberType.setText(R.string.str_phone_missed);
+                tvHalfComing.setText(R.string.str_phone_missed);
                 linearKey.setVisibility(View.INVISIBLE);
                 linearVoice.setVisibility(View.INVISIBLE);
                 linearVehicle.setVisibility(View.GONE);
@@ -414,6 +416,7 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
                 linearVoice.setVisibility(View.VISIBLE);
                 linearVehicle.setVisibility(View.VISIBLE);
                 linearAnswer.setVisibility(View.GONE);
+                ivHalfAns.setVisibility(View.GONE);
                 ivVoice.setEnabled(true);
                 ivKeyPad.setEnabled(true);
                 ivVehicle.setEnabled(true);
@@ -530,11 +533,13 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
                     getManager().switchAudioMode(false);
                     ivVehicle.setImageResource(R.drawable.iv_commun_phone_n);
                     tvVehicle.setText(R.string.calling_phone);
+                    ivHalfCar.setImageResource(R.drawable.iv_commun_half_phone);
 
                 } else {
                     getManager().switchAudioMode(true);
                     ivVehicle.setImageResource(R.drawable.iv_commun_car_n);
                     tvVehicle.setText(R.string.calling_vehicle);
+                    ivHalfCar.setImageResource(R.drawable.iv_commun_half_car);
                 }
                 break;
             case R.id.iv_comm_message_answer:
@@ -546,11 +551,11 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
             case R.id.iv_commun_half_phone:
                 if (mCallScoState != BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT) {
                     getManager().switchAudioMode(false);
-                    ivVehicle.setImageResource(R.drawable.iv_commun_half_phone);
+                    ivHalfCar.setImageResource(R.drawable.iv_commun_half_phone);
 
                 } else {
                     getManager().switchAudioMode(true);
-                    ivVehicle.setImageResource(R.drawable.iv_commun_half_car);
+                    ivHalfCar.setImageResource(R.drawable.iv_commun_half_car);
                 }
                 break;
             case R.id.iv_commun_half_hang:

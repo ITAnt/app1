@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,12 +21,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jancar.bluetooth.Listener.BTCallLogListener;
+import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.lib.BluetoothPhoneBookData;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.adapter.RecordsAdapter;
 import com.jancar.bluetooth.phone.contract.RecordsContract;
 import com.jancar.bluetooth.phone.presenter.RecordsPresenter;
+import com.jancar.bluetooth.phone.util.Constants;
 import com.ui.mvp.view.support.BaseFragment;
 
 import java.lang.ref.WeakReference;
@@ -44,7 +47,7 @@ import butterknife.Unbinder;
  * @date 2018-8-21 16:37:20
  * 通话记录界面
  */
-public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, RecordsContract.View> implements RecordsContract.View, BTCallLogListener {
+public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, RecordsContract.View> implements RecordsContract.View, BTCallLogListener, BTConnectStatusListener {
     protected Activity mActivity;
     View mRootView;
     Unbinder mUnbinder;
@@ -52,20 +55,22 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
     ListView listView;
     @BindView(R.id.linear_syn_records)
     LinearLayout linearSyn;
-    @BindView(R.id.linear_syn_records_ing)
-    LinearLayout linearSynIng;
-    @BindView(R.id.linear_syn_records_error)
-    LinearLayout linearSynError;
     @BindView(R.id.iv_syn_records_ing)
     ImageView ivSynIng;
-    @BindView(R.id.tv_empty)
-    TextView tvEmpty;
+    @BindView(R.id.iv_syn_records)
+    ImageView ivSynRecord;
+    @BindView(R.id.iv_syn_records_error)
+    ImageView ivSynError;
+    @BindView(R.id.tv_syn_record)
+    TextView tvSynRecord;
+
     private boolean isSynRecord;
     private List<BluetoothPhoneBookData> callDataList;
     private RecordsAdapter adapter;
     private AnimationDrawable animationDrawable;
     private int selectPos = -1;
     private boolean hidden = false;
+
     private Handler mHandler = new RecordsFragment.InternalHandler(this);
 
 
@@ -118,18 +123,44 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("RecordsFragment", "onStart");
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
-        getManager().registerBTCallLogListener(this);
         if (!hidden) {
-            synShow();
+            getManager().registerBTCallLogListener(this);
+            getManager().setBTConnectStatusListener(this);
+            isConneView();
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("RecordsFragment", "onPause");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("RecordsFragment", "onStop");
+        selectPos = -1;
+        adapter.setNormalPosition();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mUnbinder.unbind();
         getManager().unRegisterBTCallLogListener();
     }
 
@@ -168,23 +199,51 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
         }
         ivSynIng.setImageResource(R.drawable.loading_animation_big);
         animationDrawable = (AnimationDrawable) ivSynIng.getDrawable();
-        synShow();
     }
 
     private void synShow() {
-        isSynRecord = getPresenter().isSynCallRecord();
-        if (isSynRecord) {
-            linearSyn.setVisibility(View.GONE);
-            linearSynError.setVisibility(View.GONE);
-            listView.setVisibility(View.VISIBLE);
-            linearSynIng.setVisibility(View.GONE);
-        } else {
+//        isSynRecord = getPresenter().isSynCallRecord();
+        if (isDownLoading()) {
             linearSyn.setVisibility(View.VISIBLE);
-            linearSynError.setVisibility(View.GONE);
+            tvSynRecord.setText(R.string.tv_syning_record);
+            ivSynRecord.setVisibility(View.GONE);
+            ivSynError.setVisibility(View.GONE);
+            ivSynIng.setVisibility(View.VISIBLE);
             listView.setVisibility(View.GONE);
-            linearSynIng.setVisibility(View.GONE);
+            animationDrawable.start();
+        } else {
+            linearSyn.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+            animationDrawable.stop();
         }
+    }
 
+    private boolean isDownLoading() {
+        boolean loading = getPresenter().isDownLoading();
+        return loading;
+    }
+
+    private void isConneView() {
+        if (isBluConn()) {
+            synShow();
+        } else {
+            showText();
+            tvSynRecord.setText(R.string.tv_bt_connect_is_none);
+            listView.setVisibility(View.GONE);
+        }
+    }
+
+    private void showText() {
+        linearSyn.setVisibility(View.VISIBLE);
+        ivSynError.setVisibility(View.GONE);
+        ivSynIng.setVisibility(View.GONE);
+        ivSynRecord.setVisibility(View.GONE);
+        tvSynRecord.setVisibility(View.VISIBLE);
+    }
+
+    private boolean isBluConn() {
+        boolean isBluConn = getManager().isConnect();
+        return isBluConn;
     }
 
     @Override
@@ -219,9 +278,12 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+        Log.d("RecordsFragment", "onHiddenChanged");
         this.hidden = hidden;
         if (!hidden) {
-            synShow();
+            getManager().registerBTCallLogListener(this);
+            getManager().setBTConnectStatusListener(this);
+            isConneView();
         }
     }
 
@@ -233,29 +295,41 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
 
     @Override
     public void onNotifyDownloadCallLogsCount(int i) {
+        Log.d("RecordsFragment", "i:" + i);
 
     }
 
     @Override
     public void onNotifyDownloadCallLogsList(final List<BluetoothPhoneBookData> list) {
+        Log.d("RecordsFragment", "list.size(rr):" + list.size());
         if (!mActivity.isFinishing()) {
-            if (list != null && list.size() > 0) {
-                mRootView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callDataList.clear();
-                        Iterator<BluetoothPhoneBookData> iterator = list.iterator();
-                        while (iterator.hasNext()) {
-                            callDataList.add(iterator.next());
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (isBluConn()) {
+                        if (list != null && list.size() > 0) {
+                            linearSyn.setVisibility(View.GONE);
+                            listView.setVisibility(View.VISIBLE);
+                            callDataList.clear();
+                            Iterator<BluetoothPhoneBookData> iterator = list.iterator();
+                            while (iterator.hasNext()) {
+                                callDataList.add(iterator.next());
+                            }
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            showText();
+                            listView.setVisibility(View.GONE);
+                            tvSynRecord.setText(R.string.tv_record_log);
                         }
-                        adapter.notifyDataSetChanged();
+                    } else {
+                        showText();
+                        listView.setVisibility(View.GONE);
+                        tvSynRecord.setText(R.string.tv_bt_connect_is_none);
                     }
-                });
-            } else {
 
-            }
+                }
+            }, 100);
         }
-
     }
 
     @Override
@@ -263,10 +337,11 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
         runOnUIThread(new Runnable() {
             @Override
             public void run() {
-                linearSyn.setVisibility(View.GONE);
-                linearSynError.setVisibility(View.GONE);
+                linearSyn.setVisibility(View.VISIBLE);
                 listView.setVisibility(View.GONE);
-                linearSynIng.setVisibility(View.VISIBLE);
+                ivSynError.setVisibility(View.GONE);
+                ivSynRecord.setVisibility(View.GONE);
+                tvSynRecord.setText(R.string.tv_syning_record);
                 animationDrawable.start();
             }
         });
@@ -283,10 +358,12 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
         runOnUIThread(new Runnable() {
             @Override
             public void run() {
-                linearSyn.setVisibility(View.GONE);
-                linearSynError.setVisibility(View.VISIBLE);
                 listView.setVisibility(View.GONE);
-                linearSynIng.setVisibility(View.GONE);
+                linearSyn.setVisibility(View.VISIBLE);
+                ivSynRecord.setVisibility(View.GONE);
+                ivSynIng.setVisibility(View.GONE);
+                tvSynRecord.setText(R.string.tv_record_error);
+                animationDrawable.stop();
             }
         });
 
@@ -298,11 +375,37 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
             @Override
             public void run() {
                 linearSyn.setVisibility(View.GONE);
-                linearSynError.setVisibility(View.GONE);
                 listView.setVisibility(View.VISIBLE);
-                linearSynIng.setVisibility(View.GONE);
                 animationDrawable.stop();
             }
         });
+    }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == Constants.BT_CONNECT_IS_NONE) {
+                showText();
+                tvSynRecord.setText(R.string.tv_bt_connect_is_none);
+                listView.setVisibility(View.GONE);
+
+            } else if (msg.what == Constants.BT_CONNECT_IS_CONNECTED) {
+                synShow();
+
+            } else if (msg.what == Constants.BT_CONNECT_IS_CLOSE) {
+                showText();
+                tvSynRecord.setText(R.string.tv_bt_connect_is_none);
+                listView.setVisibility(View.GONE);
+            }
+
+        }
+    };
+
+    @Override
+    public void onNotifyBTConnectStateChange(byte b) {
+        Message msg = handler.obtainMessage();
+        msg.what = b;
+        handler.sendMessage(msg);
     }
 }

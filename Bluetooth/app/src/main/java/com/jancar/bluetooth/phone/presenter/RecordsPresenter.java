@@ -4,6 +4,7 @@ package com.jancar.bluetooth.phone.presenter;
 import com.jancar.bluetooth.phone.contract.RecordsContract;
 import com.jancar.bluetooth.phone.model.RecordsModel;
 import com.jancar.bluetooth.phone.model.RecordsRepository;
+import com.jancar.bluetooth.phone.util.Constants;
 import com.ui.mvp.presenter.BaseModelPresenter;
 
 /**
@@ -29,5 +30,17 @@ public class RecordsPresenter extends BaseModelPresenter<RecordsContract.View, R
     public boolean isSynCallRecord() {
         boolean syncedCallLogs = getUi().getManager().isSyncedCallLogs();
         return syncedCallLogs;
+    }
+
+    @Override
+    public boolean isDownLoading() {
+        boolean isDomnLoading = true;
+        int downState = getUi().getManager().getContactsDownState();
+        int callhistroyState = getUi().getManager().getContCallhistroyState();
+        if (downState == Constants.PHONEBOOK_STATE_FINSH || downState == Constants.PHONEBOOK_STATE_ERR || callhistroyState == Constants.PHONEBOOK_STATE_FINSH) {
+            isDomnLoading = false;
+        }
+
+        return isDomnLoading;
     }
 }

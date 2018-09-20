@@ -5,11 +5,13 @@
     android:layout_height="match_parent"
     android:gravity="center_vertical|center_horizontal"
     android:orientation="vertical">
+
     <TextView
+        android:id="@+id/tv_contact_syn"
+        style="@style/txt_normal_tip_px22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="请先同步联系人"
-        style="@style/txt_normal_tip_px22" />
+        android:text="请先同步联系人" />
 
     <ImageView
         android:id="@+id/iv_syn_contact"
@@ -17,4 +19,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:background="@drawable/dial_syn_contanct_selector" />
+
+    <ImageView
+        android:id="@+id/iv_syn_contact_ing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px30"
+        android:src="@drawable/loading_animation_big" />
 </LinearLayout>

@@ -76,6 +76,15 @@ public class ContactAdapter extends BaseViewAdapter<BluetoothPhoneBookData> {
         }
     }
 
+    /**
+     * @param
+     */
+    public void setNormalPosition() {
+
+        defaultSelection = -1;
+        notifyDataSetChanged();
+
+    }
 
     @Override
     public String getSortFileld(BluetoothPhoneBookData obj, int position) {

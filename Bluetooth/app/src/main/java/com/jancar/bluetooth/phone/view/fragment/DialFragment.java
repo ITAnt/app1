@@ -28,6 +28,7 @@ import com.jancar.bluetooth.phone.presenter.DialPresenter;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.IntentUtil;
 import com.jancar.bluetooth.phone.util.NumberFormatUtil;
+import com.jancar.bluetooth.phone.util.ToastUtil;
 import com.jancar.bluetooth.phone.view.MusicActivity;
 import com.ui.mvp.view.support.BaseFragment;
 
@@ -68,6 +69,19 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
 
     private Handler mHandler = new InternalHandler(this);
 
+    private static class InternalHandler extends Handler {
+        private WeakReference<Fragment> weakRefActivity;
+
+        public InternalHandler(Fragment fragment) {
+            weakRefActivity = new WeakReference<Fragment>(fragment);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            Fragment fragment = weakRefActivity.get();
+        }
+    }
+
 
     private Handler handler = new Handler() {
         @Override
@@ -77,22 +91,15 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
                 tvSynContact.setVisibility(View.VISIBLE);
                 tvSynContact.setText(R.string.tv_bt_connect_is_none);
                 listView.setVisibility(View.GONE);
-//                Toast.makeText(mActivity, "蓝牙未连接", Toast.LENGTH_SHORT).show();
 
             } else if (msg.what == Constants.BT_CONNECT_IS_CONNECTED) {
-                showListView();
-//                tvSynContact.setVisibility(View.GONE);
-//                tvSynContact.setText(mActivity.getString(R.string.tv_bt_connect_is_none));
-//                listView.setVisibility(View.GONE);
-//                Toast.makeText(mActivity, "蓝牙连接：", Toast.LENGTH_SHORT).show();
+                synContactView();
 
             } else if (msg.what == Constants.BT_CONNECT_IS_CLOSE) {
                 tvSynContact.setVisibility(View.VISIBLE);
                 tvSynContact.setText(R.string.tv_bt_connect_is_close);
                 listView.setVisibility(View.GONE);
-//                Toast.makeText(mActivity, "蓝牙已经关闭", Toast.LENGTH_SHORT).show();
             }
-
         }
     };
 
@@ -135,7 +142,7 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
         getManager().registerBTPhonebookListener(this);
         getManager().setBTConnectStatusListener(this);
         if (!hidden) {
-            showListView();
+            isConneView();
         }
     }
 
@@ -145,28 +152,34 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        selectPos = -1;
+        adapter.setNormalPostion();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
         getManager().unRegisterBTPhonebookListener();
     }
 
-    public DialFragment() {
-
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        this.hidden = hidden;
+        if (!hidden) {
+            getManager().registerBTPhonebookListener(this);
+            getManager().setBTConnectStatusListener(this);
+            isConneView();
+            if (mStrKeyNum != null && listView.getVisibility() == View.VISIBLE) {
+                getPresenter().getDialContactList(mStrKeyNum);
+            }
+        }
     }
 
-
-    private static class InternalHandler extends Handler {
-        private WeakReference<Fragment> weakRefActivity;
-
-        public InternalHandler(Fragment fragment) {
-            weakRefActivity = new WeakReference<Fragment>(fragment);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            Fragment fragment = weakRefActivity.get();
-        }
+    public DialFragment() {
     }
 
     @Override
@@ -180,7 +193,6 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     }
 
     private void init() {
-        showListView();
         if (adapter == null) {
             if (bookDataList == null) {
                 bookDataList = new ArrayList<>();
@@ -205,14 +217,15 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
         tvInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                isConneView();
                 String number = charSequence.toString();
-                getPresenter().getDialContactList(number);
-
+                if (listView.getVisibility() == View.VISIBLE) {
+                    getPresenter().getDialContactList(number);
+                }
             }
 
             @Override
@@ -227,19 +240,41 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
         });
     }
 
+    private void isConneView() {
+        if (getManager().isConnect()) {
+            synContactView();
+        } else {
+            tvSynContact.setVisibility(View.VISIBLE);
+            tvSynContact.setText(R.string.tv_bt_connect_is_none);
+            listView.setVisibility(View.GONE);
+        }
+    }
 
-    private void showListView() {
-        if (isSynContact()) {
+    private void synContactView() {
+        if (isDownLoading()) {
+            tvSynContact.setVisibility(View.VISIBLE);
+            tvSynContact.setText(R.string.tv_dial_contact);
+            listView.setVisibility(View.GONE);
+        } else {
             tvSynContact.setVisibility(View.GONE);
             if (!TextUtils.isEmpty(mStrKeyNum)) {
                 listView.setVisibility(View.VISIBLE);
             } else {
                 listView.setVisibility(View.GONE);
             }
-        } else {
-            tvSynContact.setVisibility(View.VISIBLE);
-            listView.setVisibility(View.GONE);
+
         }
+    }
+
+    private boolean isSynContact() {
+        boolean synContact = getPresenter().isSynContact();
+        return synContact;
+    }
+
+    private boolean isDownLoading() {
+        boolean downLoading = getPresenter().isDownLoading();
+        return downLoading;
+
     }
 
     @Override
@@ -301,11 +336,15 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
                 getStrKeyNum("#");
                 break;
             case R.id.item_dial_number_call:
-                if (mStrKeyNum != null) {
-                    BluetoothManager.getBluetoothManagerInstance(getUIContext()).hfpCall(mStrKeyNum);
+//                IntentUtil.gotoActivity(getActivity(), MusicActivity.class, false);
+                if (getManager().isConnect()) {
+                    if (mStrKeyNum != null) {
+                        BluetoothManager.getBluetoothManagerInstance(getUIContext()).hfpCall(mStrKeyNum);
+                    } else {
+                        ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_call_number_empty));
+                    }
                 } else {
-                    IntentUtil.gotoActivity(getActivity(), MusicActivity.class, false);
-//                    Toast.makeText(mActivity, "您拨打的号码不能为空", Toast.LENGTH_SHORT).show();
+                    ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_bt_connect_is_none));
                 }
                 break;
             case R.id.dial_iv_del_number:
@@ -345,20 +384,6 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
         return true;
     }
 
-    private boolean isSynContact() {
-        boolean synContact = getPresenter().isSynContact();
-        return synContact;
-    }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        this.hidden = hidden;
-        if (!hidden) {
-            showListView();
-        }
-    }
-
     @Override
     public void onNotifyDownloadContactsIndex(int i) {
 
@@ -371,12 +396,13 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
 
     @Override
     public void onNotifyDownloadContactsList(final List<BluetoothPhoneBookData> list) {
-        Log.e(TAG, "listDail:" + list.size());
+        Log.d("Dial", "list.size():" + list.size());
         this.bookDataList = list;
         if (!mActivity.isFinishing()) {
-            mHandler.postDelayed(new Runnable() {
+            handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+//                    listView.setVisibility(View.VISIBLE);
                     adapter.setBookDataList(bookDataList);
                 }
             }, 100);

@@ -13,6 +13,7 @@
         android:visibility="gone">
 
         <TextView
+            android:id="@+id/tv_syn_record"
             style="@style/txt_normal_tip_px22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,21 +25,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/px15"
             android:background="@drawable/dial_syn_contanct_selector" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linear_syn_records_ing"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical|center_horizontal"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <TextView
-            style="@style/txt_normal_tip_px22"
+        <ImageView
+            android:id="@+id/iv_syn_records_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="正在同步通话记录..." />
+            android:layout_marginTop="@dimen/px15"
+            android:background="@drawable/dial_syn_contanct_error_selector" />
 
         <ImageView
             android:id="@+id/iv_syn_records_ing"
@@ -47,36 +40,6 @@
             android:layout_marginTop="@dimen/px15" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linear_syn_records_error"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical|center_horizontal"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <TextView
-            style="@style/txt_normal_tip_px22"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="同步通话记录出错" />
-
-        <ImageView
-            android:id="@+id/iv_syn_records_error"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/px15"
-            android:background="@drawable/dial_syn_contanct_error_selector" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_empty"
-        style="@style/txt_normal_tip_px22"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="通话记录数据为空"
-        android:visibility="gone" />
 
     <ListView
         android:id="@+id/records_recycler_list"

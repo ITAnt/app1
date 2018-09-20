@@ -244,7 +244,7 @@ public class SettingActivity extends BaseActivity<SettingContract.Presenter, Set
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(SettingActivity.this, "蓝牙关闭nnnnn", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(SettingActivity.this, "蓝牙关闭nnnnn", Toast.LENGTH_SHORT).show();
             }
         });
     }

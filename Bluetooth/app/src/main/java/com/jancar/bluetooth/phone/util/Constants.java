@@ -15,4 +15,10 @@ public class Constants {
     public static final int BLUETOOTH_DEVICE_STATE_DISCONNECT = 2;
     public static final int BLUETOOTH_DEVICE_STATE_CONNECT = 3;
 
+
+    public final static int PHONEBOOK_STATE_START = 1;//同步开始
+    public final static int PHONEBOOK_STATE_STOP = 2;//同步中止
+    public final static int PHONEBOOK_STATE_FINSH = 4;//同步结束
+    public final static int PHONEBOOK_STATE_ERR = 3;//同步错误
+
 }

@@ -35,5 +35,7 @@ public interface RecordsContract {
         void getCallRecordList();
 
         boolean isSynCallRecord();
+
+        boolean isDownLoading();
     }
 }
