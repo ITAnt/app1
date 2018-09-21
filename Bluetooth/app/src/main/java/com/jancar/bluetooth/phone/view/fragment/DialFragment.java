@@ -347,7 +347,8 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
                     if (mStrKeyNum != null) {
                         BluetoothManager.getBluetoothManagerInstance(getUIContext()).hfpCall(mStrKeyNum);
                     } else {
-                        ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_call_number_empty));
+//                        ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_call_number_empty));
+                        IntentUtil.gotoActivity(getActivity(), MusicActivity.class, false);
                     }
                 } else {
                     ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_bt_connect_is_none));

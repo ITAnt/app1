@@ -86,10 +86,6 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
     private String mCallPhoneType;          //电话类型
     private Timer mCallTimer;
     private int mCallTime;
-    private boolean mFullDisplay;           //是否全屏
-    private boolean currentScreenStatus;    //当前屏幕的状态
-    private int calltype;
-    private String callNum;
     private boolean isShowKey = false;      //是否显示键盘
 
     private int mCallType = BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_NONE;
@@ -104,6 +100,8 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
     private String CAll_TYPE_TAG = "call_type";                       //通话类型 int
     private String CALL_NUMBER_TAG = "call_number";                   //通话号码 string
     private String EXTRA_FULL_DISPLAY = "full_display";               //是否全屏显示 boollean
+    private boolean isFull;//是否全屏
+    private boolean saveIsFull = true;//记忆是否是全屏状态，切换屏幕用
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +110,8 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
         initView();
         findView();
         handIntent(intent);
+        getManager().registerCallOnKeyEvent();
+        saveIsFull = isFull;
     }
 
     @Override
@@ -128,8 +128,8 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
     protected void onDestroy() {
         super.onDestroy();
         destroyView();
-        msgString = null;
         getManager().unregisterBTPhoneListener();
+        getManager().unRegisterCallOnKeyEvent();
     }
 
     @Override
@@ -154,8 +154,11 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
                     updataView(callState, phoneNumber);
                     break;
                 case MSG_UPDATA_CALL_TIME:
-                    tvCommunType.setText(TimeUtil.updataCallTime(mCallTime));
-                    tvHalfComing.setText(TimeUtil.updataCallTime(mCallTime));
+                    if (isFull) {
+                        tvCommunType.setText(TimeUtil.updataCallTime(mCallTime));
+                    } else {
+                        tvHalfComing.setText(TimeUtil.updataCallTime(mCallTime));
+                    }
                     break;
                 case MSG_BLUETOOTH_SERVICE_READY:
                     updataView(mCallType, mCallNumber);
@@ -163,7 +166,12 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
 
                 case MSG_BLUETOOTH_UPDATA_SCO_STATE:
                     int scoState = msg.arg1;
-                    updataScoState(scoState);
+                    if (isFull) {
+                        updataScoState(scoState);
+                    } else {
+                        updataHalfScoState(scoState);
+                    }
+
                     break;
 
             }
@@ -187,22 +195,34 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
     }
 
 
+    private void updataHalfScoState(int scoState) {
+        if (scoState == mCallScoState) {
+            return;
+        }
+        mCallScoState = scoState;
+        if (BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT == mCallScoState) {
+            //车机
+            ivHalfCar.setImageResource(R.drawable.iv_commun_half_car);
+        } else {
+
+            ivHalfCar.setImageResource(R.drawable.iv_commun_half_phone);
+        }
+    }
+
+
     private void handIntent(Intent intent) {
-        calltype = intent.getIntExtra(CAll_TYPE_TAG, BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_NONE);
-        callNum = intent.getStringExtra(CALL_NUMBER_TAG);
-        mFullDisplay = intent.getBooleanExtra(EXTRA_FULL_DISPLAY, false);
-        currentScreenStatus = mFullDisplay;
-        updataView(calltype, callNum);
+        mCallType = intent.getIntExtra(CAll_TYPE_TAG, BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_NONE);
+        mCallNumber = intent.getStringExtra(CALL_NUMBER_TAG);
+        isFull = intent.getBooleanExtra(EXTRA_FULL_DISPLAY, false);
+        updataView(mCallType, mCallNumber);
     }
 
     private void showView() {
-//        mWindowManager.addView(phoneView, mLayoutParams);
-        if (mFullDisplay) {
+        if (isFull) {
             mWindowManager.addView(phoneView, mLayoutParams);
         } else {
             mWindowManager.addView(haifView, mLayoutParams1);
         }
-
 //        new Handler().postDelayed(new Runnable() {
 //            @Override
 //            public void run() {
@@ -216,17 +236,18 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        mFullDisplay = intent.getBooleanExtra(EXTRA_FULL_DISPLAY, false);
-        if (currentScreenStatus == mFullDisplay) {
-            return;
+        handIntent(intent);
+        if (isFull != saveIsFull) {
+            if (isFull == false) {
+                mWindowManager.removeViewImmediate(phoneView);
+                mWindowManager.addView(haifView, mLayoutParams1);
+            } else {
+                mWindowManager.removeViewImmediate(haifView);
+                mWindowManager.addView(phoneView, mLayoutParams);
+            }
         }
-        if (mFullDisplay) {
-            mWindowManager.removeView(haifView);
-            mWindowManager.addView(phoneView, mLayoutParams);
-        } else {
-            mWindowManager.removeView(phoneView);
-            mWindowManager.addView(haifView, mLayoutParams1);
-        }
+        saveIsFull = isFull;
+        updataView(mCallType, mCallNumber);
 
     }
 
@@ -333,15 +354,20 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
 
 
     private void destroyView() {
-        if (mFullDisplay) {
-            mWindowManager.removeView(phoneView);
+        if (isFull) {
+            mWindowManager.removeViewImmediate(phoneView);
         } else {
-            mWindowManager.removeView(haifView);
+            mWindowManager.removeViewImmediate(haifView);
         }
     }
 
 
     private void updataView(int calltype, String callNum) {
+        if (!isFull) {
+            upadateLittileView(calltype, callNum);
+            return;
+        }
+
         String name = null;
         if (callNum == null) {
             tvNumber.setText(R.string.str_phone_unkonow);
@@ -389,6 +415,8 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
                 ivVehicle.setEnabled(false);
                 if (calltype != mCallType) {
                     mCallType = calltype;
+                } else {
+                    mCallType = calltype;
                 }
                 break;
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_INCOMING:
@@ -434,6 +462,89 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
                 stopTimer();
                 this.finish();
         }
+    }
+
+    private void upadateLittileView(int calltype, String callNum) {
+
+        String name = null;
+        if (callNum == null) {
+            tvNumber.setText(R.string.str_phone_unkonow);
+            tvNumberType.setText(R.string.str_phone_unkonow);
+        } else {
+            if ((mCallNumber != null) && (!callNum.equals(mCallNumber))) {
+                mCallNumber = callNum;
+                tvHalfNumber.setText(mCallNumber);
+
+            } else if (mCallNumber == null) {
+                mCallNumber = callNum;
+                tvHalfNumber.setText(mCallNumber);
+            }
+        }
+        if (mCallNumber != null) {
+            if (mCallNumber.equals("10086") || mCallNumber.equals("1008611")) {
+                name = getResources().getString(R.string.str_phone_mobile);
+            } else if (mCallNumber.equals("10010")) {
+                name = getResources().getString(R.string.str_phone_unicom);
+            } else if (mCallNumber.equals("10000")) {
+                name = getResources().getString(R.string.str_phone_telecom);
+            } else {
+                name = getPresenter().getContactByNumber(mCallNumber);
+            }
+        }
+        if (name == null || name.equals("")) {
+            mCallName = getResources().getString(R.string.str_phone_unkonow);
+            tvHalfName.setText(mCallName);
+        } else {
+            mCallName = name;
+            tvHalfName.setText(mCallName);
+        }
+
+        switch (calltype) {
+            case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_DIALING:
+            case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_ALERTING:
+                //正在呼叫中
+                mCallPhoneType = CALLHISTROY_TYPE_OUTGOING;
+                tvHalfComing.setText(R.string.str_phone_outgoing);
+                ivHalfAns.setVisibility(View.GONE);
+                if (calltype != mCallType) {
+                    mCallType = calltype;
+                } else {
+                    mCallType = calltype;
+                }
+                break;
+            case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_INCOMING:
+                mCallPhoneType = CALLHISTROY_TYPE_MISSED;
+                tvHalfComing.setText(R.string.str_phone_missed);
+                ivHalfAns.setVisibility(View.VISIBLE);
+                if (calltype != mCallType) {
+                    mCallType = calltype;
+                }
+                break;
+            case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_ACTIVE:
+                ivHalfAns.setVisibility(View.GONE);
+                if (mCallPhoneType == null) {
+                    mCallPhoneType = CALLHISTROY_TYPE_INCOMING;
+                } else {
+                    if (mCallPhoneType.equals(CALLHISTROY_TYPE_MISSED)) {
+                        mCallPhoneType = CALLHISTROY_TYPE_INCOMING;
+                    }
+                }
+
+                if (calltype != mCallType) {
+                    mCallType = calltype;
+                    startTimer();
+                }
+                break;
+            case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_TERMINATED:
+                BluetoothPhoneBookData bluetoothPhoneBookData = new BluetoothPhoneBookData();
+                bluetoothPhoneBookData.setPhoneName(mCallName);
+                bluetoothPhoneBookData.setPhoneNumber(mCallNumber);
+                bluetoothPhoneBookData.setPhoneBookCallType(mCallPhoneType);
+                getPresenter().addCallLog(bluetoothPhoneBookData);
+                stopTimer();
+                this.finish();
+        }
+
     }
 
     private void stopTimer() {
@@ -533,13 +644,11 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
                     getManager().switchAudioMode(false);
                     ivVehicle.setImageResource(R.drawable.iv_commun_phone_n);
                     tvVehicle.setText(R.string.calling_phone);
-                    ivHalfCar.setImageResource(R.drawable.iv_commun_half_phone);
 
                 } else {
                     getManager().switchAudioMode(true);
                     ivVehicle.setImageResource(R.drawable.iv_commun_car_n);
                     tvVehicle.setText(R.string.calling_vehicle);
-                    ivHalfCar.setImageResource(R.drawable.iv_commun_half_car);
                 }
                 break;
             case R.id.iv_comm_message_answer:
@@ -559,7 +668,11 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
                 }
                 break;
             case R.id.iv_commun_half_hang:
-                getPresenter().rejectCall();
+                if (mCallType == BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_INCOMING) {
+                    getPresenter().rejectCall();
+                } else {
+                    getPresenter().terminateCall();
+                }
                 break;
             case R.id.item_dial_show_1:
                 getStrKeyNum("1");

@@ -1,28 +1,36 @@
 package com.jancar.bluetooth.phone.view;
 
 import android.annotation.SuppressLint;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.RemoteException;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.jancar.JancarServer;
 import com.jancar.bluetooth.Listener.BTMusicListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.lib.BluetoothMusicData;
 import com.jancar.bluetooth.phone.R;
-import com.jancar.bluetooth.phone.util.TimeUtil;
-import com.ui.mvp.view.BaseActivity;
 import com.jancar.bluetooth.phone.contract.MusicContract;
 import com.jancar.bluetooth.phone.presenter.MusicPresenter;
+import com.jancar.bluetooth.phone.util.TimeUtil;
+import com.jancar.bluetooth.phone.util.ToastUtil;
+import com.jancar.key.KeyDef;
+import com.jancar.key.keyFocuser;
+import com.ui.mvp.view.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
+import static com.jancar.key.KeyDef.KeyAction.KEY_ACTION_UP;
 
 
 /**
@@ -57,6 +65,8 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     @BindView(R.id.tv_music_artist)
     TextView tvArtist;
     private boolean isPlay;
+    private AudioManager audioManager;
+    private JancarServer jancarServer;
 
 
     @Override
@@ -68,7 +78,90 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         seekBar.setEnabled(false);
         updateMusicPlayingProgress(CMD_UPDATE_PLAY_STATUS, mDefaultMusicLong, mDefaultPlayingTime);
         updatePlayingStatus(mDefaultMusicLong, mDefaultPlayingTime, (byte) 0);
+        jancarServer = (JancarServer) getSystemService(JancarServer.JAC_SERVICE);
+        jancarServer.requestKeyFocus(keyFocusListener);
     }
+
+    private keyFocuser keyFocusListener = new keyFocuser() {
+
+        @Override
+        public int getDescriptor() throws RemoteException {
+            return super.getDescriptor();
+        }
+
+        @Override
+        public boolean OnKeyEvent(int key, int state) {
+
+            boolean bRet = true;
+            KeyDef.KeyType keyType = KeyDef.KeyType.nativeToType(key);
+            KeyDef.KeyAction keyAction = KeyDef.KeyAction.nativeToType(state);
+            switch (keyType) {
+                case KEY_PREV:
+                    if (keyAction == KEY_ACTION_UP) {
+                        bluetoothManager.prev();
+                    }
+                    break;
+                case KEY_NEXT:
+                    if (keyAction == KEY_ACTION_UP) {
+                        bluetoothManager.next();
+                    }
+                    break;
+                default:
+                    bRet = false;
+                    break;
+            }
+            return bRet;
+        }
+
+        @Override
+        public void OnKeyFocusChange(int ifocus) {
+        }
+    };
+
+    @Override
+    protected void onStart() {
+        requestAudioFoucse();
+        super.onStart();
+    }
+
+    private void requestAudioFoucse() {
+
+        audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+        audioManager.requestAudioFocus(mAudioFocusListener, AudioManager.STREAM_MUSIC,
+                AudioManager.AUDIOFOCUS_GAIN);
+    }
+
+    private AudioManager.OnAudioFocusChangeListener mAudioFocusListener = new AudioManager.OnAudioFocusChangeListener() {
+        @Override
+        public void onAudioFocusChange(int focusChange) {
+            switch (focusChange) {
+                case AudioManager.AUDIOFOCUS_GAIN:
+                    bluetoothManager.setPlayerState(true);
+                    if (!isPlay) {
+                        bluetoothManager.play();
+                    }
+                    break;
+                case AudioManager.AUDIOFOCUS_LOSS:
+                    bluetoothManager.setPlayerState(false);
+                    if (isPlay) {
+                        bluetoothManager.pause();
+                    }
+                    if (mAudioFocusListener != null) {
+                        audioManager.abandonAudioFocus(mAudioFocusListener);
+                    }
+                    break;
+                case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
+                    bluetoothManager.setPlayerState(false);
+                    if (isPlay) {
+                        bluetoothManager.pause();
+                    }
+                    break;
+                case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
+                    break;
+            }
+        }
+    };
+
 
     @Override
     protected void onResume() {
@@ -84,8 +177,14 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unbinder.unbind();
+        if (isPlay) {
+            bluetoothManager.pause();
+        }
+        if (mAudioFocusListener != null) {
+            audioManager.abandonAudioFocus(mAudioFocusListener);
+        }
         bluetoothManager.unRegisterBTMusicListener();
+        jancarServer.abandonKeyFocus(keyFocusListener);
     }
 
     @Override
@@ -246,6 +345,10 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
 
     @OnClick({R.id.iv_music_pre, R.id.iv_music_next, R.id.iv_music_play})
     public void onclick(View view) {
+        if (!bluetoothManager.isConnect()) {
+            ToastUtil.ShowToast(this, "蓝牙未连接");
+            return;
+        }
         switch (view.getId()) {
             case R.id.iv_music_pre:
                 bluetoothManager.prev();
@@ -256,8 +359,10 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
             case R.id.iv_music_play:
                 if (isPlay) {
                     bluetoothManager.pause();
+
                 } else {
                     bluetoothManager.play();
+                    bluetoothManager.setPlayerState(true);
                 }
                 break;
         }
