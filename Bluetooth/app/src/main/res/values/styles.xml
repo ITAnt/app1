@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorAccent</item>
         <item name="colorPrimaryDark">@color/colorAccent</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
     <!--textview默认设置-->
@@ -64,6 +66,7 @@
     <style name="txt_tip_20" parent="txt_default_tip">
         <item name="android:textSize">@dimen/px20</item>
     </style>
+
     <style name="txt_black_20" parent="txt_default_black">
         <item name="android:textSize">@dimen/px20</item>
     </style>

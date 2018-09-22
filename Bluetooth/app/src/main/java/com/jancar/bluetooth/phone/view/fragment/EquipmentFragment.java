@@ -3,6 +3,7 @@ package com.jancar.bluetooth.phone.view.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -202,7 +203,11 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
                 getPresenter().disConnectDevice();
                 break;
             case R.id.btn_equipment_setting:
-                IntentUtil.gotoActivity(getActivity(), SettingActivity.class, false);
+//                IntentUtil.gotoActivity(getActivity(), SettingActivity.class, false);
+                Intent intent = new Intent();
+                intent.setClassName("com.jancar.settings", "com.jancar.settings.view.activity.MainActivity");
+                intent.putExtra("position", 1);
+                startActivity(intent);
                 break;
             case R.id.btn_equipment_conn:
                 String historyAddress = getManager().getHistoryConnectDeviceAddress();

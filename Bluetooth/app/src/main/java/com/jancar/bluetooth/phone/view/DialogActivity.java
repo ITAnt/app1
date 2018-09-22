@@ -1,5 +1,6 @@
 package com.jancar.bluetooth.phone.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -21,16 +22,20 @@ public class DialogActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
 
         boolean isConnect = BluetoothManager.getBluetoothManagerInstance(this).isConnect();
-        getWindow().getDecorView().setBackgroundColor(0x7F00FF00);
+//        getWindow().getDecorView().setBackgroundColor(0x7F00FF00);
         if (isConnect) {
             IntentUtil.gotoActivity(DialogActivity.this, MainActivity.class, true);
         } else {
-            IntentUtil.gotoActivity(DialogActivity.this, MainActivity.class, true);
             setContentView(R.layout.dialog_connect);
             findViewById(R.id.tv_connect_dialog_yes).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    IntentUtil.gotoActivity(DialogActivity.this, SettingActivity.class, true);
+                    Intent intent = new Intent();
+                    intent.setClassName("com.jancar.settings", "com.jancar.settings.view.activity.MainActivity");
+                    intent.putExtra("position", 1);
+                    startActivity(intent);
+                    finish();
+
                 }
             });
             findViewById(R.id.tv_connect_dialog_no).setOnClickListener(new View.OnClickListener() {
