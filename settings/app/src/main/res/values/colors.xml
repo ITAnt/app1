@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#1f0dcd</color>
     <color name="windowBackground">#80bebebe</color>
+    <color name="windowBackgrounds">#00bebebe</color>
     <color name="bg_llayout">#000000</color>
     <color name="bg_main_rlayout_n">#1e1f23</color>
     <color name="bg_main_rlayout_h">#0068B7</color>
