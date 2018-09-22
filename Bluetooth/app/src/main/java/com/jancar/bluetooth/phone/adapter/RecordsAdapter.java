@@ -2,6 +2,7 @@ package com.jancar.bluetooth.phone.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +68,13 @@ public class RecordsAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tvPhone.setText(bookData.getPhoneNumber());
-        viewHolder.tvName.setText(bookData.getPhoneName());
+        String phoneName = bookData.getPhoneName();
+        if (TextUtils.isEmpty(phoneName)) {
+            viewHolder.tvName.setText(R.string.str_phone_name);
+        } else {
+            viewHolder.tvName.setText(phoneName);
+        }
+
         String phoneBookCallType = bookData.getPhoneBookCallType();
         switch (phoneBookCallType) {
             case INCOMG:

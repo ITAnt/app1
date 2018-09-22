@@ -36,4 +36,5 @@
     <string name="tv_record_log">通话记录为空！</string>
     <string name="tv_record_error">同步通话记录错误！</string>
     <string name="tv_call_number_empty">号码不能为空</string>
+    <string name="str_phone_name">未知</string>
 </resources>
