@@ -213,6 +213,9 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
         super.onDestroyView();
         Log.d(TAG, "onDestroyView");
         mUnbinder.unbind();
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
     }
 
     @Override

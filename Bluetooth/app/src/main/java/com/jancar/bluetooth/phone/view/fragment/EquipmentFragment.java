@@ -205,7 +205,7 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
             case R.id.btn_equipment_setting:
 //                IntentUtil.gotoActivity(getActivity(), SettingActivity.class, false);
                 Intent intent = new Intent();
-                intent.setClassName("com.jancar.settings", "com.jancar.settings.view.activity.MainActivity");
+                intent.setClassName("com.jancar.settingss", "com.jancar.settings.view.activity.MainActivity");
                 intent.putExtra("position", 1);
                 startActivity(intent);
                 break;
