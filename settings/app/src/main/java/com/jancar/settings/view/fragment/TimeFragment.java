@@ -482,7 +482,7 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
         ((MainActivity) getActivity()).mHadler = null;
         timeZoneList.setVisibility(View.GONE);
         rLayoutTimeInterface.setVisibility(View.VISIBLE);
-        // getActivity().unregisterReceiver(timeChangeReceiver);
+         getActivity().unregisterReceiver(timeChangeReceiver);
 
     }
 

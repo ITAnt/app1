@@ -210,6 +210,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                 switch (view.getId()) {
                     case R.id.btn_connect_btn:
                         settingManager.resetDeafaultSettings();
+                        dialog.dismiss();
                 /*        Intent intent = new Intent();
                         intent.setAction("com.qucii.sendreset");
 

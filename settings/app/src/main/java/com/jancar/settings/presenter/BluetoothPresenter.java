@@ -19,8 +19,7 @@ public class BluetoothPresenter  extends BasePresenter<BluetoothContractImpl. Mo
 
 
     public boolean isBTOn() {
-        boolean btOn = mRootView.getBluetManger().isBTOn();
-        return btOn;
+        return mRootView.getBluetManger().isBTOn();
     }
 
 
@@ -57,8 +56,7 @@ public class BluetoothPresenter  extends BasePresenter<BluetoothContractImpl. Mo
 
 
     public String getBlutoothName() {
-        String btName = mRootView.getBluetManger().getBTName();
-        return btName;
+        return mRootView.getBluetManger().getBTName();
     }
 
 }
