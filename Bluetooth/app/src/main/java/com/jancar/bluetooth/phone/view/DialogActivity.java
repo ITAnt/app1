@@ -26,24 +26,25 @@ public class DialogActivity extends FragmentActivity {
         if (isConnect) {
             IntentUtil.gotoActivity(DialogActivity.this, MainActivity.class, true);
         } else {
-            setContentView(R.layout.dialog_connect);
-            findViewById(R.id.tv_connect_dialog_yes).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent();
-                    intent.setClassName("com.jancar.settingss", "com.jancar.settings.view.activity.MainActivity");
-                    intent.putExtra("position", 1);
-                    startActivity(intent);
-                    finish();
-
-                }
-            });
-            findViewById(R.id.tv_connect_dialog_no).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    finish();
-                }
-            });
+            IntentUtil.gotoActivity(DialogActivity.this, MainActivity.class, true);
+//            setContentView(R.layout.dialog_connect);
+//            findViewById(R.id.tv_connect_dialog_yes).setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Intent intent = new Intent();
+//                    intent.setClassName("com.jancar.settingss", "com.jancar.settings.view.activity.MainActivity");
+//                    intent.putExtra("position", 1);
+//                    startActivity(intent);
+//                    finish();
+//
+//                }
+//            });
+//            findViewById(R.id.tv_connect_dialog_no).setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    finish();
+//                }
+//            });
         }
     }
 

@@ -40,15 +40,33 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/iv_sus_bg_left"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/iv_sus_del"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/px10"
+                android:background="@drawable/sus_del_selector" />
+
+            <ImageView
+                android:id="@+id/sus_voice_add_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px110"
+                android:background="@drawable/sus_voice_add_selector_left" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/iv_sus_bg_left" />
+                android:background="@drawable/sus_power_selector" />
 
-        </FrameLayout>
+
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
