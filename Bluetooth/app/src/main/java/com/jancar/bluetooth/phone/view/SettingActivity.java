@@ -62,6 +62,8 @@ public class SettingActivity extends BaseActivity<SettingContract.Presenter, Set
 
     @BindView(R.id.tv_setting_search)
     TextView tvSearch;
+    @BindView(R.id.liner_open_blue)
+    LinearLayout linearBlue;
     private SettingDialog settingDialog;
     private AnimationDrawable animationDrawable;
     SettingAdapter pairAdapter, avaAdapter;
@@ -156,9 +158,11 @@ public class SettingActivity extends BaseActivity<SettingContract.Presenter, Set
         ivOnSw.setCheckedImmediately(isBTon);
         if (isBTon) {
             tvClose.setText("打开");
+            linearBlue.setVisibility(View.VISIBLE);
             getPresenter().searchPairedList();
         } else {
             tvClose.setText("关闭");
+            linearBlue.setVisibility(View.GONE);
 
         }
         ivCheckSw.setThumbDrawableRes(R.drawable.switch_custom_thumb_selector);
@@ -236,7 +240,14 @@ public class SettingActivity extends BaseActivity<SettingContract.Presenter, Set
 
     @Override
     public void onNotifyBTSwitchStateOn() {
-        getPresenter().searchPairedList();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                linearBlue.setVisibility(View.VISIBLE);
+                getPresenter().searchPairedList();
+            }
+        });
+
     }
 
     @Override
@@ -244,7 +255,11 @@ public class SettingActivity extends BaseActivity<SettingContract.Presenter, Set
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-//                Toast.makeText(SettingActivity.this, "蓝牙关闭nnnnn", Toast.LENGTH_SHORT).show();
+                linearBlue.setVisibility(View.GONE);
+                pairedDataListList.clear();
+                unPairedDataListList.clear();
+                avaAdapter.notifyDataSetChanged();
+                pairAdapter.notifyDataSetChanged();
             }
         });
     }
