@@ -1,19 +1,15 @@
 package com.jancar.bluetooth.phone.view.fragment;
 
-import com.jancar.bluetooth.lib.BluetoothDeviceData;
-import com.jancar.bluetooth.lib.BluetoothManager;
-import com.jancar.bluetooth.phone.R;
-import com.ui.mvp.view.support.BaseFragment;
-import com.jancar.bluetooth.phone.contract.SettingContract;
-import com.jancar.bluetooth.phone.presenter.SettingPresenter;
-
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
+import com.jancar.bluetooth.lib.BluetoothManager;
+import com.jancar.bluetooth.phone.R;
+import com.jancar.bluetooth.phone.contract.SettingContract;
+import com.jancar.bluetooth.phone.presenter.SettingPresenter;
+import com.ui.mvp.view.support.BaseFragment;
 
 /**
  * @author Tzq

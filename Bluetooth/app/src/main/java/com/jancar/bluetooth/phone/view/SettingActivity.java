@@ -296,7 +296,10 @@ public class SettingActivity extends BaseActivity<SettingContract.Presenter, Set
             public void run() {
                 tvSearch.setVisibility(View.GONE);
                 linearSearch.setVisibility(View.VISIBLE);
-                animationDrawable.start();
+                if (!animationDrawable.isRunning()) {
+                    animationDrawable.start();
+                }
+
             }
         });
     }
@@ -306,7 +309,9 @@ public class SettingActivity extends BaseActivity<SettingContract.Presenter, Set
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                animationDrawable.stop();
+                if (animationDrawable.isRunning()) {
+                    animationDrawable.stop();
+                }
                 linearSearch.setVisibility(View.GONE);
                 tvSearch.setVisibility(View.VISIBLE);
             }
