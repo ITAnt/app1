@@ -70,7 +70,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     private boolean isBTon;
     private String tvBlutName;
     private boolean hidden = false;
-
+    BluetoothManager bluetoothManager;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -81,10 +81,10 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     public void onResume() {
         super.onResume();
         if (!hidden) {
-            getBluetManger().registerBTSettingListener(this);
+            bluetoothManager.registerBTSettingListener(this);
             tvBlutName = mPresenter.getBlutoothName();
             tvBtName.setText(tvBlutName);
-            getBluetManger().getBondDevice();
+            bluetoothManager.getBondDevice();
         }
 
     }
@@ -94,10 +94,10 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         super.onHiddenChanged(hidden);
         this.hidden = hidden;
         if (!hidden) {
-            getBluetManger().registerBTSettingListener(this);
+            bluetoothManager.registerBTSettingListener(this);
             tvBlutName = mPresenter.getBlutoothName();
             tvBtName.setText(tvBlutName);
-            getBluetManger().getBondDevice();
+            bluetoothManager.getBondDevice();
         }
     }
 
@@ -105,7 +105,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     public void onDestroy() {
         super.onDestroy();
         //    unbinder.unbind();
-        getBluetManger().unRegisterBTSettingListener(this);
+        bluetoothManager.unRegisterBTSettingListener(this);
     }
 
     @Override
@@ -152,8 +152,9 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        isBTon = mPresenter.isBTOn();
-        isDisCovering = getBluetManger().getBTIsDisCovering();
+        bluetoothManager=BluetoothManager.getBluetoothManagerInstance(getContext());
+        isBTon = bluetoothManager.isBTOn();
+        isDisCovering = bluetoothManager.getBTIsDisCovering();
         ivSearch.setImageResource(R.drawable.loading_animation);
         tvBlutName = mPresenter.getBlutoothName();
         tvBtName.setText(tvBlutName);
@@ -226,7 +227,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                     tvCheckSw.setText(R.string.tv_setting_check_des);
 
                 }
-                getBluetManger().setBTIsDisCovering(isDisCovering);
+                bluetoothManager.setBTIsDisCovering(isDisCovering);
                 break;
             case R.id.iv_setting_switch:
                 isBTon = !isBTon;
@@ -407,7 +408,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
 
     @Override
     public BluetoothManager getBluetManger() {
-        return BluetoothManager.getBluetoothManagerInstance(getContext());
+        return bluetoothManager;
 
     }
 }

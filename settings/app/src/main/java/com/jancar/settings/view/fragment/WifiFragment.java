@@ -102,12 +102,11 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
     private WifiListAdapter mScanAdapter;
     //    private WifiListAdapter mSavedAdapter;
     private WifiSavedListAdapter mSavedAdapter;
-
+    private  WifiReceiver mReceiver;
     List<ScanResult> mScanResults = new ArrayList<ScanResult>();
     List<ScanResult> mSavedResultsShow = new ArrayList<ScanResult>();
     private View view;
-    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-
+    class WifiReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
 
@@ -191,8 +190,15 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
                     mSavedAdapter.notifyDataSetChanged();
                 }
             }
+
         }
-    };
+    }
+   /* private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+    };*/
 
     private void handleNetWorkStateChanged() {
         Log.d(TAG, "handleNetWorkStateChanged");
@@ -325,6 +331,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
         super.onDestroy();
         mBgThread.quit();
         mWifiController.setInstance();
+
         getActivity().unregisterReceiver(mReceiver);
     }
 
@@ -493,6 +500,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
         filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
         filter.addAction(WifiManager.RSSI_CHANGED_ACTION);
         filter.addAction(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION);
+        mReceiver = new WifiReceiver();
         getActivity().registerReceiver(mReceiver, filter);
     }
 
