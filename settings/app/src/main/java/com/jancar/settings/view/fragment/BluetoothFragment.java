@@ -60,6 +60,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     TextView tvDelAll;
     ListView listAvailable;                 //可用设备列表
     TextView tvSearch;
+    LinearLayout linearBlue;
     private AnimationDrawable animationDrawable;
     BluetoothAdapter pairAdapter, avaAdapter;
     SettingDialog settingDialog;
@@ -130,6 +131,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
             tvPaired = (TextView) view.findViewById(R.id.tv_paired);
             tvDelAll = (TextView) view.findViewById(R.id.tv_del_all);
             tvSearch = (TextView) view.findViewById(R.id.tv_setting_search);
+            linearBlue = view.findViewById(R.id.liner_open_blue);
             ivOnSw.setOnClickListener(this);
             ivCheckSw.setOnClickListener(this);
             tvDelAll.setOnClickListener(this);
@@ -197,8 +199,10 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         if (isBTon) {
             tvClose.setText("打开");
             mPresenter.searchPairedList();
+            linearBlue.setVisibility(View.VISIBLE);
         } else {
             tvClose.setText("关闭");
+            linearBlue.setVisibility(View.GONE);
 
         }
         if (isDisCovering) {
@@ -280,7 +284,15 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
 
     @Override
     public void onNotifyBTSwitchStateOn() {
-        mPresenter.searchPairedList();
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                linearBlue.setVisibility(View.VISIBLE);
+                mPresenter.searchPairedList();
+            }
+        });
+
+
     }
 
     @Override
@@ -288,7 +300,13 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getContext(), "蓝牙关闭nnnnn", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "蓝牙关闭nnnnn", Toast.LENGTH_SHORT).show();
+                pairedDataListList.clear();
+                unPairedDataListList.clear();
+                pairAdapter.notifyDataSetChanged();
+                avaAdapter.notifyDataSetChanged();
+                linearBlue.setVisibility(View.GONE);
+
             }
         });
     }
