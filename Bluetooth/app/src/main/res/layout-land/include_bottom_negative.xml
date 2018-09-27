@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
-    android:background="@drawable/bg"
+    android:background="@drawable/btn_bt_dail_n"
     android:orientation="horizontal">
     <!--拨号键盘-->
     <RelativeLayout
@@ -21,7 +21,7 @@
             android:drawablePadding="@dimen/bar"
             android:drawableTop="@drawable/btn_bt_keypad_n"
             android:gravity="center_horizontal"
-            android:text="拨号键盘" />
+            android:text="@string/tv_main_keypad" />
 
     </RelativeLayout>
 
@@ -48,7 +48,7 @@
             android:drawablePadding="@dimen/bar"
             android:drawableTop="@drawable/btn_bt_contacts_n"
             android:gravity="center_horizontal"
-            android:text="联系人" />
+            android:text="@string/tv_mian_contact" />
 
     </RelativeLayout>
 
@@ -76,7 +76,7 @@
             android:drawablePadding="@dimen/bar"
             android:drawableTop="@drawable/btn_bt_mail_list_n"
             android:gravity="center_horizontal"
-            android:text="通话记录" />
+            android:text="@string/tv_main_records" />
     </RelativeLayout>
 
     <ImageView
@@ -102,7 +102,7 @@
             android:drawablePadding="@dimen/bar"
             android:drawableTop="@drawable/btn_bt_device_management__n"
             android:gravity="center_horizontal"
-            android:text="设备管理" />
+            android:text="@string/tv_mian_mange" />
     </RelativeLayout>
 
 </LinearLayout>

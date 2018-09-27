@@ -1,11 +1,14 @@
 package com.jancar.bluetooth.phone.view;
 
+import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +21,7 @@ import com.jancar.bluetooth.Listener.BTPhoneCallListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.lib.BluetoothPhoneBookData;
 import com.jancar.bluetooth.lib.BluetoothPhoneClass;
+import com.jancar.bluetooth.phone.BuildConfig;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.contract.CommunicateContract;
 import com.jancar.bluetooth.phone.presenter.CommunicatePresenter;
@@ -25,6 +29,7 @@ import com.jancar.bluetooth.phone.util.AnimationUtils;
 import com.jancar.bluetooth.phone.util.TimeUtil;
 import com.ui.mvp.view.BaseActivity;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -41,7 +46,7 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
     private WindowManager.LayoutParams mLayoutParams1;
 
     private TextView tvNumber;              //拨号号码
-    private TextView tvNumberType;          //号码运营商
+    private TextView tvNumberName;          //号码运营商
     private TextView tvCommunType;          //通话类型
     private ImageView ivVoice;              //静音
     private ImageView ivKeyPad;             //键盘
@@ -102,6 +107,7 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
     private String EXTRA_FULL_DISPLAY = "full_display";               //是否全屏显示 boollean
     private boolean isFull;//是否全屏
     private boolean saveIsFull = true;//记忆是否是全屏状态，切换屏幕用
+    private BluetoothManager bluetoothManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,26 +116,26 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
         initView();
         findView();
         handIntent(intent);
-        getManager().registerCallOnKeyEvent();
+        bluetoothManager = BluetoothManager.getBluetoothManagerInstance(this.getApplicationContext());
+        bluetoothManager.registerCallOnKeyEvent();
+        bluetoothManager.registerBTPhoneListener(this);
         saveIsFull = isFull;
+        showView();
+        updataView(mCallType, mCallNumber);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getManager().registerBTPhoneListener(this);
-        showView();
-        ivVoice.setEnabled(false);
-        ivKeyPad.setEnabled(false);
-        ivVehicle.setEnabled(false);
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         destroyView();
-        getManager().unregisterBTPhoneListener();
-        getManager().unRegisterCallOnKeyEvent();
+        bluetoothManager.unregisterBTPhoneListener();
+        bluetoothManager.unRegisterCallOnKeyEvent();
     }
 
     @Override
@@ -214,7 +220,7 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
         mCallType = intent.getIntExtra(CAll_TYPE_TAG, BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_NONE);
         mCallNumber = intent.getStringExtra(CALL_NUMBER_TAG);
         isFull = intent.getBooleanExtra(EXTRA_FULL_DISPLAY, false);
-        updataView(mCallType, mCallNumber);
+
     }
 
     private void showView() {
@@ -236,6 +242,10 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        String className = getTopActivityInfo();
+        if (className.equals("com.jancar.launcher.MainActivity")) {
+            return;
+        }
         handIntent(intent);
         if (isFull != saveIsFull) {
             if (isFull == false) {
@@ -249,6 +259,18 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
         saveIsFull = isFull;
         updataView(mCallType, mCallNumber);
 
+    }
+
+    private String getTopActivityInfo() {
+        String className = "";
+        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> runningTaskInfos = activityManager.getRunningTasks(2);
+        if (runningTaskInfos != null && runningTaskInfos.size() > 1) {
+            ComponentName componentName = runningTaskInfos.get(1).topActivity;
+            className = componentName.getClassName();
+        }
+//        Log.e(TAG, "getTopActivityInfo"+className);
+        return className;
     }
 
     private void initView() {
@@ -278,7 +300,7 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
     private void findView() {
         findkeyoardView();
         tvNumber = phoneView.findViewById(R.id.tv_comm_message_number);
-        tvNumberType = phoneView.findViewById(R.id.tv_comm_message_type);
+        tvNumberName = phoneView.findViewById(R.id.tv_comm_message_type);
         tvCommunType = phoneView.findViewById(R.id.tv_comm_message_direction);
         ivHangUp = phoneView.findViewById(R.id.iv_comm_message_hangup);
         ivVoice = phoneView.findViewById(R.id.iv_comm_message_voice);
@@ -292,6 +314,11 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
         linearAnswer = phoneView.findViewById(R.id.linear_answer);
         linearVehicle = phoneView.findViewById(R.id.liner_vehicle);
         linearInputKey = phoneView.findViewById(R.id.liner_comm_key);
+
+        ivVoice.setEnabled(false);
+        ivKeyPad.setEnabled(false);
+        ivVehicle.setEnabled(false);
+
         ivHangUp.setOnClickListener(this);
         ivVoice.setOnClickListener(this);
         ivKeyPad.setOnClickListener(this);
@@ -356,6 +383,7 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
     private void destroyView() {
         if (isFull) {
             mWindowManager.removeViewImmediate(phoneView);
+            Log.d("CommunicateActivity", "mm");
         } else {
             mWindowManager.removeViewImmediate(haifView);
         }
@@ -371,17 +399,17 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
         String name = null;
         if (callNum == null) {
             tvNumber.setText(R.string.str_phone_unkonow);
-            tvNumberType.setText(R.string.str_phone_unkonow);
+            tvNumberName.setText(R.string.str_phone_unkonow);
         } else {
             if ((mCallNumber != null) && (!callNum.equals(mCallNumber))) {
                 mCallNumber = callNum;
                 tvNumber.setText(mCallNumber);
-                tvHalfNumber.setText(mCallNumber);
 
             } else if (mCallNumber == null) {
                 mCallNumber = callNum;
                 tvNumber.setText(mCallNumber);
-                tvHalfNumber.setText(mCallNumber);
+            } else {
+                tvNumber.setText(mCallNumber);
             }
         }
         if (mCallNumber != null) {
@@ -397,12 +425,11 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
         }
         if (name == null || name.equals("")) {
             mCallName = getResources().getString(R.string.str_phone_unkonow);
-            tvNumberType.setText(mCallName);
-            tvHalfName.setText(mCallName);
+            tvNumberName.setText(mCallName);
         } else {
             mCallName = name;
-            tvNumberType.setText(mCallName);
-            tvHalfName.setText(mCallName);
+            tvNumberName.setText(mCallName);
+
         }
         switch (calltype) {
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_DIALING:
@@ -421,7 +448,7 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
                 break;
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_INCOMING:
                 mCallPhoneType = CALLHISTROY_TYPE_MISSED;
-                tvNumberType.setText(R.string.str_phone_missed);
+                tvNumberName.setText(R.string.str_phone_missed);
                 tvHalfComing.setText(R.string.str_phone_missed);
                 linearKey.setVisibility(View.INVISIBLE);
                 linearVoice.setVisibility(View.INVISIBLE);
@@ -454,6 +481,7 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
                 }
                 break;
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_TERMINATED:
+                Log.d("CommunicateActivity", "nnnnnnnn");
                 BluetoothPhoneBookData bluetoothPhoneBookData = new BluetoothPhoneBookData();
                 bluetoothPhoneBookData.setPhoneName(mCallName);
                 bluetoothPhoneBookData.setPhoneNumber(mCallNumber);
@@ -468,8 +496,8 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
 
         String name = null;
         if (callNum == null) {
-            tvNumber.setText(R.string.str_phone_unkonow);
-            tvNumberType.setText(R.string.str_phone_unkonow);
+            tvHalfNumber.setText(R.string.str_phone_unkonow);
+            tvHalfName.setText(R.string.str_phone_unkonow);
         } else {
             if ((mCallNumber != null) && (!callNum.equals(mCallNumber))) {
                 mCallNumber = callNum;
@@ -477,6 +505,8 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
 
             } else if (mCallNumber == null) {
                 mCallNumber = callNum;
+                tvHalfNumber.setText(mCallNumber);
+            } else {
                 tvHalfNumber.setText(mCallNumber);
             }
         }
@@ -603,7 +633,7 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
 
     @Override
     public BluetoothManager getManager() {
-        BluetoothManager bluetoothManager = BluetoothManager.getBluetoothManagerInstance(getUIContext());
+
         return bluetoothManager;
     }
 
@@ -621,6 +651,7 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
                 } else {
                     getPresenter().terminateCall();
                 }
+                this.finish();
                 break;
             case R.id.iv_comm_message_voice:
                 if (getPresenter().isMicMute()) {

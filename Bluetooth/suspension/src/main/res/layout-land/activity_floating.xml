@@ -37,36 +37,68 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/iv_sus_bg_left"
-            android:gravity="center_vertical">
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/iv_sus_bg_left">
 
             <ImageView
                 android:id="@+id/iv_sus_del"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/px10"
-                android:background="@drawable/sus_del_selector" />
+                android:background="@drawable/iv_sus_del_nomal" />
 
             <ImageView
                 android:id="@+id/sus_voice_add_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/px110"
-                android:background="@drawable/sus_voice_add_selector_left" />
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/px40"
+                android:layout_toRightOf="@+id/iv_sus_del"
+                android:background="@drawable/iv_sus_voice_nomal_l" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/sus_power_selector" />
+                android:layout_marginLeft="@dimen/px10"
+                android:layout_marginTop="@dimen/px40"
+                android:background="@drawable/iv_sus_power_nomal" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px10"
+                android:layout_marginTop="@dimen/px240"
+                android:background="@drawable/iv_sus_back_nomal_l" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px20"
+                android:layout_marginTop="@dimen/px65"
+                android:layout_toRightOf="@+id/iv_sus_del"
+                android:background="@drawable/iv_sus_home_nomal" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px20"
+                android:layout_marginTop="@dimen/px210"
+                android:layout_toRightOf="@+id/iv_sus_del"
+                android:background="@drawable/iv_sus_voice_red_nomal_l" />
         </RelativeLayout>
+
+        <TextView
+            android:layout_width="@dimen/px300"
+            android:layout_height="@dimen/px50"
+            android:layout_marginLeft="500px"
+            android:layout_marginTop="@dimen/px180"
+            android:drawableRight="@drawable/iv_sus_back_nomal_l" />
+
     </LinearLayout>
 </LinearLayout>

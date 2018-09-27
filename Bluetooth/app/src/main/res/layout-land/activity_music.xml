@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_music"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -33,7 +34,7 @@
                 android:progressDrawable="@drawable/music_seekbar_img"
                 android:splitTrack="false"
                 android:thumb="@drawable/music_progress_icon"
-                android:thumbOffset="0dp" />
+                android:thumbOffset="@dimen/px5" />
 
             <TextView
                 android:id="@+id/tv_music_play_total_time"
@@ -61,8 +62,8 @@
                 android:id="@+id/iv_music_play"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/px200"
-                android:layout_marginRight="@dimen/px200"
+                android:layout_marginLeft="@dimen/px100"
+                android:layout_marginRight="@dimen/px100"
                 android:src="@drawable/music_play_selector" />
 
             <ImageView
@@ -97,32 +98,32 @@
 
             <TextView
                 android:id="@+id/tv_music_title"
-                style="@style/txt_normal_px22"
+                style="@style/txt_normal_px30"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/music_name"
                 android:drawablePadding="@dimen/px30"
-                android:text="我的滑板鞋" />
+                tools:text="我的滑板鞋" />
 
             <TextView
                 android:id="@+id/tv_music_album"
-                style="@style/txt_normal_px22"
+                style="@style/txt_normal_px30"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/px44"
                 android:drawableLeft="@drawable/music_disc"
                 android:drawablePadding="@dimen/px30"
-                android:text="天籁之战" />
+                tools:text="天籁之战" />
 
             <TextView
                 android:id="@+id/tv_music_artist"
-                style="@style/txt_normal_px22"
+                style="@style/txt_normal_px30"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/px44"
                 android:drawableLeft="@drawable/music_author"
                 android:drawablePadding="@dimen/px30"
-                android:text="华晨宇" />
+                tools:text="华晨宇" />
         </LinearLayout>
 
     </LinearLayout>

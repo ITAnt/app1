@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.RemoteException;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -25,8 +26,7 @@ import com.jancar.key.KeyDef;
 import com.jancar.key.keyFocuser;
 import com.ui.mvp.view.BaseActivity;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -37,7 +37,7 @@ import static com.jancar.key.KeyDef.KeyAction.KEY_ACTION_UP;
  * @author Tzq
  * @date 2018-9-4 16:00:22
  */
-public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicContract.View> implements MusicContract.View, BTMusicListener {
+public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicContract.View> implements MusicContract.View, BTMusicListener, View.OnClickListener {
 
     private final int MSG_INIT_OK = 0;
     private final int MSG_UI_REFRESH_ID3_INFO = 1;
@@ -50,117 +50,54 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     private int musicTotalLength = 0;
     private int musicPlayingTime = 0;
     Unbinder unbinder;
-    @BindView(R.id.tv_music_playTime)
     TextView tvPlayTime;
-    @BindView(R.id.tv_music_play_total_time)
     TextView tvPlayTotalTime;
-    @BindView(R.id.seekbar_btmusic)
     SeekBar seekBar;
-    @BindView(R.id.iv_music_play)
     ImageView ivPlay;
-    @BindView(R.id.tv_music_title)
     TextView tvTitle;
-    @BindView(R.id.tv_music_album)
     TextView tvAlbum;
-    @BindView(R.id.tv_music_artist)
     TextView tvArtist;
-    private boolean isPlay;
-    private AudioManager audioManager;
-    private JancarServer jancarServer;
+    private boolean isPlay = false;
+    private RegisterMediaSession registerMediaSession;
+    private BluetoothRequestFocus bluetoothRequestFocus;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music);
-        unbinder = ButterKnife.bind(this);
+        tvPlayTime = (TextView) findViewById(R.id.tv_music_playTime);
+        tvPlayTotalTime = (TextView) findViewById(R.id.tv_music_play_total_time);
+        seekBar = (SeekBar) findViewById(R.id.seekbar_btmusic);
+        ivPlay = (ImageView) findViewById(R.id.iv_music_play);
+        tvTitle = (TextView) findViewById(R.id.tv_music_title);
+        tvAlbum = (TextView) findViewById(R.id.tv_music_album);
+        tvArtist = (TextView) findViewById(R.id.tv_music_artist);
+        findViewById(R.id.iv_music_pre).setOnClickListener(this);
+        findViewById(R.id.iv_music_next).setOnClickListener(this);
+        findViewById(R.id.iv_music_play).setOnClickListener(this);
         bluetoothManager = BluetoothManager.getBluetoothManagerInstance(this);
         seekBar.setEnabled(false);
         updateMusicPlayingProgress(CMD_UPDATE_PLAY_STATUS, mDefaultMusicLong, mDefaultPlayingTime);
         updatePlayingStatus(mDefaultMusicLong, mDefaultPlayingTime, (byte) 0);
-        jancarServer = (JancarServer) getSystemService(JancarServer.JAC_SERVICE);
-        jancarServer.requestKeyFocus(keyFocusListener);
+
     }
-
-    private keyFocuser keyFocusListener = new keyFocuser() {
-
-        @Override
-        public int getDescriptor() throws RemoteException {
-            return super.getDescriptor();
-        }
-
-        @Override
-        public boolean OnKeyEvent(int key, int state) {
-
-            boolean bRet = true;
-            KeyDef.KeyType keyType = KeyDef.KeyType.nativeToType(key);
-            KeyDef.KeyAction keyAction = KeyDef.KeyAction.nativeToType(state);
-            switch (keyType) {
-                case KEY_PREV:
-                    if (keyAction == KEY_ACTION_UP) {
-                        bluetoothManager.prev();
-                    }
-                    break;
-                case KEY_NEXT:
-                    if (keyAction == KEY_ACTION_UP) {
-                        bluetoothManager.next();
-                    }
-                    break;
-                default:
-                    bRet = false;
-                    break;
-            }
-            return bRet;
-        }
-
-        @Override
-        public void OnKeyFocusChange(int ifocus) {
-        }
-    };
 
     @Override
     protected void onStart() {
-        requestAudioFoucse();
+        bluetoothRequestFocus = BluetoothRequestFocus.getBluetoothRequestFocusStance(this);
+        Log.d("MusicActivity", "bluetoothRequestFocus.isNeedGainFocus():" + bluetoothRequestFocus.isNeedGainFocus());
+        if (!bluetoothRequestFocus.isNeedGainFocus()) {
+            bluetoothRequestFocus.requestAudioFocus();
+        }
+        bluetoothManager.setPlayerState(true);
+        if (!isPlay) {
+            bluetoothManager.play();
+        }
+        registerMediaSession = new RegisterMediaSession(this, bluetoothManager);
+        registerMediaSession.requestMediaButton();
         super.onStart();
     }
-
-    private void requestAudioFoucse() {
-
-        audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-        audioManager.requestAudioFocus(mAudioFocusListener, AudioManager.STREAM_MUSIC,
-                AudioManager.AUDIOFOCUS_GAIN);
-    }
-
-    private AudioManager.OnAudioFocusChangeListener mAudioFocusListener = new AudioManager.OnAudioFocusChangeListener() {
-        @Override
-        public void onAudioFocusChange(int focusChange) {
-            switch (focusChange) {
-                case AudioManager.AUDIOFOCUS_GAIN:
-                    bluetoothManager.setPlayerState(true);
-                    if (!isPlay) {
-                        bluetoothManager.play();
-                    }
-                    break;
-                case AudioManager.AUDIOFOCUS_LOSS:
-                    bluetoothManager.setPlayerState(false);
-                    if (isPlay) {
-                        bluetoothManager.pause();
-                    }
-                    if (mAudioFocusListener != null) {
-                        audioManager.abandonAudioFocus(mAudioFocusListener);
-                    }
-                    break;
-                case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
-                    bluetoothManager.setPlayerState(false);
-                    if (isPlay) {
-                        bluetoothManager.pause();
-                    }
-                    break;
-                case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
-                    break;
-            }
-        }
-    };
 
 
     @Override
@@ -180,11 +117,8 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         if (isPlay) {
             bluetoothManager.pause();
         }
-        if (mAudioFocusListener != null) {
-            audioManager.abandonAudioFocus(mAudioFocusListener);
-        }
         bluetoothManager.unRegisterBTMusicListener();
-        jancarServer.abandonKeyFocus(keyFocusListener);
+        registerMediaSession.releaseMediaButton();
     }
 
     @Override
@@ -204,15 +138,18 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
             super.handleMessage(msg);
             switch (msg.what) {
                 case MSG_INIT_OK:
+                    Log.d("MusicActivity", "MSG_INIT_OK:" + MSG_INIT_OK);
                     BluetoothMusicData bluetoothMusicData = bluetoothManager.getBlueMusicData();
                     updateMetadata(bluetoothMusicData.getTitle(), bluetoothMusicData.getArtist(), bluetoothMusicData.getAlbum());
                     updatePlaybackStatus(bluetoothMusicData.getPlay_status(), bluetoothMusicData.getSong_len(), bluetoothMusicData.getSong_pos());
                     break;
                 case MSG_UI_REFRESH_ID3_INFO:
+                    Log.d("MusicActivity", "MSG_UI_REFRESH_ID3_INFO:" + MSG_UI_REFRESH_ID3_INFO);
                     BluetoothMusicData blueMusic = (BluetoothMusicData) msg.obj;
                     updateMetadata(blueMusic.getTitle(), blueMusic.getArtist(), blueMusic.getAlbum());
                     break;
                 case MSG_UI_REFRESH_PLAY_STATE:
+                    Log.d("MusicActivity", "MSG_UI_REFRESH_PLAY_STATE:" + MSG_UI_REFRESH_PLAY_STATE);
                     BluetoothMusicData blueMusicStatus = (BluetoothMusicData) msg.obj;
                     updatePlaybackStatus(blueMusicStatus.getPlay_status(), blueMusicStatus.getSong_len(), blueMusicStatus.getSong_pos());
                     break;
@@ -250,15 +187,18 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
 
 
     private void updatePlaybackStatus(byte play_status, int song_len, int song_pos) {
+        Log.d("MusicActivity", "play_status:" + play_status);
         switch (play_status) {
             case BluetoothManager.MUSIC_STATE_PLAY:
                 ivPlay.setImageResource(R.drawable.music_pause_selector);
                 isPlay = true;
+                Log.d("MusicActivity", "isPlay111:" + isPlay);
                 break;
             case BluetoothManager.MUSIC_STATE_PAUSE:
             case BluetoothManager.MUSIC_STATE_STOP:
                 ivPlay.setImageResource(R.drawable.music_play_selector);
                 isPlay = false;
+                Log.d("MusicActivity", "isPlay222:" + isPlay);
                 break;
         }
         if (song_len == 0) {
@@ -343,10 +283,34 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         tvPlayTime.setText(pos);//播放的时间
     }
 
-    @OnClick({R.id.iv_music_pre, R.id.iv_music_next, R.id.iv_music_play})
-    public void onclick(View view) {
+    @Override
+    public void onNotifyBTMusicInitSuccess() {
+        Log.d("MusicActivity", "InitSuccess");
+        UIHandler.sendEmptyMessage(MSG_INIT_OK);
+    }
+
+    @Override
+    public void onNotifyBTMusicID3Info(final BluetoothMusicData bluetoothMusicData) {
+        Log.d("MusicActivity", "ID3Info");
+        Message msg = UIHandler.obtainMessage();
+        msg.what = MSG_UI_REFRESH_ID3_INFO;
+        msg.obj = bluetoothMusicData;
+        msg.sendToTarget();
+    }
+
+    @Override
+    public void onNotifyBTMusicPlayState(final BluetoothMusicData bluetoothMusicData) {
+        Log.d("MusicActivity", "PlayState");
+        Message msg = UIHandler.obtainMessage();
+        msg.what = MSG_UI_REFRESH_PLAY_STATE;
+        msg.obj = bluetoothMusicData;
+        msg.sendToTarget();
+    }
+
+    @Override
+    public void onClick(View view) {
         if (!bluetoothManager.isConnect()) {
-            ToastUtil.ShowToast(this, "蓝牙未连接");
+            ToastUtil.ShowToast(MusicActivity.this, getString(R.string.tv_bt_connect_is_close));
             return;
         }
         switch (view.getId()) {
@@ -366,28 +330,6 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                 }
                 break;
         }
-    }
-
-
-    @Override
-    public void onNotifyBTMusicInitSuccess() {
-        UIHandler.sendEmptyMessage(MSG_INIT_OK);
-    }
-
-    @Override
-    public void onNotifyBTMusicID3Info(final BluetoothMusicData bluetoothMusicData) {
-        Message msg = UIHandler.obtainMessage();
-        msg.what = MSG_UI_REFRESH_ID3_INFO;
-        msg.obj = bluetoothMusicData;
-        msg.sendToTarget();
-    }
-
-    @Override
-    public void onNotifyBTMusicPlayState(final BluetoothMusicData bluetoothMusicData) {
-        Message msg = UIHandler.obtainMessage();
-        msg.what = MSG_UI_REFRESH_PLAY_STATE;
-        msg.obj = bluetoothMusicData;
-        msg.sendToTarget();
 
     }
 }

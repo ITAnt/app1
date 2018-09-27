@@ -31,7 +31,7 @@
             android:layout_toLeftOf="@+id/iv_contanct_synchronous"
             android:background="@drawable/edit_search_bg"
             android:drawableLeft="@drawable/iv_contact_search_icon"
-            android:hint="搜索"
+            android:hint="@string/tv_contact_search"
             android:maxLines="1"
             android:paddingLeft="@dimen/px15"
             android:textColorHint="@color/tipColor" />
@@ -61,10 +61,12 @@
         <ListView
             android:id="@+id/contact_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="500px"
             android:layout_marginRight="@dimen/px10"
             android:layout_toLeftOf="@+id/item_sidebar"
             android:paddingLeft="@dimen/px50"
+            android:divider="#00000000"
+            android:dividerHeight="@dimen/px5"
             tools:listitem="@layout/item_contact_list" />
     </RelativeLayout>
 

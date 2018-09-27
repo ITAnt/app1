@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/px20"
-        android:text="中国移动" />
+        tools:text="中国移动" />
 
     <TextView
         android:id="@+id/tv_comm_message_number"
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/px20"
-        android:text="100861100000" />
+        tools:text="100861100000" />
 
     <TextView
         android:id="@+id/tv_comm_message_direction"
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/px20"
-        android:text="00:00:13" />
+        tools:text="00:00:13" />
 
     <LinearLayout
         android:layout_width="match_parent"

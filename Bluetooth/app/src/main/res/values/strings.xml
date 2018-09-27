@@ -37,4 +37,11 @@
     <string name="tv_record_error">同步通话记录错误！</string>
     <string name="tv_call_number_empty">号码不能为空</string>
     <string name="str_phone_name">未知</string>
+    <string name="tv_main_keypad">拨号键盘</string>
+    <string name="tv_mian_contact">联系人</string>
+    <string name="tv_main_records">通话记录</string>
+    <string name="tv_mian_mange">设备管理</string>
+    <string name="tv_contact_search">搜索</string>
+    <string name="tv_bluet_music">蓝牙音乐</string>
+    <string name="tv_dial_no_contact">暂无联系人</string>
 </resources>

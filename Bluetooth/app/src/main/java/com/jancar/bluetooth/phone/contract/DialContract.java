@@ -46,7 +46,7 @@ public interface DialContract {
          *
          * @param dialNumber
          */
-        void getDialContactList(String dialNumber);
+        void getDialContactList(String dialNumber,int type);
 
         /**
          * 根据输入的number的length，显示不同的格式
