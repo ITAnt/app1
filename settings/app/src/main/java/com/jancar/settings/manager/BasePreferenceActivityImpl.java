@@ -15,9 +15,12 @@
  */
 package com.jancar.settings.manager;
 
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.annotation.Nullable;
+import android.util.DisplayMetrics;
 
 import com.jancar.settings.listener.ActivityImpl;
 import com.jancar.settings.listener.IPresenter;
@@ -35,6 +38,7 @@ import com.jancar.settings.view.fragment.WifiFragment;
 import com.jancar.settings.view.fragment.WifiSpotFragment;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -73,8 +77,16 @@ public abstract class BasePreferenceActivityImpl<P extends IPresenter> extends P
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        initLocaleLanguage();
         super.onCreate(savedInstanceState);
         initData(savedInstanceState);
+    }
+    public void initLocaleLanguage() {
+        Resources resources = getResources();                    // 获得res资源对象
+        Configuration config = resources.getConfiguration();     // 获得设置对象
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        config.locale = Locale.getDefault();
+        resources.updateConfiguration(config, dm);
     }
 
     @Override

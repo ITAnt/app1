@@ -28,6 +28,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -39,6 +42,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.internal.telephony.DctConstants;
 import com.jancar.settings.R;
@@ -134,8 +138,6 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
                     if (mWifiController.STATE_CONNECTED == mWifiController.getConnectionState()) {
                         if (mSavedResultsShow.size() > 0) {
                             //  mSavedResultsShow.
-
-
                             mScanResults.addAll(0, mSavedResultsShow);
                             mScanResults = removeDuplicate(mScanResults);
                             mScanAdapter.setmSavedResultsShow(mSavedResultsShow);
@@ -155,12 +157,13 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
                     Log.d(TAG, "qyp onReceive: NETWORK_STATE_CHANGED_ACTION" + info.getState());
                     mWifiController.setConnectionState(mWifiController.STATE_DISCONNECTED);
                  /*   if (mScanResults.size() != mSavedResultsShow.size()) {
-                        loadingStopRefresh();
+
                     }*/
 
                 } else if (NetworkInfo.State.DISCONNECTING.equals(info.getState())) {
                     mWifiController.setConnectionState(mWifiController.STATE_DISCONNECTING);
                 } else if (NetworkInfo.State.CONNECTED.equals(info.getState())) {
+                    loadingStopRefresh();
                     mWifiController.setConnectionState(mWifiController.STATE_CONNECTED);
 
 
@@ -220,7 +223,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
         for (int i = 0; i < list.size() - 1; i++) {
             for (int j = list.size() - 1; j > i; j--) {
                 if (list.get(j).SSID.equals(list.get(i).SSID)) {
-                    list.remove(j);
+                    list.remove( j);
                 }
             }
         }
@@ -315,6 +318,11 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
         mScanAdapter.setOnClickListener(this);
         mScanList.setAdapter(mScanAdapter);
         //  mScanList.setOnItemClickListener(mScanListener);
+        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.anim_item);
+        LayoutAnimationController controller = new LayoutAnimationController(animation);
+        controller.setDelay(0.5f);
+        controller.setOrder(LayoutAnimationController.ORDER_NORMAL);
+        mScanList.setLayoutAnimation(controller);
 
         //saved_result
         mSavedAdapter = new WifiSavedListAdapter(this.getContext(), mSavedResultsShow);
@@ -390,11 +398,18 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
                         mWifiController.disConnect();
                         String password = wifiPassword.getText().toString();
                         WifiConfiguration config = mWifiController.createWifiConfig(finalSSID, password, finalType);
-                        mWifiController.connect(config);
+                       int i=   mWifiController.connect(config);
+
                         //when we change the click the item, we need update state
                         mWifiController.setConnectionState(mWifiController.STATE_CONNECTING);
                         handleWifiScanResult();
-                        dialog.dismiss();
+                        if (i==-1){
+                            wifiPassword.setText("");
+                            Toast.makeText(mContext, "密码错误", Toast.LENGTH_SHORT).show();
+                        }else {
+
+                            dialog.dismiss();
+                        }
 
                         break;
                     case R.id.wifi_cancel_btn_scan:

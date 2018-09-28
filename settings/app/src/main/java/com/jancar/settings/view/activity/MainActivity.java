@@ -46,15 +46,48 @@ public class MainActivity extends BasePreferenceActivityImpl implements MainCont
     }
 
     @Override
+    protected void onPostResume() {
+        super.onPostResume();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.e("tag", "onNewINtent执行了");
+        setIntent(intent);
+        position = intent.getIntExtra("position", 0);
+        if (getListAdapter() != null) {
+            onHeaderClick((Header) getListAdapter().getItem(position), position);
+            Log.w("s", "onRestart");
+            if (mainHeaderListAdapter != null) {
+
+                mainHeaderListAdapter.setPosition(position);
+            }
+        }
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        //  position = getIntent().getIntExtra("position", 0);
+
+    }
+
+    @Override
     public int initView(@Nullable Bundle savedInstanceState) {
         return 0;
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        SettingManager.getSettingManager(this).setAutoBrightness(true);
+        Log.w("", "onPostResume");
+        initLocaleLanguage();
+        //   SettingManager.getSettingManager(this).setAutoBrightness(true);
         initlLayout();
         initList(savedInstanceState);
+        getListView().setVerticalScrollBarEnabled(false);
+        getListView().setScrollbarFadingEnabled(false);
         /*linearLayout*/
         if (savedInstanceState != null) {
             anInt = savedInstanceState.getInt("anInt");
@@ -110,23 +143,25 @@ public class MainActivity extends BasePreferenceActivityImpl implements MainCont
     @Override
     protected void onStart() {
         super.onStart();
-
+        Log.w("", "onStart");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-
+        Log.w("", "onStop");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        Log.w("", "onPause");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.w("", "onDestroy");
     }
 
     private Method noteStateNotSavedMethod;

@@ -291,8 +291,8 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
                 break;
             case R.id.fragment_time:
               //  String strTimeFormat = android.provider.Settings.System.getString(getContext().getContentResolver(), android.provider.Settings.System.TIME_12_24);
-                if (timeSystemSummaryTxt.getText().toString().equals("24小时制")) {
-                    if (adjustSummaryTxt.getText().toString().equals("关闭")) {
+                if (timeSystemSummaryTxt.getText().toString().equals( getResources().getString(R.string.label_24_hour_system))) {
+                    if (adjustSummaryTxt.getText().toString().equals(getResources().getString(R.string.label_adjust_off))) {
                         timeDialog = new TimePickerViewDialog(getContext(), R.style.record_voice_dialog);
                         timeDialog.setTimePickerViewCallBack(this);
                         timeDialog.show();
@@ -300,7 +300,7 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
                     }
 
                 } else {
-                    if (adjustSummaryTxt.getText().toString().equals("关闭")) {
+                    if (adjustSummaryTxt.getText().toString().equals(getResources().getString(R.string.label_adjust_off))) {
                         time12Dialog = new Time12PickerViewDialog(getContext(), R.style.record_voice_dialog);
                         time12Dialog.setTimePickerViewCallBack(this);
                         time12Dialog.show();
@@ -311,7 +311,7 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
 
                 break;
             case R.id.fragment_date:
-                if (adjustSummaryTxt.getText().toString().equals("关闭")) {
+                if (adjustSummaryTxt.getText().toString().equals(getResources().getString(R.string.label_adjust_off))) {
                     dateDialog = new DatePickerViewDialog(getContext());
                     dateDialog.setDatePickerViewDialogCallBack(this);
                     dateDialog.show();

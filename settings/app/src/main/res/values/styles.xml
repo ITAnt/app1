@@ -240,26 +240,24 @@
 
     <style name="style_seekbar">
         <item name="android:thumb">@drawable/seekbar_thumb</item>
-        <item name="android:thumbOffset">7px</item>
+        <item name="android:thumbOffset">0px</item>
         <item name="android:focusable">true</item>
         <item name="android:mirrorForRtl">true</item>
-        <item name="android:paddingTop">20dp</item>
-        <item name="android:paddingBottom">20dp</item>
+        <item name="android:paddingTop">@dimen/px20</item>
+        <item name="android:paddingBottom">@dimen/px20</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:maxWidth">@dimen/px280</item>
         <item name="android:progressDrawable">@drawable/seekbar_style</item>
     </style>
 
     <style name="style_img">
-        <item name="android:layout_width">40dp</item>
-        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:src">@mipmap/balance_right_s</item>
         <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
+
     </style>
 
     <style name="style_txt_dialog">
@@ -323,8 +321,8 @@
     <style name="txt_default_sound"></style>
 
     <style name="spinner">
-        <item name="android:layout_marginBottom">@dimen/px103</item>
-        <item name="android:layout_marginTop">@dimen/px58</item>
+        <item name="android:layout_marginBottom">@dimen/px123</item>
+        <item name="android:layout_marginTop">@dimen/px38</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>

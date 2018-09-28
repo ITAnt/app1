@@ -105,7 +105,7 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         mAudioEffectManager = new AudioEffectManager(getContext(), this, getActivity().getPackageName());
-        stringList = mPresenter.initList();
+        stringList = mPresenter.initList(getContext());
         adapter = new SoundListAdapter(getContext(), stringList);
         spinnerLlinear.setmSpinnerListener(this);
         spinnerLlinear.setAdapter(adapter);
@@ -113,7 +113,7 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
         SharedPreferences read = getActivity().getSharedPreferences("EQ", MODE_WORLD_READABLE);
         //步骤2：获取文件中的值
         value = read.getInt("Types", 0);
-        if (stringList.get(value).getName().equals("标准")) {
+        if (stringList.get(value).getName().equals( getResources().getString(R.string.txt_standard))) {
             onItemClick(null, null, 0, 1);
         }
         spinnerLlinear.setSpinnerOperatingText(stringList.get(value).getName());

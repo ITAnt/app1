@@ -288,25 +288,10 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         dialog.setContentView(R.layout.display_dialog_cleanup);
         final CircleProgressView mCircleProgressView = (CircleProgressView) dialog.findViewById(R.id.circle_progress_view);
         final TextView scheduleTxt = (TextView) dialog.findViewById(R.id.txt_schedule);
+        scheduleTxt.setText("0%");
         final TextView statusTxt = (TextView) dialog.findViewById(R.id.txt_status);
         mCircleProgressView.setAnime(true);
         mCircleProgressView.setMaxProgress(100);
-        @SuppressLint("HandlerLeak") final Handler handlers = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                switch (msg.what) {
-                    case 2:
-                        try {
-                            Thread.sleep(250);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        dialog.dismiss();
-                        break;
-                }
-            }
-        };
         @SuppressLint("HandlerLeak") final Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -321,8 +306,9 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                         statusTxt.setText(R.string.tab_clean_up);
                         mCircleProgressView.setProgress(100);
                         scheduleTxt.setText(100 + "%");
-                        msg.what = 2;
-                        handleMessage(msg);
+
+                        dialog.dismiss();
+                        Toast.makeText(getContext(), R.string.tab_clean_up, Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
 

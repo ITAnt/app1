@@ -76,6 +76,8 @@ public class DspBalance extends View {
         y_ajust = mObjPoint.getHeight() / 2;
         mHorizontalPaint.setColor(Color.RED);
         mVerticalPaint.setColor(Color.RED);
+        mHorizontalPaint.setStrokeWidth(2);//这个地方改线宽,单位是像素
+        mVerticalPaint.setStrokeWidth(2);//这个地方改线宽,单位是像素
     }
 
     public void setDefVal(int iMax) {
@@ -119,7 +121,7 @@ public class DspBalance extends View {
     protected void onDraw(Canvas canvas) {
         // TODO Auto-generated method stub
         super.onDraw(canvas);
-        canvas.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight(), mVerticalPaint);
+        canvas.drawLine(getWidth() / 2+3, 0, getWidth() / 2+3, getHeight(), mVerticalPaint);
         canvas.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2, mHorizontalPaint);
         canvas.drawBitmap(mObjPoint, mfBal - mObjPoint.getWidth() / 2, mfFad - mObjPoint.getHeight()
                 / 2, mVerticalPaints);

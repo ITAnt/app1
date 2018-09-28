@@ -36,9 +36,13 @@
 
 
                 <SeekBar
+
                     android:id="@+id/seekbar_dimming_day_value"
                     android:layout_centerVertical="true"
+                    android:layout_width="@dimen/px280"
+                    android:layout_height="@dimen/px45"
                     android:layout_toStartOf="@+id/txt_dimming_day_value"
+                    android:layout_toRightOf="@+id/txt_dimming_day_title"
                     style="@style/style_seekbar"/>
 
             </RelativeLayout>
@@ -71,6 +75,8 @@
 
 
                 <SeekBar
+                    android:layout_width="@dimen/px280"
+                    android:layout_height="@dimen/px45"
                     android:id="@+id/seekbar_dimming_night_value"
                     style="@style/style_seekbar"
                     android:layout_centerVertical="true"

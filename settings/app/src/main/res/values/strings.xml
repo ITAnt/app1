@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Settings</string>
+    <string name="app_name">设置</string>
     <string name="tab_bluetooth">蓝牙设置</string>
     <string name="tab_display">显示设置</string>
     <string name="tab_sound_effect">音效设置</string>
@@ -44,7 +44,7 @@
     <string name="wifi_add_network">添加网络</string>
     <string name="wifi_text_name_input">请输入SSID</string>
     <string name="wifi_text_need_password">需要密码</string>
-    <string name="wifi_text_state_none"> </string>
+    <string name="wifi_text_state_none">  </string>
     <string name="wifi_text_state_connected">已连接</string>
     <string name="wifi_text_state_connecting">正在连接</string>
     <string name="wifi_text_state_disconnected">连接断开</string>
@@ -82,7 +82,7 @@
     <string name="label_adjust_off">关闭</string>
     <string name="label_adjust_open">打开</string>
     <string name="label_time_zone">时区设置</string>
-    <string name="time_12_24" translatable="false">24</string>
+    <string name="time_12_24">24</string>
 
     <string name="hour_hint">时</string>
     <string name="minute_hint">分</string>
@@ -286,4 +286,11 @@
     <string name="tv_setting_search_ing">正在搜索设备...</string>
     <string name="tv_setting_start_search">开始搜索</string>
     <string name="tv_setting_available">可用设备</string>
+
+    <string name="txt_standard">标准</string>
+    <string name="txt_popular">流行</string>
+    <string name="txt_ock">摇滚</string>
+    <string name="txt_jazz">爵士</string>
+    <string name="txt_classical">古典</string>
+    <string name="txt_customize">自定义</string>
 </resources>
