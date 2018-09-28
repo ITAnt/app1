@@ -22,14 +22,16 @@ public class DialPresenter extends BaseModelPresenter<DialContract.View, DialMod
     }
 
     @Override
-    public void getDialContactList(String dialNumber) {
+    public void getDialContactList(String dialNumber, int type) {
         String trim = dialNumber.trim();
         if (CheckPhoneUtil.CheckPhoneNum(trim)) {
-            getUi().getManager().queryContactsByNumber(trim);
+            getUi().getManager().queryContactsByNumber(trim, type);
         } else {
-            getUi().getManager().queryContactsByName(trim);
+            getUi().getManager().queryContactsByName(trim,type);
         }
     }
+
+
 
     /**
      * 格式化号码
@@ -53,7 +55,7 @@ public class DialPresenter extends BaseModelPresenter<DialContract.View, DialMod
 
     @Override
     public String delNumber(String number) {
-        if (number != null) {
+        if (number != null && number.length() > 0) {
             return number.substring(0, (number.length() - 1));
         }
         return null;

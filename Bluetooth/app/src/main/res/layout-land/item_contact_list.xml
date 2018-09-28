@@ -13,7 +13,8 @@
         android:layout_centerVertical="true"
         android:maxLines="1"
         android:minWidth="@dimen/px100"
-        tools:text="阿华阿华" />
+        tools:text="阿华阿华"
+        android:paddingLeft="@dimen/px10"/>
 
     <ImageView
         android:id="@+id/iv_contact_call"

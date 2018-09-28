@@ -35,7 +35,7 @@
             android:layout_marginRight="@dimen/px60"
             android:background="@drawable/dialog_contact_synchronous_text"
             android:gravity="center"
-            android:text="确定" />
+            android:text="@string/tv_confirm" />
 
 
         <TextView
@@ -46,7 +46,7 @@
             android:layout_marginRight="@dimen/px60"
             android:background="@drawable/dialog_contact_synchronous_text"
             android:gravity="center"
-            android:text="取消" />
+            android:text="@string/tv_cancel" />
     </LinearLayout>
 
 

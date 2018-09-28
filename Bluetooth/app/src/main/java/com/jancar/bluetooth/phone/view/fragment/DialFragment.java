@@ -42,6 +42,8 @@ import butterknife.OnClick;
 import butterknife.OnLongClick;
 import butterknife.Unbinder;
 
+import static com.jancar.bluetooth.phone.util.Constants.BT_CONNECT_IS_NONE;
+
 
 /**
  * @author Tzq
@@ -59,13 +61,14 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     ListView listView;
     @BindView(R.id.tv_dial_syn_contact)
     TextView tvSynContact;
+    private BluetoothManager bluetoothManager;
     private DialNumberAdapter adapter;
     private List<BluetoothPhoneBookData> bookDataList;
-    private int selectPos = -1;//点击列表高亮的item
     private boolean hidden = false;
+    private static int DialFragmentType = 1;
 
     //点击的数字
-    private volatile String mStrKeyNum;
+    private volatile String mStrKeyNum = "";
 
     private Handler mHandler = new InternalHandler(this);
 
@@ -87,7 +90,7 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what == Constants.BT_CONNECT_IS_NONE) {
+            if (msg.what == BT_CONNECT_IS_NONE) {
                 tvSynContact.setVisibility(View.VISIBLE);
                 tvSynContact.setText(R.string.tv_bt_connect_is_none);
                 listView.setVisibility(View.GONE);
@@ -99,6 +102,15 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
                 tvSynContact.setVisibility(View.VISIBLE);
                 tvSynContact.setText(R.string.tv_bt_connect_is_close);
                 listView.setVisibility(View.GONE);
+            } else if (msg.what == Constants.PHONEBOOK_DATA_REFRESH) {
+                final String number = (String) msg.obj;
+                new Thread() {
+                    @Override
+                    public void run() {
+                        super.run();
+                        getPresenter().getDialContactList((number), DialFragmentType);
+                    }
+                }.start();
             }
         }
     };
@@ -139,12 +151,18 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     @Override
     public void onResume() {
         super.onResume();
-        getManager().registerBTPhonebookListener(this);
-        getManager().setBTConnectStatusListener(this);
+        Log.d(TAG, "onResume");
+        bluetoothManager = BluetoothManager.getBluetoothManagerInstance(getUIContext());
+        bluetoothManager.registerBTPhonebookListener(this);
+        bluetoothManager.setBTConnectStatusListener(this);
         if (!hidden) {
             isConneView();
             if (mStrKeyNum != null && listView.getVisibility() == View.VISIBLE) {
-                getPresenter().getDialContactList(mStrKeyNum);
+                Message message = new Message();
+                message.what = Constants.PHONEBOOK_DATA_REFRESH;
+                message.obj = mStrKeyNum;
+                handler.removeMessages(Constants.PHONEBOOK_DATA_REFRESH);
+                handler.sendMessageDelayed(message, 100);
             }
         }
     }
@@ -152,36 +170,46 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     @Override
     public void onPause() {
         super.onPause();
+        mStrKeyNum = null;
+        tvInput.setText(mStrKeyNum);
+
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        selectPos = -1;
-        adapter.setNormalPostion();
+        adapter.setStrKeyNum("");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
-        getManager().unRegisterBTPhonebookListener();
+        handler.removeCallbacksAndMessages(null);
+        bluetoothManager.unRegisterBTPhonebookListener();
+        bluetoothManager.setBTConnectStatusListener(null);
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         this.hidden = hidden;
+        bluetoothManager = BluetoothManager.getBluetoothManagerInstance(getUIContext());
         if (!hidden) {
-            getManager().registerBTPhonebookListener(this);
-            getManager().setBTConnectStatusListener(this);
+            bluetoothManager.registerBTPhonebookListener(this);
+            bluetoothManager.setBTConnectStatusListener(this);
             isConneView();
             if (mStrKeyNum != null && listView.getVisibility() == View.VISIBLE) {
-                getPresenter().getDialContactList(mStrKeyNum);
+                Message message = new Message();
+                message.what = Constants.PHONEBOOK_DATA_REFRESH;
+                message.obj = mStrKeyNum;
+                handler.removeMessages(Constants.PHONEBOOK_DATA_REFRESH);
+                handler.sendMessageDelayed(message, 100);
             }
         } else {
-            getManager().unRegisterBTPhonebookListener();
-            getManager().setBTConnectStatusListener(null);
+            bluetoothManager.unRegisterBTPhonebookListener();
+            handler.removeMessages(Constants.PHONEBOOK_DATA_REFRESH);
+            bluetoothManager.setBTConnectStatusListener(null);
         }
     }
 
@@ -205,18 +233,19 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
             }
             adapter = new DialNumberAdapter(getActivity());
             listView.setAdapter(adapter);
+            listView.setOverScrollMode(View.OVER_SCROLL_NEVER);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                    adapter.setSelectPosition(position);
                     String phoneNumber = bookDataList.get(position).getPhoneNumber();
-                    if (selectPos == position) {
+                    Log.d("phoneNumber", "phoneNumber:" + phoneNumber);
+                    if (phoneNumber.equals(mStrKeyNum)) {
                         BluetoothManager.getBluetoothManagerInstance(mActivity).hfpCall(phoneNumber);
                     } else {
                         mStrKeyNum = phoneNumber;
-                        tvInput.setText(phoneNumber);
+                        tvInput.setText(NumberFormatUtil.getNumber(mStrKeyNum));
+                        adapter.setStrKeyNum(mStrKeyNum);
                     }
-                    selectPos = position;
                 }
             });
         }
@@ -228,9 +257,14 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 isConneView();
-                String number = charSequence.toString();
+                final String number = charSequence.toString();
+                Log.d(TAG, number);
                 if (listView.getVisibility() == View.VISIBLE) {
-                    getPresenter().getDialContactList(number);
+                    Message message = new Message();
+                    message.what = Constants.PHONEBOOK_DATA_REFRESH;
+                    message.obj = number;
+                    handler.removeMessages(Constants.PHONEBOOK_DATA_REFRESH);
+                    handler.sendMessageDelayed(message, 100);
                 }
             }
 
@@ -240,7 +274,8 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
                 if (TextUtils.isEmpty(string)) {
                     mStrKeyNum = null;
                     bookDataList.clear();
-                    adapter.notifyDataSetChanged();
+                    adapter.setStrKeyNum("");
+                    listView.setVisibility(View.GONE);
                 }
             }
         });
@@ -295,8 +330,7 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
 
     @Override
     public BluetoothManager getManager() {
-        BluetoothManager manager = BluetoothManager.getBluetoothManagerInstance(getUIContext());
-        return manager;
+        return bluetoothManager;
     }
 
     @OnClick({R.id.item_dial_number_1, R.id.item_dial_number_2, R.id.item_dial_number_3, R.id.item_dial_number_4,
@@ -342,9 +376,8 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
                 getStrKeyNum("#");
                 break;
             case R.id.item_dial_number_call:
-//                IntentUtil.gotoActivity(getActivity(), MusicActivity.class, false);
                 if (getManager().isConnect()) {
-                    if (mStrKeyNum != null) {
+                    if (!TextUtils.isEmpty(mStrKeyNum)) {
                         BluetoothManager.getBluetoothManagerInstance(getUIContext()).hfpCall(mStrKeyNum);
                     } else {
 //                        ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_call_number_empty));
@@ -358,7 +391,7 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
                 if (mStrKeyNum != null) {
                     mStrKeyNum = getPresenter().delNumber(mStrKeyNum);
                 }
-                tvInput.setText(NumberFormatUtil.getNumber(mStrKeyNum));
+                tvInput.setText(mStrKeyNum);
                 break;
         }
     }
@@ -375,7 +408,14 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
         } else {
             mStrKeyNum += keyNum;
         }
-        tvInput.setText(getPresenter().getNewNumber(mStrKeyNum));
+        runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                tvInput.setText(NumberFormatUtil.getNumber(mStrKeyNum));
+                Log.d(TAG, "mmmmmm:" + mStrKeyNum);
+            }
+        });
+
     }
 
     @OnLongClick(R.id.dial_iv_del_number)
@@ -403,16 +443,32 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
 
     @Override
     public void onNotifyDownloadContactsList(final List<BluetoothPhoneBookData> list) {
+
+    }
+
+    @Override
+    public void onNotifySeachContactsList(final List<BluetoothPhoneBookData> list, int i) {
         Log.d("Dial", "list.size():" + list.size());
-        this.bookDataList = list;
-        if (!mActivity.isFinishing()) {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-//                    listView.setVisibility(View.VISIBLE);
-                    adapter.setBookDataList(bookDataList);
-                }
-            }, 100);
+        if (i == DialFragmentType) {
+            this.bookDataList = list;
+            if (!mActivity.isFinishing()) {
+                mActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (list.size() > 0 && list != null) {
+                            tvSynContact.setVisibility(View.GONE);
+                            adapter.setBookDataList(bookDataList);
+                            listView.setVisibility(View.VISIBLE);
+                        } else {
+                            tvSynContact.setVisibility(View.VISIBLE);
+                            tvSynContact.setText(R.string.tv_dial_no_contact);
+                            adapter.setStrKeyNum("");
+                            listView.setVisibility(View.GONE);
+                        }
+
+                    }
+                });
+            }
         }
     }
 

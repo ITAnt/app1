@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/px100"
-        android:text="是否需要同步通讯录 ？" />
+        android:text="@string/tv_syn_contact" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             android:layout_marginRight="@dimen/px100"
             android:background="@drawable/dialog_contact_synchronous_text"
             android:gravity="center"
-            android:text="是" />
+            android:text="@string/tv_yes" />
 
 
         <TextView
@@ -39,7 +39,7 @@
             android:layout_height="@dimen/px70"
             android:background="@drawable/dialog_contact_synchronous_text"
             android:gravity="center"
-            android:text="否" />
+            android:text="@string/tv_no" />
     </LinearLayout>
 
 

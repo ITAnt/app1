@@ -68,14 +68,27 @@ public class DialNumberAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
         String phoneNumber = bookData.getPhoneNumber();
+        String phoneName = bookData.getPhoneName();
         viewHolder.tvNumber.setText(phoneNumber);
-        viewHolder.tvOperator.setText(CheckPhoneUtil.getNumberOperator(phoneNumber));
+        viewHolder.tvOperator.setText(phoneName);
         if (position == defaultSelection) {
             view.setBackgroundColor(bg_selected_color);
         } else {
             view.setBackgroundColor(Color.TRANSPARENT);
         }
+        if (mStrKeyNum.equals(phoneNumber)) {
+            view.setBackgroundColor(bg_selected_color);
+        } else {
+            view.setBackgroundColor(Color.TRANSPARENT);
+        }
         return view;
+    }
+
+    private String mStrKeyNum = "";
+
+    public void setStrKeyNum(String mStrKeyNum) {
+        this.mStrKeyNum = mStrKeyNum;
+        notifyDataSetChanged();
     }
 
     static class ViewHolder {

@@ -30,11 +30,11 @@ public class ContactPresenter extends BaseModelPresenter<ContactContract.View, C
     }
 
     @Override
-    public void getSearchConatct(String searchString) {
+    public void getSearchConatct(String searchString, int type) {
         if (CheckPhoneUtil.CheckPhoneNum(searchString)) {
-            getUi().getManager().queryContactsByNumber(searchString);
+            getUi().getManager().queryContactsByNumber(searchString, type);
         } else {
-            getUi().getManager().queryContactsByName(searchString);
+            getUi().getManager().queryContactsByName(searchString, type);
         }
 
     }

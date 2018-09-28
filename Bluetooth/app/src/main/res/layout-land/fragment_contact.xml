@@ -9,10 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/px60"
         android:layout_marginTop="@dimen/px10"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/px40"
         android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/px40">
 
         <ImageView
             android:id="@+id/iv_contanct_synchronous"
@@ -31,7 +31,7 @@
             android:layout_toLeftOf="@+id/iv_contanct_synchronous"
             android:background="@drawable/edit_search_bg"
             android:drawableLeft="@drawable/iv_contact_search_icon"
-            android:hint="搜索"
+            android:hint="@string/tv_contact_search"
             android:maxLines="1"
             android:paddingLeft="@dimen/px15"
             android:textColorHint="@color/tipColor" />
@@ -56,15 +56,17 @@
             android:layout_marginBottom="@dimen/px10"
             android:layout_marginLeft="@dimen/px30"
             android:layout_marginRight="@dimen/px35"
+            android:background="@android:color/transparent"
             android:paddingBottom="@dimen/px3" />
 
         <ListView
             android:id="@+id/contact_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="500px"
+            android:layout_marginLeft="@dimen/px45"
             android:layout_marginRight="@dimen/px10"
             android:layout_toLeftOf="@+id/item_sidebar"
-            android:paddingLeft="@dimen/px50"
+            android:scrollbars="none"
             tools:listitem="@layout/item_contact_list" />
     </RelativeLayout>
 

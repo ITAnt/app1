@@ -37,4 +37,18 @@
     <string name="tv_record_error">同步通话记录错误！</string>
     <string name="tv_call_number_empty">号码不能为空</string>
     <string name="str_phone_name">未知</string>
+    <string name="tv_main_keypad">拨号键盘</string>
+    <string name="tv_mian_contact">联系人</string>
+    <string name="tv_main_records">通话记录</string>
+    <string name="tv_mian_mange">设备管理</string>
+    <string name="tv_contact_search">搜索</string>
+    <string name="tv_bluet_music">蓝牙音乐</string>
+    <string name="tv_dial_no_contact">暂无联系人</string>
+    <string name="tv_yes">是</string>
+    <string name="tv_no">否</string>
+    <string name="tv_title_tip">蓝牙未连接，是否需要连接蓝牙 ？</string>
+    <string name="tv_syn_contact">是否需要同步通讯录 ？</string>
+    <string name="tv_confirm">确定</string>
+    <string name="tv_cancel">取消</string>
+    <string name="tv_equiment_bluetooth">蓝牙设置</string>
 </resources>

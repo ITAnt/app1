@@ -59,21 +59,13 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     private static final String TAG = "ContactFragment";
     Unbinder mUnbinder;
     View mRootView;
-    @BindView(R.id.contact_list)
     ListView listView;
-    @BindView(R.id.contact_search)
     EditText editSearch;
-    @BindView(R.id.item_sidebar)
     SideBar sideBar;
-    @BindView(R.id.iv_syn_contact_ing)
     ImageView ivSynIng;
-    @BindView(R.id.iv_syn_contact)
     ImageView ivSynContact;
-    @BindView(R.id.linear_syn_contact)
     LinearLayout linerSyn;
-    @BindView(R.id.tv_contact_syn)
     TextView tvSynContact;
-    @BindView(R.id.rela_listView)
     RelativeLayout relativeLayout;
 
     protected Activity mActivity;
@@ -87,6 +79,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     private int selectPos = -1;
     private boolean hidden = false;
     private boolean isSynContact;
+    private static int ContactFragmentType = 2;
 
 
     private Handler mHandler = new ContactFragment.InternalHandler(this);
@@ -150,8 +143,8 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
         } else {
             mRootView = inflater.inflate(R.layout.fragment_contact, container, false);
         }
+        findView(mRootView);
         mUnbinder = ButterKnife.bind(this, mRootView);
-
         return mRootView;
     }
 
@@ -173,6 +166,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
         Log.d(TAG, "onResume");
         if (!hidden) {
             getManager().registerBTPhonebookListener(this);
+            getManager().getBTContacts();
             getManager().setBTConnectStatusListener(this);
             isConneView();
         }
@@ -185,8 +179,11 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
         this.hidden = hidden;
         if (!hidden) {
             getManager().registerBTPhonebookListener(this);
+            getManager().getBTContacts();
             getManager().setBTConnectStatusListener(this);
             isConneView();
+            adapter.setNormalPosition();
+            searchAdapter.setNormalPosition();
         } else {
             getManager().setBTConnectStatusListener(null);
             getManager().unRegisterBTPhonebookListener();
@@ -197,15 +194,14 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     public void onPause() {
         super.onPause();
         Log.d(TAG, "onPause");
+        adapter.setNormalPosition();
+        searchAdapter.setNormalPosition();
     }
 
     @Override
     public void onStop() {
         super.onStop();
         Log.d(TAG, "onStop");
-        selectPos = -1;
-        adapter.setNormalPosition();
-        searchAdapter.setNormalPosition();
     }
 
     @Override
@@ -241,6 +237,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
 
 
     private void initView() {
+
         editSearch.setCursorVisible(false);
         editInputString = editSearch.getText().toString().trim();
         ivSynIng.setImageResource(R.drawable.loading_animation_big);
@@ -264,7 +261,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
             listView.setAdapter(searchAdapter);
             sideBar.setVisibility(View.INVISIBLE);
         }
-
+        listView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
             @Override
             public void onTouchingLetterChanged(String s) {
@@ -289,6 +286,18 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
             }
         });
         editSearch.addTextChangedListener(this);
+    }
+
+    private void findView(View mRootView) {
+        listView = mRootView.findViewById(R.id.contact_list);
+        editSearch = mRootView.findViewById(R.id.contact_search);
+        sideBar = mRootView.findViewById(R.id.item_sidebar);
+        ivSynIng = mRootView.findViewById(R.id.iv_syn_contact_ing);
+        ivSynContact = mRootView.findViewById(R.id.iv_syn_contact);
+        linerSyn = mRootView.findViewById(R.id.linear_syn_contact);
+        tvSynContact = mRootView.findViewById(R.id.tv_contact_syn);
+        relativeLayout = mRootView.findViewById(R.id.rela_listView);
+
     }
 
     private void isConneView() {
@@ -353,7 +362,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         String number = charSequence.toString();
-        getPresenter().getSearchConatct(number);
+        getPresenter().getSearchConatct(number, ContactFragmentType);
     }
 
     @Override
@@ -410,7 +419,6 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
             public void onClick(View view) {
                 contactDialog.dismiss();
                 getPresenter().getSynContact();
-
             }
         });
         contactDialog.show();
@@ -423,30 +431,29 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
 
     @Override
     public void onNotifyDownloadContactsCount(int i) {
+        Log.d(TAG, "i:" + i);
 
     }
 
     @Override
     public void onNotifyDownloadContactsList(final List<BluetoothPhoneBookData> list) {
-        Log.d("ContactFragment", "list.size():" + list.size());
+//        Log.d("ContactFragment", "list.size():" + list.size() + "name:" + list.get(0).getPhoneName());
         if (!mActivity.isFinishing()) {
-            mHandler.postDelayed(new Runnable() {
+            runOnUIThread(new Runnable() {
                 @Override
                 public void run() {
                     if (isBluConn()) {
                         if (list != null && list.size() > 0) {
                             relativeLayout.setVisibility(View.VISIBLE);
                             linerSyn.setVisibility(View.GONE);
-                            bookSearchList = list;
-                            searchAdapter.setBookContact(list);
 
                             bookDataList = list;
                             adapter.setPhoneBooks(bookDataList);
                             adapter.notifyDataSetChanged();
                         } else {
-                            relativeLayout.setVisibility(View.GONE);
-                            ShowSynText();
-                            tvSynContact.setText(R.string.tv_contact_empty);
+//                            relativeLayout.setVisibility(View.GONE);
+//                            ShowSynText();
+//                            tvSynContact.setText(R.string.tv_contact_empty);
                         }
                     } else {
                         relativeLayout.setVisibility(View.GONE);
@@ -454,8 +461,21 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                         tvSynContact.setText(R.string.tv_bt_connect_is_none);
                     }
                 }
-            }, 10);
+            });
         }
+    }
+
+    @Override
+    public void onNotifySeachContactsList(List<BluetoothPhoneBookData> list, int i) {
+        if (i == ContactFragmentType) {
+            if (list != null && list.size() > 0) {
+                relativeLayout.setVisibility(View.VISIBLE);
+                linerSyn.setVisibility(View.GONE);
+                bookSearchList = list;
+                searchAdapter.setBookContact(list);
+            }
+        }
+
     }
 
     private void ShowSynText() {
@@ -474,7 +494,9 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                 ivSynContact.setVisibility(View.GONE);
                 ivSynIng.setVisibility(View.VISIBLE);
                 relativeLayout.setVisibility(View.GONE);
-                animationDrawable.start();
+                if (!animationDrawable.isRunning()) {
+                    animationDrawable.start();
+                }
             }
         });
     }

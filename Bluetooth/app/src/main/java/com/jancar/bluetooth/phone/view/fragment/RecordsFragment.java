@@ -132,6 +132,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
         super.onResume();
         if (!hidden) {
             getManager().registerBTCallLogListener(this);
+            getManager().getBTCallLogs();
             getManager().setBTConnectStatusListener(this);
             isConneView();
         }
@@ -140,13 +141,13 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
     @Override
     public void onPause() {
         super.onPause();
+        adapter.setNormalPosition();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        selectPos = -1;
-        adapter.setNormalPosition();
+
     }
 
     @Override
@@ -182,6 +183,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
             }
             adapter = new RecordsAdapter(getActivity(), callDataList);
             listView.setAdapter(adapter);
+            listView.setOverScrollMode(View.OVER_SCROLL_NEVER);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -279,8 +281,10 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
         this.hidden = hidden;
         if (!hidden) {
             getManager().registerBTCallLogListener(this);
+            getManager().getBTCallLogs();
             getManager().setBTConnectStatusListener(this);
             isConneView();
+            adapter.setNormalPosition();
         } else {
             getManager().unRegisterBTCallLogListener();
             getManager().setBTConnectStatusListener(null);
@@ -325,9 +329,9 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
                             }
                             adapter.notifyDataSetChanged();
                         } else {
-                            showText();
-                            listView.setVisibility(View.GONE);
-                            tvSynRecord.setText(R.string.tv_record_log);
+//                            showText();
+//                            listView.setVisibility(View.GONE);
+//                            tvSynRecord.setText(R.string.tv_record_log);
                         }
                     } else {
                         showText();
@@ -336,7 +340,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
                     }
 
                 }
-            }, 10);
+            }, 100);
         }
     }
 

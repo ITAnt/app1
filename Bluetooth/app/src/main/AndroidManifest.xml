@@ -26,19 +26,20 @@
     <application
         android:name=".BluetoothApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_launcher"
+        android:hardwareAccelerated="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".view.DialogActivity"
+            android:icon="@mipmap/iv_phone"
+            android:label="@string/app_name"
             android:screenOrientation="landscape"
             android:theme="@style/Animation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
         </activity>
@@ -47,7 +48,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".view.CommunicateActivity"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTask"
             android:screenOrientation="landscape"
             android:theme="@style/Animation" />
         <activity
@@ -55,7 +56,16 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".view.MusicActivity"
-            android:screenOrientation="landscape" />
+            android:label="@string/tv_bluet_music"
+            android:screenOrientation="landscape"
+            android:icon="@mipmap/ic_music">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
     </application>
 

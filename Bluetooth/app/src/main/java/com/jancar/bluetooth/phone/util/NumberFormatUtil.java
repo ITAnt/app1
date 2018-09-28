@@ -6,6 +6,7 @@ package com.jancar.bluetooth.phone.util;
  * @describe 号码格式化工具类
  */
 public class NumberFormatUtil {
+    @org.jetbrains.annotations.Contract("null -> null")
     public static String getNumber(String number) {
         if (number == null || number.length() == 0) {
             return null;

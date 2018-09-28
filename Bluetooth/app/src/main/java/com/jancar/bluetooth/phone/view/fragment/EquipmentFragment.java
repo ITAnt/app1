@@ -23,6 +23,7 @@ import com.jancar.bluetooth.phone.contract.EquipmentContract;
 import com.jancar.bluetooth.phone.presenter.EquipmentPresenter;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.IntentUtil;
+import com.jancar.bluetooth.phone.util.ToastUtil;
 import com.jancar.bluetooth.phone.view.SettingActivity;
 import com.ui.mvp.view.support.BaseFragment;
 
@@ -118,6 +119,7 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
         if (!hidden) {
             ConnShowView();
             tvselfName.setText(getPresenter().getSelfName());
+            tvConnName.setText(getPresenter().getConnetName());
         }
     }
 
@@ -210,8 +212,14 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
                 startActivity(intent);
                 break;
             case R.id.btn_equipment_conn:
-                String historyAddress = getManager().getHistoryConnectDeviceAddress();
-                getManager().connectDevice(historyAddress);
+                boolean btOn = getManager().isBTOn();
+                if (btOn) {
+                    String historyAddress = getManager().getHistoryConnectDeviceAddress();
+                    getManager().connectDevice(historyAddress);
+                } else {
+                    ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_bt_connect_is_close));
+                }
+
                 break;
         }
     }
