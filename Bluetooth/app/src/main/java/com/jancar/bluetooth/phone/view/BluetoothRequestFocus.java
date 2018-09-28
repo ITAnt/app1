@@ -48,6 +48,7 @@ public class BluetoothRequestFocus {
 
     public void requestAudioFocus() {
         isNeedGainFocus = true;
+        blueManager.setPlayerState(true);
         Log.e(TAG, "requestAudioFoucse==");
         audioManager.requestAudioFocus(mAudioFocusListener, AudioManager.STREAM_MUSIC,
                 AudioManager.AUDIOFOCUS_GAIN);

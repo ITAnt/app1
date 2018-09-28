@@ -227,6 +227,7 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
         if (isFull) {
             mWindowManager.addView(phoneView, mLayoutParams);
         } else {
+            setSystemUIVisible(false);
             mWindowManager.addView(haifView, mLayoutParams1);
         }
 //        new Handler().postDelayed(new Runnable() {
@@ -242,10 +243,10 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        String className = getTopActivityInfo();
-        if (className.equals("com.jancar.launcher.MainActivity")) {
-            return;
-        }
+//        String className = getTopActivityInfo();
+//        if (className.equals("com.jancar.launcher.MainActivity")) {
+//            return;
+//        }
         handIntent(intent);
         if (isFull != saveIsFull) {
             if (isFull == false) {
@@ -295,6 +296,22 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
         mLayoutParams1.height = 140;
         mLayoutParams1.y = -170;
         haifView = LayoutInflater.from(this).inflate(R.layout.activity_communicate_half, null);
+    }
+
+    private void setSystemUIVisible(boolean show) {
+        if (show) {
+            int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            uiFlags |= 0x00001000;
+            getWindow().getDecorView().setSystemUiVisibility(uiFlags);
+        } else {
+            int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
+            uiFlags |= 0x00001000;
+            getWindow().getDecorView().setSystemUiVisibility(uiFlags);
+        }
     }
 
     private void findView() {
@@ -448,8 +465,7 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
                 break;
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_INCOMING:
                 mCallPhoneType = CALLHISTROY_TYPE_MISSED;
-                tvNumberName.setText(R.string.str_phone_missed);
-                tvHalfComing.setText(R.string.str_phone_missed);
+                tvCommunType.setText(R.string.str_phone_missed);
                 linearKey.setVisibility(View.INVISIBLE);
                 linearVoice.setVisibility(View.INVISIBLE);
                 linearVehicle.setVisibility(View.GONE);

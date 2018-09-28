@@ -33,6 +33,7 @@
             android:name=".view.DialogActivity"
             android:icon="@mipmap/iv_phone"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:screenOrientation="landscape"
             android:theme="@style/Animation">
             <intent-filter>
@@ -45,7 +46,8 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".view.CommunicateActivity"
             android:launchMode="singleTask"
@@ -56,9 +58,10 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".view.MusicActivity"
+            android:icon="@mipmap/ic_music"
             android:label="@string/tv_bluet_music"
-            android:screenOrientation="landscape"
-            android:icon="@mipmap/ic_music">
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -66,6 +69,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.MusicContentActivity"
+            android:screenOrientation="landscape"
+            android:launchMode="singleTask"/>
 
     </application>
 

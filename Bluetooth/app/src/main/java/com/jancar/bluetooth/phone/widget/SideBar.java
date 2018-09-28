@@ -119,7 +119,7 @@ public class SideBar extends View {
                 break;
 
             default:
-                setBackgroundDrawable(new ColorDrawable(0x13161316));
+                setBackgroundDrawable(new ColorDrawable(0x00000000));
                 if (oldChoose != c) {
                     if (c >= 0 && c < b.length) {
                         if (listener != null) {

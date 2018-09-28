@@ -46,7 +46,8 @@
         android:id="@+id/rela_listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/px10">
+        android:layout_marginTop="@dimen/px10"
+        android:background="@android:color/transparent">
 
         <com.jancar.bluetooth.widget.SideBar
             android:id="@+id/item_sidebar"
