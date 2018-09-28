@@ -117,7 +117,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         if (isPlay) {
             bluetoothManager.pause();
         }
-        bluetoothManager.unRegisterBTMusicListener();
+//        bluetoothManager.unRegisterBTMusicListener();
         registerMediaSession.releaseMediaButton();
     }
 

@@ -45,10 +45,11 @@
         android:id="@+id/records_recycler_list"
         android:layout_width="match_parent"
         android:layout_height="600px"
-        android:paddingLeft="@dimen/px50"
-        android:paddingRight="@dimen/px40"
         android:divider="#00000000"
         android:dividerHeight="@dimen/px5"
+        android:paddingLeft="@dimen/px50"
+        android:paddingRight="@dimen/px40"
+        android:scrollbars="none"
         tools:listitem="@layout/item_records_list" />
 
 </LinearLayout>

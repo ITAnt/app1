@@ -15,26 +15,23 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="1.0"
         android:background="@null"
-        android:paddingBottom="@dimen/px20"
+        android:paddingBottom="@dimen/px15"
         android:paddingTop="@dimen/px20"
         android:text="A"
-        android:paddingLeft="@dimen/px10"/>
+        android:layout_marginLeft="@dimen/px10"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/px2"
-        android:background="@drawable/lin_bt_dail"
-        android:layout_marginLeft="@dimen/px10" />
+        android:background="@drawable/lin_bt_dail" />
 
     <FrameLayout
         android:id="@+id/content_framelayout"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/px80"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/px10"
         android:layout_weight="1.0"
-        android:gravity="center_vertical"
-        android:layout_marginTop="@dimen/px5"/>
+        android:gravity="center_vertical" />
 
 
 </LinearLayout>

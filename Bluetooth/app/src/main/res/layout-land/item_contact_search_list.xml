@@ -15,10 +15,10 @@
             android:layout_width="@dimen/px200"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:ellipsize="start"
             android:maxLines="1"
             android:minWidth="@dimen/px100"
-            tools:text="阿华阿华阿华阿华阿华" />
+            tools:text="阿华阿华阿华阿华阿华"
+            android:paddingLeft="@dimen/px10"/>
 
         <ImageView
             android:id="@+id/iv_contact_search_call"
@@ -37,7 +37,6 @@
             android:layout_marginLeft="@dimen/px40"
             android:layout_toLeftOf="@id/iv_contact_search_call"
             android:layout_toRightOf="@id/tv_contact_search_name"
-            android:ellipsize="start"
             android:maxLines="1"
             tools:text="13500000000" />
 

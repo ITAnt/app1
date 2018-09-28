@@ -44,4 +44,11 @@
     <string name="tv_contact_search">搜索</string>
     <string name="tv_bluet_music">蓝牙音乐</string>
     <string name="tv_dial_no_contact">暂无联系人</string>
+    <string name="tv_yes">是</string>
+    <string name="tv_no">否</string>
+    <string name="tv_title_tip">蓝牙未连接，是否需要连接蓝牙 ？</string>
+    <string name="tv_syn_contact">是否需要同步通讯录 ？</string>
+    <string name="tv_confirm">确定</string>
+    <string name="tv_cancel">取消</string>
+    <string name="tv_equiment_bluetooth">蓝牙设置</string>
 </resources>

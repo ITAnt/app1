@@ -151,6 +151,7 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     @Override
     public void onResume() {
         super.onResume();
+        Log.d(TAG, "onResume");
         bluetoothManager = BluetoothManager.getBluetoothManagerInstance(getUIContext());
         bluetoothManager.registerBTPhonebookListener(this);
         bluetoothManager.setBTConnectStatusListener(this);
@@ -169,6 +170,8 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     @Override
     public void onPause() {
         super.onPause();
+        mStrKeyNum = null;
+        tvInput.setText(mStrKeyNum);
 
     }
 
@@ -269,9 +272,10 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
             public void afterTextChanged(Editable editable) {
                 String string = editable.toString();
                 if (TextUtils.isEmpty(string)) {
-                    mStrKeyNum = "";
+                    mStrKeyNum = null;
                     bookDataList.clear();
-                    adapter.setStrKeyNum(mStrKeyNum);
+                    adapter.setStrKeyNum("");
+                    listView.setVisibility(View.GONE);
                 }
             }
         });
@@ -376,7 +380,8 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
                     if (!TextUtils.isEmpty(mStrKeyNum)) {
                         BluetoothManager.getBluetoothManagerInstance(getUIContext()).hfpCall(mStrKeyNum);
                     } else {
-                        ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_call_number_empty));
+//                        ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_call_number_empty));
+                        IntentUtil.gotoActivity(getActivity(), MusicActivity.class, false);
                     }
                 } else {
                     ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_bt_connect_is_none));
