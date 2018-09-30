@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="66px"
-            android:layout_marginTop="187px"
+            android:layout_marginTop="147px"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -25,6 +25,7 @@
                 android:layout_weight="1">
 
                 <TextView
+                    android:layout_width="@dimen/px70"
                     android:id="@+id/txt_treble_sound_title"
                     style="@style/style_txt"
                     android:text="@string/label_treble" />
@@ -33,6 +34,7 @@
                     android:id="@+id/seekbar_treble_sound_value"
                     style="@style/style_seekbar"
                     android:layout_width="match_parent"
+                    android:layout_height="@dimen/px45"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/txt_treble_sound_title" />
 
@@ -62,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/txt_treble_sound_value_n"
                     android:layout_alignBottom="@+id/txt_treble_sound_value_n"
-                    android:layout_marginEnd="126px"
+                    android:layout_marginEnd="@dimen/px116"
                     android:layout_toStartOf="@+id/txt_treble_sound_value_n"
                     android:text="0" />
 
@@ -75,6 +77,7 @@
                 android:layout_weight="1">
 
                 <TextView
+                    android:layout_width="@dimen/px70"
                     android:id="@+id/txt_midrange_sound_title"
                     style="@style/style_txt"
                     android:text="@string/label_midrange" />
@@ -84,6 +87,7 @@
                     style="@style/style_seekbar"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
+                    android:layout_height="@dimen/px45"
                     android:layout_toRightOf="@+id/txt_midrange_sound_title" />
 
 
@@ -106,6 +110,7 @@
                     android:layout_marginTop="@dimen/sound_txt_margin_top"
                     android:src="@drawable/balance_btn_right_state"
                     android:text="@string/str_sound_7" />
+
                 <TextView
                     android:id="@+id/txt_midrange_sound_value"
                     style="@style/style_txt"
@@ -113,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/txt_midrange_sound_value_n"
                     android:layout_alignBottom="@+id/txt_midrange_sound_value_n"
-                    android:layout_marginEnd="126px"
+                    android:layout_marginEnd="@dimen/px116"
                     android:layout_toStartOf="@+id/txt_midrange_sound_value_n"
                     android:text="0" />
 
@@ -125,11 +130,14 @@
                 android:layout_weight="1">
 
                 <TextView
+                    android:layout_width="@dimen/px70"
                     android:id="@+id/txt_bass_sound_title"
                     style="@style/style_txt"
                     android:text="@string/label_bass" />
 
                 <SeekBar
+
+                    android:layout_height="@dimen/px45"
                     android:id="@+id/seekbar_bass_sound_value"
                     style="@style/style_seekbar"
                     android:layout_width="match_parent"
@@ -156,6 +164,7 @@
                     android:layout_marginTop="@dimen/sound_txt_margin_top"
                     android:src="@drawable/balance_btn_right_state"
                     android:text="@string/str_sound_7" />
+
                 <TextView
                     android:id="@+id/txt_bass_sound_value"
                     style="@style/style_txt"
@@ -163,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/txt_bass_sound_value_n"
                     android:layout_alignBottom="@+id/txt_bass_sound_value_n"
-                    android:layout_marginEnd="126px"
+                    android:layout_marginEnd="@dimen/px116"
                     android:layout_toStartOf="@+id/txt_bass_sound_value_n"
                     android:text="0" />
 
@@ -190,10 +199,13 @@
 
             <com.jancar.settings.widget.DspBalance
                 android:id="@+id/dsp_balance"
-                android:layout_width="240px"
-                android:layout_height="240px"
-                android:layout_margin="@dimen/px58"
+                android:layout_width="@dimen/px240"
+                android:layout_height="@dimen/px280"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginRight="@dimen/px58"
+                android:layout_marginLeft="@dimen/px58"
+                android:layout_marginBottom="@dimen/px58"
+                android:layout_marginTop="@dimen/px80"
                 android:background="@drawable/toyota_balance_sound_view" />
 
             <RelativeLayout
@@ -203,14 +215,13 @@
                 <TextView
                     android:id="@+id/txt_reset"
                     style="@style/style_txt"
+                    android:gravity="center"
+                    android:layout_width="@dimen/px94"
+                    android:layout_height="@dimen/px54"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="@dimen/px103"
+                    android:layout_marginBottom="@dimen/px82"
                     android:background="@drawable/bg_btn_state"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingTop="10dp"
                     android:text="@string/tab_reset" />
 
             </RelativeLayout>

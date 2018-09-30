@@ -79,6 +79,13 @@
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/normal_bg_wifi__btn</item>
     </style>
+
+    <style name="txt_btn_normals" parent="txt_px22">
+        <item name="android:layout_width">@dimen/px110</item>
+        <item name="android:layout_height">@dimen/px50</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/normal_bg_wifi__btn</item>
+    </style>
     <!--界面左边的字体-->
     <style name="main_title_txt" parent="txt_px22">
         <item name="android:layout_centerVertical">true</item>
@@ -231,7 +238,7 @@
     <style name="style_rbtns">
         <item name="android:textSize">@dimen/px22</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:button">@null</item>
+
         <item name="android:drawablePadding">10dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:textColor">@color/text_txt</item>
@@ -240,26 +247,24 @@
 
     <style name="style_seekbar">
         <item name="android:thumb">@drawable/seekbar_thumb</item>
-        <item name="android:thumbOffset">7px</item>
+        <item name="android:thumbOffset">0px</item>
         <item name="android:focusable">true</item>
         <item name="android:mirrorForRtl">true</item>
-        <item name="android:paddingTop">20dp</item>
-        <item name="android:paddingBottom">20dp</item>
+        <item name="android:paddingTop">@dimen/px20</item>
+        <item name="android:paddingBottom">@dimen/px20</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:maxWidth">@dimen/px280</item>
         <item name="android:progressDrawable">@drawable/seekbar_style</item>
     </style>
 
     <style name="style_img">
-        <item name="android:layout_width">40dp</item>
-        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:src">@mipmap/balance_right_s</item>
         <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
+
     </style>
 
     <style name="style_txt_dialog">
@@ -323,8 +328,8 @@
     <style name="txt_default_sound"></style>
 
     <style name="spinner">
-        <item name="android:layout_marginBottom">@dimen/px103</item>
-        <item name="android:layout_marginTop">@dimen/px58</item>
+        <item name="android:layout_marginBottom">@dimen/px123</item>
+        <item name="android:layout_marginTop">@dimen/px38</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
@@ -353,4 +358,29 @@
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowBackground">@android:color/transparent</item><!--背景透明-->
     </style>
+
+    <style name="AVLoadingIndicatorView">
+        <item name="minWidth">48dip</item>
+        <item name="maxWidth">48dip</item>
+        <item name="minHeight">48dip</item>
+        <item name="maxHeight">48dip</item>
+        <item name="indicatorName">BallPulseIndicator</item>
+    </style>
+
+    <style name="AVLoadingIndicatorView.Large">
+        <item name="minWidth">60px</item>
+        <item name="maxWidth">60px</item>
+        <item name="minHeight">60px</item>
+        <item name="maxHeight">60px</item>
+        <item name="indicatorName">BallSpinFadeLoaderIndicator</item>
+    </style>
+
+    <style name="AVLoadingIndicatorView.Small">
+        <item name="minWidth">24dip</item>
+        <item name="maxWidth">24dip</item>
+        <item name="minHeight">24dip</item>
+        <item name="maxHeight">24dip</item>
+        <item name="indicatorName">BallPulseIndicator</item>
+    </style>
+
 </resources>

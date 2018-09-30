@@ -291,8 +291,8 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
                 break;
             case R.id.fragment_time:
               //  String strTimeFormat = android.provider.Settings.System.getString(getContext().getContentResolver(), android.provider.Settings.System.TIME_12_24);
-                if (timeSystemSummaryTxt.getText().toString().equals("24小时制")) {
-                    if (adjustSummaryTxt.getText().toString().equals("关闭")) {
+                if (timeSystemSummaryTxt.getText().toString().equals( getResources().getString(R.string.label_24_hour_system))) {
+                    if (adjustSummaryTxt.getText().toString().equals(getResources().getString(R.string.label_adjust_off))) {
                         timeDialog = new TimePickerViewDialog(getContext(), R.style.record_voice_dialog);
                         timeDialog.setTimePickerViewCallBack(this);
                         timeDialog.show();
@@ -300,7 +300,7 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
                     }
 
                 } else {
-                    if (adjustSummaryTxt.getText().toString().equals("关闭")) {
+                    if (adjustSummaryTxt.getText().toString().equals(getResources().getString(R.string.label_adjust_off))) {
                         time12Dialog = new Time12PickerViewDialog(getContext(), R.style.record_voice_dialog);
                         time12Dialog.setTimePickerViewCallBack(this);
                         time12Dialog.show();
@@ -311,7 +311,7 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
 
                 break;
             case R.id.fragment_date:
-                if (adjustSummaryTxt.getText().toString().equals("关闭")) {
+                if (adjustSummaryTxt.getText().toString().equals(getResources().getString(R.string.label_adjust_off))) {
                     dateDialog = new DatePickerViewDialog(getContext());
                     dateDialog.setDatePickerViewDialogCallBack(this);
                     dateDialog.show();
@@ -364,7 +364,7 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
         int date = t.monthDay;
         int hours = Integer.parseInt(hour);
         int minutes = Integer.parseInt(minute);
-        if (a.equals("下午")) {
+        if (a.equals(getResources().getString(R.string.tab_pm))) {
             String s = year + "-" + month + "-" + date + " " + hours + ":" + minutes;
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
             java.util.Date curDate = null;
@@ -514,31 +514,6 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
 
     @Override
     public void setData(@Nullable Object data) {
-
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void showMessage(@NonNull String message) {
-
-    }
-
-    @Override
-    public void launchActivity(@NonNull Intent intent) {
-
-    }
-
-    @Override
-    public void killMyself() {
 
     }
 

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000"
+    android:orientation="vertical">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="365px">
+
+        <FrameLayout
+            android:layout_width="255px"
+            android:layout_height="match_parent">
+            <!--     <ImageView
+                     android:layout_gravity="center"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                   />-->
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|right"
+                android:background="@mipmap/bg_radio_list_left"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_channel_list_one"
+                    android:layout_width="120px"
+                    android:layout_height="70px"
+                    android:layout_marginLeft="42px"
+                    android:layout_marginTop="10px"
+                    android:gravity="center"
+                    android:text="87.65"
+                    android:textColor="#fff"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:id="@+id/txt_channel_list_two"
+                    android:layout_width="120px"
+                    android:layout_height="70px"
+                    android:layout_below="@+id/txt_channel_list_one"
+                    android:layout_marginLeft="32px"
+                    android:gravity="center"
+                    android:text="90.00"
+                    android:textColor="#fff"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:id="@+id/txt_channel_list_three"
+                    android:layout_width="120px"
+                    android:layout_height="70px"
+                    android:layout_below="@+id/txt_channel_list_two"
+                    android:layout_marginLeft="32px"
+                    android:gravity="center"
+                    android:text="90.00"
+                    android:textColor="#fff"
+                    android:textSize="28px" />
+            </RelativeLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/btn_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/bg_radio_arrow_left" />
+
+                <ImageView
+                    android:id="@+id/btn_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/bg_radio_arrow_right" />
+
+                <TextView
+                    android:id="@+id/txt_channel"
+                    android:layout_width="190px"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="#fff"
+                    android:textSize="60px" />
+
+                <TextView
+                    android:id="@+id/txt_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/txt_channel"
+                    android:layout_below="@+id/txt_channel"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/unit_khz"
+                    android:textColor="#fff"
+                    android:textSize="30px" />
+
+                <TextView
+                    android:id="@+id/txt_band"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/txt_channel"
+                    android:layout_marginTop="120px"
+                    android:text="@string/fm1"
+                    android:textColor="#fff"
+                    android:textSize="30px" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/img_original"
+                    android:layout_width="354px"
+                    android:layout_height="354px"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/bg_radio_center" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="255px"
+            android:layout_height="match_parent"
+            android:layout_gravity="right">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/txt_st"
+                    android:layout_marginTop="20px"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="40px"
+                    android:background="@drawable/cbb_bg_n"
+                    android:text="@string/ST"
+                    android:gravity="center"
+                    android:textColor="#fff"
+                    android:textSize="20px"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="60px"
+                    android:layout_height="30px" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:background="@mipmap/bg_radio_list_right"
+                android:orientation="vertical">
+
+
+
+                <TextView
+                    android:id="@+id/txt_channel_list_four"
+                    android:layout_width="120px"
+                    android:layout_height="70px"
+                    android:layout_marginLeft="22px"
+                    android:layout_marginTop="10px"
+                    android:gravity="center"
+                    android:text="87.65"
+                    android:textColor="#fff"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:id="@+id/txt_channel_list_fives"
+                    android:layout_width="120px"
+                    android:layout_height="70px"
+                    android:layout_below="@id/txt_channel_list_four"
+                    android:layout_marginLeft="32px"
+                    android:gravity="center"
+                    android:text="90.00"
+                    android:textColor="#fff"
+                    android:textSize="28px" />
+
+                <TextView
+                    android:id="@+id/txt_channel_list_six"
+                    android:layout_width="120px"
+                    android:layout_height="70px"
+                    android:layout_below="@id/txt_channel_list_fives"
+                    android:layout_marginLeft="32px"
+                    android:gravity="center"
+                    android:textColor="#fff"
+                    android:textSize="28px" />
+            </RelativeLayout>
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="255px"
+            android:layout_marginRight="255px">
+
+            <com.jancar.radio.widget.RuleView
+                android:id="@+id/gv_1"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                app:gv_gradationGap="12px"
+                app:gv_longGradationLen="26px"
+                app:gv_shortGradationLen="15px"
+                app:zjun_bgColor="#000"
+                app:zjun_textColor="#fff"
+                app:zjun_textSize="16px" />
+            <ImageView
+                android:src="@mipmap/line"
+                android:layout_marginTop="50px"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <SeekBar
+                android:id="@+id/FMFreqSeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="end|bottom|center"
+                android:layout_marginLeft="17px"
+                android:layout_marginRight="42px"
+                android:max="205"
+                android:progress="0"
+                android:progressDrawable="@drawable/vertical_progress_transparent"
+                android:thumb="@mipmap/point"
+                android:thumbOffset="0.0px"
+                android:visibility="visible" />
+
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

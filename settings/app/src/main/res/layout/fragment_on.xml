@@ -176,11 +176,7 @@
 
                 <ImageView
                     android:id="@+id/img_upgrade_update_arrow"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:padding="8dp"
+                    style="@style/style_img"
                     android:src="@drawable/balance_btn_right_state" />
 
                 <TextView

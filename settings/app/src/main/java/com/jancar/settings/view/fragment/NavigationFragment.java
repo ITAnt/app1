@@ -185,32 +185,6 @@ public class NavigationFragment extends BaseFragments<NavigationPresenter> imple
     }
 
     @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void showMessage(@NonNull String message) {
-
-    }
-
-    @Override
-    public void launchActivity(@NonNull Intent intent) {
-
-    }
-
-    @Override
-    public void killMyself() {
-
-    }
-
-
-    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         listAdapter.setID(navigationEntityList.get(position).getName());
         listAdapter.notifyDataSetInvalidated();

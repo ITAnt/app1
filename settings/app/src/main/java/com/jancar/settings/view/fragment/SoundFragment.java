@@ -105,7 +105,7 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         mAudioEffectManager = new AudioEffectManager(getContext(), this, getActivity().getPackageName());
-        stringList = mPresenter.initList();
+        stringList = mPresenter.initList(getContext());
         adapter = new SoundListAdapter(getContext(), stringList);
         spinnerLlinear.setmSpinnerListener(this);
         spinnerLlinear.setAdapter(adapter);
@@ -113,7 +113,7 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
         SharedPreferences read = getActivity().getSharedPreferences("EQ", MODE_WORLD_READABLE);
         //步骤2：获取文件中的值
         value = read.getInt("Types", 0);
-        if (stringList.get(value).getName().equals("标准")) {
+        if (stringList.get(value).getName().equals( getResources().getString(R.string.txt_standard))) {
             onItemClick(null, null, 0, 1);
         }
         spinnerLlinear.setSpinnerOperatingText(stringList.get(value).getName());
@@ -145,7 +145,9 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
             public void run() {
                 int ibanlce = mAudioEffectManager.getBalanceSpeakerValue();
                 Log.d("ibanlce", "get" + ibanlce);
-                balanceDsp.updateBalance(AudioEffectParam.getBalance(ibanlce), AudioEffectParam.getFade(ibanlce));
+                SharedPreferences read = getActivity().getSharedPreferences("EQ", MODE_WORLD_READABLE);
+                //步骤2：获取文件中的值
+                balanceDsp.updateBalance(AudioEffectParam.getBalance(ibanlce)+ read.getFloat("fad", 0), AudioEffectParam.getFade(ibanlce)+  read.getFloat("bal", 0));
             }
         });
 
@@ -162,9 +164,17 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
     private DspBalance.OnTouchListener objListener = new DspBalance.OnTouchListener() {
         @Override
         public void onBalance(float fFad, float fBal) {
-
-            miBal = new BigDecimal((double) fFad).setScale(0, 4).intValue();
-            miFad = new BigDecimal((double) fBal).setScale(0, 4).intValue();
+            float bal=fBal%1;
+            float fad=fFad%1;
+            miBal = (int) fFad;
+            miFad = (int) fBal;
+            SharedPreferences.Editor editor = getActivity().getSharedPreferences("EQ", MODE_WORLD_WRITEABLE).edit();
+            editor.putFloat("bal", bal);
+            editor.putFloat("fad", fad);
+            //步骤3：提交
+            editor.apply();
+         /*   miBal = new BigDecimal((double) fFad).setScale(0, 4).intValue();
+            miFad = new BigDecimal((double) fBal).setScale(0, 4).intValue();*/
             Log.d("ibanlce", "set" + AudioEffectParam.getBalanceFadeCombine(miBal, miFad));
             if (mAudioEffectManager != null) {
                 mAudioEffectManager.setBalanceSpeakerValue(AudioEffectParam.getBalanceFadeCombine(miBal, miFad));
@@ -194,10 +204,16 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
         onItemClick(null, null, 0, 1);
         spinnerLlinear.setSpinnerOperatingText(stringList.get(0).getName());
         if (mAudioEffectManager != null) {
-            mAudioEffectManager.setBalanceSpeakerValue(AudioEffectParam.getBalanceFadeCombine(4, 4));
+            mAudioEffectManager.setBalanceSpeakerValue(AudioEffectParam.getBalanceFadeCombine(4, 3));
         }
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences("EQ", MODE_WORLD_WRITEABLE).edit();
+        editor.putFloat("bal", 0.8872025f);
+        editor.putFloat("fad", 0.1400003f);
+        //步骤3：提交
+        editor.apply();
         int ibanlce = mAudioEffectManager.getBalanceSpeakerValue();
-        balanceDsp.updateBalance(AudioEffectParam.getBalance(ibanlce) , AudioEffectParam.getFade(ibanlce));
+
+        balanceDsp.updateBalance(AudioEffectParam.getBalance(ibanlce)+0.1400003f , AudioEffectParam.getFade(ibanlce)+0.8872025f);
 
     }
 
@@ -244,32 +260,6 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
     }
 
     @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void showMessage(@NonNull String message) {
-
-    }
-
-    @Override
-    public void launchActivity(@NonNull Intent intent) {
-
-    }
-
-    @Override
-    public void killMyself() {
-
-    }
-
-
-    @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         int ValuePTxt = progress - 7;
 
@@ -309,7 +299,7 @@ public class SoundFragment extends BaseFragments<SoundPresenter> implements Soun
         Button connect = (Button) dialog.findViewById(R.id.btn_connect_btn);
         TextView textView = (TextView) dialog.findViewById(R.id.txt_display_dialog_title);
         /*textView.setText(R.string.);*/
-        textView.setText("是否要保存为自定义？");
+        textView.setText(getResources().getString(R.string.dialog_prompt));
         Button cancel = (Button) dialog.findViewById(R.id.btn_cancel);
         View.OnClickListener buttonListener = new View.OnClickListener() {
             @Override

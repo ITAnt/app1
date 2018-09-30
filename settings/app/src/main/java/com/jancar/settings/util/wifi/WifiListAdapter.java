@@ -137,13 +137,13 @@ public class WifiListAdapter extends BaseAdapter {
 
         viewHolder.pointSSID.setText(mDatas.get(position).SSID);
         setLvSign(mDatas.get(position), viewHolder.pointSignal);
-        viewHolder.operatingTxt.setText("连接");
+        viewHolder.operatingTxt.setText(mContext.getResources().getString(R.string.wifi_text_connect));
 
-        viewHolder.connectStateTxt.setText("未启用");
+        viewHolder.connectStateTxt.setText(mContext.getResources().getString(R.string.wifi_text_not_enabled));
         if (mSavedResultsShow != null) {
             for (ScanResult mScanResult : mSavedResultsShow) {
                 if (mScanResult.SSID.equals(mDatas.get(position).SSID)) {
-                    viewHolder.connectStateTxt.setText("已保存");
+                    viewHolder.connectStateTxt.setText(mContext.getResources().getString(R.string.wifi_text_wifi_saved));
                 }
             }
         }
@@ -156,16 +156,16 @@ public class WifiListAdapter extends BaseAdapter {
             public void onClick(View v) {
                 if (OnClickListener != null) {
                     int Type = 0;
-                    if ("已连接".equals(viewHolder.connectStateTxt.getText().toString())) {
+                    if (mContext.getResources().getString(R.string.wifi_text_wifi_connected).equals(viewHolder.connectStateTxt.getText().toString())) {
                         Type = 1;
-                    } else if ("已保存".equals(viewHolder.connectStateTxt.getText().toString())) {
+                    } else if (mContext.getResources().getString(R.string.wifi_text_wifi_saved).equals(viewHolder.connectStateTxt.getText().toString())) {
                         Type = 2;
                     }
                     OnClickListener.onClick(v, Type, position);
                 }
             }
         });
-        if (viewHolder.connectStateTxt.getText().equals("已保存")) {
+        if (viewHolder.connectStateTxt.getText().equals(mContext.getResources().getString(R.string.wifi_text_wifi_saved))) {
             viewHolder.operatingTxt.setBackgroundResource(R.drawable.normal_bg_wifi__btn);
         } else {
             viewHolder.operatingTxt.setBackgroundResource(R.drawable.selected_bg_wifi__btn);
@@ -214,36 +214,36 @@ public class WifiListAdapter extends BaseAdapter {
 
             switch (state) {
                 case STATE_CONNECTED:
-                    text.setText("已连接");
+                    text.setText(R.string.wifi_text_wifi_connected);
                     operating.setEnabled(true);
-                    operating.setText("断开");
+                    operating.setText(R.string.wifi_text_disconnect);
                     break;
                 case STATE_CONNECTING:
-                    text.setText("连接中");
+                    text.setText(R.string.wifi_text_state_connecting);
                     //   operating.setText("连接中");
-                    operating.setText("断开");
+                    operating.setText(R.string.wifi_text_disconnect);
                     operating.setEnabled(false);
                     break;
                 case STATE_OBTAINING_IPADDR:
-                    text.setText("获取IP地址");
+                    text.setText(R.string.wifi_text_obtain_an_IP_address);
                     // operating.setText("连接中");
                     operating.setEnabled(false);
                     break;
                 case STATE_AUTHENTICATING:
-                    text.setText("身份验证");
+                    text.setText(R.string.wifi_text_authentication);
 
                     break;
                 case STATE_FAILED:
                     operating.setEnabled(true);
-                    text.setText("连接失败");
+                    text.setText(R.string.wifi_text_state_failed);
                     break;
                 case STATE_DISCONNECTING:
-                    text.setText("正在断开");
+                    text.setText(R.string.wifi_text_state_disconnecting);
                     //    operating.setText("断开中");
                     operating.setEnabled(false);
                     break;
                 case STATE_DISCONNECTED:
-                    text.setText("已断开");
+                    text.setText(R.string.wifi_text_disconnected);
                     operating.setEnabled(true);
                     break;
                 default:

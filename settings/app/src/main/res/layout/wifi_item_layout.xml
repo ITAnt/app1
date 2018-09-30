@@ -42,8 +42,8 @@
 
             <TextView
                 android:id="@+id/txt_operating"
-                style="@style/txt_btn_normal"
-                android:text="连接" />
+                style="@style/txt_btn_normals"
+                android:text="@string/wifi_text_connect" />
         </LinearLayout>
 
     </LinearLayout>

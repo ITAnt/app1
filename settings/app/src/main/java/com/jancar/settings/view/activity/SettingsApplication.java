@@ -3,6 +3,7 @@ package com.jancar.settings.view.activity;
 import android.app.Application;
 
 import com.jancar.bluetooth.lib.BluetoothManager;
+import com.jancar.bluetooth.lib.BluetoothSettingManager;
 import com.jancar.settings.lib.SettingManager;
 
 /**
@@ -13,8 +14,8 @@ public class SettingsApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+        BluetoothSettingManager.getBluetoothSettingManager(this);
         SettingManager.getSettingManager(this);
-        BluetoothManager.getBluetoothManagerInstance(this);
     }
 
     @Override

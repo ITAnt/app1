@@ -1,5 +1,8 @@
 package com.jancar.settings.model;
 
+import android.content.Context;
+
+import com.jancar.settings.R;
 import com.jancar.settings.contract.EqEntity;
 import com.jancar.settings.listener.Contract.SoundContractImpl;
 import com.jancar.settings.listener.Contract.TimeContractImpl;
@@ -18,15 +21,15 @@ public class SoundModel implements SoundContractImpl.Model {
     }
 
     @Override
-    public List<EqEntity> initList() {
+    public List<EqEntity> initList(Context mContext) {
         List<EqEntity> stringList = new ArrayList<>();
-
-        stringList.add(new EqEntity("标准",7,7,7));
-        stringList.add(new EqEntity("流行",10,10,10));
-        stringList.add(new EqEntity("摇滚",4,7,13));
-        stringList.add(new EqEntity("爵士",4,4,4));
-        stringList.add(new EqEntity("古典",0,8,0));
-        stringList.add(new EqEntity("自定义",0,0,0));
+        //String sAgeFormat = getResources().getString(R.string.txt_channel);
+        stringList.add(new EqEntity(mContext. getResources().getString(R.string.txt_standard),7,7,7));
+        stringList.add(new EqEntity(mContext. getResources().getString(R.string.txt_popular),10,10,10));
+        stringList.add(new EqEntity(mContext. getResources().getString(R.string.txt_ock),4,7,13));
+        stringList.add(new EqEntity(mContext. getResources().getString(R.string.txt_jazz),4,4,4));
+        stringList.add(new EqEntity(mContext. getResources().getString(R.string.txt_classical),0,8,0));
+        stringList.add(new EqEntity(mContext. getResources().getString(R.string.txt_customize),0,0,0));
 
         return stringList;
     }

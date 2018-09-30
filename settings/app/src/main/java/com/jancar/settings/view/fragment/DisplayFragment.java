@@ -172,7 +172,6 @@ public class DisplayFragment extends BaseFragments<DisplayPresenter> implements 
                 ((MainActivity) getActivity()).mHadler = mHadler;
                 displayScrollView.setVisibility(View.GONE);
                 languageList.setVisibility(View.VISIBLE);
-                // setLanguageRadioVisibility(languageRadio.getVisibility());
                 break;
             case R.id.rlayout_restore_default:
                 showRestoreDefaultDialog();
@@ -283,6 +282,10 @@ public class DisplayFragment extends BaseFragments<DisplayPresenter> implements 
         displayScrollView.setVisibility(View.VISIBLE);
         languageList.setVisibility(View.GONE);
         settingManager.changeSystemLanguage(settingManager.locales[position],position);
+        ((MainActivity) getActivity()).finish();
+        Intent intent = new Intent(getContext(),MainActivity.class);
+        intent.putExtra("position", 2);
+        startActivity(intent);
     }
     @Override
     public void onStart() {
@@ -375,32 +378,6 @@ public class DisplayFragment extends BaseFragments<DisplayPresenter> implements 
     };
     @Override
     public void setData(@Nullable Object data) {
-
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void showMessage(@NonNull String message) {
-
-    }
-
-    @Override
-    public void launchActivity(@NonNull Intent intent) {
-
-    }
-
-
-    @Override
-    public void killMyself() {
 
     }
 }

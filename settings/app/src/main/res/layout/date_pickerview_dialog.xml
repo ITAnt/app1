@@ -47,8 +47,9 @@
             app:npv_TextColorNormal="@color/text_txt"
             app:npv_TextColorSelected="@color/text_txt"
             android:layout_marginRight="10dp"
-            app:npv_TextSizeNormal="16sp"
-            app:npv_TextSizeSelected="22px"
+            app:npv_TextSizeNormal="@dimen/px22"
+             app:npv_TextSizeHint="@dimen/px22"
+            app:npv_TextSizeSelected="@dimen/px22"
             app:npv_WrapSelectorWheel="true"/>
 
         <com.jancar.settings.widget.dateandtimepickerview.NumberPickerView
@@ -68,8 +69,9 @@
             app:npv_ItemPaddingHorizontal="5dp"
             app:npv_ItemPaddingVertical="5dp"
             app:npv_ShowCount="3"
-            app:npv_TextSizeNormal="16sp"
-            app:npv_TextSizeSelected="22px"
+            app:npv_TextSizeNormal="@dimen/px22"
+            app:npv_TextSizeHint="@dimen/px22"
+            app:npv_TextSizeSelected="@dimen/px22"
             app:npv_WrapSelectorWheel="true"/>
 
         <com.jancar.settings.widget.dateandtimepickerview.NumberPickerView
@@ -87,8 +89,9 @@
             app:npv_ItemPaddingHorizontal="5dp"
             app:npv_ItemPaddingVertical="5dp"
             app:npv_ShowCount="3"
-            app:npv_TextSizeNormal="16sp"
-            app:npv_TextSizeSelected="22px"
+            app:npv_TextSizeNormal="@dimen/px22"
+            app:npv_TextSizeHint="@dimen/px22"
+            app:npv_TextSizeSelected="@dimen/px22"
             app:npv_TextArray="@array/hour_display"
             app:npv_WrapSelectorWheel="true"/>
     </LinearLayout>

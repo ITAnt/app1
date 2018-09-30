@@ -53,7 +53,24 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
 }
+buildscript {
+    repositories {
+        jcenter()
+        maven {
 
+            url "https://jitpack.io"
+        }
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url "https://jitpack.io"
+        }
+    }
+}
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
@@ -65,6 +82,6 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     // compile project(path: ':lib')
     compile 'com.google.zxing:core:3.3.0'
-    implementation files('libs/classes(8).jar')
+    implementation files('libs/classes.jar')
     compileOnly files('libs/wheelkey.jar')
 }

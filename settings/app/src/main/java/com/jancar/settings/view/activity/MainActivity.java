@@ -1,6 +1,7 @@
 package com.jancar.settings.view.activity;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -46,15 +47,48 @@ public class MainActivity extends BasePreferenceActivityImpl implements MainCont
     }
 
     @Override
+    protected void onPostResume() {
+        super.onPostResume();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.e("tag", "onNewINtent执行了");
+        setIntent(intent);
+        position = intent.getIntExtra("position", 0);
+        if (getListAdapter() != null) {
+            onHeaderClick((Header) getListAdapter().getItem(position), position);
+            Log.w("s", "onRestart");
+            if (mainHeaderListAdapter != null) {
+
+                mainHeaderListAdapter.setPosition(position);
+            }
+        }
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        //  position = getIntent().getIntExtra("position", 0);
+
+    }
+
+    @Override
     public int initView(@Nullable Bundle savedInstanceState) {
         return 0;
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        SettingManager.getSettingManager(this).setAutoBrightness(true);
+        Log.w("", "onPostResume");
+        initLocaleLanguage();
+        //   SettingManager.getSettingManager(this).setAutoBrightness(true);
         initlLayout();
         initList(savedInstanceState);
+        getListView().setVerticalScrollBarEnabled(false);
+        getListView().setScrollbarFadingEnabled(false);
         /*linearLayout*/
         if (savedInstanceState != null) {
             anInt = savedInstanceState.getInt("anInt");
@@ -69,7 +103,11 @@ public class MainActivity extends BasePreferenceActivityImpl implements MainCont
         if (position != 0) {
             onHeaderClick((Header) getListAdapter().getItem(position), position);
         }
-
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.animator.fragment_slide_left_enter,
+                R.animator.fragment_slide_left_exit,
+                R.animator.fragment_slide_right_enter,
+                R.animator.fragment_slide_right_exit);
     }
 
     public void initList(Bundle savedInstanceState) {
@@ -110,13 +148,11 @@ public class MainActivity extends BasePreferenceActivityImpl implements MainCont
     @Override
     protected void onStart() {
         super.onStart();
-
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-
     }
 
     @Override
@@ -164,10 +200,6 @@ public class MainActivity extends BasePreferenceActivityImpl implements MainCont
         return this;
     }
 
-    @Override
-    public void showLoading() {
-
-    }
 
     /**
      * 监听Back键按下事件,方法2:
@@ -191,26 +223,5 @@ public class MainActivity extends BasePreferenceActivityImpl implements MainCont
         } else {
             return super.onKeyDown(keyCode, event);
         }
-    }
-
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void showMessage(@NonNull String message) {
-
-    }
-
-    @Override
-    public void launchActivity(@NonNull Intent intent) {
-
-    }
-
-    @Override
-    public void killMyself() {
-
     }
 }

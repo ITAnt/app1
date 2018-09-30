@@ -393,16 +393,17 @@ public class WifiController {
 
     }
 
-    public void connect(WifiConfiguration config) {
+    public  int connect(WifiConfiguration config) {
         Log.d(TAG, "connect()");
 
         if (null == config) {
             Log.d(TAG, "the config is null");
-            return;
+            return -1;
         }
 
         int wcgID = mWifiManager.addNetwork(config);
         mWifiManager.enableNetwork(wcgID, true);
+       return wcgID;
     }
 
 

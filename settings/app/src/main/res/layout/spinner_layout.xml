@@ -33,16 +33,21 @@
                 android:text="自定义"
 
                 />
+
             <ImageView
+                android:layout_marginLeft="5px"
                 android:layout_marginRight="5px"
                 android:src="@mipmap/img_arrow_bellow"
                 android:layout_width="35px"
-                android:layout_height="19px" />
+                android:layout_height="35px" />
         </LinearLayout>
 
 
         <ListView
+            android:scrollbars="none"
+            android:fadeScrollbars="false"
             android:visibility="gone"
+            android:layout_marginTop="@dimen/px2"
             android:id="@+id/spinner_operating_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

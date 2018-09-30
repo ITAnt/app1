@@ -162,18 +162,20 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
     }
 
     private void showRestartDialog() {
+        final String sAgeFormat = getResources().getString(R.string.device_restart);
         final Dialog dialog = new Dialog(getContext(), R.style.record_voice_dialog);
         dialog.setContentView(R.layout.dialog_restart);
         final TextView nameDialogTxt = dialog.findViewById(R.id.text_name_dialog);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(true);
-        final Handler mHandler = new Handler() {
+        @SuppressLint("HandlerLeak") final Handler mHandler = new Handler() {
             public void handleMessage(Message msg) {
                 if (msg.what <= 0) {
                     reboot();
                 } else {
-
-                    nameDialogTxt.setText(msg.what + "s后重新启动");
+                    @SuppressLint({"StringFormatInvalid", "LocalSuppress"})
+                    String sFinalAge = String.format(sAgeFormat, msg.what);
+                    nameDialogTxt.setText(sFinalAge);
                 }
 
             }
@@ -288,25 +290,10 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         dialog.setContentView(R.layout.display_dialog_cleanup);
         final CircleProgressView mCircleProgressView = (CircleProgressView) dialog.findViewById(R.id.circle_progress_view);
         final TextView scheduleTxt = (TextView) dialog.findViewById(R.id.txt_schedule);
+        scheduleTxt.setText("0%");
         final TextView statusTxt = (TextView) dialog.findViewById(R.id.txt_status);
         mCircleProgressView.setAnime(true);
         mCircleProgressView.setMaxProgress(100);
-        @SuppressLint("HandlerLeak") final Handler handlers = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                switch (msg.what) {
-                    case 2:
-                        try {
-                            Thread.sleep(250);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        dialog.dismiss();
-                        break;
-                }
-            }
-        };
         @SuppressLint("HandlerLeak") final Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -321,8 +308,9 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                         statusTxt.setText(R.string.tab_clean_up);
                         mCircleProgressView.setProgress(100);
                         scheduleTxt.setText(100 + "%");
-                        msg.what = 2;
-                        handleMessage(msg);
+
+                        dialog.dismiss();
+                        Toast.makeText(getContext(), R.string.tab_clean_up, Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
 
@@ -385,31 +373,4 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
     public void setData(@Nullable Object data) {
 
     }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void showMessage(@NonNull String message) {
-
-    }
-
-    @Override
-    public void launchActivity(@NonNull Intent intent) {
-
-    }
-
-    @Override
-    public void killMyself() {
-
-    }
-
-
 }

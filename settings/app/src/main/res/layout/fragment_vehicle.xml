@@ -88,16 +88,19 @@
                     style="@style/style_rlayout">
 
                     <RadioButton
+                        android:layout_weight="1"
                         android:id="@+id/rbtn_mirror_normal_system"
                         style="@style/style_rbtns"
-                        android:drawableLeft="@drawable/btn_radio"
+                        android:button="@drawable/check_selector"
+                        android:paddingLeft="@dimen/px10"
                         android:text="@string/tab_mirror_normal" />
 
                     <RadioButton
                         android:id="@+id/rbtn_mirror_up_down_system"
                         style="@style/style_rbtns"
-                        android:layout_marginLeft="100dp"
-                        android:drawableLeft="@drawable/btn_radio"
+                        android:layout_weight="1"
+                        android:button="@drawable/check_selector"
+                        android:paddingLeft="@dimen/px10"
                         android:text="@string/tab_up_down_normal" />
                 </LinearLayout>
 
@@ -113,17 +116,19 @@
                     android:layout_below="@+id/llayout_mirror_s">
 
                     <RadioButton
+                        android:layout_weight="1"
                         android:id="@+id/rbtn_about_normal_system"
                         style="@style/style_rbtns"
-                        android:drawableLeft="@drawable/radio_button_style"
+                        android:button="@drawable/check_selector"
+                        android:paddingLeft="@dimen/px10"
                         android:text="@string/tab_about_normal" />
 
                     <RadioButton
                         android:id="@+id/rbtn_tab_up_down_left_right_system"
                         style="@style/style_rbtns"
-                        android:layout_marginLeft="100dp"
-
-                        android:drawableLeft="@drawable/btn_radio"
+                        android:layout_weight="1"
+                        android:button="@drawable/check_selector"
+                        android:paddingLeft="@dimen/px10"
                         android:text="@string/tab_up_down_left_right_normal" />
                 </LinearLayout>
 

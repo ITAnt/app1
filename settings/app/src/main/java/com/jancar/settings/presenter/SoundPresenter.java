@@ -1,5 +1,7 @@
 package com.jancar.settings.presenter;
 
+import android.content.Context;
+
 import com.jancar.settings.contract.EqEntity;
 import com.jancar.settings.listener.Contract.SoundContractImpl;
 import com.jancar.settings.manager.BasePresenter;
@@ -19,7 +21,7 @@ public class SoundPresenter extends BasePresenter<SoundContractImpl.Model, Sound
         initModel(model);
     }
 
-    public List<EqEntity> initList() {
-        return  model.initList();
+    public List<EqEntity> initList(Context mContext) {
+        return  model.initList( mContext);
     }
 }

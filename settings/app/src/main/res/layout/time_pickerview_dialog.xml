@@ -49,8 +49,10 @@
             app:npv_TextColorHint="@color/text_txt"
             app:npv_TextColorNormal="@color/text_txt"
             app:npv_TextColorSelected="@color/text_txt"
-            app:npv_TextSizeNormal="16sp"
+            app:npv_TextSizeNormal="22px"
             app:npv_TextSizeSelected="22px"
+            app:npv_TextSizeHint="22px"
+
             app:npv_WrapSelectorWheel="true" />
 
         <com.jancar.settings.widget.dateandtimepickerview.NumberPickerView
@@ -68,28 +70,21 @@
             app:npv_TextColorHint="@color/text_txt"
             app:npv_TextColorNormal="@color/text_txt"
             app:npv_TextColorSelected="@color/text_txt"
-            app:npv_TextSizeNormal="16sp"
+            app:npv_TextSizeNormal="22px"
             app:npv_TextSizeSelected="22px"
             app:npv_WrapSelectorWheel="true" />
     </LinearLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center">
 
         <TextView
-
+            style="@style/dialog_bit"
             android:id="@+id/submitText"
 
-            android:layout_alignParentRight="true"
-            android:background="@drawable/normal_bg_wifi__btn"
-            android:layout_width="150px"
-            android:layout_height="60px"
-            android:gravity="center_vertical|center_horizontal"
             android:text="确定"
-            android:textColor="@color/text_txt"
-            android:textSize="22px" />
+            />
 
     </RelativeLayout>
 </LinearLayout>
