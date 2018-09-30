@@ -19,8 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginLeft="@dimen/px20"
-            android:layout_marginRight="@dimen/px30"
+            android:layout_marginStart="@dimen/px20"
+            android:layout_marginEnd="@dimen/px30"
             android:background="@drawable/contact_synchronous_selector" />
 
         <EditText
@@ -55,8 +55,8 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="@dimen/px10"
-            android:layout_marginLeft="@dimen/px30"
-            android:layout_marginRight="@dimen/px35"
+            android:layout_marginStart="@dimen/px30"
+            android:layout_marginEnd="@dimen/px35"
             android:background="@android:color/transparent"
             android:paddingBottom="@dimen/px3" />
 
@@ -64,8 +64,8 @@
             android:id="@+id/contact_list"
             android:layout_width="match_parent"
             android:layout_height="500px"
-            android:layout_marginLeft="@dimen/px45"
-            android:layout_marginRight="@dimen/px10"
+            android:layout_marginStart="@dimen/px45"
+            android:layout_marginEnd="@dimen/px10"
             android:layout_toLeftOf="@+id/item_sidebar"
             android:scrollbars="none"
             tools:listitem="@layout/item_contact_list" />

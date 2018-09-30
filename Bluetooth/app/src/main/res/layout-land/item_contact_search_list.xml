@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/px40"
+            android:layout_marginStart="@dimen/px40"
             android:layout_toLeftOf="@id/iv_contact_search_call"
             android:layout_toRightOf="@id/tv_contact_search_name"
             android:maxLines="1"

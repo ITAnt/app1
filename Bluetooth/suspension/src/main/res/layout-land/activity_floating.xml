@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000"
@@ -54,51 +55,58 @@
                 android:background="@drawable/iv_sus_del_nomal" />
 
             <ImageView
-                android:id="@+id/sus_voice_add_left"
+                android:id="@+id/iv_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/px40"
+                android:layout_marginLeft="@dimen/px50"
                 android:layout_toRightOf="@+id/iv_sus_del"
                 android:background="@drawable/iv_sus_voice_nomal_l" />
 
             <ImageView
+                android:id="@+id/iv_power"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/px10"
                 android:layout_marginTop="@dimen/px40"
-                android:background="@drawable/iv_sus_power_nomal" />
+                android:background="@drawable/iv_sus_power_pressed" />
 
             <ImageView
+                android:id="@+id/iv_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/px10"
+                android:layout_marginLeft="@dimen/px5"
                 android:layout_marginTop="@dimen/px240"
                 android:background="@drawable/iv_sus_back_nomal_l" />
 
             <ImageView
+                android:id="@+id/iv_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/px20"
+                android:layout_marginLeft="@dimen/px90"
                 android:layout_marginTop="@dimen/px65"
-                android:layout_toRightOf="@+id/iv_sus_del"
                 android:background="@drawable/iv_sus_home_nomal" />
 
             <ImageView
+                android:id="@+id/iv_dec"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/px20"
+                android:layout_marginLeft="@dimen/px85"
                 android:layout_marginTop="@dimen/px210"
-                android:layout_toRightOf="@+id/iv_sus_del"
                 android:background="@drawable/iv_sus_voice_red_nomal_l" />
         </RelativeLayout>
 
-        <TextView
-            android:layout_width="@dimen/px300"
-            android:layout_height="@dimen/px50"
-            android:layout_marginLeft="500px"
-            android:layout_marginTop="@dimen/px180"
-            android:drawableRight="@drawable/iv_sus_back_nomal_l" />
+        <ListView
+            android:id="@+id/sus_listview"
+            android:layout_width="387px"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/px10"
+            android:layout_marginStart="300px"
+            android:layout_marginTop="@dimen/px23"
+            android:background="@drawable/iv_sus_list_bg"
+            android:divider="@drawable/iv_sus_div"
+            android:padding="@dimen/px5"
+            android:scrollbars="none" />
 
     </LinearLayout>
 </LinearLayout>

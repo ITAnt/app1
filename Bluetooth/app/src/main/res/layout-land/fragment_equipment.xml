@@ -21,8 +21,8 @@
             android:id="@+id/iv_equipment_connet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px80"
-            android:layout_marginRight="@dimen/px80"
+            android:layout_marginStart="@dimen/px80"
+            android:layout_marginEnd="@dimen/px80"
             android:src="@drawable/iv_equipment_connet" />
 
 
@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tv_equipment_myequip"
-                android:paddingRight="@dimen/px30"/>
+                android:paddingEnd="@dimen/px30"/>
 
             <TextView
                 android:id="@+id/tv_equipment_setting_name"
@@ -61,7 +61,7 @@
                 android:layout_marginTop="@dimen/px24"
                 tools:text="BT Call"
                 android:maxLines="1"
-                android:paddingRight="@dimen/px30"/>
+                android:paddingEnd="@dimen/px30"/>
         </LinearLayout>
 
         <Button
@@ -69,8 +69,8 @@
             style="@style/txt_normal_px22"
             android:layout_width="@dimen/px80"
             android:layout_height="@dimen/px80"
-            android:layout_marginLeft="@dimen/px60"
-            android:layout_marginRight="@dimen/px60"
+            android:layout_marginStart="@dimen/px60"
+            android:layout_marginEnd="@dimen/px60"
             android:background="@drawable/iv_equipment_red"
             android:gravity="center"
             android:text="@string/tv_equipment_disconn"
@@ -84,8 +84,8 @@
             android:background="@drawable/iv_equiment_green"
             android:gravity="center"
             android:text="@string/tv_equipment_conn"
-            android:layout_marginLeft="@dimen/px60"
-            android:layout_marginRight="@dimen/px60"/>
+            android:layout_marginStart="@dimen/px60"
+            android:layout_marginEnd="@dimen/px60"/>
 
         <LinearLayout
             android:layout_width="@dimen/px200"

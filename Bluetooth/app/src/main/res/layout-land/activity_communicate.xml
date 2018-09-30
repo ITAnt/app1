@@ -19,8 +19,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/px60"
-            android:layout_marginLeft="@dimen/px50"
-            android:layout_marginRight="@dimen/px40"
+            android:layout_marginStart="@dimen/px50"
+            android:layout_marginEnd="@dimen/px40"
             android:layout_marginTop="@dimen/px20"
             android:background="@drawable/ip_bt_reception_dail">
 

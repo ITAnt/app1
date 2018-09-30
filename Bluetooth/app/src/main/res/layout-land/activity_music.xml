@@ -62,8 +62,8 @@
                 android:id="@+id/iv_music_play"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/px100"
-                android:layout_marginRight="@dimen/px100"
+                android:layout_marginStart="@dimen/px100"
+                android:layout_marginEnd="@dimen/px100"
                 android:src="@drawable/music_play_selector" />
 
             <ImageView
@@ -86,14 +86,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/px140"
+            android:layout_marginStart="@dimen/px140"
             android:background="@drawable/music_disc_bg" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/px100"
+            android:layout_marginStart="@dimen/px100"
             android:orientation="vertical">
 
             <TextView

@@ -21,6 +21,6 @@ public class Constants {
     public final static int PHONEBOOK_STATE_FINSH = 4;//同步结束
     public final static int PHONEBOOK_STATE_ERR = 3;//同步错误
 
-    public final static int PHONEBOOK_DATA_REFRESH = 10;//同步错误
+    public final static int PHONEBOOK_DATA_REFRESH = 10;
 
 }

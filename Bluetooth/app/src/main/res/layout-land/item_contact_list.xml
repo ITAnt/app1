@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/px10"
+        android:layout_marginStart="@dimen/px10"
         android:background="@drawable/contact_call_selector" />
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/px40"
+        android:layout_marginStart="@dimen/px40"
         android:layout_toLeftOf="@id/iv_contact_call"
         android:layout_toRightOf="@id/tv_contact_name"
         android:maxLines="1"

@@ -14,21 +14,10 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px25"
-            android:layout_marginRight="@dimen/px15"
+            android:layout_marginEnd="@dimen/px15"
+            android:layout_marginStart="@dimen/px25"
             android:layout_marginTop="@dimen/px10"
             android:background="@drawable/ip_bt_dail">
-
-            <TextView
-                android:id="@+id/dial_tv_number"
-                style="@style/txt_px20"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/px60"
-                android:gravity="center_vertical"
-                android:maxLength="25"
-                android:maxLines="1"
-                android:paddingLeft="@dimen/px15"
-                tools:text="13055555550000000" />
 
             <ImageView
                 android:id="@+id/dial_iv_del_number"
@@ -36,8 +25,21 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/px10"
+                android:layout_marginEnd="@dimen/px10"
                 android:background="@drawable/dial_del_number_selector" />
+
+            <TextView
+                android:id="@+id/dial_tv_number"
+                style="@style/txt_normal_px22"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px60"
+                android:layout_toLeftOf="@id/dial_iv_del_number"
+                android:gravity="center_vertical|end"
+                android:maxLength="30"
+                android:paddingEnd="@dimen/px10"
+                android:paddingLeft="@dimen/px15"
+                android:singleLine="true"
+                tools:text="13055555550000000" />
         </RelativeLayout>
 
 
@@ -45,8 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/px15"
-            android:layout_marginLeft="@dimen/px20"
-            android:layout_marginRight="@dimen/px10"
+            android:layout_marginEnd="@dimen/px10"
+            android:layout_marginStart="@dimen/px20"
             android:layout_marginTop="@dimen/px5"
             android:background="@drawable/frame_bt_dail"
             android:orientation="vertical">
@@ -61,11 +63,11 @@
 
             <TextView
                 android:id="@+id/tv_dial_syn_contact"
+                style="@style/txt_tip_20"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@string/tv_dial_contact"
-                style="@style/txt_tip_20" />
+                android:text="@string/tv_dial_contact" />
 
 
         </LinearLayout>

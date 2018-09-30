@@ -27,7 +27,7 @@
             style="@style/txt_normal_px22"
             android:layout_width="@dimen/px120"
             android:layout_height="@dimen/px70"
-            android:layout_marginRight="@dimen/px100"
+            android:layout_marginEnd="@dimen/px100"
             android:background="@drawable/dialog_contact_synchronous_text"
             android:gravity="center"
             android:text="@string/tv_yes" />

@@ -46,8 +46,8 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".view.CommunicateActivity"
             android:launchMode="singleTask"
@@ -71,9 +71,16 @@
         </activity>
         <activity
             android:name=".view.MusicContentActivity"
-            android:screenOrientation="landscape"
-            android:launchMode="singleTask"/>
+            android:label="@string/tv_bluet_music"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
 
+        <service android:name=".view.BTUIService" />
     </application>
 
 </manifest>

@@ -16,21 +16,21 @@
             android:id="@+id/item_dial_show_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px10"
+            android:layout_marginStart="@dimen/px10"
             android:background="@drawable/dial_number_one_selector" />
 
         <ImageView
             android:id="@+id/item_dial_show_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px40"
+            android:layout_marginStart="@dimen/px40"
             android:background="@drawable/dial_number_two_selector" />
 
         <ImageView
             android:id="@+id/item_dial_show_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px40"
+            android:layout_marginStart="@dimen/px40"
             android:background="@drawable/dial_number_three_selector" />
     </LinearLayout>
 
@@ -45,21 +45,21 @@
             android:id="@+id/item_dial_show_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px10"
+            android:layout_marginStart="@dimen/px10"
             android:background="@drawable/dial_number_four_selector" />
 
         <ImageView
             android:id="@+id/item_dial_show_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px40"
+            android:layout_marginStart="@dimen/px40"
             android:background="@drawable/dial_number_five_selector" />
 
         <ImageView
             android:id="@+id/item_dial_show_6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px40"
+            android:layout_marginStart="@dimen/px40"
             android:background="@drawable/dial_number_six_selector" />
     </LinearLayout>
 
@@ -74,21 +74,21 @@
             android:id="@+id/item_dial_show_7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px10"
+            android:layout_marginStart="@dimen/px10"
             android:background="@drawable/dial_number_seven_selector" />
 
         <ImageView
             android:id="@+id/item_dial_show_8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px40"
+            android:layout_marginStart="@dimen/px40"
             android:background="@drawable/dial_number_eight_selector" />
 
         <ImageView
             android:id="@+id/item_dial_show_9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px40"
+            android:layout_marginStart="@dimen/px40"
             android:background="@drawable/dial_number_nine_selector" />
     </LinearLayout>
 
@@ -103,21 +103,21 @@
             android:id="@+id/item_dial_show_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px10"
+            android:layout_marginStart="@dimen/px10"
             android:background="@drawable/dial_number_ten_selector" />
 
         <ImageView
             android:id="@+id/item_dial_show_11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px40"
+            android:layout_marginStart="@dimen/px40"
             android:background="@drawable/dial_number_eleven_selector" />
 
         <ImageView
             android:id="@+id/item_dial_show_12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px40"
+            android:layout_marginStart="@dimen/px40"
             android:background="@drawable/dial_number_twelve_selector" />
     </LinearLayout>
 

@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/px10"
+            android:layout_marginStart="@dimen/px10"
             tools:text="中国移动" />
 
         <TextView
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/px20"
+            android:layout_marginStart="@dimen/px20"
             android:layout_toRightOf="@id/item_dial_number_type"
             tools:text="1570000000000" />
     </RelativeLayout>

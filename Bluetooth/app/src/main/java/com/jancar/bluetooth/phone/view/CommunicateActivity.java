@@ -230,23 +230,11 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
             setSystemUIVisible(false);
             mWindowManager.addView(haifView, mLayoutParams1);
         }
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                mWindowManager.removeView(phoneView);
-//                mWindowManager.addView(haifView, mLayoutParams1);
-//                mFullDisplay = false;
-//            }
-//        }, 15000);
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-//        String className = getTopActivityInfo();
-//        if (className.equals("com.jancar.launcher.MainActivity")) {
-//            return;
-//        }
         handIntent(intent);
         if (isFull != saveIsFull) {
             if (isFull == false) {
@@ -292,9 +280,9 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
         mLayoutParams1.format = PixelFormat.RGBA_8888;
         mLayoutParams1.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
         mLayoutParams1.gravity = Gravity.CENTER_HORIZONTAL;
-        mLayoutParams1.width = 520;
-        mLayoutParams1.height = 140;
-        mLayoutParams1.y = -170;
+        mLayoutParams1.width = 400;
+        mLayoutParams1.height = 200;
+//        mLayoutParams1.y = -170;
         haifView = LayoutInflater.from(this).inflate(R.layout.activity_communicate_half, null);
     }
 
@@ -672,8 +660,10 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
             case R.id.iv_comm_message_voice:
                 if (getPresenter().isMicMute()) {
                     getManager().muteMic(false);
+                    ivVoice.setImageResource(R.drawable.commun_voice_selector);
                 } else {
                     getManager().muteMic(true);
+                    ivVoice.setImageResource(R.drawable.commun_no_voice_selector);
                 }
                 break;
             case R.id.iv_comm_message_keypad:

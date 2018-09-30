@@ -3,11 +3,11 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorAccent</item>
-        <item name="colorPrimaryDark">@android:color/transparent</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--<item name="android:windowBackground">@android:color/transparent</item>-->
     </style>
 
     <!--textview默认设置-->
@@ -77,6 +77,9 @@
 
     <style name="txt_normal_tip_px22" parent="txt_default_tip">
         <item name="android:textSize">@dimen/px22</item>
+    </style>
+    <style name="txt_normal_px26" parent="txt_default">
+        <item name="android:textSize">@dimen/px26</item>
     </style>
     <style name="txt_normal_px30" parent="txt_default">
         <item name="android:textSize">@dimen/px30</item>

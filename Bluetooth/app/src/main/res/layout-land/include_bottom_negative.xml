@@ -29,8 +29,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/px2"
-        android:layout_marginRight="@dimen/px2"
+        android:layout_marginStart="@dimen/px2"
+        android:layout_marginEnd="@dimen/px2"
         android:background="@drawable/lin_bt_dail_n" />
 
     <!--联系人-->
@@ -56,8 +56,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/px2"
-        android:layout_marginRight="@dimen/px2"
+        android:layout_marginStart="@dimen/px2"
+        android:layout_marginEnd="@dimen/px2"
         android:background="@drawable/lin_bt_dail_n" />
 
 
@@ -83,8 +83,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/px2"
-        android:layout_marginRight="@dimen/px2"
+        android:layout_marginStart="@dimen/px2"
+        android:layout_marginEnd="@dimen/px2"
         android:background="@drawable/lin_bt_dail_n" />
 
     <!--设备管理-->

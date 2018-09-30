@@ -16,7 +16,7 @@
 
     <TextView
         android:id="@+id/tv_comm_message_type"
-        style="@style/txt_normal_px22"
+        style="@style/txt_normal_px26"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/px20"
@@ -48,7 +48,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/px40"
+            android:layout_marginEnd="@dimen/px40"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
@@ -69,7 +69,7 @@
             android:id="@+id/line_voice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/px40"
+            android:layout_marginEnd="@dimen/px40"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
@@ -77,7 +77,7 @@
                 android:id="@+id/iv_comm_message_voice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/commun_voice_selector" />
+                android:src="@drawable/commun_no_voice_selector" />
 
             <TextView
                 style="@style/txt_normal_px22"
@@ -90,7 +90,7 @@
             android:id="@+id/line_key"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/px40"
+            android:layout_marginEnd="@dimen/px40"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
@@ -111,7 +111,7 @@
             android:id="@+id/liner_vehicle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/px40"
+            android:layout_marginEnd="@dimen/px40"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
@@ -133,7 +133,7 @@
             android:id="@+id/linear_answer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/px40"
+            android:layout_marginEnd="@dimen/px40"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:visibility="gone">

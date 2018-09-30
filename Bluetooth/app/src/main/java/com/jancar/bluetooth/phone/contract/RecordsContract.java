@@ -2,13 +2,9 @@ package com.jancar.bluetooth.phone.contract;
 
 import android.content.Context;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jancar.bluetooth.lib.BluetoothManager;
-import com.jancar.bluetooth.lib.BluetoothPhoneBookData;
-import com.ui.mvp.view.Ui;
 import com.ui.mvp.presenter.IPresenter;
-
-import java.util.List;
+import com.ui.mvp.view.Ui;
 
 /**
  * @author Tzq

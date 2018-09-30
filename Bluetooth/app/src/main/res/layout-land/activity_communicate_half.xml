@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center_horizontal"
-    android:background="#2E000000"
+    android:background="#C7000000"
     android:orientation="vertical">
 
 
@@ -16,29 +17,28 @@
 
         <TextView
             android:id="@+id/tv_commun_half_name"
-            style="@style/txt_black_20"
+            style="@style/txt_px20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:layout_marginRight="@dimen/px20"
+            android:layout_marginEnd="@dimen/px20"
             android:maxLength="8"
-            android:text="中国移动中国移动" />
+            tools:text="中国移动中国移动" />
 
         <TextView
             android:id="@+id/tv_commun_half_number"
-            style="@style/txt_black_20"
+            style="@style/txt_px20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/px20"
+            android:layout_marginEnd="@dimen/px20"
             android:maxLength="11"
-            android:text="12345678909" />
+            tools:text="12345678909" />
 
         <TextView
             android:id="@+id/tv_commun_half_type"
-            style="@style/txt_black_20"
+            style="@style/txt_px20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="来电" />
+            tools:text="来电" />
     </LinearLayout>
 
     <LinearLayout
@@ -52,14 +52,14 @@
             android:id="@+id/iv_commun_half_answer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/px60"
+            android:layout_marginEnd="@dimen/px60"
             android:src="@drawable/commun_half_answer_selector" />
 
         <ImageView
             android:id="@+id/iv_commun_half_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/px60"
+            android:layout_marginEnd="@dimen/px60"
             android:src="@drawable/iv_commun_half_car" />
 
         <ImageView
