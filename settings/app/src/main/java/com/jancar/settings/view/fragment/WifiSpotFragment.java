@@ -91,28 +91,4 @@ public class WifiSpotFragment extends BaseFragments<WifiSpotPresenter> implement
 
     }
 
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void showMessage(@NonNull String message) {
-
-    }
-
-    @Override
-    public void launchActivity(@NonNull Intent intent) {
-
-    }
-
-    @Override
-    public void killMyself() {
-
-    }
 }

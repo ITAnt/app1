@@ -364,7 +364,7 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
         int date = t.monthDay;
         int hours = Integer.parseInt(hour);
         int minutes = Integer.parseInt(minute);
-        if (a.equals("下午")) {
+        if (a.equals(getResources().getString(R.string.tab_pm))) {
             String s = year + "-" + month + "-" + date + " " + hours + ":" + minutes;
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
             java.util.Date curDate = null;
@@ -514,31 +514,6 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
 
     @Override
     public void setData(@Nullable Object data) {
-
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void showMessage(@NonNull String message) {
-
-    }
-
-    @Override
-    public void launchActivity(@NonNull Intent intent) {
-
-    }
-
-    @Override
-    public void killMyself() {
 
     }
 

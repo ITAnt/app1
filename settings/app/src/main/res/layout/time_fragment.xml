@@ -117,13 +117,15 @@
                 <RadioButton
                     android:id="@+id/rbtn_24_hour_system"
                     style="@style/style_rbtn"
-                    android:drawableLeft="@drawable/btn_radio"
+                    android:button="@drawable/check_selector"
+                    android:paddingLeft="@dimen/px10"
                     android:text="@string/label_24_hour_system" />
 
                 <RadioButton
                     android:id="@+id/rbtn_12_hour_system"
                     style="@style/style_rbtn"
-                    android:drawableLeft="@drawable/btn_radio"
+                    android:button="@drawable/check_selector"
+                    android:paddingLeft="@dimen/px10"
                     android:text="@string/label_12_hour_system" />
             </RadioGroup>
 

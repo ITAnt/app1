@@ -10,6 +10,8 @@ import com.jancar.settings.manager.BasePresenter;
 import com.jancar.settings.model.WifiModel;
 import com.jancar.settings.model.WifiSpotModel;
 
+import java.util.List;
+
 import static com.jancar.settings.util.wifi.WifiController.WIFICIPHER_NOPASS;
 import static com.jancar.settings.util.wifi.WifiController.WIFICIPHER_WEP;
 import static com.jancar.settings.util.wifi.WifiController.WIFICIPHER_WPA;
@@ -41,4 +43,14 @@ public class WifiPresenter   extends BasePresenter<WifiContractImpl. Model, Wifi
         return type;
     }
 
+    public  List<ScanResult> removeDuplicate(List<ScanResult> list) {
+        for (int i = 0; i < list.size() - 1; i++) {
+            for (int j = list.size() - 1; j > i; j--) {
+                if (list.get(j).SSID.equals(list.get(i).SSID)) {
+                    list.remove(j);
+                }
+            }
+        }
+        return list;
+    }
 }

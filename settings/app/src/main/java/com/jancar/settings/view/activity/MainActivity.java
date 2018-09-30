@@ -1,6 +1,7 @@
 package com.jancar.settings.view.activity;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -102,7 +103,11 @@ public class MainActivity extends BasePreferenceActivityImpl implements MainCont
         if (position != 0) {
             onHeaderClick((Header) getListAdapter().getItem(position), position);
         }
-
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.animator.fragment_slide_left_enter,
+                R.animator.fragment_slide_left_exit,
+                R.animator.fragment_slide_right_enter,
+                R.animator.fragment_slide_right_exit);
     }
 
     public void initList(Bundle savedInstanceState) {
@@ -143,25 +148,21 @@ public class MainActivity extends BasePreferenceActivityImpl implements MainCont
     @Override
     protected void onStart() {
         super.onStart();
-        Log.w("", "onStart");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.w("", "onStop");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.w("", "onPause");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.w("", "onDestroy");
     }
 
     private Method noteStateNotSavedMethod;
@@ -199,10 +200,6 @@ public class MainActivity extends BasePreferenceActivityImpl implements MainCont
         return this;
     }
 
-    @Override
-    public void showLoading() {
-
-    }
 
     /**
      * 监听Back键按下事件,方法2:
@@ -226,26 +223,5 @@ public class MainActivity extends BasePreferenceActivityImpl implements MainCont
         } else {
             return super.onKeyDown(keyCode, event);
         }
-    }
-
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void showMessage(@NonNull String message) {
-
-    }
-
-    @Override
-    public void launchActivity(@NonNull Intent intent) {
-
-    }
-
-    @Override
-    public void killMyself() {
-
     }
 }

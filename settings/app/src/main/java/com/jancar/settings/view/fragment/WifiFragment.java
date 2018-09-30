@@ -57,6 +57,7 @@ import com.jancar.settings.util.wifi.WifiController;
 import com.jancar.settings.util.wifi.WifiEnabler;
 import com.jancar.settings.util.wifi.WifiListAdapter;
 import com.jancar.settings.util.wifi.WifiSavedListAdapter;
+import com.jancar.settings.widget.AVLoadingIndicatorView;
 import com.jancar.settings.widget.SwitchButton;
 
 
@@ -78,7 +79,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
     private static final int WIFICIPHER_NOPASS = 0;
     private static final int WIFICIPHER_WEP = 1;
     private static final int WIFICIPHER_WPA = 2;
-    private AnimationDrawable animationDrawable;
+    //private AnimationDrawable animationDrawable;
     private final int ERROR = -1;
     private final int LIST_HEADER = 0;
 
@@ -99,17 +100,19 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
     private ListView mScanList;
 
     private TextView wifiSummary;
-    private ImageView mLoading;
+    private AVLoadingIndicatorView mLoading;
     private LayoutInflater mInflater;
     private AlertDialog.Builder mBuilder;
 
     private WifiListAdapter mScanAdapter;
     //    private WifiListAdapter mSavedAdapter;
     private WifiSavedListAdapter mSavedAdapter;
-    private  WifiReceiver mReceiver;
+    private WifiReceiver mReceiver;
     List<ScanResult> mScanResults = new ArrayList<ScanResult>();
     List<ScanResult> mSavedResultsShow = new ArrayList<ScanResult>();
     private View view;
+    private boolean isFirst = true;
+
     class WifiReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -131,6 +134,8 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
                 showListView();
                 handleNetWorkStateChanged();
                 handleWifiScanResult();
+                isFirst = false;
+
             } else if (WifiManager.RSSI_CHANGED_ACTION.equals(action)) {
                 Log.d(TAG, "qyp onReceive: RSSI_CHANGED_ACTION");
                 int updateRSSI = intent.getIntExtra(WifiManager.EXTRA_NEW_RSSI, -200);
@@ -139,10 +144,13 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
                         if (mSavedResultsShow.size() > 0) {
                             //  mSavedResultsShow.
                             mScanResults.addAll(0, mSavedResultsShow);
-                            mScanResults = removeDuplicate(mScanResults);
+                            mScanResults = mPresenter.removeDuplicate(mScanResults);
                             mScanAdapter.setmSavedResultsShow(mSavedResultsShow);
                             Log.d(TAG, "update Rssi: " + updateRSSI);
-                            mScanAdapter.notifyDataSetChanged();
+                         //   mScanAdapter.notifyDataSetChanged();
+                            if (isFirst) {
+                                ListAnimation();
+                            }
                         }
                     }
                 }
@@ -163,7 +171,9 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
                 } else if (NetworkInfo.State.DISCONNECTING.equals(info.getState())) {
                     mWifiController.setConnectionState(mWifiController.STATE_DISCONNECTING);
                 } else if (NetworkInfo.State.CONNECTED.equals(info.getState())) {
-                    loadingStopRefresh();
+                    if (!isFirst){
+                        loadingStopRefresh();
+                    }
                     mWifiController.setConnectionState(mWifiController.STATE_CONNECTED);
 
 
@@ -196,12 +206,6 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
 
         }
     }
-   /* private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-    };*/
 
     private void handleNetWorkStateChanged() {
         Log.d(TAG, "handleNetWorkStateChanged");
@@ -214,21 +218,12 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
             Log.d(TAG, "handleWifiScanResult: " + mSavedResultsShow);
             mScanAdapter.setmSavedResultsShow(mSavedResultsShow);
             mScanResults.addAll(0, mSavedResultsShow);
-            mScanResults = removeDuplicate(mScanResults);
+            mScanResults = mPresenter.removeDuplicate(mScanResults);
             mScanAdapter.notifyDataSetChanged();
         }
     }
 
-    public static List removeDuplicate(List<ScanResult> list) {
-        for (int i = 0; i < list.size() - 1; i++) {
-            for (int j = list.size() - 1; j > i; j--) {
-                if (list.get(j).SSID.equals(list.get(i).SSID)) {
-                    list.remove( j);
-                }
-            }
-        }
-        return list;
-    }
+
 
     private void handleWifiScanResult() {
         Log.d(TAG, "handleWifiScanResult");
@@ -241,7 +236,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
 
         mScanAdapter.setmSavedResultsShow(mSavedResultsShow);
         mScanResults.addAll(0, mSavedResultsShow);
-        mScanResults = removeDuplicate(mScanResults);
+        mScanResults =mPresenter. removeDuplicate(mScanResults);
         Log.d(TAG, "mScanResults:" + mScanResults + ", size:" + mScanResults.size());
         if (null != mScanResults && null != mScanAdapter) {
             mScanAdapter.setData(mScanResults);
@@ -310,25 +305,13 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
      */
     private void initListView() {
         Log.d(TAG, "initListView()");
-
         showListView();
-        //scan_result
-        mLoading = (ImageView) view.findViewById(R.id.wifi_refresh_image);
+        mLoading = (AVLoadingIndicatorView) view.findViewById(R.id.wifi_refresh_image);
         mScanAdapter = new WifiListAdapter(this.getContext(), mScanResults);
         mScanAdapter.setOnClickListener(this);
         mScanList.setAdapter(mScanAdapter);
-        //  mScanList.setOnItemClickListener(mScanListener);
-        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.anim_item);
-        LayoutAnimationController controller = new LayoutAnimationController(animation);
-        controller.setDelay(0.5f);
-        controller.setOrder(LayoutAnimationController.ORDER_NORMAL);
-        mScanList.setLayoutAnimation(controller);
-
-        //saved_result
+        ListAnimation();
         mSavedAdapter = new WifiSavedListAdapter(this.getContext(), mSavedResultsShow);
-
-
-        //show refresh loading
         loadingStartRefresh();
     }
 
@@ -339,8 +322,8 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
         super.onDestroy();
         mBgThread.quit();
         mWifiController.setInstance();
-
         getActivity().unregisterReceiver(mReceiver);
+        mWifiEnabler.pause();
     }
 
     private void showScanResultNopassDialog(String ssid, int type) {
@@ -363,11 +346,6 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
         dialog.setContentView(R.layout.wifi_dialog_scan_result);
         dialog.setCanceledOnTouchOutside(true);
         dialog.setCancelable(true);
-      /*  View v = mInflater.inflate(R.layout.wifi_dialog_scan_result, null);
-        mBuilder.setView(v);*/
-
-        // final AlertDialog dialog = mBuilder.create();
-
         TextView wifiName = (TextView) dialog.findViewById(R.id.wifi_name_dialog);
         wifiName.setText(finalSSID);
         final EditText wifiPassword = (EditText) dialog.findViewById(R.id.wifi_password);
@@ -375,21 +353,6 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
         Button connect = (Button) dialog.findViewById(R.id.wifi_connect_btn_scan);
         Button cancel = (Button) dialog.findViewById(R.id.wifi_cancel_btn_scan);
         CheckBox isShowPassword = (CheckBox) dialog.findViewById(R.id.show_password);
-
- /*       isShowPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                                         boolean isChecked) {
-                // TODO Auto-generated method stub
-                if (isChecked) {
-                    wifiPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    wifiPassword.setTypeface(Typeface.DEFAULT);
-                } else {
-                    wifiPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    wifiPassword.setTypeface(Typeface.DEFAULT);
-                }
-            }
-        });*/
         View.OnClickListener buttonListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -398,15 +361,14 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
                         mWifiController.disConnect();
                         String password = wifiPassword.getText().toString();
                         WifiConfiguration config = mWifiController.createWifiConfig(finalSSID, password, finalType);
-                       int i=   mWifiController.connect(config);
-
+                        int i = mWifiController.connect(config);
                         //when we change the click the item, we need update state
                         mWifiController.setConnectionState(mWifiController.STATE_CONNECTING);
                         handleWifiScanResult();
-                        if (i==-1){
+                        if (i == -1) {
                             wifiPassword.setText("");
                             Toast.makeText(mContext, "密码错误", Toast.LENGTH_SHORT).show();
-                        }else {
+                        } else {
 
                             dialog.dismiss();
                         }
@@ -450,7 +412,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
                 llayoutFragmentPrompt.setVisibility(View.VISIBLE);
                 llayoutFragmentLoading.setVisibility(View.GONE);
                 mLoading.setVisibility(View.GONE);
-                animationDrawable.stop();
+                mLoading.hide();
             }
         });
 
@@ -465,7 +427,8 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
             public void run() {
                 llayoutFragmentLoading.setVisibility(View.VISIBLE);
                 mLoading.setVisibility(View.VISIBLE);
-                animationDrawable.start();
+
+                mLoading.show();
             }
         });
 
@@ -487,7 +450,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
             mSwitch = (SwitchButton) view.findViewById(R.id.switchB);
             scanTxt = (TextView) view.findViewById(R.id.txt_scan);
             wifiSummary = (TextView) view.findViewById(R.id.txt_wifi_summary);
-            mLoading = (ImageView) view.findViewById(R.id.wifi_refresh_image);
+            mLoading = (AVLoadingIndicatorView) view.findViewById(R.id.wifi_refresh_image);
             mScanList = (ListView) view.findViewById(R.id.scan_list);
             llayoutFragmentLoading = (LinearLayout) view.findViewById(R.id.fragment_loading);
             llayoutFragmentPrompt = (LinearLayout) view.findViewById(R.id.fragment_prompt);
@@ -524,9 +487,20 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
         public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
             Log.d(TAG, "onCheckedChanged()");
             mWifiEnabler.onSwitchChanged(mSwitch, isChecked);
+            if (isChecked){
+                ListAnimation();
+            }
+
         }
     };
 
+    public void ListAnimation(){
+        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.anim_item);
+        LayoutAnimationController controller = new LayoutAnimationController(animation);
+        controller.setDelay(0.5f);
+        controller.setOrder(LayoutAnimationController.ORDER_NORMAL);
+   //     mScanList.setLayoutAnimation(controller);
+    }
     @Override
     public int initResid() {
         return 0;
@@ -539,8 +513,8 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        mLoading.setImageResource(R.drawable.loading_animation);
-        animationDrawable = (AnimationDrawable) mLoading.getDrawable();
+/*        mLoading.setImageResource(R.drawable.loading_animation);
+        animationDrawable = (AnimationDrawable) mLoading.getDrawable();*/
         //handleWifiStateChangeds(getActivity().getIntent().getIntExtra(WifiManager.EXTRA_WIFI_STATE, WifiManager.WIFI_STATE_UNKNOWN));
         registerWifiReceiver();
         mWifiController = WifiController.getInstance(this.getContext());
@@ -555,31 +529,6 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
 
     @Override
     public void setData(@Nullable Object data) {
-
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void showMessage(@NonNull String message) {
-
-    }
-
-    @Override
-    public void launchActivity(@NonNull Intent intent) {
-
-    }
-
-    @Override
-    public void killMyself() {
 
     }
 
@@ -639,10 +588,12 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
             case R.id.txt_scan:
                 mScanResults.clear();
                 mScanAdapter.notifyDataSetInvalidated();
+                ListAnimation();
                 Log.d(TAG, "click scan");
                 scanTxt.setEnabled(false);
                 scanTxt.setTextColor(Color.parseColor("#484949"));
                 mWifiEnabler.getScanHandler().sendEmptyMessage(WifiEnabler.MSG_START_SCAN);
+
                 loadingStartRefresh();
                 break;
             default:

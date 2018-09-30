@@ -162,18 +162,20 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
     }
 
     private void showRestartDialog() {
+        final String sAgeFormat = getResources().getString(R.string.device_restart);
         final Dialog dialog = new Dialog(getContext(), R.style.record_voice_dialog);
         dialog.setContentView(R.layout.dialog_restart);
         final TextView nameDialogTxt = dialog.findViewById(R.id.text_name_dialog);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(true);
-        final Handler mHandler = new Handler() {
+        @SuppressLint("HandlerLeak") final Handler mHandler = new Handler() {
             public void handleMessage(Message msg) {
                 if (msg.what <= 0) {
                     reboot();
                 } else {
-
-                    nameDialogTxt.setText(msg.what + "s后重新启动");
+                    @SuppressLint({"StringFormatInvalid", "LocalSuppress"})
+                    String sFinalAge = String.format(sAgeFormat, msg.what);
+                    nameDialogTxt.setText(sFinalAge);
                 }
 
             }
@@ -371,31 +373,4 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
     public void setData(@Nullable Object data) {
 
     }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void showMessage(@NonNull String message) {
-
-    }
-
-    @Override
-    public void launchActivity(@NonNull Intent intent) {
-
-    }
-
-    @Override
-    public void killMyself() {
-
-    }
-
-
 }

@@ -53,7 +53,24 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
 }
+buildscript {
+    repositories {
+        jcenter()
+        maven {
 
+            url "https://jitpack.io"
+        }
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url "https://jitpack.io"
+        }
+    }
+}
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'

@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -271,6 +273,18 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                 break;
             case R.id.tv_setting_search:
                 mPresenter.searchPairedList();
+               /* Handler     handler = new Handler(new Handler.Callback(){
+                    @Override
+                    public boolean handleMessage(Message msg) {
+
+                        if(msg.what == 1 ){
+                        }
+                        return true;
+                    }
+                });
+
+                //五秒后发送
+                handler.sendEmptyMessageDelayed(1,2000);*/
                 break;
 
         }
@@ -398,32 +412,6 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     public void setData(@Nullable Object data) {
 
     }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void showMessage(@NonNull String message) {
-
-    }
-
-    @Override
-    public void launchActivity(@NonNull Intent intent) {
-
-    }
-
-    @Override
-    public void killMyself() {
-
-    }
-
     @Override
     public BluetoothSettingManager getBluetManger() {
         return bluetoothManager;

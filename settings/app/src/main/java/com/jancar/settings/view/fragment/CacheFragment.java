@@ -59,31 +59,6 @@ public class CacheFragment extends BaseFragment<CachePresenter> implements Cache
     }
 
     @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void showMessage(@NonNull String message) {
-
-    }
-
-    @Override
-    public void launchActivity(@NonNull Intent intent) {
-
-    }
-
-    @Override
-    public void killMyself() {
-
-    }
-
-    @Override
     public void initView(@Nullable Bundle savedInstanceState) {
     }
 

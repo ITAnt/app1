@@ -59,8 +59,8 @@ public abstract class BasePreferenceActivityImpl<P extends IPresenter> extends P
             DisplayFragment.class.getName(), WifiSpotFragment.class.getName(),
             WifiFragment.class.getName(), TimeFragment.class.getName(),
             CacheFragment.class.getName(), SoundFragment.class.getName(),
-            NavigationFragment.class.getName(),VehicleFragment.class.getName(),
-            OnFragment.class.getName(),SystemFragment.class.getName(), BluetoothFragment.class.getName()};
+            NavigationFragment.class.getName(), VehicleFragment.class.getName(),
+            OnFragment.class.getName(), SystemFragment.class.getName(), BluetoothFragment.class.getName()};
 
     @Override
     public void onBuildHeaders(List<Header> target) {
@@ -81,6 +81,7 @@ public abstract class BasePreferenceActivityImpl<P extends IPresenter> extends P
         super.onCreate(savedInstanceState);
         initData(savedInstanceState);
     }
+
     public void initLocaleLanguage() {
         Resources resources = getResources();                    // 获得res资源对象
         Configuration config = resources.getConfiguration();     // 获得设置对象

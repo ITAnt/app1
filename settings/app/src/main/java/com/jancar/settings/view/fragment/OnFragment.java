@@ -106,32 +106,6 @@ public class OnFragment extends BaseFragments<OnPresenter> implements OnContract
     public void setData(@Nullable Object data) {
 
     }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void showMessage(@NonNull String message) {
-
-    }
-
-    @Override
-    public void launchActivity(@NonNull Intent intent) {
-
-    }
-
-    @Override
-    public void killMyself() {
-
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

@@ -91,7 +91,9 @@
 	<string name="day_hint">日</string>
 	<string name="tab_sound_mode">EQ模式</string>
 	<string name="tab_reset">复位</string>
-
+	<string name="tab_am">上午</string>
+	<string name="tab_pm">下午</string>
+	<string name="dialog_prompt">是否要保存为自定义?</string>
 	<string-array name="hour_apm">
 		<item>上午</item>
 		<item>下午</item>
@@ -269,7 +271,9 @@
 	<string name="dialog_9">9</string>
 	<string name="dialog_0">0</string>
 	<string name="dialog_restore">确定恢复出厂设置吗？</string>
-	<string name="device_restart">5s后重新启动</string>
+
+	<string name="device_restart">%1$d s后重新启动</string>	\
+	<string name="device_restarts">5s后重新启动</string>
 	<string name="str_scanning">扫描</string>
 	<string name="str_sound_7" >7</string>
 	<string name="str_sound_negative_7" >-7</string>
@@ -293,4 +297,10 @@
 	<string name="txt_jazz">爵士</string>
 	<string name="txt_classical">古典</string>
 	<string name="txt_customize">自定义</string>
+    <string name="wifi_text_not_enabled">未启用</string>
+	<string name="wifi_text_wifi_saved">已保存</string>
+	<string name="wifi_text_wifi_connected">已连接</string>
+	<string name="wifi_text_obtain_an_IP_address">获取IP地址</string>
+	<string name="wifi_text_authentication">身份验证</string>
+	<string name="wifi_text_disconnected">已断开</string>
 </resources>
