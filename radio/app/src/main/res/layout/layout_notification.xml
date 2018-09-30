@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="140.0px"
+    android:background="@mipmap/background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ic_statusbar_line" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0.0px"
+        android:layout_weight="1.0"
+        android:orientation="horizontal"
+        android:paddingBottom="6.0px"
+        android:paddingTop="10.0px">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60.0px">
+
+            <ImageView
+                android:id="@id/iv_notification_art"
+                android:layout_width="120.0px"
+                android:layout_height="120.0px"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_statusbar_art_default" />
+
+            <TextView
+                android:id="@id/tv_app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/app_name"
+                android:textSize="@dimen/font_text_60_size" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingEnd="20.0px"
+            android:paddingStart="20.0px">
+
+            <TextView
+                android:id="@id/tv_notification_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14.0px"
+                android:layout_marginTop="14.0px"
+                android:ellipsize="end"
+                android:gravity="start|center"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_text_60_size" />
+
+            <TextView
+                android:id="@id/tv_notification_artist"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|center"
+                android:maxLines="1"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/font_text_48_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layoutDirection="ltr">
+
+            <ImageView
+                android:id="@id/iv_notification_prev"
+                android:layout_width="120.0px"
+                android:layout_height="120.0px"
+                android:layout_marginEnd="22.0px"
+                android:scaleType="centerInside"
+                android:src="@drawable/xml_statusbar_prev_selector" />
+
+            <ImageView
+                android:id="@id/iv_notification_next"
+                android:layout_width="120.0px"
+                android:layout_height="120.0px"
+                android:layout_marginEnd="45.0px"
+                android:scaleType="centerInside"
+                android:src="@drawable/xml_statusbar_next_selector" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@id/iv_notification_exit"
+            android:layout_width="120.0px"
+            android:layout_height="120.0px"
+            android:layout_marginEnd="10.0px"
+            android:scaleType="centerInside"
+            android:src="@drawable/xml_statusbar_exit_selector" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_statusbar_line" />
+</LinearLayout>
