@@ -6,6 +6,7 @@ package com.ancar.suspension.widget;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.PixelFormat;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 
 import com.ancar.suspension.animation.MenuAnimation;
@@ -56,6 +58,7 @@ public class FloatingMenu {
     private boolean systemOverlay;
     /** a simple layout to contain all the sub action views in the system overlay mode */
     private FrameLayout overlayContainer;
+    private ImageView overlayBackground;
     /** display rect*/
     private Rect activityFrame = new Rect();
 
@@ -105,6 +108,8 @@ public class FloatingMenu {
 
         if(systemOverlay) {
             overlayContainer = new FrameLayout(mainActionView.getContext());
+            overlayBackground = new ImageView(mainActionView.getContext());
+            overlayBackground.setBackgroundColor(Color.GRAY);
         }
         else {
             overlayContainer = null; // beware NullPointerExceptions!
@@ -438,7 +443,19 @@ public class FloatingMenu {
     public View getMainActionView() {
         return mainActionView;
     }
-
+    
+    /**
+     * set action view image source
+     * @param res
+     */
+    public void setMainActionViewImageSource(int res) {
+        if (mainActionView != null) {
+            if (mainActionView instanceof FloatingButton) {
+                ((FloatingButton) mainActionView).setImageResource(res);
+            }
+        }
+    }
+    
     /**
      * Intended to use for systemOverlay mode.
      * @return the WindowManager for the current context.
@@ -472,10 +489,14 @@ public class FloatingMenu {
         try {
             WindowManager.LayoutParams overlayParams = calculateOverlayContainerParams();
             WindowManager.LayoutParams mainParams = (WindowManager.LayoutParams) mainActionView.getLayoutParams();
-
+            
             overlayContainer.setLayoutParams(overlayParams);
             
             if(overlayContainer.getParent() == null) {
+                if (isSystemOverlay()) {
+                    overlayBackground.setLayoutParams(overlayParams);
+                    getWindowManager().addView(overlayBackground, overlayParams);
+                }
                 getWindowManager().addView(overlayContainer, overlayParams);
             }
             getWindowManager().updateViewLayout(mainActionView, mainParams);
@@ -516,6 +537,7 @@ public class FloatingMenu {
     }
 
     public void detachOverlayContainer() {
+        getWindowManager().removeView(overlayBackground);
         getWindowManager().removeView(overlayContainer);
     }
 

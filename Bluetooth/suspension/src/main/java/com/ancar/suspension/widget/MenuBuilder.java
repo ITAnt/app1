@@ -27,7 +27,7 @@ public abstract class MenuBuilder<T> {
     boolean systemOverlay;
     
     public MenuBuilder(Context context, boolean systemOverlay) {
-        subActionItems = new ArrayList<FloatingMenu.Item>();
+        subActionItems = new ArrayList<>();
         // Default settings
         radius = context.getResources().getDimensionPixelSize(R.dimen.action_menu_radius);
         startAngle = 180;

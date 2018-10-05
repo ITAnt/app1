@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.ancar.suspension.R;
 
@@ -132,7 +133,7 @@ public class FloatingButton extends FrameLayout {
                 WindowManager.LayoutParams lp = (WindowManager.LayoutParams) layoutParams;
                 lp.gravity = gravity;
                 if(setDefaultMargin) {
-                    int margin =  getContext().getResources().getDimensionPixelSize(R.dimen.action_button_margin);
+                    int margin =  getContext().getResources().getDimensionPixelSize(R.dimen.main_action_button_margin);
                     lp.x = margin;
                     lp.y = margin;
                 }
@@ -174,7 +175,7 @@ public class FloatingButton extends FrameLayout {
         contentView.setClickable(false);
         this.addView(contentView, params);
     }
-
+    
     /**
      * Attaches it to the content view with specified LayoutParams.
      * @param layoutParams
@@ -231,6 +232,12 @@ public class FloatingButton extends FrameLayout {
             setBackgroundDrawable(drawable);
         }
     }
+    
+    public void setImageResource(int res) {
+        if (contentView instanceof ImageView) {
+            ((ImageView) contentView).setImageResource(res);
+        }
+    }
 
     /**
      * A builder for {@link FloatingButton} in conventional Java Builder format
@@ -251,7 +258,7 @@ public class FloatingButton extends FrameLayout {
 
             // Default FloatingActionButton settings
             int size = context.getResources().getDimensionPixelSize(R.dimen.action_button_size);
-            int margin = context.getResources().getDimensionPixelSize(R.dimen.action_button_margin);
+            int margin = context.getResources().getDimensionPixelSize(R.dimen.main_action_button_margin);
             LayoutParams layoutParams = new LayoutParams(size, size, Gravity.BOTTOM | Gravity.RIGHT);
             layoutParams.setMargins(margin, margin, margin, margin);
             setLayoutParams(layoutParams);

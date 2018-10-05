@@ -27,24 +27,19 @@ public class ChildButton extends FrameLayout {
         super(context);
         setLayoutParams(layoutParams);
         // If no custom backgroundDrawable is specified, use the background drawable of the theme.
-        if(backgroundDrawable == null) {
-            if(theme == THEME_LIGHT) {
+        if (backgroundDrawable == null) {
+            if (theme == THEME_LIGHT) {
                 backgroundDrawable = context.getResources().getDrawable(R.drawable.button_sub_action_selector);
-            }
-            else if(theme == THEME_DARK) {
+            } else if (theme == THEME_DARK) {
                 backgroundDrawable = context.getResources().getDrawable(R.drawable.button_sub_action_dark_selector);
-            }
-            else if(theme == THEME_LIGHTER) {
+            } else if (theme == THEME_LIGHTER) {
                 backgroundDrawable = context.getResources().getDrawable(R.drawable.button_action_selector);
-            }
-            else if(theme == THEME_DARKER) {
+            } else if (theme == THEME_DARKER) {
                 backgroundDrawable = context.getResources().getDrawable(R.drawable.button_action_dark_selector);
-            }
-            else {
+            } else {
                 throw new RuntimeException("Unknown SubActionButton theme: " + theme);
             }
-        }
-        else {
+        } else {
             backgroundDrawable = backgroundDrawable.mutate().getConstantState().newDrawable();
         }
         setBackgroundResource(backgroundDrawable);
@@ -62,7 +57,7 @@ public class ChildButton extends FrameLayout {
     public void setContentView(View contentView, LayoutParams params) {
         if(params == null) {
             params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
-            final int margin = getResources().getDimensionPixelSize(R.dimen.sub_action_button_content_margin);
+            final int margin  = getResources().getDimensionPixelSize(R.dimen.sub_action_button_content_margin);
             params.setMargins(margin, margin, margin, margin);
         }
 
