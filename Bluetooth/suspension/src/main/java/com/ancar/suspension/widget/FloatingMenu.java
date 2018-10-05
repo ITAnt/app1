@@ -448,7 +448,7 @@ public class FloatingMenu {
      * set action view image source
      * @param res
      */
-    public void setMainActionViewImageSource(int res) {
+    public void setMainActionViewImageResource(int res) {
         if (mainActionView != null) {
             if (mainActionView instanceof FloatingButton) {
                 ((FloatingButton) mainActionView).setImageResource(res);

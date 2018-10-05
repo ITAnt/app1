@@ -136,7 +136,6 @@ public class OverlayMenuService extends Service {
                 .setBackgroundDrawable(translateBackground)
                 .build();
 
-        int sRange = 280;
         // Build another menu with custom options
         topCenterMenu = (MagneticMenu) new MagneticMenu.Builder(this, true)
 //                .addSubActionView(tcSub1, tcSub1.getLayoutParams().width, tcSub1.getLayoutParams().height)
@@ -150,8 +149,6 @@ public class OverlayMenuService extends Service {
                 .addSubActionView(tcSub4, tcSub4.getLayoutParams().width + childSubActionButtonContentMargin * 2, tcSub4.getLayoutParams().height + childSubActionButtonContentMargin * 2)
                 .addSubActionView(tcSub5, tcSub5.getLayoutParams().width + childSubActionButtonContentMargin * 2, tcSub5.getLayoutParams().height + childSubActionButtonContentMargin * 2)
                 .setRadius(mainActionMenuRadius)
-                .setStartAngle(sRange)
-                .setEndAngle(sRange + 160)
                 .attachTo(mainCenterButton)
                 .build();
     
@@ -187,7 +184,7 @@ public class OverlayMenuService extends Service {
 
             }
         });
-        tcSub5.setOnClickListener(new View.OnClickListener() {
+        tcIcon5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 jancarManager.simulateKey(KeyDef.KeyType.KEY_BACK.nativeInt);
@@ -199,7 +196,7 @@ public class OverlayMenuService extends Service {
         topCenterMenu.setDragListener(new MagneticMenu.OnDragListener() {
             @Override
             public void onDragStart() {
-                topCenterMenu.setMainActionViewImageSource(R.drawable.iv_sus_centre);
+                topCenterMenu.setMainActionViewImageResource(R.drawable.iv_sus_centre);
             }
 
             @Override
@@ -212,20 +209,20 @@ public class OverlayMenuService extends Service {
     private void onMenuFloat(int flag) {
         switch (flag) {
             case FLOAT_LEFT:
-                tcIcon3.setImageDrawable(getResources().getDrawable(R.drawable.sus_voice_add_selector_left));
-                tcIcon4.setImageDrawable(getResources().getDrawable(R.drawable.sus_voice_red_selector_left));
-                tcIcon5.setImageDrawable(getResources().getDrawable(R.drawable.sus_back_selector_left));
+                tcIcon3.setImageResource(R.drawable.sus_voice_add_selector_left);
+                tcIcon4.setImageResource(R.drawable.sus_voice_red_selector_left);
+                tcIcon5.setImageResource(R.drawable.sus_back_selector_left);
                 topCenterMenu.setBackgroundResource(R.drawable.iv_sus_bg_left);
-                topCenterMenu.setMainActionViewImageSource(R.drawable.iv_sus_left_btn);
-                topCenterMenu.setAngle(280, 440);
+                topCenterMenu.setMainActionViewImageResource(R.drawable.iv_sus_left_btn);
+                topCenterMenu.setAngle(275, 445);
                 break;
             case FLOAT_RIGHT:
-                tcIcon3.setImageDrawable(getResources().getDrawable(R.drawable.sus_voice_add_selector_right));
-                tcIcon4.setImageDrawable(getResources().getDrawable(R.drawable.sus_voice_red_selector_right));
-                tcIcon5.setImageDrawable(getResources().getDrawable(R.drawable.sus_back_selector_right));
+                tcIcon3.setImageResource(R.drawable.sus_voice_add_selector_right);
+                tcIcon4.setImageResource(R.drawable.sus_voice_red_selector_right);
+                tcIcon5.setImageResource(R.drawable.sus_back_selector_right);
                 topCenterMenu.setBackgroundResource(R.drawable.iv_sus_bg_right);
-                topCenterMenu.setMainActionViewImageSource(R.drawable.iv_sus_right_btn);
-                topCenterMenu.setAngle(260, 100);
+                topCenterMenu.setMainActionViewImageResource(R.drawable.iv_sus_right_btn);
+                topCenterMenu.setAngle(265, 95);
                 break;
         }
     }
