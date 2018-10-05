@@ -19,6 +19,8 @@ import com.ancar.suspension.widget.MagneticMenu;
 import com.jancar.JancarServer;
 import com.jancar.key.KeyDef;
 
+import static com.ancar.suspension.widget.MagneticMenu.OnDragListener.*;
+
 
 public class OverlayMenuService extends Service {
 
@@ -28,6 +30,12 @@ public class OverlayMenuService extends Service {
 
     private MagneticMenu topCenterMenu;
     JancarServer jancarManager = null;
+    
+    ImageView tcIcon1;
+    ImageView tcIcon2;
+    ImageView tcIcon3;
+    ImageView tcIcon4;
+    ImageView tcIcon5;
 
     public OverlayMenuService() {
     }
@@ -60,18 +68,18 @@ public class OverlayMenuService extends Service {
         Drawable translateBackground = new ColorDrawable(Color.TRANSPARENT);
         
         ImageView fabIconStar = new ImageView(this);
-        fabIconStar.setImageDrawable(getResources().getDrawable(R.drawable.iv_sus_left_btn));
+        fabIconStar.setImageDrawable(getResources().getDrawable(R.drawable.iv_sus_centre));
     
-        FloatingButton.LayoutParams fabIconStarParams = new FloatingButton.LayoutParams(mainActionButtonContentSize, mainActionButtonContentSize);
-//        FloatingButton.LayoutParams fabIconStarParams = new FloatingButton.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        FloatingButton.LayoutParams fabIconStarParams = new FloatingButton.LayoutParams(mainActionButtonContentSize, mainActionButtonContentSize);
+        FloatingButton.LayoutParams fabIconStarParams = new FloatingButton.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
 //        fabIconStarParams.setMargins(mainActionButtonContentMargin,
 //                mainActionButtonContentMargin,
 //                mainActionButtonContentMargin,
 //                mainActionButtonContentMargin);
 
         WindowManager.LayoutParams mainParam = FloatingButton.Builder.getDefaultSystemWindowParams(this);
-        mainParam.width = mainActionButtonSize;
-        mainParam.height = mainActionButtonSize;
+//        mainParam.width = mainActionButtonSize;
+//        mainParam.height = mainActionButtonSize;
 
         mainCenterButton = new FloatingButton.Builder(this)
                 .setSystemOverlay(true)
@@ -95,12 +103,12 @@ public class OverlayMenuService extends Service {
 //        FrameLayout.LayoutParams blueParams = new FrameLayout.LayoutParams(childActionButtonSize, childActionButtonSize);
 //        childButtonBuilder.setLayoutParams(blueParams);
 
-        ImageView tcIcon1 = new ImageView(this);
-        ImageView tcIcon2 = new ImageView(this);
-        final ImageView tcIcon3 = new ImageView(this);
-        final ImageView tcIcon4 = new ImageView(this);
-        final ImageView tcIcon5 = new ImageView(this);
-
+        tcIcon1 = new ImageView(this);
+        tcIcon2 = new ImageView(this);
+        tcIcon3 = new ImageView(this);
+        tcIcon4 = new ImageView(this);
+        tcIcon5 = new ImageView(this);
+        
         tcIcon1.setImageDrawable(getResources().getDrawable(R.drawable.sus_power_selector));
         tcIcon2.setImageDrawable(getResources().getDrawable(R.drawable.sus_home_selector));
         tcIcon3.setImageDrawable(getResources().getDrawable(R.drawable.sus_voice_add_selector_left));
@@ -109,7 +117,7 @@ public class OverlayMenuService extends Service {
         
         ChildButton tcSub1 = childButtonBuilder
                 .setContentView(tcIcon1, childBtnParams)
-                .setBackgroundDrawable(new ColorDrawable(Color.BLUE))
+                .setBackgroundDrawable(translateBackground)
                 .build();
         ChildButton tcSub2 = childButtonBuilder
                 .setContentView(tcIcon2, childBtnParams)
@@ -128,7 +136,7 @@ public class OverlayMenuService extends Service {
                 .setBackgroundDrawable(translateBackground)
                 .build();
 
-        int sRange = 270;
+        int sRange = 280;
         // Build another menu with custom options
         topCenterMenu = (MagneticMenu) new MagneticMenu.Builder(this, true)
 //                .addSubActionView(tcSub1, tcSub1.getLayoutParams().width, tcSub1.getLayoutParams().height)
@@ -143,11 +151,11 @@ public class OverlayMenuService extends Service {
                 .addSubActionView(tcSub5, tcSub5.getLayoutParams().width + childSubActionButtonContentMargin * 2, tcSub5.getLayoutParams().height + childSubActionButtonContentMargin * 2)
                 .setRadius(mainActionMenuRadius)
                 .setStartAngle(sRange)
-                .setEndAngle(sRange + 180)
+                .setEndAngle(sRange + 160)
                 .attachTo(mainCenterButton)
                 .build();
-        
-        topCenterMenu.getOverlayContainer().setBackgroundResource(R.drawable.iv_sus_bg_left);
+    
+        onMenuFloat(FLOAT_LEFT);
 
         tcIcon1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,26 +204,30 @@ public class OverlayMenuService extends Service {
 
             @Override
             public void onDragEnd(int flag) {
-                switch (flag) {
-                    case FLOAT_LEFT:
-                        tcIcon3.setImageDrawable(getResources().getDrawable(R.drawable.sus_voice_add_selector_left));
-                        tcIcon4.setImageDrawable(getResources().getDrawable(R.drawable.sus_voice_red_selector_left));
-                        tcIcon5.setImageDrawable(getResources().getDrawable(R.drawable.sus_back_selector_left));
-                        topCenterMenu.getOverlayContainer().setBackgroundResource(R.drawable.iv_sus_bg_left);
-                        topCenterMenu.setMainActionViewImageSource(R.drawable.iv_sus_left_btn);
-                        break;
-                    case FLOAT_RIGHT:
-                        tcIcon3.setImageDrawable(getResources().getDrawable(R.drawable.sus_voice_add_selector_right));
-                        tcIcon4.setImageDrawable(getResources().getDrawable(R.drawable.sus_voice_red_selector_right));
-                        tcIcon5.setImageDrawable(getResources().getDrawable(R.drawable.sus_back_selector_right));
-                        topCenterMenu.getOverlayContainer().setBackgroundResource(R.drawable.iv_sus_bg_right);
-                        topCenterMenu.setMainActionViewImageSource(R.drawable.iv_sus_right_btn);
-                        break;
-                }
+                onMenuFloat(flag);
             }
         });
-
-
+    }
+    
+    private void onMenuFloat(int flag) {
+        switch (flag) {
+            case FLOAT_LEFT:
+                tcIcon3.setImageDrawable(getResources().getDrawable(R.drawable.sus_voice_add_selector_left));
+                tcIcon4.setImageDrawable(getResources().getDrawable(R.drawable.sus_voice_red_selector_left));
+                tcIcon5.setImageDrawable(getResources().getDrawable(R.drawable.sus_back_selector_left));
+                topCenterMenu.setBackgroundResource(R.drawable.iv_sus_bg_left);
+                topCenterMenu.setMainActionViewImageSource(R.drawable.iv_sus_left_btn);
+                topCenterMenu.setAngle(280, 440);
+                break;
+            case FLOAT_RIGHT:
+                tcIcon3.setImageDrawable(getResources().getDrawable(R.drawable.sus_voice_add_selector_right));
+                tcIcon4.setImageDrawable(getResources().getDrawable(R.drawable.sus_voice_red_selector_right));
+                tcIcon5.setImageDrawable(getResources().getDrawable(R.drawable.sus_back_selector_right));
+                topCenterMenu.setBackgroundResource(R.drawable.iv_sus_bg_right);
+                topCenterMenu.setMainActionViewImageSource(R.drawable.iv_sus_right_btn);
+                topCenterMenu.setAngle(260, 100);
+                break;
+        }
     }
 
     @Override

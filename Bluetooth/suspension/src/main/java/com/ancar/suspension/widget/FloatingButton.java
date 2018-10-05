@@ -170,7 +170,7 @@ public class FloatingButton extends FrameLayout {
         else {
             params = contentParams;
         }
-        params.gravity = Gravity.CENTER;
+        params.gravity = Gravity.TOP | Gravity.LEFT;
 
         contentView.setClickable(false);
         this.addView(contentView, params);
@@ -318,10 +318,10 @@ public class FloatingButton extends FrameLayout {
         }
 
         public static WindowManager.LayoutParams getDefaultSystemWindowParams(Context context) {
-            int size = context.getResources().getDimensionPixelSize(R.dimen.action_button_size);
+//            int size = context.getResources().getDimensionPixelSize(R.dimen.action_button_size);
             WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                    size,
-                    size,
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT,
                     WindowManager.LayoutParams.TYPE_SYSTEM_ALERT, // z-ordering
                     WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                     PixelFormat.TRANSLUCENT);

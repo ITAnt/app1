@@ -109,7 +109,7 @@ public class FloatingMenu {
         if(systemOverlay) {
             overlayContainer = new FrameLayout(mainActionView.getContext());
             overlayBackground = new ImageView(mainActionView.getContext());
-            overlayBackground.setBackgroundColor(Color.GRAY);
+//            overlayBackground.setBackgroundColor(Color.GRAY);
         }
         else {
             overlayContainer = null; // beware NullPointerExceptions!
@@ -457,6 +457,16 @@ public class FloatingMenu {
     }
     
     /**
+     * set overlay background source
+     * @param res
+     */
+    public void setBackgroundResource(int res) {
+        if (overlayBackground != null) {
+            overlayBackground.setImageResource(res);
+        }
+    }
+    
+    /**
      * Intended to use for systemOverlay mode.
      * @return the WindowManager for the current context.
      */
@@ -494,7 +504,7 @@ public class FloatingMenu {
             
             if(overlayContainer.getParent() == null) {
                 if (isSystemOverlay()) {
-                    overlayBackground.setLayoutParams(overlayParams);
+                    overlayBackground.setLayoutParams(new WindowManager.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                     getWindowManager().addView(overlayBackground, overlayParams);
                 }
                 getWindowManager().addView(overlayContainer, overlayParams);
@@ -646,9 +656,9 @@ public class FloatingMenu {
     /**
      * A listener to listen open/closed state changes of the Menu
      */
-    public static interface MenuStateChangeListener {
-        public void onMenuOpened(FloatingMenu menu);
-        public void onMenuClosed(FloatingMenu menu);
+    public interface MenuStateChangeListener {
+        void onMenuOpened(FloatingMenu menu);
+        void onMenuClosed(FloatingMenu menu);
     }
 
     
@@ -660,7 +670,7 @@ public class FloatingMenu {
                 WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                 PixelFormat.TRANSLUCENT);
         params.format = PixelFormat.RGBA_8888;
-        params.gravity = Gravity.TOP | Gravity.LEFT;
+        params.gravity = Gravity.CENTER;
         return params;
     }
 

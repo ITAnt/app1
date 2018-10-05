@@ -152,12 +152,6 @@ public class MagneticMenu extends FloatingMenu {
                             if (dragListener != null) {
                                 dragListener.onDragStart();
                             }
-                            // 更新悬浮窗位置
-                            if (lp.x < getMenuDisplayRect().width() / 2) {
-                                setAngle(270, 450);
-                            } else {
-                                setAngle(270, 90);
-                            }
                             updatePosition(lp);
                         }
                     }

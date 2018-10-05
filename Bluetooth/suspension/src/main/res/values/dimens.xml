@@ -381,7 +381,7 @@
     <dimen name="main_action_button_content_size">106dp</dimen>
     <dimen name="main_action_button_content_margin">106dp</dimen>
 
-    <dimen name="main_action_menu_radius">112px</dimen>
+    <dimen name="main_action_menu_radius">96px</dimen>
     <dimen name="child_action_button_size">48dp</dimen>
     <dimen name="child_action_button_content_margin">20px</dimen>
 
