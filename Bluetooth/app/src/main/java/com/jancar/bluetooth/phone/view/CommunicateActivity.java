@@ -265,7 +265,7 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
     private void initView() {
         mWindowManager = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         mLayoutParams = new WindowManager.LayoutParams();
-        mLayoutParams.type = WindowManager.LayoutParams.TYPE_TOAST;
+        mLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
         mLayoutParams.format = PixelFormat.RGBA_8888;
         mLayoutParams.flags = WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
         mLayoutParams.gravity = Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL;

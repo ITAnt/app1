@@ -389,7 +389,12 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
         switch (view.getId()) {
             case R.id.iv_contanct_synchronous:
                 if (isBluConn()) {
-                    showDialog();
+                    if (!isDownLoding()) {
+                        showDialog();
+                    } else {
+                        ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_syning_contact));
+                    }
+
                 } else {
                     ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_bt_connect_is_none));
                 }
@@ -443,13 +448,13 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                 @Override
                 public void run() {
                     if (isBluConn()) {
+                        bookDataList = list;
+                        adapter.setPhoneBooks(bookDataList);
+                        adapter.notifyDataSetChanged();
                         if (list != null && list.size() > 0) {
-                            relativeLayout.setVisibility(View.VISIBLE);
-                            linerSyn.setVisibility(View.GONE);
+//                            relativeLayout.setVisibility(View.VISIBLE);
+//                            linerSyn.setVisibility(View.GONE);
 
-                            bookDataList = list;
-                            adapter.setPhoneBooks(bookDataList);
-                            adapter.notifyDataSetChanged();
                         } else {
 //                            relativeLayout.setVisibility(View.GONE);
 //                            ShowSynText();

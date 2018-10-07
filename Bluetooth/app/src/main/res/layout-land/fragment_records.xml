@@ -44,7 +44,7 @@
     <ListView
         android:id="@+id/records_recycler_list"
         android:layout_width="match_parent"
-        android:layout_height="600px"
+        android:layout_height="700px"
         android:divider="#00000000"
         android:dividerHeight="@dimen/px5"
         android:paddingLeft="@dimen/px50"

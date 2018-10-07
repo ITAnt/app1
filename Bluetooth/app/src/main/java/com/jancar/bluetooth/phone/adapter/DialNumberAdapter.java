@@ -27,7 +27,7 @@ public class DialNumberAdapter extends BaseAdapter {
     private int bg_selected_color;//选中item的背景
 
     public void setBookDataList(List<BluetoothPhoneBookData> bookDataList) {
-        this.bookDataList = bookDataList;
+        this.bookDataList = new ArrayList<>(bookDataList);
         notifyDataSetChanged();
 
     }

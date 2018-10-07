@@ -27,7 +27,8 @@ public class ContactSearchAdapter extends BaseAdapter {
     private List<BluetoothPhoneBookData> list = new ArrayList<>();
 
     public void setBookContact(List<BluetoothPhoneBookData> list) {
-        this.list = list;
+        this.list = new ArrayList<>(list);
+        notifyDataSetChanged();
 
     }
 

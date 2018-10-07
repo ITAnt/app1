@@ -15,6 +15,7 @@ import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.util.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +31,7 @@ public class SettingAdapter extends BaseAdapter {
 
     public SettingAdapter(Context mContext, List<BluetoothDeviceData> list) {
         this.mContext = mContext;
-        this.list = list;
+        this.list = new ArrayList<>(list);
     }
 
     @Override

@@ -61,7 +61,8 @@
             android:icon="@mipmap/ic_music"
             android:label="@string/tv_bluet_music"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape"
+            android:theme="@style/Animation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
