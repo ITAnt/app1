@@ -303,4 +303,6 @@
 	<string name="wifi_text_obtain_an_IP_address">Obtain an IP address</string>
 	<string name="wifi_text_authentication">Authentication</string>
 	<string name="wifi_text_disconnected">Disconnected</string>
+    <string name="tv_open">open</string>
+	<string name="tv_closed">close</string>
 </resources>

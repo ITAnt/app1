@@ -303,4 +303,6 @@
 	<string name="wifi_text_obtain_an_IP_address">获取IP地址</string>
 	<string name="wifi_text_authentication">身份验证</string>
 	<string name="wifi_text_disconnected">已断开</string>
+    <string name="tv_open">打开</string>
+	<string name="tv_closed">关闭</string>
 </resources>
