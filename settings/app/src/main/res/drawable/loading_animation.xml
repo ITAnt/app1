@@ -3,40 +3,40 @@
     android:oneshot="false">
     <item
         android:drawable="@drawable/dial_syn_ing_1"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/dial_syn_ing_2"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/dial_syn_ing_3"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/dial_syn_ing_4"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/dial_syn_ing_5"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/dial_syn_ing_6"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/dial_syn_ing_7"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/dial_syn_ing_8"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/dial_syn_ing_9"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/dial_syn_ing_10"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/dial_syn_ing_11"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/dial_syn_ing_12"
-        android:duration="150" />
+        android:duration="80" />
 
 
 </animation-list>
