@@ -22,7 +22,7 @@ import com.jancar.key.KeyDef;
 import static com.ancar.suspension.widget.MagneticMenu.OnDragListener.*;
 
 
-public class OverlayMenuService extends Service {
+public class OverlayMenuService extends Service implements View.OnClickListener {
 
     private final IBinder mBinder = new LocalBinder();
 
@@ -109,11 +109,11 @@ public class OverlayMenuService extends Service {
         tcIcon4 = new ImageView(this);
         tcIcon5 = new ImageView(this);
         
-        tcIcon1.setImageDrawable(getResources().getDrawable(R.drawable.sus_power_selector));
-        tcIcon2.setImageDrawable(getResources().getDrawable(R.drawable.sus_home_selector));
-        tcIcon3.setImageDrawable(getResources().getDrawable(R.drawable.sus_voice_add_selector_left));
-        tcIcon4.setImageDrawable(getResources().getDrawable(R.drawable.sus_voice_red_selector_left));
-        tcIcon5.setImageDrawable(getResources().getDrawable(R.drawable.sus_back_selector_left));
+        tcIcon1.setImageResource(R.drawable.sus_power_selector);
+        tcIcon2.setImageResource(R.drawable.sus_power_selector);
+        tcIcon3.setImageResource(R.drawable.sus_voice_add_selector_left);
+        tcIcon4.setImageResource(R.drawable.sus_voice_red_selector_left);
+        tcIcon5.setImageResource(R.drawable.sus_back_selector_left);
         
         ChildButton tcSub1 = childButtonBuilder
                 .setContentView(tcIcon1, childBtnParams)
@@ -154,45 +154,50 @@ public class OverlayMenuService extends Service {
     
         onMenuFloat(FLOAT_LEFT);
 
-        tcIcon1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                jancarManager.requestDisplay(false);
-//                topCenterMenu.close(false);
-
-            }
-        });
-        tcIcon2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                jancarManager.simulateKey(KeyDef.KeyType.KEY_HOME.nativeInt);
-//                topCenterMenu.close(false);
-            }
-        });
-        tcIcon3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                jancarManager.simulateKey(KeyDef.KeyType.KEY_VOL_INC.nativeInt);
-//                topCenterMenu.close(false);
-            }
-        });
-        tcIcon4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                jancarManager.simulateKey(KeyDef.KeyType.KEY_VOL_DEC.nativeInt);
-//                topCenterMenu.close(false);
-
-            }
-        });
-        tcIcon5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                jancarManager.simulateKey(KeyDef.KeyType.KEY_BACK.nativeInt);
-//                topCenterMenu.close(false);
-            }
-        });
-
-
+//        tcIcon1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                jancarManager.requestDisplay(false);
+////                topCenterMenu.close(false);
+//
+//            }
+//        });
+//        tcIcon2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                jancarManager.simulateKey(KeyDef.KeyType.KEY_HOME.nativeInt);
+////                topCenterMenu.close(false);
+//            }
+//        });
+//        tcIcon3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                jancarManager.simulateKey(KeyDef.KeyType.KEY_VOL_INC.nativeInt);
+////                topCenterMenu.close(false);
+//            }
+//        });
+//        tcIcon4.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                jancarManager.simulateKey(KeyDef.KeyType.KEY_VOL_DEC.nativeInt);
+////                topCenterMenu.close(false);
+//
+//            }
+//        });
+//        tcIcon5.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                jancarManager.simulateKey(KeyDef.KeyType.KEY_BACK.nativeInt);
+////                topCenterMenu.close(false);
+//            }
+//        });
+    
+        tcIcon1.setOnClickListener(this);
+        tcIcon2.setOnClickListener(this);
+        tcIcon3.setOnClickListener(this);
+        tcIcon4.setOnClickListener(this);
+        tcIcon5.setOnClickListener(this);
+        
         topCenterMenu.setDragListener(new MagneticMenu.OnDragListener() {
             @Override
             public void onDragStart() {
@@ -204,6 +209,37 @@ public class OverlayMenuService extends Service {
                 onMenuFloat(flag);
             }
         });
+    }
+    
+    @Override
+    public void onClick(View v) {
+        int pos = -1;
+        if (v == tcIcon1) {
+            pos = 0;
+        } else if (v == tcIcon2) {
+            pos = 1;
+        }
+        OnSubBtnClick(pos);
+    }
+    
+    
+    public void OnSubBtnClick(int pos) {
+        switch (pos) {
+            case 0:
+                jancarManager.requestDisplay(false);
+                break;
+            case 1:
+                jancarManager.simulateKey(KeyDef.KeyType.KEY_HOME.nativeInt);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+        }
     }
     
     private void onMenuFloat(int flag) {
