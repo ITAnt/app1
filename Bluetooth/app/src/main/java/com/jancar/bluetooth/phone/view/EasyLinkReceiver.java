@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * @anthor Tzq
@@ -12,9 +11,10 @@ import android.widget.Toast;
  * @describe TODO
  */
 public class EasyLinkReceiver extends BroadcastReceiver {
-    private String TAG = EasyLinkReceiver.class.getSimpleName();
+    private static final String TAG = "EasyLinkReceiver";
     private final String EASY_GET_FOUS = "net.easyconn.a2dp.acquire";
     private final String EASY_LOSS_FOUS = "net.easyconn.a2dp.release";
+    private final String BOOT_COMPLETE = "android.intent.action.BOOT_COMPLETED";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -32,6 +32,10 @@ public class EasyLinkReceiver extends BroadcastReceiver {
         } else if (action.equals(EASY_LOSS_FOUS)) {
             //BluetoothManager.getBluetoothManagerInstance(context).setPlayerState(false);
             bluetoothRequestFocus.releaseAudioFocus();
+        } else if (action.equals(BOOT_COMPLETE)) {
+            Intent intent1 = new Intent();
+            intent.setClassName("com.jancar.bluetooth.phone", "com.jancar.bluetooth.phone.view.BTUIService");
+            context.startService(intent1);
         }
     }
 }

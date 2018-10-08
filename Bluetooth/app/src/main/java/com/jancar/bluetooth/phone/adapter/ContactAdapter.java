@@ -26,6 +26,7 @@ public class ContactAdapter extends BaseViewAdapter<BluetoothPhoneBookData> {
     @Override
     public void setPhoneBooks(List<BluetoothPhoneBookData> listDatas) {
         super.setPhoneBooks(listDatas);
+        notifyDataSetChanged();
     }
 
     public ContactAdapter(Context context, List<BluetoothPhoneBookData> listDatas, int layoutID) {

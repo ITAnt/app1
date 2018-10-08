@@ -23,14 +23,13 @@ public class DialPresenter extends BaseModelPresenter<DialContract.View, DialMod
 
     @Override
     public void getDialContactList(String dialNumber, int type) {
-        String trim = dialNumber.trim();
+        String trim = dialNumber.replaceAll(" ", "");
         if (CheckPhoneUtil.CheckPhoneNum(trim)) {
             getUi().getManager().queryContactsByNumber(trim, type);
         } else {
-            getUi().getManager().queryContactsByName(trim,type);
+            getUi().getManager().queryContactsByName(trim, type);
         }
     }
-
 
 
     /**

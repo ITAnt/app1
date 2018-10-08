@@ -1,10 +1,9 @@
 package com.jancar.bluetooth.phone;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -15,10 +14,8 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import com.jancar.bluetooth.Listener.BTConnectStatusListener;
-import com.jancar.bluetooth.phone.util.ActivityCollectorUtil;
+import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.phone.view.fragment.ContactFragment;
 import com.jancar.bluetooth.phone.view.fragment.DialFragment;
 import com.jancar.bluetooth.phone.view.fragment.EquipmentFragment;
@@ -29,7 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     public static final int TAB_DIAL_MANAGER = 1;
     public static final int TAB_CONTACT_MANAGER = 2;
@@ -50,21 +47,45 @@ public class MainActivity extends AppCompatActivity  {
     RelativeLayout recordRelayout;
     @BindView(R.id.tab_statics_manager)
     RelativeLayout equipmentRelaout;
+    private boolean isConnect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
-        setContentView(R.layout.activity_main);
-        unbinder = ButterKnife.bind(this);
-        initComponent();
+        isConnect = BluetoothManager.getBluetoothManagerInstance(this).isConnect();
+        if (isConnect) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+            setContentView(R.layout.activity_main);
+            unbinder = ButterKnife.bind(this);
+            initComponent();
+        } else {
+            setTheme(R.style.AlertDialogCustom);
+            setContentView(R.layout.dialog_connect);
+            findViewById(R.id.tv_connect_dialog_yes).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.setClassName("com.jancar.settingss", "com.jancar.settings.view.activity.MainActivity");
+                    intent.putExtra("position", 1);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+            findViewById(R.id.tv_connect_dialog_no).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unbinder.unbind();
+        if (isConnect) {
+            unbinder.unbind();
+        }
     }
 
     private void initComponent() {
@@ -173,10 +194,6 @@ public class MainActivity extends AppCompatActivity  {
 //        super.onRestoreInstanceState(savedInstanceState);
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-    }
 
     @OnClick({R.id.tab_dial_manager, R.id.tab_contact_manager, R.id.tab_records_manager, R.id.tab_statics_manager})
     public void onViewClick(View view) {
@@ -250,6 +267,5 @@ public class MainActivity extends AppCompatActivity  {
                     InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
-
 
 }

@@ -3,40 +3,40 @@
     android:oneshot="false">
     <item
         android:drawable="@drawable/setting_loading_1"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/setting_loading_2"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/setting_loading_3"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/setting_loading_4"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/setting_loading_5"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/setting_loading_6"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/setting_loading_7"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/setting_loading_8"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/setting_loading_9"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/setting_loading_10"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/setting_loading_11"
-        android:duration="150" />
+        android:duration="80" />
     <item
         android:drawable="@drawable/setting_loading_12"
-        android:duration="150" />
+        android:duration="80" />
 
 
 </animation-list>

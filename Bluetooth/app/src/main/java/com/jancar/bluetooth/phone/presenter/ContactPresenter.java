@@ -31,12 +31,12 @@ public class ContactPresenter extends BaseModelPresenter<ContactContract.View, C
 
     @Override
     public void getSearchConatct(String searchString, int type) {
-        if (CheckPhoneUtil.CheckPhoneNum(searchString)) {
-            getUi().getManager().queryContactsByNumber(searchString, type);
+        String trim = searchString.replaceAll(" ", "");
+        if (CheckPhoneUtil.CheckPhoneNum(trim)) {
+            getUi().getManager().queryContactsByNumber(trim, type);
         } else {
-            getUi().getManager().queryContactsByName(searchString, type);
+            getUi().getManager().queryContactsByName(trim, type);
         }
-
     }
 
 

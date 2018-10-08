@@ -101,11 +101,11 @@ public class RegisterMediaSession {
         } else if (KeyEvent.KEYCODE_MEDIA_PREVIOUS == keyCode) {
             bluetoothManager.next();
         } else if (KeyEvent.KEYCODE_MEDIA_STOP == keyCode) {
-//            bluetoothManager.pause();
+            bluetoothManager.pause();
         } else if (KeyEvent.KEYCODE_MEDIA_PAUSE == keyCode) {
-//            bluetoothManager.pause();
+            bluetoothManager.pause();
         } else if (KeyEvent.KEYCODE_MEDIA_PLAY == keyCode) {
-//            bluetoothManager.play();
+            bluetoothManager.play();
         }
     }
 }
