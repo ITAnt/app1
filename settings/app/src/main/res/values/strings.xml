@@ -303,4 +303,6 @@
     <string name="txt_jazz">爵士</string>
     <string name="txt_classical">古典</string>
     <string name="txt_customize">自定义</string>
+    <string name="tv_open">打开</string>
+    <string name="tv_closed">关闭</string>
 </resources>

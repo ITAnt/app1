@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:windowIsTranslucent">true</item>
         <!--<item name="android:windowBackground">@android:color/transparent</item>-->
     </style>
@@ -19,6 +19,16 @@
         <item name="android:lineSpacingExtra">4px</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:ellipsize">start</item>
+    </style>
+
+    <style name="txt_marque">
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:lineSpacingExtra">4px</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:ellipsize">marquee</item>
     </style>
     <!--textview提示语默认设置-->
     <style name="txt_default_tip">
@@ -78,13 +88,14 @@
     <style name="txt_normal_tip_px22" parent="txt_default_tip">
         <item name="android:textSize">@dimen/px22</item>
     </style>
+
     <style name="txt_normal_px26" parent="txt_default">
         <item name="android:textSize">@dimen/px26</item>
     </style>
-    <style name="txt_normal_px30" parent="txt_default">
+
+    <style name="txt_normal_px30" parent="txt_marque">
         <item name="android:textSize">@dimen/px30</item>
     </style>
-
 
 
     <style name="AlertDialogCustom" parent="android:Theme.Material.Light.Dialog.Alert">

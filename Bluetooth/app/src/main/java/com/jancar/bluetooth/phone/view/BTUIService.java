@@ -158,8 +158,10 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 if (saveIsFull != isFull && isShowPhone) {
                     if (isFull) {
                         mWindowManager.removeViewImmediate(haifView);
+                        mWindowManager.addView(phoneView, mLayoutParams);
                     } else {
                         mWindowManager.removeViewImmediate(phoneView);
+                        mWindowManager.addView(haifView, mLayoutParams1);
                     }
                     updataView(mCallType, mCallNumber);
                 }
@@ -177,8 +179,10 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 if (saveIsFull != isFull && isShowPhone) {
                     if (isFull) {
                         mWindowManager.removeViewImmediate(haifView);
+                        mWindowManager.addView(phoneView, mLayoutParams);
                     } else {
                         mWindowManager.removeViewImmediate(phoneView);
+                        mWindowManager.addView(haifView, mLayoutParams1);
                     }
                     updataView(mCallType, mCallNumber);
                 }
@@ -297,7 +301,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
     private void initView() {
         mWindowManager = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         mLayoutParams = new WindowManager.LayoutParams();
-        mLayoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+        mLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
         mLayoutParams.format = PixelFormat.RGBA_8888;
         mLayoutParams.flags = WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
         mLayoutParams.gravity = Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL;
@@ -618,7 +622,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
 
     private void startTimer() {
         Log.e(TAG, "startTimer");
-        if(mCallTimer==null){
+        if (mCallTimer == null) {
             mCallTimer = new Timer();
             TimerTask task = new TimerTask() {
                 @Override

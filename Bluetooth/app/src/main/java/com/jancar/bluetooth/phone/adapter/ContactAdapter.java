@@ -10,6 +10,7 @@ import com.jancar.bluetooth.lib.BluetoothPhoneBookData;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.util.ViewHolderUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,12 +26,13 @@ public class ContactAdapter extends BaseViewAdapter<BluetoothPhoneBookData> {
     @Override
     public void setPhoneBooks(List<BluetoothPhoneBookData> listDatas) {
         super.setPhoneBooks(listDatas);
+        notifyDataSetChanged();
     }
 
     public ContactAdapter(Context context, List<BluetoothPhoneBookData> listDatas, int layoutID) {
         super(context, listDatas, layoutID);
         this.mContext = context;
-        this.listDatas = listDatas;
+        this.listDatas = new ArrayList<>(listDatas);
     }
 
     @Override

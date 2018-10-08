@@ -30,12 +30,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.DialogActivity"
+            android:name=".MainActivity"
             android:icon="@mipmap/iv_phone"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape"
-            android:theme="@style/Animation">
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,10 +43,6 @@
             </intent-filter>
 
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
         <activity
             android:name=".view.CommunicateActivity"
             android:launchMode="singleTask"
@@ -69,16 +64,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".view.MusicContentActivity"
-            android:label="@string/tv_bluet_music"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
+
+
+        <receiver android:name=".view.EasyLinkReceiver">
+            <intent-filter>
+                <action android:name="net.easyconn.a2dp.acquire" />
+                <action android:name="net.easyconn.a2dp.release" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
         <service android:name=".view.BTUIService" />
     </application>

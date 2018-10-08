@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,7 +32,6 @@ import com.ui.mvp.view.support.BaseFragment;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -181,7 +179,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
             if (callDataList == null) {
                 callDataList = new ArrayList<>();
             }
-            adapter = new RecordsAdapter(getActivity(), callDataList);
+            adapter = new RecordsAdapter(getActivity());
             listView.setAdapter(adapter);
             listView.setOverScrollMode(View.OVER_SCROLL_NEVER);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -298,14 +296,18 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
     }
 
     @Override
-    public void onNotifyDownloadCallLogsCount(int i) {
+    public void onNotifyDownloadCallLogsCount(final int i) {
         Log.d("RecordsFragment", "i:" + i);
         runOnUIThread(new Runnable() {
             @Override
             public void run() {
-                showText();
-                listView.setVisibility(View.GONE);
-                tvSynRecord.setText(R.string.tv_record_log);
+                if (i == 0) {
+                    showText();
+                    listView.setVisibility(View.GONE);
+                    tvSynRecord.setText(R.string.tv_record_log);
+                } else {
+                    adapter.setBTPhoneBooks(callDataList);
+                }
             }
         });
 
@@ -315,24 +317,12 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
     public void onNotifyDownloadCallLogsList(final List<BluetoothPhoneBookData> list) {
         Log.d("RecordsFragment", "list.size(rr):" + list.size());
         if (!mActivity.isFinishing()) {
+            this.callDataList = list;
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     if (isBluConn()) {
-                        if (list != null && list.size() > 0) {
-                            linearSyn.setVisibility(View.GONE);
-                            listView.setVisibility(View.VISIBLE);
-                            callDataList.clear();
-                            Iterator<BluetoothPhoneBookData> iterator = list.iterator();
-                            while (iterator.hasNext()) {
-                                callDataList.add(iterator.next());
-                            }
-                            adapter.notifyDataSetChanged();
-                        } else {
-//                            showText();
-//                            listView.setVisibility(View.GONE);
-//                            tvSynRecord.setText(R.string.tv_record_log);
-                        }
+                        adapter.setBTPhoneBooks(callDataList);
                     } else {
                         showText();
                         listView.setVisibility(View.GONE);
@@ -410,7 +400,6 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
                 tvSynRecord.setText(R.string.tv_bt_connect_is_none);
                 listView.setVisibility(View.GONE);
             }
-
         }
     };
 

@@ -14,6 +14,7 @@ import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.lib.BluetoothPhoneBookData;
 import com.jancar.bluetooth.phone.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,9 +30,13 @@ public class RecordsAdapter extends BaseAdapter {
     public static final String OUTGOING = "outgoing";
     public static final String MISSED = "missed";
 
-    public RecordsAdapter(Context mContext, List<BluetoothPhoneBookData> list) {
+    public RecordsAdapter(Context mContext) {
         this.mContext = mContext;
-        this.list = list;
+    }
+
+    public void setBTPhoneBooks(List<BluetoothPhoneBookData> btPhoneBooks) {
+        this.list = new ArrayList<>(btPhoneBooks);
+        notifyDataSetChanged();
     }
 
     @Override

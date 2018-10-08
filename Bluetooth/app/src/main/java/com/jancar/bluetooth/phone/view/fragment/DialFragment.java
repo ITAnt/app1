@@ -150,7 +150,6 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume");
         bluetoothManager = BluetoothManager.getBluetoothManagerInstance(getUIContext());
         bluetoothManager.registerBTPhonebookListener(this);
         bluetoothManager.setBTConnectStatusListener(this);

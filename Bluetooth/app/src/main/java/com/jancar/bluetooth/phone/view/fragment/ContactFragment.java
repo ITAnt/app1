@@ -389,7 +389,12 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
         switch (view.getId()) {
             case R.id.iv_contanct_synchronous:
                 if (isBluConn()) {
-                    showDialog();
+                    if (!isDownLoding()) {
+                        showDialog();
+                    } else {
+                        ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_syning_contact));
+                    }
+
                 } else {
                     ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_bt_connect_is_none));
                 }
@@ -438,23 +443,14 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     @Override
     public void onNotifyDownloadContactsList(final List<BluetoothPhoneBookData> list) {
 //        Log.d("ContactFragment", "list.size():" + list.size() + "name:" + list.get(0).getPhoneName());
+        this.bookDataList = list;
         if (!mActivity.isFinishing()) {
             runOnUIThread(new Runnable() {
                 @Override
                 public void run() {
                     if (isBluConn()) {
-                        if (list != null && list.size() > 0) {
-                            relativeLayout.setVisibility(View.VISIBLE);
-                            linerSyn.setVisibility(View.GONE);
-
-                            bookDataList = list;
-                            adapter.setPhoneBooks(bookDataList);
-                            adapter.notifyDataSetChanged();
-                        } else {
-//                            relativeLayout.setVisibility(View.GONE);
-//                            ShowSynText();
-//                            tvSynContact.setText(R.string.tv_contact_empty);
-                        }
+                        adapter.setPhoneBooks(bookDataList);
+                        adapter.notifyDataSetChanged();
                     } else {
                         relativeLayout.setVisibility(View.GONE);
                         ShowSynText();
@@ -467,13 +463,16 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
 
     @Override
     public void onNotifySeachContactsList(List<BluetoothPhoneBookData> list, int i) {
+        this.bookSearchList = list;
         if (i == ContactFragmentType) {
-            if (list != null && list.size() > 0) {
-                relativeLayout.setVisibility(View.VISIBLE);
-                linerSyn.setVisibility(View.GONE);
-                bookSearchList = list;
-                searchAdapter.setBookContact(list);
-            }
+            runOnUIThread(new Runnable() {
+                @Override
+                public void run() {
+                    relativeLayout.setVisibility(View.VISIBLE);
+                    linerSyn.setVisibility(View.GONE);
+                    searchAdapter.setBookContact(bookDataList);
+                }
+            });
         }
 
     }
