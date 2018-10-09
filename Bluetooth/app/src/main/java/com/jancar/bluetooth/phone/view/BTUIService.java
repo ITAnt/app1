@@ -739,6 +739,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 } else {
                     bluetoothManager.terminateCall();
                 }
+                destroyView();
                 break;
             case R.id.item_dial_show_1:
                 getStrKeyNum("1");

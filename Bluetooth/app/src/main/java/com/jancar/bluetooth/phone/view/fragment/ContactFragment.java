@@ -536,7 +536,9 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
             public void run() {
                 linerSyn.setVisibility(View.GONE);
                 relativeLayout.setVisibility(View.VISIBLE);
-                animationDrawable.stop();
+                if (animationDrawable.isRunning()) {
+                    animationDrawable.stop();
+                }
             }
         });
     }

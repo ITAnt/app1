@@ -19,7 +19,6 @@ import android.widget.RelativeLayout;
 
 import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
-import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.view.fragment.ContactFragment;
 import com.jancar.bluetooth.phone.view.fragment.DialFragment;
 import com.jancar.bluetooth.phone.view.fragment.EquipmentFragment;
@@ -52,11 +51,13 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
     @BindView(R.id.tab_statics_manager)
     RelativeLayout equipmentRelaout;
     private boolean isConnect;
+    BluetoothManager bluetoothManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        isConnect = BluetoothManager.getBluetoothManagerInstance(this).isConnect();
+        bluetoothManager = BluetoothManager.getBluetoothManagerInstance(this);
+        isConnect = bluetoothManager.isConnect();
         if (isConnect) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
             setContentView(R.layout.activity_main);
@@ -82,6 +83,12 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
                 }
             });
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bluetoothManager.setBTConnectStatusListener(this);
     }
 
     @Override
