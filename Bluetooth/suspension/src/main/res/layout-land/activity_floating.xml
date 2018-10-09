@@ -51,49 +51,46 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/px10"
-                android:background="@drawable/iv_sus_del_nomal" />
+                android:src="@drawable/setting_del" />
 
             <ImageView
                 android:id="@+id/iv_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/px50"
+                android:layout_marginLeft="@dimen/px30"
                 android:layout_toRightOf="@+id/iv_sus_del"
-                android:background="@drawable/iv_sus_voice_nomal_l" />
+                android:src="@drawable/setting_voice_add_selector_left" />
 
             <ImageView
                 android:id="@+id/iv_power"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/px10"
                 android:layout_marginTop="@dimen/px40"
-                android:background="@drawable/iv_sus_power_pressed" />
+                android:src="@drawable/setting_power_selector" />
 
             <ImageView
                 android:id="@+id/iv_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/px5"
                 android:layout_marginTop="@dimen/px240"
-                android:background="@drawable/iv_sus_back_nomal_l" />
+                android:src="@drawable/setting_back_selector_left" />
 
             <ImageView
                 android:id="@+id/iv_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/px90"
+                android:layout_marginLeft="@dimen/px70"
                 android:layout_marginTop="@dimen/px65"
-                android:background="@drawable/iv_sus_home_nomal" />
+                android:src="@drawable/setting_home_selector" />
 
             <ImageView
                 android:id="@+id/iv_dec"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/px85"
+                android:layout_marginLeft="@dimen/px65"
                 android:layout_marginTop="@dimen/px210"
-                android:background="@drawable/iv_sus_voice_red_nomal_l" />
+                android:src="@drawable/setting_voice_red_selector_left" />
         </RelativeLayout>
 
         <ListView

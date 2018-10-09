@@ -116,6 +116,15 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                 ShowSynText();
                 tvSynContact.setText(R.string.tv_bt_connect_is_none);
                 relativeLayout.setVisibility(View.GONE);
+            } else if (msg.what == Constants.CONTACT_DATA_REFRESH) {
+                final String number = (String) msg.obj;
+                new Thread() {
+                    @Override
+                    public void run() {
+                        super.run();
+                        getPresenter().getSearchConatct(number, ContactFragmentType);
+                    }
+                }.start();
             }
 
         }
@@ -362,7 +371,12 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         String number = charSequence.toString();
-        getPresenter().getSearchConatct(number, ContactFragmentType);
+//        getPresenter().getSearchConatct(number, ContactFragmentType);
+        Message message = new Message();
+        message.what = Constants.CONTACT_DATA_REFRESH;
+        message.obj = number;
+        handler.removeMessages(Constants.CONTACT_DATA_REFRESH);
+        handler.sendMessageDelayed(message, 100);
     }
 
     @Override
@@ -462,19 +476,19 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     }
 
     @Override
-    public void onNotifySeachContactsList(List<BluetoothPhoneBookData> list, int i) {
-        this.bookSearchList = list;
+    public void onNotifySeachContactsList(List<BluetoothPhoneBookData> list, final int i) {
+        Log.d(TAG, "list.size()Seach:" + list.size() + "   " + "i:" + i);
         if (i == ContactFragmentType) {
-            runOnUIThread(new Runnable() {
-                @Override
-                public void run() {
-                    relativeLayout.setVisibility(View.VISIBLE);
-                    linerSyn.setVisibility(View.GONE);
-                    searchAdapter.setBookContact(bookDataList);
-                }
-            });
+            this.bookSearchList = list;
+            if (!mActivity.isFinishing()) {
+                mActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        searchAdapter.setBookContact(bookSearchList);
+                    }
+                });
+            }
         }
-
     }
 
     private void ShowSynText() {

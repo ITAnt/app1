@@ -111,6 +111,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
     private BluetoothManager bluetoothManager;
     private JancarServer jancarServer;
     private boolean isShowPhone = false;
+    private int visibility;
 
 
     @Nullable
@@ -164,8 +165,8 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                         mWindowManager.addView(haifView, mLayoutParams1);
                     }
                     updataView(mCallType, mCallNumber);
+                    saveIsFull = isFull;
                 }
-                saveIsFull = isFull;
             }
 
             @Override
@@ -220,11 +221,16 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                     break;
                 case MSG_BLUETOOTH_SERVICE_READY:
                     if (bluetoothManager.isMicMute()) {
-                        bluetoothManager.muteMic(false);
-                        ivVoice.setImageResource(R.drawable.commun_voice_selector);
+//                        bluetoothManager.muteMic(false);
+                        if (isFull) {
+                            ivVoice.setImageResource(R.drawable.commun_voice_selector);
+                        }
                     } else {
-                        bluetoothManager.muteMic(true);
-                        ivVoice.setImageResource(R.drawable.commun_no_voice_selector);
+//                        bluetoothManager.muteMic(true);
+                        if (isFull) {
+                            ivVoice.setImageResource(R.drawable.commun_no_voice_selector);
+                        }
+
                     }
                     updataView(mCallType, mCallNumber);
                     break;
@@ -239,6 +245,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
 
                     break;
                 case MSG_BLUETOOTH_DESTROY_VIEW:
+                    mCallScoState = BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT;
                     stopTimer();
                     if (isShowPhone) {
                         if (isFull) {
@@ -290,6 +297,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
     private void showView() {
         isShowPhone = true;
         bluetoothManager.registerBTPhoneListener(this);
+        bluetoothManager.muteMic(false);
         bluetoothManager.registerCallOnKeyEvent();
         if (isFull) {
             mWindowManager.addView(phoneView, mLayoutParams);
@@ -683,10 +691,10 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
             case R.id.iv_comm_message_voice:
                 if (bluetoothManager.isMicMute()) {
                     bluetoothManager.muteMic(false);
-                    ivVoice.setImageResource(R.drawable.commun_voice_selector);
+                    ivVoice.setImageResource(R.drawable.commun_no_voice_selector);
                 } else {
                     bluetoothManager.muteMic(true);
-                    ivVoice.setImageResource(R.drawable.commun_no_voice_selector);
+                    ivVoice.setImageResource(R.drawable.commun_voice_selector);
                 }
                 break;
             case R.id.iv_comm_message_keypad:

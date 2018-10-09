@@ -3,7 +3,9 @@ package com.jancar.bluetooth.phone;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -15,7 +17,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
+import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
+import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.view.fragment.ContactFragment;
 import com.jancar.bluetooth.phone.view.fragment.DialFragment;
 import com.jancar.bluetooth.phone.view.fragment.EquipmentFragment;
@@ -26,7 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BTConnectStatusListener {
     private static final String TAG = "MainActivity";
     public static final int TAB_DIAL_MANAGER = 1;
     public static final int TAB_CONTACT_MANAGER = 2;
@@ -268,4 +272,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onNotifyBTConnectStateChange(byte state) {
+        if (state == BluetoothManager.BT_CONNECT_IS_CONNECTED) {
+            Message msg = handler.obtainMessage();
+            msg.what = state;
+            handler.sendMessage(msg);
+        }
+    }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == BluetoothManager.BT_CONNECT_IS_CONNECTED) {
+                finish();
+            }
+        }
+    };
 }

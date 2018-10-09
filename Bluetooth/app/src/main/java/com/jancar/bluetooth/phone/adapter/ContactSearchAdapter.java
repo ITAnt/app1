@@ -24,7 +24,7 @@ import java.util.List;
 public class ContactSearchAdapter extends BaseAdapter {
     private int defaultSelection = -1;
     private Context mContext;
-    private List<BluetoothPhoneBookData> list = new ArrayList<>();
+    private List<BluetoothPhoneBookData> list;
 
     public void setBookContact(List<BluetoothPhoneBookData> list) {
         this.list = new ArrayList<>(list);

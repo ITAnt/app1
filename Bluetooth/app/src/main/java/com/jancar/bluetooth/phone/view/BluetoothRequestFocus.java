@@ -53,7 +53,7 @@ public class BluetoothRequestFocus {
         audioManager.requestAudioFocus(mAudioFocusListener, AudioManager.STREAM_MUSIC,
                 AudioManager.AUDIOFOCUS_GAIN);
         blueManager.setPlayerState(true);
-        if (blueManager.getBlueMusicData().getPlay_status() != 1) {
+        if (blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PAUSE) {
             blueManager.play();
         }
     }
@@ -65,9 +65,11 @@ public class BluetoothRequestFocus {
             audioManager.abandonAudioFocus(mAudioFocusListener);
         }
         Log.e(TAG, "blueManager.getBlueMusicData().getPlay_status()==" + blueManager.getBlueMusicData().getPlay_status());
-        if (blueManager.getBlueMusicData().getPlay_status() == 1) {
+        if (blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PLAY) {
             blueManager.pause();
+
         }
+        blueManager.setPlayerState(false);
     }
 
     private AudioManager.OnAudioFocusChangeListener mAudioFocusListener = new AudioManager.OnAudioFocusChangeListener() {
@@ -77,25 +79,25 @@ public class BluetoothRequestFocus {
             switch (focusChange) {
                 case AudioManager.AUDIOFOCUS_GAIN:
                     blueManager.setPlayerState(true);
-                    if (blueManager.getBlueMusicData().getPlay_status() != 1) {
+                    if (blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PAUSE) {
                         blueManager.play();
                     }
                     break;
                 case AudioManager.AUDIOFOCUS_LOSS:
                     blueManager.setPlayerState(false);
                     releaseAudioFocus();
-                    if (blueManager.getBlueMusicData().getPlay_status() == 1) {
+                    if (blueManager.getBlueMusicData().getPlay_status() ==BluetoothManager.MUSIC_STATE_PLAY) {
                         blueManager.pause();
                     }
                     break;
                 case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
                     blueManager.setPlayerState(false);
-                    if (blueManager.getBlueMusicData().getPlay_status() == 1) {
+                    if (blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PLAY) {
                         blueManager.pause();
                     }
                     break;
                 case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
-                    if (blueManager.getBlueMusicData().getPlay_status() == 1) {
+                    if (blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PLAY) {
                         blueManager.pause();
                     }
                     break;

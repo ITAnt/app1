@@ -87,7 +87,7 @@ public class SideBar extends View {
                 Rect rect = new Rect();
                 paint.setColor(Color.parseColor("#0068b7"));
                 paint.getTextBounds(b[i], 0, 1, rect);
-                canvas.drawCircle(getWidth() / 2, yPos - (circleRadius - rect.height() / 2), circleRadius, paint);
+                canvas.drawCircle(getWidth() / 2.0f , yPos - (circleRadius - rect.height() / 2.0f), circleRadius, paint);
                 paint.setFakeBoldText(true);
             }
             paint.setColor(Color.rgb(102, 102, 102));

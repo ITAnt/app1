@@ -17,5 +17,11 @@ public class MainActivity extends AppCompatActivity {
                 startService(new Intent(MainActivity.this, OverlayMenuService.class));
             }
         });
+        findViewById(R.id.btn_setting).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, FloatingActivity.class));
+            }
+        });
     }
 }

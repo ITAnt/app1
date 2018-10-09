@@ -13,11 +13,13 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.ancar.suspension.utils.Contacts;
 import com.ancar.suspension.widget.ChildButton;
 import com.ancar.suspension.widget.FloatingButton;
 import com.ancar.suspension.widget.MagneticMenu;
 import com.jancar.JancarServer;
 import com.jancar.key.KeyDef;
+import com.orhanobut.hawk.Hawk;
 
 import static com.ancar.suspension.widget.MagneticMenu.OnDragListener.*;
 
@@ -30,12 +32,18 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
 
     private MagneticMenu topCenterMenu;
     JancarServer jancarManager = null;
-    
+
     ImageView tcIcon1;
     ImageView tcIcon2;
     ImageView tcIcon3;
     ImageView tcIcon4;
     ImageView tcIcon5;
+    private String tcTitle1;
+    private String tcTitle2;
+    private String tcTitle3;
+    private String tcTitle4;
+    private String tcTitle5;
+    private int Flag = 0;
 
     public OverlayMenuService() {
     }
@@ -64,12 +72,12 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
         int mainActionMenuRadius = getResources().getDimensionPixelSize(R.dimen.main_action_menu_radius);
         int childActionButtonSize = getResources().getDimensionPixelSize(R.dimen.child_action_button_size);
         int childSubActionButtonContentMargin = getResources().getDimensionPixelSize(R.dimen.child_action_button_content_margin);
-    
+
         Drawable translateBackground = new ColorDrawable(Color.TRANSPARENT);
-        
+
         ImageView fabIconStar = new ImageView(this);
         fabIconStar.setImageDrawable(getResources().getDrawable(R.drawable.iv_sus_centre));
-    
+
 //        FloatingButton.LayoutParams fabIconStarParams = new FloatingButton.LayoutParams(mainActionButtonContentSize, mainActionButtonContentSize);
         FloatingButton.LayoutParams fabIconStarParams = new FloatingButton.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
 //        fabIconStarParams.setMargins(mainActionButtonContentMargin,
@@ -88,7 +96,7 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
                 .setPosition(FloatingButton.POSITION_LEFT_CENTER)
                 .setLayoutParams(mainParam)
                 .build();
-        
+
         // Set up customized SubActionButtons for the right center menu
         ChildButton.Builder childButtonBuilder = new ChildButton.Builder(this);
         childButtonBuilder.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_action_blue_selector));
@@ -108,13 +116,10 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
         tcIcon3 = new ImageView(this);
         tcIcon4 = new ImageView(this);
         tcIcon5 = new ImageView(this);
-        
-        tcIcon1.setImageResource(R.drawable.sus_power_selector);
-        tcIcon2.setImageResource(R.drawable.sus_power_selector);
-        tcIcon3.setImageResource(R.drawable.sus_voice_add_selector_left);
-        tcIcon4.setImageResource(R.drawable.sus_voice_red_selector_left);
-        tcIcon5.setImageResource(R.drawable.sus_back_selector_left);
-        
+
+        initImgRes();
+
+
         ChildButton tcSub1 = childButtonBuilder
                 .setContentView(tcIcon1, childBtnParams)
                 .setBackgroundDrawable(translateBackground)
@@ -151,53 +156,15 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
                 .setRadius(mainActionMenuRadius)
                 .attachTo(mainCenterButton)
                 .build();
-    
+
         onMenuFloat(FLOAT_LEFT);
 
-//        tcIcon1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                jancarManager.requestDisplay(false);
-////                topCenterMenu.close(false);
-//
-//            }
-//        });
-//        tcIcon2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                jancarManager.simulateKey(KeyDef.KeyType.KEY_HOME.nativeInt);
-////                topCenterMenu.close(false);
-//            }
-//        });
-//        tcIcon3.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                jancarManager.simulateKey(KeyDef.KeyType.KEY_VOL_INC.nativeInt);
-////                topCenterMenu.close(false);
-//            }
-//        });
-//        tcIcon4.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                jancarManager.simulateKey(KeyDef.KeyType.KEY_VOL_DEC.nativeInt);
-////                topCenterMenu.close(false);
-//
-//            }
-//        });
-//        tcIcon5.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                jancarManager.simulateKey(KeyDef.KeyType.KEY_BACK.nativeInt);
-////                topCenterMenu.close(false);
-//            }
-//        });
-    
         tcIcon1.setOnClickListener(this);
         tcIcon2.setOnClickListener(this);
         tcIcon3.setOnClickListener(this);
         tcIcon4.setOnClickListener(this);
         tcIcon5.setOnClickListener(this);
-        
+
         topCenterMenu.setDragListener(new MagneticMenu.OnDragListener() {
             @Override
             public void onDragStart() {
@@ -210,7 +177,57 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
             }
         });
     }
-    
+
+    private void initImgRes() {
+        tcTitle1 = Hawk.get(Contacts.ICON_POS_0, getResources().getString(R.string.tv_power));
+        tcTitle2 = Hawk.get(Contacts.ICON_POS_1, getResources().getString(R.string.tv_home));
+        tcTitle3 = Hawk.get(Contacts.ICON_POS_2, getResources().getString(R.string.tv_vioce_add));
+        tcTitle4 = Hawk.get(Contacts.ICON_POS_3, getResources().getString(R.string.tv_vioce_dec));
+        tcTitle5 = Hawk.get(Contacts.ICON_POS_4, getResources().getString(R.string.tv_back));
+        setImgResource(tcTitle1, tcIcon1);
+        setImgResource(tcTitle2, tcIcon2);
+        setImgResource(tcTitle3, tcIcon3);
+        setImgResource(tcTitle4, tcIcon4);
+        setImgResource(tcTitle5, tcIcon5);
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        initImgRes();
+        return super.onStartCommand(intent, flags, startId);
+
+    }
+
+    private void setImgResource(String title, ImageView view) {
+        if (title.equals(getResources().getString(R.string.tv_power))) {
+            view.setImageResource(R.drawable.sus_power_selector);
+        }
+        if (title.equals(getResources().getString(R.string.tv_home))) {
+            view.setImageResource(R.drawable.sus_home_selector);
+        }
+        if (title.equals(getResources().getString(R.string.tv_vioce_add))) {
+            if (Flag == 0) {
+                view.setImageResource(R.drawable.sus_voice_add_selector_left);
+            } else if (Flag == 1) {
+                view.setImageResource(R.drawable.sus_voice_add_selector_right);
+            }
+        }
+        if (title.equals(getResources().getString(R.string.tv_vioce_dec))) {
+            if (Flag == 0) {
+                view.setImageResource(R.drawable.sus_voice_red_selector_left);
+            } else if (Flag == 1) {
+                view.setImageResource(R.drawable.sus_voice_red_selector_right);
+            }
+        }
+        if (title.equals(getResources().getString(R.string.tv_back))) {
+            if (Flag == 0) {
+                view.setImageResource(R.drawable.sus_back_selector_left);
+            } else if (Flag == 1) {
+                view.setImageResource(R.drawable.sus_back_selector_right);
+            }
+        }
+    }
+
     @Override
     public void onClick(View v) {
         int pos = -1;
@@ -218,44 +235,66 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
             pos = 0;
         } else if (v == tcIcon2) {
             pos = 1;
+        } else if (v == tcIcon3) {
+            pos = 2;
+        } else if (v == tcIcon4) {
+            pos = 3;
+        } else if (v == tcIcon5) {
+            pos = 4;
         }
         OnSubBtnClick(pos);
     }
-    
-    
+
     public void OnSubBtnClick(int pos) {
         switch (pos) {
             case 0:
-                jancarManager.requestDisplay(false);
+                onPosClick(tcTitle1);
                 break;
             case 1:
-                jancarManager.simulateKey(KeyDef.KeyType.KEY_HOME.nativeInt);
+                onPosClick(tcTitle2);
                 break;
             case 2:
+                onPosClick(tcTitle3);
                 break;
             case 3:
+                onPosClick(tcTitle4);
                 break;
             case 4:
-                break;
-            case 5:
+                onPosClick(tcTitle5);
                 break;
         }
     }
-    
+
+    private void onPosClick(String title) {
+        if (title.equals(getResources().getString(R.string.tv_power))) {
+            jancarManager.requestDisplay(false);
+        }
+        if (title.equals(getResources().getString(R.string.tv_home))) {
+            jancarManager.simulateKey(KeyDef.KeyType.KEY_HOME.nativeInt);
+        }
+        if (title.equals(getResources().getString(R.string.tv_vioce_add))) {
+            jancarManager.simulateKey(KeyDef.KeyType.KEY_VOL_INC.nativeInt);
+        }
+        if (title.equals(getResources().getString(R.string.tv_vioce_dec))) {
+            jancarManager.simulateKey(KeyDef.KeyType.KEY_VOL_DEC.nativeInt);
+        }
+        if (title.equals(getResources().getString(R.string.tv_back))) {
+            jancarManager.simulateKey(KeyDef.KeyType.KEY_BACK.nativeInt);
+        }
+    }
+
     private void onMenuFloat(int flag) {
         switch (flag) {
             case FLOAT_LEFT:
-                tcIcon3.setImageResource(R.drawable.sus_voice_add_selector_left);
-                tcIcon4.setImageResource(R.drawable.sus_voice_red_selector_left);
-                tcIcon5.setImageResource(R.drawable.sus_back_selector_left);
+                Flag = 0;
+                initImgRes();
                 topCenterMenu.setBackgroundResource(R.drawable.iv_sus_bg_left);
                 topCenterMenu.setMainActionViewImageResource(R.drawable.iv_sus_left_btn);
                 topCenterMenu.setAngle(275, 445);
                 break;
             case FLOAT_RIGHT:
-                tcIcon3.setImageResource(R.drawable.sus_voice_add_selector_right);
-                tcIcon4.setImageResource(R.drawable.sus_voice_red_selector_right);
-                tcIcon5.setImageResource(R.drawable.sus_back_selector_right);
+                Flag = 1;
+                initImgRes();
                 topCenterMenu.setBackgroundResource(R.drawable.iv_sus_bg_right);
                 topCenterMenu.setMainActionViewImageResource(R.drawable.iv_sus_right_btn);
                 topCenterMenu.setAngle(265, 95);

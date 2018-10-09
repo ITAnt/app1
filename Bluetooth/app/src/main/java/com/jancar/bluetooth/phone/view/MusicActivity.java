@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -18,6 +19,7 @@ import com.jancar.bluetooth.lib.BluetoothMusicData;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.contract.MusicContract;
 import com.jancar.bluetooth.phone.presenter.MusicPresenter;
+import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.TimeUtil;
 import com.jancar.bluetooth.phone.util.ToastUtil;
 import com.jancar.bluetooth.phone.widget.MarqueeTextView;
@@ -33,6 +35,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     private final int MSG_INIT_OK = 0;
     private final int MSG_UI_REFRESH_ID3_INFO = 1;
     private final int MSG_UI_REFRESH_PLAY_STATE = 2;
+    private final int MSG_UI_LISTENER = 3;
     public static final byte CMD_UPDATE_PLAY_STATUS = (byte) 0x01;
     public static final byte CMD_UPDATE_PLAY_POSITION = (byte) 0x02;
     private BluetoothManager bluetoothManager;
@@ -51,15 +54,18 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     private RegisterMediaSession registerMediaSession;
     private BluetoothRequestFocus bluetoothRequestFocus;
     private boolean isConnect;
+    private boolean isResume;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        isConnect = BluetoothManager.getBluetoothManagerInstance(this).isConnect();
         bluetoothManager = BluetoothManager.getBluetoothManagerInstance(this);
+        isConnect = bluetoothManager.isConnect();
         if (isConnect) {
             setContentView(R.layout.activity_music);
+            bluetoothManager.registerBTMusicListener(this);
+            UIHandler.sendEmptyMessageDelayed(MSG_UI_LISTENER, 200);
             updateView();
         } else {
             setTheme(R.style.AlertDialogCustom);
@@ -81,8 +87,8 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                 }
             });
         }
-
     }
+
 
     @Override
     protected void onStart() {
@@ -91,9 +97,10 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
             bluetoothRequestFocus.requestAudioFocus();
         }
 //        bluetoothManager.setPlayerState(true);
-        if (!isPlay) {
-            bluetoothManager.play();
-        }
+        Log.d("MusicActivity", "isPlay:" + isPlay);
+//        if (!isPlay) {
+//            bluetoothManager.play();
+//        }
         registerMediaSession = new RegisterMediaSession(this, bluetoothManager);
         registerMediaSession.requestMediaButton();
         super.onStart();
@@ -102,24 +109,32 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     @Override
     protected void onResume() {
         super.onResume();
-        bluetoothManager.registerBTMusicListener(this);
+        Log.e("MusicActivity", "this:" + this);
+        Log.e("MusicActivity", "onResume:" + isConnect);
+        if (isConnect) {
+//            bluetoothManager.registerBTMusicListener(this);
+
+        }
         bluetoothManager.setBTConnectStatusListener(this);
+        isResume = true;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        isResume = false;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (isPlay) {
-            bluetoothManager.pause();
-        }
-//        bluetoothManager.unRegisterBTMusicListener();
-        registerMediaSession.releaseMediaButton();
+//        if (isPlay) {
+//            bluetoothManager.pause();
+//        }
+        bluetoothManager.unRegisterBTMusicListener();
         bluetoothRequestFocus.releaseAudioFocus();
+        registerMediaSession.releaseMediaButton();
+
     }
 
     private void updateView() {
@@ -172,6 +187,10 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                     BluetoothMusicData blueMusicStatus = (BluetoothMusicData) msg.obj;
                     updatePlaybackStatus(blueMusicStatus.getPlay_status(), blueMusicStatus.getSong_len(), blueMusicStatus.getSong_pos());
                     break;
+                case MSG_UI_LISTENER:
+                    bluetoothManager.registerBTMusicListener(MusicActivity.this);
+                    UIHandler.sendEmptyMessageDelayed(MSG_UI_LISTENER, 200);
+                    break;
             }
         }
     };
@@ -206,11 +225,12 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
 
 
     private void updatePlaybackStatus(byte play_status, int song_len, int song_pos) {
+        Log.d("MusicActivity", "play_status:" + play_status);
         switch (play_status) {
             case BluetoothManager.MUSIC_STATE_PLAY:
                 ivPlay.setImageResource(R.drawable.music_pause_selector);
                 isPlay = true;
-                if (!bluetoothRequestFocus.isNeedGainFocus()) {
+                if (!bluetoothRequestFocus.isNeedGainFocus() && isResume) {
                     bluetoothRequestFocus.requestAudioFocus();
                 }
                 break;
@@ -312,6 +332,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
 
     @Override
     public void onNotifyBTMusicID3Info(final BluetoothMusicData bluetoothMusicData) {
+        Log.d("MusicActivity", "onNotifyBTMusicID3Info:" + isConnect);
         if (isConnect) {
             Message msg = UIHandler.obtainMessage();
             msg.what = MSG_UI_REFRESH_ID3_INFO;
@@ -323,6 +344,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
 
     @Override
     public void onNotifyBTMusicPlayState(final BluetoothMusicData bluetoothMusicData) {
+        Log.d("MusicActivity", "onNotifyBTMusicPlayState:" + isConnect);
         if (isConnect) {
             Message msg = UIHandler.obtainMessage();
             msg.what = MSG_UI_REFRESH_PLAY_STATE;
@@ -363,7 +385,24 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         if (state != BluetoothManager.BT_CONNECT_IS_CONNECTED) {
             bluetoothRequestFocus.releaseAudioFocus();
             isPlay = false;
+//            isConnect = false;
+        } else {
+//            isConnect = true;
+            Message msg = handler.obtainMessage();
+            msg.what = state;
+            handler.sendMessage(msg);
         }
 
     }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == BluetoothManager.BT_CONNECT_IS_CONNECTED) {
+                finish();
+            }
+        }
+    };
+
 }
