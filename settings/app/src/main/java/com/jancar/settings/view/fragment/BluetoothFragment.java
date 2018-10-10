@@ -223,8 +223,10 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Log.d(TAG, "listAvailableonItem");
                     if (unPairedDataListList.size() > 0 && unPairedDataListList != null) {
-                        String remote_device_macaddr = unPairedDataListList.get(i).getRemote_device_macaddr();
-                        mPresenter.connBlutoth(remote_device_macaddr);
+                        if (i < unPairedDataListList.size()) {
+                            String remote_device_macaddr = unPairedDataListList.get(i).getRemote_device_macaddr();
+                            mPresenter.connBlutoth(remote_device_macaddr);
+                        }
                     }
                 }
             });
