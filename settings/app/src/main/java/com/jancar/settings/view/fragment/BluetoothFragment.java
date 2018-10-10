@@ -200,12 +200,14 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    String remote_device_macaddr = pairedDataListList.get(i).getRemote_device_macaddr();
-                    int status = pairedDataListList.get(i).getRemote_connect_status();
-                    if (status == Constants.BLUETOOTH_DEVICE_BONDED) {
-                        mPresenter.connBlutoth(remote_device_macaddr);
+                    if (pairedDataListList.size() > 0 && pairedDataListList != null) {
+                        Log.d(TAG, "listViewonItem");
+                        String remote_device_macaddr = pairedDataListList.get(i).getRemote_device_macaddr();
+                        int status = pairedDataListList.get(i).getRemote_connect_status();
+                        if (status == Constants.BLUETOOTH_DEVICE_BONDED) {
+                            mPresenter.connBlutoth(remote_device_macaddr);
+                        }
                     }
-
                 }
             });
         }
@@ -219,8 +221,11 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
             listAvailable.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    String remote_device_macaddr = unPairedDataListList.get(i).getRemote_device_macaddr();
-                    mPresenter.connBlutoth(remote_device_macaddr);
+                    Log.d(TAG, "listAvailableonItem");
+                    if (unPairedDataListList.size() > 0 && unPairedDataListList != null) {
+                        String remote_device_macaddr = unPairedDataListList.get(i).getRemote_device_macaddr();
+                        mPresenter.connBlutoth(remote_device_macaddr);
+                    }
                 }
             });
         }
@@ -276,11 +281,19 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                 break;
             case R.id.tv_del_all:
                 //断开连接
-                for (BluetoothDeviceData deviceData : pairedDataListList) {
-                    BluetoothSettingManager.getBluetoothSettingManager(getContext()).removeDevice(deviceData.getRemote_device_macaddr());
-                }
-                pairedDataListList.clear();
-                pairAdapter.notifyDataSetChanged();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (pairedDataListList.size() > 0 && pairedDataListList != null) {
+                            for (BluetoothDeviceData deviceData : pairedDataListList) {
+                                BluetoothSettingManager.getBluetoothSettingManager(getContext()).removeDevice(deviceData.getRemote_device_macaddr());
+                            }
+                        }
+                        //pairAdapter.notifyDataSetChanged();
+                    }
+                }, 10);
+
+
                 break;
             case R.id.tv_setting_edit_name:
                 showDialog();

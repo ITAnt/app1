@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.jancar.bluetooth.lib.BluetoothDeviceData;
 import com.jancar.bluetooth.lib.BluetoothManager;
-
 import com.jancar.bluetooth.lib.BluetoothSettingManager;
 import com.jancar.settings.R;
 import com.jancar.settings.util.Constants;
@@ -32,6 +31,7 @@ public class BluetoothAdapter extends BaseAdapter {
     public BluetoothAdapter(Context mContext) {
         this.mContext = mContext;
     }
+
     public void setBookContact(List<BluetoothDeviceData> list) {
         this.list = new ArrayList<>(list);
         notifyDataSetChanged();
@@ -58,7 +58,7 @@ public class BluetoothAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         final BluetoothDeviceData deviceData = list.get(position);
-        int status = deviceData.getRemote_connect_status();
+        final int status = deviceData.getRemote_connect_status();
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(mContext).inflate(
@@ -85,8 +85,8 @@ public class BluetoothAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 BluetoothSettingManager.getBluetoothSettingManager(mContext).removeDevice(deviceData.getRemote_device_macaddr());
-                list.remove(position);
-                notifyDataSetChanged();
+//                list.remove(position);
+//                notifyDataSetChanged();
             }
         });
 
