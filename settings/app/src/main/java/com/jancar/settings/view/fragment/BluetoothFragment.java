@@ -4,6 +4,7 @@ package com.jancar.settings.view.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,7 +25,6 @@ import android.widget.Toast;
 
 import com.jancar.bluetooth.Listener.BTSettingListener;
 import com.jancar.bluetooth.lib.BluetoothDeviceData;
-import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.lib.BluetoothSettingManager;
 import com.jancar.settings.R;
 import com.jancar.settings.adapter.BluetoothAdapter;
@@ -33,6 +33,7 @@ import com.jancar.settings.listener.IPresenter;
 import com.jancar.settings.manager.BaseFragments;
 import com.jancar.settings.presenter.BluetoothPresenter;
 import com.jancar.settings.util.Constants;
+import com.jancar.settings.widget.AVLoadingIndicatorView;
 import com.jancar.settings.widget.SettingDialog;
 import com.jancar.settings.widget.SwitchButton;
 
@@ -54,7 +55,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     SwitchButton ivOnSw;
     SwitchButton ivCheckSw;
     LinearLayout linearSearch;
-    ImageView ivSearch;
+    AVLoadingIndicatorView ivSearch;
     ListView listView;                      //配对设备列表
     TextView tvClose;
     TextView tvCheckSw;
@@ -64,7 +65,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     ListView listAvailable;                 //可用设备列表
     TextView tvSearch;
     LinearLayout linearBlue;
-    private AnimationDrawable animationDrawable;
+    //  private AnimationDrawable animationDrawable;
     BluetoothAdapter pairAdapter, avaAdapter;
     SettingDialog settingDialog;
     private List<BluetoothDeviceData> pairedDataListList;
@@ -137,7 +138,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
             ivOnSw = (SwitchButton) view.findViewById(R.id.iv_setting_switch);
             ivCheckSw = (SwitchButton) view.findViewById(R.id.iv_setting_check_switch);
             linearSearch = (LinearLayout) view.findViewById(R.id.linear_search);
-            ivSearch = (ImageView) view.findViewById(R.id.iv_setting_search);
+            ivSearch = (AVLoadingIndicatorView) view.findViewById(R.id.iv_setting_search);
             listView = (ListView) view.findViewById(R.id.setting_recyclerview);
             listAvailable = (ListView) view.findViewById(R.id.setting_available);
             tvClose = (TextView) view.findViewById(R.id.tv_blutooth_close);
@@ -172,10 +173,22 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         isBTon = bluetoothManager.isBTOn();
         //  bluetoothManager.
         isDisCovering = bluetoothManager.getBTIsDisCovering();
-        ivSearch.setImageResource(R.drawable.loading_animation);
+        //ivSearch.setImageResource(R.drawable.loading_animation);
         tvBlutName = mPresenter.getBlutoothName();
         tvBtName.setText(tvBlutName);
-        animationDrawable = (AnimationDrawable) ivSearch.getDrawable();
+     /*   SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
+        Boolean first_run = sharedPreferences.getBoolean("Bluetooth", true);
+        if (first_run) {
+            isBTon=true;
+            sharedPreferences.edit().putBoolean("Bluetooth", false).commit();
+            linearBlue.setVisibility(View.VISIBLE);
+            //linearSearch.setVisibility(View.VISIBLE);
+            tvClose.setText(R.string.tv_open);
+            mPresenter.openBluetooth();
+            mPresenter.searchPairedList();
+            //   Toast.makeText(this, "第一次", Toast.LENGTH_LONG).show();
+        }*/
+        //animationDrawable = (AnimationDrawable) ivSearch.getDrawable();
         //配对设备
         if (pairAdapter == null) {
             if (pairedDataListList == null) {
@@ -264,7 +277,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
             case R.id.tv_del_all:
                 //断开连接
                 for (BluetoothDeviceData deviceData : pairedDataListList) {
-                    BluetoothManager.getBluetoothManagerInstance(getContext()).removeDevice(deviceData.getRemote_device_macaddr());
+                    BluetoothSettingManager.getBluetoothSettingManager(getContext()).removeDevice(deviceData.getRemote_device_macaddr());
                 }
                 pairedDataListList.clear();
                 pairAdapter.notifyDataSetChanged();
@@ -379,7 +392,8 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
             public void run() {
                 tvSearch.setVisibility(View.GONE);
                 linearSearch.setVisibility(View.VISIBLE);
-                animationDrawable.start();
+                //animationDrawable.start();
+                ivSearch.show();
             }
         });
     }
@@ -389,7 +403,8 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                animationDrawable.stop();
+                //animationDrawable.stop();
+                ivSearch.hide();
                 linearSearch.setVisibility(View.GONE);
                 tvSearch.setVisibility(View.VISIBLE);
             }

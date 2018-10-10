@@ -29,24 +29,24 @@ import android.support.v4.app.FragmentManager;
  */
 public interface ActivityImpl {
 
-    int initResid();
-    IPresenter initPresenter();
-    /**
-     * 初始化 View, 如果 {@link #initView(Bundle)} 返回 0, 框架则不会调用 {@link Activity#setContentView(int)}
-     *
-     * @param savedInstanceState
-     * @return
-     */
-    int initView(@Nullable Bundle savedInstanceState);
+	int initResid();
+	IPresenter initPresenter();
+	/**
+	 * 初始化 View, 如果 {@link #initView(Bundle)} 返回 0, 框架则不会调用 {@link Activity#setContentView(int)}
+	 *
+	 * @param savedInstanceState
+	 * @return
+	 */
+	int initView(@Nullable Bundle savedInstanceState);
 
-    /**
-     * 初始化数据
-     *
-     * @param savedInstanceState
-     */
-    void initData(@Nullable Bundle savedInstanceState);
+	/**
+	 * 初始化数据
+	 *
+	 * @param savedInstanceState
+	 */
+	void initData(@Nullable Bundle savedInstanceState);
 
 
 
-    boolean useFragment();
+	boolean useFragment();
 }

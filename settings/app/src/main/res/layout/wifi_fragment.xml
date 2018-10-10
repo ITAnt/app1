@@ -50,6 +50,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/fragment_scanning"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -75,6 +76,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:visibility="gone"
+
            >
             <com.jancar.settings.widget.AVLoadingIndicatorView
                 android:layout_width="wrap_content"
@@ -98,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <TextView
                 style="@style/style_title_txt"

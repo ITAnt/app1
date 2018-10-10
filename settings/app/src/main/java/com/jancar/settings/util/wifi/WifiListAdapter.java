@@ -22,246 +22,246 @@ import java.util.List;
 
 public class WifiListAdapter extends BaseAdapter {
 
-    private static final String TAG = "WifiListAdapter";
-    protected Context mContext;
-    protected List<ScanResult> mDatas;
-    private List<ScanResult> mSavedResultsShow;
-    private LayoutInflater inflater;
-    private WifiController mWifiController;
-    public Boolean DEBUG = true;
-    private OnClickListener OnClickListener;
-    private final int STATE_IDLE = 0;
-    private final int STATE_CONNECTING = 1;
-    private final int STATE_AUTHENTICATING = 2;
-    private final int STATE_OBTAINING_IPADDR = 3;
-    private final int STATE_CONNECTED = 4;
-    private final int STATE_DISCONNECTING = 5;
-    private final int STATE_DISCONNECTED = 6;
-    private final int STATE_FAILED = 7;
+	private static final String TAG = "WifiListAdapter";
+	protected Context mContext;
+	protected List<ScanResult> mDatas;
+	private List<ScanResult> mSavedResultsShow;
+	private LayoutInflater inflater;
+	private WifiController mWifiController;
+	public Boolean DEBUG = true;
+	private OnClickListener OnClickListener;
+	private final int STATE_IDLE = 0;
+	private final int STATE_CONNECTING = 1;
+	private final int STATE_AUTHENTICATING = 2;
+	private final int STATE_OBTAINING_IPADDR = 3;
+	private final int STATE_CONNECTED = 4;
+	private final int STATE_DISCONNECTING = 5;
+	private final int STATE_DISCONNECTED = 6;
+	private final int STATE_FAILED = 7;
 
-    private final int LEVELNUM = 4;
+	private final int LEVELNUM = 4;
 
-    final int[][] WIFI_SIGNAL_STRENGTH = {
-            {
-                    R.mipmap.wifi_0,
-                    R.mipmap.wifi_1,
-                    R.mipmap.wifi_2,
-                    R.mipmap.wifi_3
+	final int[][] WIFI_SIGNAL_STRENGTH = {
+			{
+					R.mipmap.wifi_0,
+					R.mipmap.wifi_1,
+					R.mipmap.wifi_2,
+					R.mipmap.wifi_3
 
-            },
-            {
-                    R.mipmap.wifi_encrypt_0,
-                    R.mipmap.wifi_encrypt_1,
-                    R.mipmap.wifi_encrypt_2,
-                    R.mipmap.wifi_encrypt_3,
-            },
-            {
-                    R.mipmap.wifi_encrypt_0,
-                    R.mipmap.wifi_encrypt_1,
-                    R.mipmap.wifi_encrypt_2,
-                    R.mipmap.wifi_encrypt_3,
-            }
-    };
+			},
+			{
+					R.mipmap.wifi_encrypt_0,
+					R.mipmap.wifi_encrypt_1,
+					R.mipmap.wifi_encrypt_2,
+					R.mipmap.wifi_encrypt_3,
+			},
+			{
+					R.mipmap.wifi_encrypt_0,
+					R.mipmap.wifi_encrypt_1,
+					R.mipmap.wifi_encrypt_2,
+					R.mipmap.wifi_encrypt_3,
+			}
+	};
 
-    public WifiListAdapter(Context context, List<ScanResult> scanResults) {
+	public WifiListAdapter(Context context, List<ScanResult> scanResults) {
 
-        mContext = context;
-        mDatas = scanResults;
-        mWifiController = WifiController.getInstance(mContext);
-        inflater = LayoutInflater.from(mContext);
+		mContext = context;
+		mDatas = scanResults;
+		mWifiController = WifiController.getInstance(mContext);
+		inflater = LayoutInflater.from(mContext);
 
-    }
+	}
 
-    public WifiListAdapter(Context context) {
+	public WifiListAdapter(Context context) {
 
-        mContext = context;
-        inflater = LayoutInflater.from(mContext);
+		mContext = context;
+		inflater = LayoutInflater.from(mContext);
 
-    }
+	}
 
-    public void setData(List<ScanResult> datas) {
+	public void setData(List<ScanResult> datas) {
 
-        mDatas.clear();
-        mDatas = datas;
-    }
+		mDatas.clear();
+		mDatas = datas;
+	}
 
-    @Override
-    public int getCount() {
-        return mDatas.size();
-    }
+	@Override
+	public int getCount() {
+		return mDatas.size();
+	}
 
-    @Override
-    public ScanResult getItem(int position) {
+	@Override
+	public ScanResult getItem(int position) {
 
-        return mDatas.get(position);
-    }
+		return mDatas.get(position);
+	}
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
+	@Override
+	public long getItemId(int position) {
+		return position;
+	}
 
-    public void setOnClickListener(WifiListAdapter.OnClickListener onClickListener) {
-        OnClickListener = onClickListener;
-    }
+	public void setOnClickListener(WifiListAdapter.OnClickListener onClickListener) {
+		OnClickListener = onClickListener;
+	}
 
-    public List<ScanResult> getmSavedResultsShow() {
-        return mSavedResultsShow;
-    }
+	public List<ScanResult> getmSavedResultsShow() {
+		return mSavedResultsShow;
+	}
 
-    public void setmSavedResultsShow(List<ScanResult> mSavedResultsShow) {
-        this.mSavedResultsShow = new ArrayList<>();
-        this.mSavedResultsShow.addAll(mSavedResultsShow);
-    }
+	public void setmSavedResultsShow(List<ScanResult> mSavedResultsShow) {
+		this.mSavedResultsShow = new ArrayList<>();
+		this.mSavedResultsShow.addAll(mSavedResultsShow);
+	}
 
-    public interface OnClickListener {
-        void onClick(View v, int type, int position);
-    }
+	public interface OnClickListener {
+		void onClick(View v, int type, int position);
+	}
 
-    @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        // 定义ViewHolder
-        final ViewHolder viewHolder;
-        if (convertView == null) {
-            // convertView = mContext.
-            viewHolder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.wifi_item_layout, null);
-            viewHolder.pointSSID = (TextView) convertView.findViewById(R.id.WifiName);
-            viewHolder.pointSignal = (ImageView) convertView.findViewById(R.id.WifiSignal);
-            viewHolder.connectStateTxt = (TextView) convertView.findViewById(R.id.txt_connect_state);
-            viewHolder.operatingTxt = (TextView) convertView.findViewById(R.id.txt_operating);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
+	@Override
+	public View getView(final int position, View convertView, ViewGroup parent) {
+		// 定义ViewHolder
+		final ViewHolder viewHolder;
+		if (convertView == null) {
+			// convertView = mContext.
+			viewHolder = new ViewHolder();
+			convertView = inflater.inflate(R.layout.wifi_item_layout, null);
+			viewHolder.pointSSID = (TextView) convertView.findViewById(R.id.WifiName);
+			viewHolder.pointSignal = (ImageView) convertView.findViewById(R.id.WifiSignal);
+			viewHolder.connectStateTxt = (TextView) convertView.findViewById(R.id.txt_connect_state);
+			viewHolder.operatingTxt = (TextView) convertView.findViewById(R.id.txt_operating);
+			convertView.setTag(viewHolder);
+		} else {
+			viewHolder = (ViewHolder) convertView.getTag();
+		}
 
-        viewHolder.pointSSID.setText(mDatas.get(position).SSID);
-        setLvSign(mDatas.get(position), viewHolder.pointSignal);
-        viewHolder.operatingTxt.setText(mContext.getResources().getString(R.string.wifi_text_connect));
+		viewHolder.pointSSID.setText(mDatas.get(position).SSID);
+		setLvSign(mDatas.get(position), viewHolder.pointSignal);
+		viewHolder.operatingTxt.setText(mContext.getResources().getString(R.string.wifi_text_connect));
 
-        viewHolder.connectStateTxt.setText(mContext.getResources().getString(R.string.wifi_text_not_enabled));
-        if (mSavedResultsShow != null) {
-            for (ScanResult mScanResult : mSavedResultsShow) {
-                if (mScanResult.SSID.equals(mDatas.get(position).SSID)) {
-                    viewHolder.connectStateTxt.setText(mContext.getResources().getString(R.string.wifi_text_wifi_saved));
-                }
-            }
-        }
-
-
-        setSavedText(mDatas, mDatas.get(position), viewHolder.connectStateTxt, viewHolder.operatingTxt);
-
-        viewHolder.operatingTxt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (OnClickListener != null) {
-                    int Type = 0;
-                    if (mContext.getResources().getString(R.string.wifi_text_wifi_connected).equals(viewHolder.connectStateTxt.getText().toString())) {
-                        Type = 1;
-                    } else if (mContext.getResources().getString(R.string.wifi_text_wifi_saved).equals(viewHolder.connectStateTxt.getText().toString())) {
-                        Type = 2;
-                    }
-                    OnClickListener.onClick(v, Type, position);
-                }
-            }
-        });
-        if (viewHolder.connectStateTxt.getText().equals(mContext.getResources().getString(R.string.wifi_text_wifi_saved))) {
-            viewHolder.operatingTxt.setBackgroundResource(R.drawable.normal_bg_wifi__btn);
-        } else {
-            viewHolder.operatingTxt.setBackgroundResource(R.drawable.selected_bg_wifi__btn);
-        }
-        return convertView;
-    }
-
-    private void setLvSign(ScanResult scanResult, ImageView lv) {
-        Log.d(TAG, "setLvSign()");
-        int level = mWifiController.getSignalLevel(scanResult.level, LEVELNUM);
-        String capabilities = scanResult.capabilities;
-
-        //       Log.d(TAG, "Scanresult.ssid:" + scanResult.SSID + ", level:" + level);
-        int type = mWifiController.WIFICIPHER_WPA;
-        if (!TextUtils.isEmpty(capabilities)) {
-            if (capabilities.contains("WPA") || capabilities.contains("wpa")) {
-                type = mWifiController.WIFICIPHER_WPA;
-            } else if (capabilities.contains("WEP") || capabilities.contains("wep")) {
-                type = mWifiController.WIFICIPHER_WEP;
-            } else {
-                type = mWifiController.WIFICIPHER_NOPASS;
-            }
-        }
-
-        lv.setImageDrawable(mContext.getResources().getDrawable(WIFI_SIGNAL_STRENGTH[type][level]));
+		viewHolder.connectStateTxt.setText(mContext.getResources().getString(R.string.wifi_text_not_enabled));
+		if (mSavedResultsShow != null) {
+			for (ScanResult mScanResult : mSavedResultsShow) {
+				if (mScanResult.SSID.equals(mDatas.get(position).SSID)) {
+					viewHolder.connectStateTxt.setText(mContext.getResources().getString(R.string.wifi_text_wifi_saved));
+				}
+			}
+		}
 
 
-    }
+		setSavedText(mDatas, mDatas.get(position), viewHolder.connectStateTxt, viewHolder.operatingTxt);
 
-    private void setSavedText(List<ScanResult> datas, ScanResult mScanResult, TextView text, TextView operating) {
-        Log.d(TAG, "setSavedText()");
+		viewHolder.operatingTxt.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (OnClickListener != null) {
+					int Type = 0;
+					if (mContext.getResources().getString(R.string.wifi_text_wifi_connected).equals(viewHolder.connectStateTxt.getText().toString())) {
+						Type = 1;
+					} else if (mContext.getResources().getString(R.string.wifi_text_wifi_saved).equals(viewHolder.connectStateTxt.getText().toString())) {
+						Type = 2;
+					}
+					OnClickListener.onClick(v, Type, position);
+				}
+			}
+		});
+		if (viewHolder.connectStateTxt.getText().equals(mContext.getResources().getString(R.string.wifi_text_wifi_saved))) {
+			viewHolder.operatingTxt.setBackgroundResource(R.drawable.normal_bg_wifi__btn);
+		} else {
+			viewHolder.operatingTxt.setBackgroundResource(R.drawable.selected_bg_wifi__btn);
+		}
+		return convertView;
+	}
 
-        if (0 == datas.size()) {
-            return;
-        }
+	private void setLvSign(ScanResult scanResult, ImageView lv) {
+		Log.d(TAG, "setLvSign()");
+		int level = mWifiController.getSignalLevel(scanResult.level, LEVELNUM);
+		String capabilities = scanResult.capabilities;
 
-        String SSID = mWifiController.getConnectedSSID();
-        if ("<unknown ssid>" == SSID) {
-            return;
-        }
+		//       Log.d(TAG, "Scanresult.ssid:" + scanResult.SSID + ", level:" + level);
+		int type = mWifiController.WIFICIPHER_WPA;
+		if (!TextUtils.isEmpty(capabilities)) {
+			if (capabilities.contains("WPA") || capabilities.contains("wpa")) {
+				type = mWifiController.WIFICIPHER_WPA;
+			} else if (capabilities.contains("WEP") || capabilities.contains("wep")) {
+				type = mWifiController.WIFICIPHER_WEP;
+			} else {
+				type = mWifiController.WIFICIPHER_NOPASS;
+			}
+		}
 
-
-        if (SSID.equals("\"" + mScanResult.SSID + "\"")) {
-
-            int state = mWifiController.getConnectionState();
-
-            switch (state) {
-                case STATE_CONNECTED:
-                    text.setText(R.string.wifi_text_wifi_connected);
-                    operating.setEnabled(true);
-                    operating.setText(R.string.wifi_text_disconnect);
-                    break;
-                case STATE_CONNECTING:
-                    text.setText(R.string.wifi_text_state_connecting);
-                    //   operating.setText("连接中");
-                    operating.setText(R.string.wifi_text_disconnect);
-                    operating.setEnabled(false);
-                    break;
-                case STATE_OBTAINING_IPADDR:
-                    text.setText(R.string.wifi_text_obtain_an_IP_address);
-                    // operating.setText("连接中");
-                    operating.setEnabled(false);
-                    break;
-                case STATE_AUTHENTICATING:
-                    text.setText(R.string.wifi_text_authentication);
-
-                    break;
-                case STATE_FAILED:
-                    operating.setEnabled(true);
-                    text.setText(R.string.wifi_text_state_failed);
-                    break;
-                case STATE_DISCONNECTING:
-                    text.setText(R.string.wifi_text_state_disconnecting);
-                    //    operating.setText("断开中");
-                    operating.setEnabled(false);
-                    break;
-                case STATE_DISCONNECTED:
-                    text.setText(R.string.wifi_text_disconnected);
-                    operating.setEnabled(true);
-                    break;
-                default:
-
-                    break;
-            }
-
-        }
+		lv.setImageDrawable(mContext.getResources().getDrawable(WIFI_SIGNAL_STRENGTH[type][level]));
 
 
-    }
+	}
+
+	private void setSavedText(List<ScanResult> datas, ScanResult mScanResult, TextView text, TextView operating) {
+		Log.d(TAG, "setSavedText()");
+
+		if (0 == datas.size()) {
+			return;
+		}
+
+		String SSID = mWifiController.getConnectedSSID();
+		if ("<unknown ssid>" == SSID) {
+			return;
+		}
 
 
-    static class ViewHolder {
-        TextView pointSSID;
-        TextView connectStateTxt;
-        ImageView pointSignal;
-        TextView operatingTxt;
-    }
+		if (SSID.equals("\"" + mScanResult.SSID + "\"")) {
+
+			int state = mWifiController.getConnectionState();
+
+			switch (state) {
+				case STATE_CONNECTED:
+					text.setText(R.string.wifi_text_wifi_connected);
+					operating.setEnabled(true);
+					operating.setText(R.string.wifi_text_disconnect);
+					break;
+				case STATE_CONNECTING:
+					text.setText(R.string.wifi_text_state_connecting);
+					//   operating.setText("连接中");
+					operating.setText(R.string.wifi_text_disconnect);
+					operating.setEnabled(false);
+					break;
+				case STATE_OBTAINING_IPADDR:
+					text.setText(R.string.wifi_text_obtain_an_IP_address);
+					// operating.setText("连接中");
+					operating.setEnabled(false);
+					break;
+				case STATE_AUTHENTICATING:
+					text.setText(R.string.wifi_text_authentication);
+
+					break;
+				case STATE_FAILED:
+					operating.setEnabled(true);
+					text.setText(R.string.wifi_text_state_failed);
+					break;
+				case STATE_DISCONNECTING:
+					text.setText(R.string.wifi_text_state_disconnecting);
+					//    operating.setText("断开中");
+					operating.setEnabled(false);
+					break;
+				case STATE_DISCONNECTED:
+					text.setText(R.string.wifi_text_disconnected);
+					operating.setEnabled(true);
+					break;
+				default:
+
+					break;
+			}
+
+		}
+
+
+	}
+
+
+	static class ViewHolder {
+		TextView pointSSID;
+		TextView connectStateTxt;
+		ImageView pointSignal;
+		TextView operatingTxt;
+	}
 
 }

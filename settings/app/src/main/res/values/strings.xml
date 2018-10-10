@@ -100,6 +100,7 @@
     <string name="tab_reset">复位</string>
     <string name="tab_am">上午</string>
     <string name="tab_pm">下午</string>
+    <string name="date">yyyy年MM月dd日</string>
 
     <string-array name="hour_apm">
         <item>上午</item>
@@ -213,9 +214,9 @@
 
     <!--导航设置-->
     <string name="tab_software_navigation">导航软件</string>
-    <string name="tab_switch_mixing">导航混合开关</string>
-    <string name="tab_proportion_mixing">导航混合比例</string>
-    <string name="tab_sound_mixing">导航混合音</string>
+    <string name="tab_switch_mixing">导航混音开关</string>
+    <string name="tab_proportion_mixing">导航混音比例</string>
+    <string name="tab_sound_mixing">导航混音</string>
     <!--车辆设置-->
     <string name="tab_model_selection">车型选择</string>
     <string name="tab_reversing_mirror">倒车镜像</string>
@@ -227,7 +228,7 @@
     <string name="tab_up_down_left_right_normal">上下左右镜像</string>
     <string name="dialog_title">操作说明</string>
     <string name="dialog_default">倒车视频时，两指长按屏幕3秒调出半透明倒车视频调节框，亮度，色度，对比度，饱和度；点调节框外或不操作3秒后调节框消失。</string>
-    <string name="str_settings_wheel_begin" >开始</string>
+    <string name="str_settings_wheel_begin">开始</string>
     <string name="str_settings_wheel_reset">复位</string>
     <string name="str_settings_wheel_finish">完成</string>
     <string name="str_settings_wheel_type">短按</string>
@@ -259,11 +260,12 @@
     <string name="label_kernel_version">内核版本：</string>
     <string name="label_upgrade_update">升级更新</string>
     <string name="tab_prohibit_video_while_driving">行车时禁止视频</string>
-    <string name="tab_touch_tone" >按键音</string>
-    <string name="tab_system_cleanup" >系统清理</string>
+    <string name="tab_touch_tone">按键音</string>
+    <string name="tab_system_cleanup">系统清理</string>
     <string name="tab_factory_setting">工厂设置</string>
     <string name="tab_reset_system">恢复出厂设置</string>
     <string name="tab_restart">重新启动</string>
+    <string name="dialog_restore_defaults">确定恢复出厂设置吗？</string>
     <!--系统设置-->
     <string name="tab_cleaning_up">清理中.....</string>
     <string name="tab_clean_up">清理完成</string>
@@ -281,13 +283,13 @@
     <string name="device_restart">%1$d s后重新启动</string>
     <string name="device_restarts">5s后重新启动</string>
     <string name="str_scanning">扫描</string>
-    <string name="str_sound_7" >7</string>
-    <string name="str_sound_negative_7" >-7</string>
+    <string name="str_sound_7">7</string>
+    <string name="str_sound_negative_7">-7</string>
 
     <!--蓝牙设置-->
-    <string name="tv_setting_name" >本机蓝牙</string>
-    <string name="tv_setting_bluetooth" >蓝牙</string>
-    <string name="tv_setting_close" >关闭</string>
+    <string name="tv_setting_name">本机蓝牙</string>
+    <string name="tv_setting_bluetooth">蓝牙</string>
+    <string name="tv_setting_close">关闭</string>
     <string name="tv_setting_check">开启检测</string>
     <string name="tv_setting_check_des">已关闭，只允许配对设备检测</string>
     <string name="tv_setting_check_">已开启，只允许配对设备检测</string>
@@ -305,4 +307,191 @@
     <string name="txt_customize">自定义</string>
     <string name="tv_open">打开</string>
     <string name="tv_closed">关闭</string>
+    <string name="Start">开始</string>
+    <string name="clear">明确</string>
+    <string name="end">结束</string>
+    <string name="shorts">短</string>
+    <string name="Long">长</string>
+    <string-array name="timezone_id">
+        <item>Pacific/Majuro</item>
+        <item>Pacific/Midway</item>
+        <item>Pacific/Honolulu</item>
+        <item>America/Anchorage</item>
+        <item>America/Los_Angele</item>
+        <item>America/Tijuana</item>
+        <item>America/Phoenix</item>
+        <item>America/Chihuahua</item>
+        <item>America/Denver</item>
+        <item>America/Costa_Rica</item>
+
+        <item>America/Chicago</item>
+        <item>America/Mexico_City</item>
+        <item>America/Regina</item>
+        <item>America/Bogota</item>
+        <item>America/New_York</item>
+        <item>America/Barbados</item>
+        <item>America/Halifax</item>
+        <item>America/Manaus</item>                   
+        <item>America/Santiago</item>
+        <item>America/St_Johns</item>
+
+        <item>America/Sao_Paulo</item>
+        <item>America/Argentina/Buenos_Aires</item>
+        <item>America/Godthab</item>
+        <item>America/Montevideo</item>
+        <item>Atlantic/South_Georgia</item>
+        <item>Atlantic/Azores</item>
+        <item>Atlantic/Cape_Verde</item>             
+        <item>Africa/Casablanca</item> 
+        <item>Europe/London</item>
+        <item>Europe/Amsterdam</item>
+
+        <item>Europe/Belgrade</item>
+        <item>America/Caracas</item>
+        <item>Europe/Brussels</item>
+        <item>Europe/Sarajevo</item>
+        <item>Africa/Windhoek</item>
+        <item>Africa/Brazzaville</item>
+        <item>Asia/Amman</item>             
+        <item>Europe/Athens</item>
+        <item>Asia/Beirut</item>
+        <item>Africa/Cairo</item>
+
+        <item>Europe/Helsinki</item>
+        <item>Asia/Jerusalem</item>
+        <item>Europe/Minsk</item>
+        <item>Africa/Harare</item>
+        <item>Asia/Baghdad</item>
+        <item>Europe/Moscow</item>             
+        <item>Asia/Kuwait</item>                              
+        <item>Africa/Nairobi</item>
+        <item>Asia/Tehran</item>
+
+        <item>Asia/Baku</item>
+        <item>Asia/Tbilisi</item>
+        <item>Asia/Yerevan</item>
+        <item>Asia/Dubai</item>
+        <item>Asia/Kabul</item>
+        <item>Asia/Karachi</item>
+        <item>Asia/Oral</item>             
+        <item>Asia/Yekaterinburg</item>                           
+        <item>Asia/Calcutta</item>
+        <item>Asia/Colombo</item>
+
+        <item>Asia/Katmandu</item>
+        <item>Asia/Almaty</item>
+        <item>Asia/Rangoon</item>
+        <item>Asia/Krasnoyarsk</item>
+        <item>Asia/Bangkok</item>
+        <item>Asia/Shanghai</item>
+        <item>Asia/Hong_Kong</item>             
+        <item>Asia/Irkutsk</item>           
+        <item>Asia/Kuala_Lumpur</item>
+        <item>Australia/Perth</item>
+
+        <item>Asia/Taipei</item>
+        <item>Asia/Seoul</item>
+        <item>Asia/Tokyo</item>
+        <item>Asia/Yakutsk</item>
+        <item>Australia/Adelaide</item>
+        <item>Australia/Darwin</item>
+        <item>Australia/Brisbane</item>             
+        <item>Australia/Hobart</item>
+        <item>Australia/Sydney</item>
+        <item>Asia/Vladivostok</item>
+
+        <item>Pacific/Guam</item>
+        <item>Asia/Magadan</item>
+        <item>Pacific/Auckland</item>
+        <item>Pacific/Fiji</item>
+        <item>Pacific/Tongatapu</item>
+    </string-array>
+    <string-array name="timezone_name">
+        <item>马朱罗</item>
+        <item>中途岛</item>
+        <item>夏威夷</item>
+        <item>阿拉斯加州</item>
+        <item>洛杉矶</item>
+        <item>蒂华纳</item>
+        <item>亚利桑那</item>
+        <item>奇瓦瓦</item>
+        <item>丹佛</item>
+        <item>哥斯达黎加</item>
+        <item>芝加哥</item>
+        <item>墨西哥城</item>
+        <item>里贾纳</item>
+        <item>波哥大</item>
+        <item>纽约</item>
+        <item>巴巴多斯</item>
+        <item>加拿大</item>
+        <item>马瑙斯</item>                   
+         
+        <item>圣地亚哥</item>
+        <item>纽芬兰</item>
+        <item>巴西利亚</item>
+        <item>布宜诺斯艾利斯</item>
+        <item>格陵兰</item>
+        <item>蒙得维的亚</item>
+        <item>南乔治亚</item>
+        <item>亚速尔群岛</item>
+        <item>佛得角群岛</item>             
+        <item>卡萨布兰卡</item> 
+        <item>伦敦</item>
+        <item>阿姆斯特丹</item>
+        <item>贝尔格莱德</item>
+        <item>委内瑞拉</item>
+        <item>布鲁塞尔</item>
+        <item>萨拉热窝</item>
+        <item>温得和克</item>
+        <item>布拉扎维</item>
+        <item>约旦安曼</item>             
+        <item>伊斯坦布尔</item>
+        <item>贝鲁特</item>
+        <item>开罗</item>
+        <item>赫尔辛基</item>
+        <item>耶路撒冷</item>
+        <item>明斯克</item>
+        <item>哈拉雷</item>
+        <item>巴格达</item>
+        <item>莫斯科</item>
+        <item>科威特</item>             
+        <item>内罗毕</item>                              
+           
+        <item>德黑兰</item>
+        <item>巴库</item>
+        <item>第比利斯</item>
+        <item>埃里温</item>
+        <item>迪拜</item>
+        <item>喀布尔</item>
+        <item>伊斯兰堡</item>
+        <item>乌拉尔</item>
+        <item>叶卡捷琳堡</item>             
+        <item>加尔各答</item>                           
+        <item>斯里兰卡</item>
+        <item>加德满都</item>
+        <item>阿斯塔纳</item>
+        <item>仰光</item>
+        <item>克拉斯诺亚尔斯克 </item>
+        <item>曼谷</item>
+        <item>中国标准时间</item>
+        <item>香港</item>
+        <item>伊尔库次克</item>             
+        <item>吉隆坡</item>           
+        <item>珀斯</item>
+        <item>台北</item>
+        <item>汉城</item>
+        <item>东京</item>
+        <item>雅库茨克</item>
+        <item>阿德莱德</item>
+        <item>达尔文</item>
+        <item>布里斯班</item>
+        <item>霍巴特</item>             
+        <item>悉尼，堪培拉</item>
+        <item>符拉迪沃斯托克</item>
+        <item>关岛</item>
+        <item>马加丹</item>
+        <item>奥克兰</item>
+        <item>斐济</item>
+        <item>东加塔布</item>
+    </string-array>
 </resources>

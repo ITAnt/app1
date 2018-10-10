@@ -142,7 +142,7 @@
 
                 <SeekBar
                     android:layout_width="@dimen/px280"
-                    android:layout_height="@dimen/px45"
+                    android:layout_height="@dimen/px46"
                     android:id="@+id/seekbar_sound_mixing_value"
                     style="@style/style_seekbar"
                     android:layout_centerVertical="true"

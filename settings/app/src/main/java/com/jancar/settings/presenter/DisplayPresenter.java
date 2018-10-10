@@ -9,7 +9,7 @@ import com.jancar.settings.model. DisplayModel;
  */
 
 public class DisplayPresenter  extends BasePresenter< DisplayContractImpl. Model,  DisplayContractImpl. View> {
-     DisplayContractImpl. Model model=new  DisplayModel();
+    DisplayContractImpl. Model model=new  DisplayModel();
     public  DisplayPresenter( DisplayContractImpl. View rootView) {
         super(rootView);
         initModel(model);

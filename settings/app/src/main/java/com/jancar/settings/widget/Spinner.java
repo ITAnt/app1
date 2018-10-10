@@ -2,7 +2,7 @@ package com.jancar.settings.widget;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
+
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;

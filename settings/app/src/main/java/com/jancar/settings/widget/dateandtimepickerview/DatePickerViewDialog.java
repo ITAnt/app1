@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.jancar.settings.R;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -48,7 +50,7 @@ public class DatePickerViewDialog extends Dialog implements NumberPickerView.OnV
         setContentView(R.layout.date_pickerview_dialog);
         yearValues=new String[200];
         for (int i=0;i<yearValues.length;i++){
-             yearValues[i]=1901+i+"";
+            yearValues[i]=1901+i+"";
         }
 
         monthValues=new String[12];
@@ -94,7 +96,9 @@ public class DatePickerViewDialog extends Dialog implements NumberPickerView.OnV
         mPickerViewM.setOnValueChangedListener(this);
         submitText=(TextView) findViewById(R.id.submitText);
         titleTxt=(TextView) findViewById(R.id.txt_title);
-        titleTxt.setText(resultYear+"年"+resultMonth+"月"+maxDays+"日");
+        SimpleDateFormat formatter= new SimpleDateFormat(getContext().getResources().getString(R.string.date));
+        Date curDate = new Date(System.currentTimeMillis());
+        titleTxt.setText(formatter.format(curDate));
         submitText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,22 +132,22 @@ public class DatePickerViewDialog extends Dialog implements NumberPickerView.OnV
 
     @Override
     public void onValueChange(NumberPickerView picker, int oldVal, int newVal) {
-       if (picker.getId()==R.id.picker_year){
-           resultYear=Integer.parseInt(yearValues[picker.getValue()]);
+        if (picker.getId()==R.id.picker_year){
+            resultYear=Integer.parseInt(yearValues[picker.getValue()]);
 
-           maxDays=getDaysByYearMonth(resultYear,resultMonth);
-           mPickerViewD.setDisplayedValues(dayValues);
-           mPickerViewD.setMaxValue(dayValues.length-1);
-       }else if (picker.getId()==R.id.picker_month){
-           resultMonth=picker.getValue()+1;
-           maxDays=getDaysByYearMonth(resultYear,resultMonth);
-           dayValues=new String[maxDays];
-           for (int i=0;i<dayValues.length;i++){
-               dayValues[i]=i+1+"";
-           }
-           mPickerViewD.setDisplayedValues(dayValues,true);
-           mPickerViewD.setMaxValue(dayValues.length-1);
-       }
+            maxDays=getDaysByYearMonth(resultYear,resultMonth);
+            mPickerViewD.setDisplayedValues(dayValues);
+            mPickerViewD.setMaxValue(dayValues.length-1);
+        }else if (picker.getId()==R.id.picker_month){
+            resultMonth=picker.getValue()+1;
+            maxDays=getDaysByYearMonth(resultYear,resultMonth);
+            dayValues=new String[maxDays];
+            for (int i=0;i<dayValues.length;i++){
+                dayValues[i]=i+1+"";
+            }
+            mPickerViewD.setDisplayedValues(dayValues,true);
+            mPickerViewD.setMaxValue(dayValues.length-1);
+        }
     }
 
     public interface DatePickerViewDialogCallBack{

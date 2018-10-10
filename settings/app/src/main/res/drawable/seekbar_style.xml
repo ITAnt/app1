@@ -2,20 +2,20 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/background">
         <shape>
-            <corners android:radius="100dp"/>
+            <corners android:radius="36000px"/>
             <solid android:color="@color/bg_dialog"/>
             <stroke
-                android:width="@dimen/px1"
+                android:width="@dimen/px0.5"
                 android:color="@color/div_dialog"/>
         </shape>
     </item>
     <item android:id="@android:id/secondaryProgress">
         <clip>
             <shape>
-                <corners android:radius="100dp"/>
+                <corners android:radius="36000px"/>
                 <solid android:color="@color/bg_dialog"/>
                 <stroke
-                    android:width="@dimen/px1"
+                    android:width="@dimen/px0.5"
                     android:color="@color/div_dialog"/>
             </shape>
         </clip>
@@ -23,9 +23,11 @@
     <item android:id="@android:id/progress">
         <clip>
             <shape>
-                <corners android:radius="100dp"/>
+                <corners android:radius="36000px"/>
                 <solid android:color="@color/normal_bg_wifi__btn"/>
-
+                <stroke
+                    android:width="@dimen/px0.5"
+                    android:color="@color/div_dialog"/>
             </shape>
         </clip>
     </item>

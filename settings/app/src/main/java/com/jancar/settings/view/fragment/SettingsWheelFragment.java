@@ -1,6 +1,7 @@
 package com.jancar.settings.view.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,12 +10,14 @@ import android.preference.PreferenceFragment;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +27,7 @@ import com.jancar.service.SettingsService;
 import com.jancar.settings.adapter.KeyAapter;
 
 import java.util.ArrayList;
+
 import com.jancar.settings.R;
 import com.jancar.settings.contract.KeyValue;
 
@@ -31,25 +35,35 @@ import com.jancar.settings.contract.KeyValue;
  * Created by User on 2018/5/8.
  */
 
-public class SettingsWheelFragment extends PreferenceFragment implements WheelKeyLearnController.WheelKeyListener, View.OnClickListener, AdapterView.OnItemClickListener {
+public class SettingsWheelFragment extends PreferenceFragment implements WheelKeyLearnController.WheelKeyListener, View.OnClickListener, AdapterView.OnItemClickListener, View.OnTouchListener {
     private int start_clickStatus, clear_clickStatus, end_clickStatus;
     private byte short_clickStatus;
     private ArrayList<KeyValue> keyValues = new ArrayList<>();
     private KeyAapter keyAapter;
     private GridView keyLearn;
-    private ImageView start,clear,end;
+    private ImageView start, clear, end;
     private ImageButton shortLong;
+    private LinearLayout startLlayout;
+    private TextView startTxt;
+    private LinearLayout clearLlayout;
+    private TextView clearTxt;
+
+    private LinearLayout shortLongLlayout;
+    private TextView shortLongTxt;
+
+    private LinearLayout endLlayout;
+    private TextView endTxt;
     private WheelKeyLearnController wheelKeyLearnController;
     private final static int BUTTON_NORMAL_STATUS = 0;
     private final static int BUTTON_SELECT_STATUS = 2;
     private final static int BUTTON_LEARNED_STATUS = 1;
     private final static int MSG_REFRESH_ADAPTER = 0;
     private final static int MSG_SHOW_DIALOG = 1;
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case MSG_REFRESH_ADAPTER:
                     keyAapter.setKeyValues(keyValues);
                     break;
@@ -70,21 +84,32 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
         return root;
     }
 
-    private void findView(View root){
+    private void findView(View root) {
         keyLearn = root.findViewById(R.id.keyLearn);
         start = root.findViewById(R.id.start);
+        startLlayout = root.findViewById(R.id.llayout_start);
+        startTxt = root.findViewById(R.id.txt_start);
+
+        clearLlayout = root.findViewById(R.id.llayout_clear);
+        clearTxt = root.findViewById(R.id.txt_clear);
+        endLlayout = root.findViewById(R.id.llayout_end);
+        endTxt = root.findViewById(R.id.txt_end);
         clear = root.findViewById(R.id.clear);
         end = root.findViewById(R.id.end);
         shortLong = root.findViewById(R.id.shortLong);
+        shortLongLlayout = root.findViewById(R.id.llayout_shortLong);
+        shortLongTxt = root.findViewById(R.id.txt_shortLong);
         start.setOnClickListener(this);
         clear.setOnClickListener(this);
+        clear.setOnTouchListener(this);
+        shortLong.setOnTouchListener(this);
         end.setOnClickListener(this);
         shortLong.setOnClickListener(this);
 
         keyLearn.setOnItemClickListener(this);
     }
 
-    private void initController(){
+    private void initController() {
         wheelKeyLearnController = new WheelKeyLearnController(this.getActivity());
         wheelKeyLearnController.setWheelKeyListener(this);
     }
@@ -290,8 +315,8 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
     @Override
     public void onRefreshAadpter(byte[] datas) {
         int count = 0;
-        for (byte b:
-             datas) {
+        for (byte b :
+                datas) {
             keyValues.get(count).setKeyLearningStatus(b);
             count++;
         }
@@ -303,7 +328,7 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
     private void toastTextShow(int id) {
         try {
             Toast.makeText(this.getActivity(), getResources().getString(id), Toast.LENGTH_SHORT).show();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -311,7 +336,7 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.start:
                 wheelKeyLearnController.startLearn();
                 setButtonStatus(R.id.start, BUTTON_LEARNED_STATUS, false);
@@ -323,14 +348,17 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
                 wheelKeyLearnController.endLearn();
                 break;
             case R.id.clear:
+
                 wheelKeyLearnController.clearLearn();
                 break;
             case R.id.shortLong:
-                if(short_clickStatus== WheelKey.CMD_CLICK_KEY_ACTION){
+                if (short_clickStatus == WheelKey.CMD_CLICK_KEY_ACTION) {
                     short_clickStatus = WheelKey.CMD_LONG_CLCIK_KEY_ACTION;
                     shortLong.setImageResource(R.drawable.btn_long);
-                }else{
+                    shortLongTxt.setText(R.string.Long);
+                } else {
                     short_clickStatus = WheelKey.CMD_CLICK_KEY_ACTION;
+                    shortLongTxt.setText(R.string.shorts);
                     shortLong.setImageResource(R.drawable.btn_short);
                 }
                 break;
@@ -343,6 +371,17 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
                 start_clickStatus = clickStatus;
                 start.setImageLevel(clickStatus);
                 start.setClickable(buttonAble);
+                if (clickStatus == 0) {
+                    startLlayout.setBackgroundColor(Color.parseColor("#1B1A1A"));
+                    startTxt.setTextColor(Color.parseColor("#FFFFFF"));
+                } else if (clickStatus == 1) {
+                    startLlayout.setBackgroundColor(Color.parseColor("#414244"));
+                    startTxt.setTextColor(Color.parseColor("#949494"));
+                } else {
+                    startLlayout.setBackgroundColor(Color.parseColor("#242529"));
+                    startTxt.setTextColor(Color.parseColor("#FFFFFF"));
+                }
+
                 break;
             case R.id.clear:
                 break;
@@ -350,6 +389,16 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
                 end_clickStatus = clickStatus;
                 end.setImageLevel(clickStatus);
                 end.setClickable(buttonAble);
+                if (clickStatus == 0) {
+                    endLlayout.setBackgroundColor(Color.parseColor("#1B1A1A"));
+                    endTxt.setTextColor(Color.parseColor("#FFFFFF"));
+                } else if (clickStatus == 1) {
+                    endLlayout.setBackgroundColor(Color.parseColor("#414244"));
+                    endTxt.setTextColor(Color.parseColor("#949494"));
+                } else {
+                    endLlayout.setBackgroundColor(Color.parseColor("#242529"));
+                    endTxt.setTextColor(Color.parseColor("#FFFFFF"));
+                }
                 Intent intent = new Intent();
                 intent.setClass(this.getContext(), SettingsService.class);
                 this.getActivity().startService(intent);
@@ -366,17 +415,44 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
         }
         KeyValue keyValue = keyValues.get(position);
         byte kValue = keyValue.getKeyValue();
-        wheelKeyLearnController.sendKeyValueToMcu(short_clickStatus,kValue);
-        keyValue.setKeyLearningStatus((byte)BUTTON_SELECT_STATUS);
+        wheelKeyLearnController.sendKeyValueToMcu(short_clickStatus, kValue);
+        keyValue.setKeyLearningStatus((byte) BUTTON_SELECT_STATUS);
         keyAapter.setKeyValues(keyValues);
     }
 
     private void clearStatus() {
         for (KeyValue keyValue :
-            keyValues) {
+                keyValues) {
             if (keyValue.getKeyLearningStatus() == BUTTON_SELECT_STATUS) {
                 keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
             }
         }
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        switch (view.getId()){
+            case R.id.clear:
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        clearLlayout.setBackgroundResource(R.drawable.shape_gradient);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        clearLlayout.setBackgroundColor(Color.parseColor("#1E1D1D"));
+                        break;
+                }
+                break;
+            case R.id.shortLong:
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        shortLongLlayout.setBackgroundResource(R.drawable.shape_gradient);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        shortLongLlayout.setBackgroundColor(Color.parseColor("#1E1D1D"));
+                        break;
+                }
+                break;
+        }
+        return false;
     }
 }

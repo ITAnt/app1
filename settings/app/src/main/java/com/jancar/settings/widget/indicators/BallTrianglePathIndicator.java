@@ -51,7 +51,7 @@ public class BallTrianglePathIndicator extends Indicator {
 
             translateXAnim.setDuration(2000);
             translateXAnim.setInterpolator(new LinearInterpolator());
-                translateXAnim.setRepeatCount(-1);
+            translateXAnim.setRepeatCount(-1);
             addUpdateListener(translateXAnim,new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {

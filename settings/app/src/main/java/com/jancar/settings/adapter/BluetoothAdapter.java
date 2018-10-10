@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.jancar.bluetooth.lib.BluetoothDeviceData;
 import com.jancar.bluetooth.lib.BluetoothManager;
+
+import com.jancar.bluetooth.lib.BluetoothSettingManager;
 import com.jancar.settings.R;
 import com.jancar.settings.util.Constants;
 
@@ -82,7 +84,7 @@ public class BluetoothAdapter extends BaseAdapter {
         viewHolder.ivDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BluetoothManager.getBluetoothManagerInstance(mContext).removeDevice(deviceData.getRemote_device_macaddr());
+                BluetoothSettingManager.getBluetoothSettingManager(mContext).removeDevice(deviceData.getRemote_device_macaddr());
                 list.remove(position);
                 notifyDataSetChanged();
             }

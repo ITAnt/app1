@@ -34,7 +34,7 @@
                     android:id="@+id/seekbar_treble_sound_value"
                     style="@style/style_seekbar"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/px45"
+                    android:layout_height="@dimen/px46"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/txt_treble_sound_title" />
 
@@ -87,7 +87,7 @@
                     style="@style/style_seekbar"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_height="@dimen/px45"
+                    android:layout_height="@dimen/px46"
                     android:layout_toRightOf="@+id/txt_midrange_sound_title" />
 
 
@@ -137,7 +137,7 @@
 
                 <SeekBar
 
-                    android:layout_height="@dimen/px45"
+                    android:layout_height="@dimen/px46"
                     android:id="@+id/seekbar_bass_sound_value"
                     style="@style/style_seekbar"
                     android:layout_width="match_parent"

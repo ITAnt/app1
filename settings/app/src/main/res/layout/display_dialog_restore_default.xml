@@ -17,6 +17,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:gravity="center"
+        android:maxLines="2"
+        android:singleLine="false"
         android:text="@string/dialog_restore_default"
 
         />

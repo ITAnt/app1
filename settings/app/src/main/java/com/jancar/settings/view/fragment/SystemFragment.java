@@ -114,7 +114,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         videoSwitch.setThumbDrawableRes(R.drawable.switch_custom_thumb_selector);
         videoSwitch.setBackDrawableRes(R.drawable.switch_custom_track_selector);
         videoSwitch.setCheckedImmediately(settingManager.getDrivingStopVedio());
-        touchToneSwitch.setCheckedImmediately(settingManager.getIsNeedkeySound() );
+        touchToneSwitch.setCheckedImmediately(settingManager.getIsNeedkeySound());
         systemCleanupRlayout.setOnClickListener(this);
         factorySettingRlayout.setOnClickListener(this);
         resetRlayout.setOnClickListener(this);
@@ -205,6 +205,8 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         dialog.setCanceledOnTouchOutside(true);
         dialog.setCancelable(true);
         Button connect = (Button) dialog.findViewById(R.id.btn_connect_btn);
+        TextView TextView = (TextView) dialog.findViewById(R.id.text_name_dialog);
+        TextView.setText(getResources().getString(R.string.dialog_restore_defaults));
         Button cancel = (Button) dialog.findViewById(R.id.btn_cancel);
         View.OnClickListener buttonListener = new View.OnClickListener() {
             @Override
@@ -212,12 +214,10 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                 switch (view.getId()) {
                     case R.id.btn_connect_btn:
                         settingManager.resetDeafaultSettings();
-                        dialog.dismiss();
-                /*        Intent intent = new Intent();
+                        Intent intent = new Intent();
                         intent.setAction("com.qucii.sendreset");
-
                         getActivity().sendBroadcast(intent);
-                        dialog.dismiss();*/
+                        dialog.dismiss();
                         break;
                     case R.id.btn_cancel:
                         dialog.dismiss();

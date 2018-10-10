@@ -222,11 +222,7 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
 
     public void initHourSystem() {
         int autoTime = 0;
-        try {
-            autoTime = Settings.Global.getInt(getActivity().getContentResolver(), AUTO_TIME);
-        } catch (Settings.SettingNotFoundException e) {
-            e.printStackTrace();
-        }
+        autoTime = Settings.Global.getInt(getActivity().getContentResolver(), AUTO_TIME,1);
         if (autoTime == 1) {
             adjustSwitch.setCheckedImmediately(true);
             adjustSummaryTxt.setText(R.string.label_adjust_open);
@@ -290,7 +286,7 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
 
                 break;
             case R.id.fragment_time:
-              //  String strTimeFormat = android.provider.Settings.System.getString(getContext().getContentResolver(), android.provider.Settings.System.TIME_12_24);
+                //  String strTimeFormat = android.provider.Settings.System.getString(getContext().getContentResolver(), android.provider.Settings.System.TIME_12_24);
                 if (timeSystemSummaryTxt.getText().toString().equals( getResources().getString(R.string.label_24_hour_system))) {
                     if (adjustSummaryTxt.getText().toString().equals(getResources().getString(R.string.label_adjust_off))) {
                         timeDialog = new TimePickerViewDialog(getContext(), R.style.record_voice_dialog);
@@ -394,7 +390,12 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        setChinaTimeZone(getActivity(), nameList.get(position).getId());
+        if (!timeZoneAdapter.getID().equals( nameList.get(position).getId())){
+            setChinaTimeZone(getActivity(), nameList.get(position).getId());
+        }else {
+            timeZoneList.setVisibility(View.GONE);
+            rLayoutTimeInterface.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -482,7 +483,7 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
         ((MainActivity) getActivity()).mHadler = null;
         timeZoneList.setVisibility(View.GONE);
         rLayoutTimeInterface.setVisibility(View.VISIBLE);
-         getActivity().unregisterReceiver(timeChangeReceiver);
+        getActivity().unregisterReceiver(timeChangeReceiver);
 
     }
 
@@ -532,18 +533,19 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
                     if (apm == 0) {
                         formatter = new SimpleDateFormat("hh:mm");
                         Date curDate = new Date(System.currentTimeMillis());
-                        return "上午 " + formatter.format(curDate);
+
+                        return     getResources().getString(R.string.tab_am)+" " + formatter.format(curDate);
                     } else {
                         formatter = new SimpleDateFormat("hh:mm");
                         Date curDate = new Date(System.currentTimeMillis());
-                        return "下午 " + formatter.format(curDate);
+                        return  getResources().getString(R.string.tab_pm) +" " + formatter.format(curDate);
                     }
                 }
 
 
                 break;
             case 1:
-                formatter = new SimpleDateFormat("yyyy年MM月dd日");
+                formatter = new SimpleDateFormat(getResources().getString(R.string.date));
                 break;
         }
         Date curDate = new Date(System.currentTimeMillis());

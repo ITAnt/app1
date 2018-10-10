@@ -75,10 +75,10 @@ public class KeyAapter extends BaseAdapter {
         //viewHolder.keyImage.setClickable(true);
         if(keyLearnStatus== WheelKey.CMD_UNLEARNED_SPONSE){
             viewHolder.keyImage.setImageLevel(0);
-           // viewHolder.keyImage.setClickable(true);
+            // viewHolder.keyImage.setClickable(true);
         }else if(keyLearnStatus==WheelKey.CMD_LEARNED_SPONSE){
             viewHolder.keyImage.setImageLevel(1);
-           // viewHolder.keyImage.setClickable(false);
+            // viewHolder.keyImage.setClickable(false);
         }else{
             viewHolder.keyImage.setImageLevel(2);
         }
