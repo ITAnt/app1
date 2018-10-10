@@ -65,7 +65,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         if (isConnect) {
             setContentView(R.layout.activity_music);
             bluetoothManager.registerBTMusicListener(this);
-            UIHandler.sendEmptyMessageDelayed(MSG_UI_LISTENER, 200);
+//            UIHandler.sendEmptyMessageDelayed(MSG_UI_LISTENER, 200);
             updateView();
         } else {
             setTheme(R.style.AlertDialogCustom);
@@ -97,7 +97,6 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
             bluetoothRequestFocus.requestAudioFocus();
         }
 //        bluetoothManager.setPlayerState(true);
-        Log.d("MusicActivity", "isPlay:" + isPlay);
 //        if (!isPlay) {
 //            bluetoothManager.play();
 //        }
@@ -109,12 +108,6 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e("MusicActivity", "this:" + this);
-        Log.e("MusicActivity", "onResume:" + isConnect);
-        if (isConnect) {
-//            bluetoothManager.registerBTMusicListener(this);
-
-        }
         bluetoothManager.setBTConnectStatusListener(this);
         isResume = true;
     }
@@ -131,7 +124,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
 //        if (isPlay) {
 //            bluetoothManager.pause();
 //        }
-        bluetoothManager.unRegisterBTMusicListener();
+//        bluetoothManager.unRegisterBTMusicListener();
         bluetoothRequestFocus.releaseAudioFocus();
         registerMediaSession.releaseMediaButton();
 
@@ -180,8 +173,10 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                     updatePlaybackStatus(bluetoothMusicData.getPlay_status(), bluetoothMusicData.getSong_len(), bluetoothMusicData.getSong_pos());
                     break;
                 case MSG_UI_REFRESH_ID3_INFO:
+                    Log.e("MusicActivity", "start:blueMusic");
                     BluetoothMusicData blueMusic = (BluetoothMusicData) msg.obj;
                     updateMetadata(blueMusic.getTitle(), blueMusic.getArtist(), blueMusic.getAlbum());
+                    Log.e("MusicActivity", "end:blueMusic");
                     break;
                 case MSG_UI_REFRESH_PLAY_STATE:
                     BluetoothMusicData blueMusicStatus = (BluetoothMusicData) msg.obj;

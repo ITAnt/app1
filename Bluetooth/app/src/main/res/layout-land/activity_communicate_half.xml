@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center_horizontal"
     android:background="#C7000000"
     android:orientation="vertical">
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/px60"
-            android:src="@drawable/iv_commun_half_car" />
+            android:src="@drawable/iv_commun_half_c" />
 
         <ImageView
             android:id="@+id/iv_commun_half_hang"

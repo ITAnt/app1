@@ -2,7 +2,7 @@
 <resources>
 
 
-    <dimen name="bar">-20px</dimen>
+    <dimen name="bar">-2px</dimen>
     <dimen name="px0.5">0.5px</dimen>
     <dimen name="px1">1px</dimen>
     <dimen name="px2">2px</dimen>

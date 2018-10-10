@@ -56,7 +56,6 @@ import butterknife.Unbinder;
  */
 public class ContactFragment extends BaseFragment<ContactContract.Presenter, ContactContract.View> implements ContactContract.View, TextWatcher, BTPhonebookListener, BTConnectStatusListener {
 
-    private static final String TAG = "ContactFragment";
     Unbinder mUnbinder;
     View mRootView;
     ListView listView;
@@ -80,6 +79,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     private boolean hidden = false;
     private boolean isSynContact;
     private static int ContactFragmentType = 2;
+    BluetoothManager bluetoothManager;
 
 
     private Handler mHandler = new ContactFragment.InternalHandler(this);
@@ -110,6 +110,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                 relativeLayout.setVisibility(View.GONE);
 
             } else if (msg.what == Constants.BT_CONNECT_IS_CONNECTED) {
+
                 SynContactView();
 
             } else if (msg.what == Constants.BT_CONNECT_IS_CLOSE) {
@@ -166,17 +167,15 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(TAG, "onStart");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume");
         if (!hidden) {
-            getManager().registerBTPhonebookListener(this);
-            getManager().getBTContacts();
-            getManager().setBTConnectStatusListener(this);
+            bluetoothManager.registerBTPhonebookListener(this);
+            bluetoothManager.getBTContacts();
+            bluetoothManager.setBTConnectStatusListener(this);
             isConneView();
         }
     }
@@ -184,25 +183,23 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        Log.d(TAG, "onHiddenChanged");
         this.hidden = hidden;
         if (!hidden) {
-            getManager().registerBTPhonebookListener(this);
-            getManager().getBTContacts();
-            getManager().setBTConnectStatusListener(this);
+            bluetoothManager.registerBTPhonebookListener(this);
+            bluetoothManager.getBTContacts();
+            bluetoothManager.setBTConnectStatusListener(this);
             isConneView();
-            adapter.setNormalPosition();
-            searchAdapter.setNormalPosition();
+//            adapter.setNormalPosition();
+//            searchAdapter.setNormalPosition();
         } else {
-            getManager().setBTConnectStatusListener(null);
-            getManager().unRegisterBTPhonebookListener();
+            bluetoothManager.setBTConnectStatusListener(null);
+            bluetoothManager.unRegisterBTPhonebookListener();
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(TAG, "onPause");
         adapter.setNormalPosition();
         searchAdapter.setNormalPosition();
     }
@@ -210,13 +207,11 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     @Override
     public void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop");
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Log.d(TAG, "onDestroyView");
         mUnbinder.unbind();
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
@@ -226,8 +221,8 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy");
-        getManager().unRegisterBTPhonebookListener();
+
+        bluetoothManager.unRegisterBTPhonebookListener();
     }
 
     public ContactFragment() {
@@ -244,9 +239,8 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
         return this;
     }
 
-
     private void initView() {
-
+        bluetoothManager = BluetoothManager.getBluetoothManagerInstance(getUIContext());
         editSearch.setCursorVisible(false);
         editInputString = editSearch.getText().toString().trim();
         ivSynIng.setImageResource(R.drawable.loading_animation_big);
@@ -289,7 +283,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                 String phoneNumber = bookDataList.get(position).getPhoneNumber();
                 searchAdapter.setSelectPosition(position);
                 if (selectPos == position) {
-                    getManager().hfpCall(phoneNumber);
+                    bluetoothManager.hfpCall(phoneNumber);
                 }
                 selectPos = position;
             }
@@ -337,7 +331,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     }
 
     private boolean isBluConn() {
-        boolean isBluConn = getManager().isConnect();
+        boolean isBluConn = bluetoothManager.isConnect();
         return isBluConn;
     }
 
@@ -358,7 +352,6 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
 
     @Override
     public BluetoothManager getManager() {
-        BluetoothManager bluetoothManager = BluetoothManager.getBluetoothManagerInstance(getUIContext());
         return bluetoothManager;
     }
 
@@ -371,7 +364,6 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         String number = charSequence.toString();
-//        getPresenter().getSearchConatct(number, ContactFragmentType);
         Message message = new Message();
         message.what = Constants.CONTACT_DATA_REFRESH;
         message.obj = number;
@@ -450,26 +442,20 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
 
     @Override
     public void onNotifyDownloadContactsCount(int i) {
-        Log.d(TAG, "i:" + i);
+
 
     }
 
     @Override
     public void onNotifyDownloadContactsList(final List<BluetoothPhoneBookData> list) {
-//        Log.d("ContactFragment", "list.size():" + list.size() + "name:" + list.get(0).getPhoneName());
+        Log.e("ContactFragment", "DownloadContactsList:" + list);
         this.bookDataList = list;
         if (!mActivity.isFinishing()) {
             runOnUIThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (isBluConn()) {
-                        adapter.setPhoneBooks(bookDataList);
-                        adapter.notifyDataSetChanged();
-                    } else {
-                        relativeLayout.setVisibility(View.GONE);
-                        ShowSynText();
-                        tvSynContact.setText(R.string.tv_bt_connect_is_none);
-                    }
+                    adapter.setPhoneBooks(bookDataList);
+                    adapter.notifyDataSetChanged();
                 }
             });
         }
@@ -477,11 +463,11 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
 
     @Override
     public void onNotifySeachContactsList(List<BluetoothPhoneBookData> list, final int i) {
-        Log.d(TAG, "list.size()Seach:" + list.size() + "   " + "i:" + i);
+        Log.e("ContactFragment", "SeachContactsList:" + list);
         if (i == ContactFragmentType) {
             this.bookSearchList = list;
             if (!mActivity.isFinishing()) {
-                mActivity.runOnUiThread(new Runnable() {
+                runOnUIThread(new Runnable() {
                     @Override
                     public void run() {
                         searchAdapter.setBookContact(bookSearchList);

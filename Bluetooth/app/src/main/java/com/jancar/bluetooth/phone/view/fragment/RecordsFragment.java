@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jancar.bluetooth.Listener.BTCallLogListener;
 import com.jancar.bluetooth.Listener.BTConnectStatusListener;
@@ -388,11 +389,13 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == Constants.BT_CONNECT_IS_NONE) {
+//                Toast.makeText(mActivity, "Record:蓝牙未连接", Toast.LENGTH_SHORT).show();
                 showText();
                 tvSynRecord.setText(R.string.tv_bt_connect_is_none);
                 listView.setVisibility(View.GONE);
 
             } else if (msg.what == Constants.BT_CONNECT_IS_CONNECTED) {
+//                Toast.makeText(mActivity, "Record:蓝牙连接", Toast.LENGTH_SHORT).show();
                 synShow();
 
             } else if (msg.what == Constants.BT_CONNECT_IS_CLOSE) {

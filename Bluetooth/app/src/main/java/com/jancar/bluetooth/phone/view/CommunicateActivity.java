@@ -21,7 +21,6 @@ import com.jancar.bluetooth.Listener.BTPhoneCallListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.lib.BluetoothPhoneBookData;
 import com.jancar.bluetooth.lib.BluetoothPhoneClass;
-import com.jancar.bluetooth.phone.BuildConfig;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.contract.CommunicateContract;
 import com.jancar.bluetooth.phone.presenter.CommunicatePresenter;
@@ -191,11 +190,11 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
         mCallScoState = scoState;
         if (BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT == mCallScoState) {
             //车机
-            ivVehicle.setImageResource(R.drawable.iv_commun_car_n);
+            ivVehicle.setImageResource(R.drawable.iv_commun_p_n);
             tvVehicle.setText(R.string.calling_vehicle);
         } else {
             //手机
-            ivVehicle.setImageResource(R.drawable.iv_commun_phone_n);
+            ivVehicle.setImageResource(R.drawable.iv_commun_c_n);
             tvVehicle.setText(R.string.calling_phone);
         }
     }
@@ -208,10 +207,10 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
         mCallScoState = scoState;
         if (BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT == mCallScoState) {
             //车机
-            ivHalfCar.setImageResource(R.drawable.iv_commun_half_car);
+            ivHalfCar.setImageResource(R.drawable.iv_commun_half_p);
         } else {
 
-            ivHalfCar.setImageResource(R.drawable.iv_commun_half_phone);
+            ivHalfCar.setImageResource(R.drawable.iv_commun_half_c);
         }
     }
 
@@ -679,12 +678,12 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
             case R.id.iv_comm_message_vehicle:
                 if (mCallScoState != BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT) {
                     getManager().switchAudioMode(false);
-                    ivVehicle.setImageResource(R.drawable.iv_commun_phone_n);
+                    ivVehicle.setImageResource(R.drawable.iv_commun_c_n);
                     tvVehicle.setText(R.string.calling_phone);
 
                 } else {
                     getManager().switchAudioMode(true);
-                    ivVehicle.setImageResource(R.drawable.iv_commun_car_n);
+                    ivVehicle.setImageResource(R.drawable.iv_commun_p_n);
                     tvVehicle.setText(R.string.calling_vehicle);
                 }
                 break;
@@ -697,11 +696,11 @@ public class CommunicateActivity extends BaseActivity<CommunicateContract.Presen
             case R.id.iv_commun_half_phone:
                 if (mCallScoState != BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT) {
                     getManager().switchAudioMode(false);
-                    ivHalfCar.setImageResource(R.drawable.iv_commun_half_phone);
+                    ivHalfCar.setImageResource(R.drawable.iv_commun_half_c);
 
                 } else {
                     getManager().switchAudioMode(true);
-                    ivHalfCar.setImageResource(R.drawable.iv_commun_half_car);
+                    ivHalfCar.setImageResource(R.drawable.iv_commun_half_p);
                 }
                 break;
             case R.id.iv_commun_half_hang:
