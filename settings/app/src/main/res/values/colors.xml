@@ -20,6 +20,7 @@
     <color name="bg_dialog_edt">#FF2C2C2C</color>
     <color name="bg_sound_rlayout_n">#28292b</color>
     <color name="bg_d">#484949</color>
+    <color name="bgSelected">#0068b7</color>
 
     <!-- 透明色 -->
     <color name="lucency">#00000000</color>
