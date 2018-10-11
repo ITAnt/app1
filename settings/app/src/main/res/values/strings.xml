@@ -308,10 +308,11 @@
     <string name="tv_open">打开</string>
     <string name="tv_closed">关闭</string>
     <string name="Start">开始</string>
-    <string name="clear">明确</string>
+    <string name="clear">清除</string>
     <string name="end">结束</string>
     <string name="shorts">短</string>
     <string name="Long">长</string>
+    <string name="label_Waiting" >等响</string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

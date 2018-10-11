@@ -13,7 +13,7 @@
     <dimen name="layout_paddingLeft">32px</dimen>
     <dimen name="layout_paddingRight">32px</dimen>
     <dimen name="txt_summary">16px</dimen>
-    <dimen name="sound_txt_margin_top">3dp</dimen>
+    <dimen name="sound_txt_margin_top">2dp</dimen>
     <dimen name="sound_txt_margin_Left">10dp</dimen>
     <dimen name="sound_txt_margin_right">15dp</dimen>
     <dimen name="RadiusSize">14sp</dimen>

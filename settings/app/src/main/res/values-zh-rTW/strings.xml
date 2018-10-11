@@ -309,10 +309,11 @@
     <string name="tv_open">打開</string>
     <string name="tv_closed">關閉</string>
     <string name="dialog_restore_defaults">確定恢復出廠設置嗎？</string>
-    <string name="clear">明確</string>
+    <string name="clear">清除</string>
     <string name="end">結束</string>
     <string name="shorts">短</string>
     <string name="Long">長</string>
+    <string name="label_Waiting" >等響</string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

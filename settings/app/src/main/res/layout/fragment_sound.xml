@@ -178,6 +178,53 @@
 
 
             </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rlayout_waiting_sound"
+                style="@style/style_sound_rlayout"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="@dimen/px70"
+                    android:id="@+id/txt_waiting_sound_title"
+                    style="@style/style_txt"
+                    android:text="@string/label_Waiting" />
+
+                <SeekBar
+
+                    android:layout_height="@dimen/px46"
+                    android:id="@+id/seekbar_waiting_sound_value"
+                    style="@style/style_seekbar"
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/txt_waiting_sound_title" />
+
+
+                <TextView
+                    android:id="@+id/txt_waiting_sound_value_n"
+                    style="@style/style_txt"
+                    android:text="0"
+                    android:layout_below="@+id/txt_waiting_sound_title"
+                    android:layout_marginLeft="@dimen/sound_txt_margin_Left"
+                    android:layout_marginTop="@dimen/sound_txt_margin_top"
+                    android:layout_toRightOf="@+id/txt_waiting_sound_title"
+                    android:src="@drawable/balance_btn_right_state"
+                    />
+
+                <TextView
+                    android:id="@+id/txt_waiting_sound_value_p"
+
+                    style="@style/style_txt"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/txt_waiting_sound_title"
+                    android:layout_marginRight="@dimen/sound_txt_margin_right"
+                    android:layout_marginTop="@dimen/sound_txt_margin_top"
+                    android:src="@drawable/balance_btn_right_state"
+                    />
+
+
+
+
+            </RelativeLayout>
         </LinearLayout>
 
         <com.jancar.settings.widget.Spinner

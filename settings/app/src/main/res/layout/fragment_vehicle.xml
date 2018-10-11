@@ -96,12 +96,14 @@
                         android:text="@string/tab_mirror_normal" />
 
                     <RadioButton
-                        android:id="@+id/rbtn_mirror_up_down_system"
+                        android:id="@+id/rbtn_about_normal_system"
+
                         style="@style/style_rbtns"
                         android:layout_weight="1"
                         android:button="@drawable/check_selector"
                         android:paddingLeft="@dimen/px10"
-                        android:text="@string/tab_up_down_normal" />
+                        android:text="@string/tab_about_normal"
+                         />
                 </LinearLayout>
 
                 <TextView
@@ -117,11 +119,12 @@
 
                     <RadioButton
                         android:layout_weight="1"
-                        android:id="@+id/rbtn_about_normal_system"
+                        android:id="@+id/rbtn_mirror_up_down_system"
                         style="@style/style_rbtns"
                         android:button="@drawable/check_selector"
                         android:paddingLeft="@dimen/px10"
-                        android:text="@string/tab_about_normal" />
+                        android:text="@string/tab_up_down_normal"
+                        />
 
                     <RadioButton
                         android:id="@+id/rbtn_tab_up_down_left_right_system"
