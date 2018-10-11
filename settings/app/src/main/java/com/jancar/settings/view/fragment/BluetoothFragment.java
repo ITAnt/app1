@@ -75,6 +75,12 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     private String tvBlutName;
     private boolean hidden = false;
     BluetoothSettingManager bluetoothManager;
+    private final static int BT_SETTING_PAIR = 1;
+    private final static int BT_SETTING_UNPAIR = 2;
+    private final static int BT_SWITH_STATE_ON = 3;
+    private final static int BT_SWITH_STATE_OFF = 4;
+    private final static int BT_DEVICE_START = 5;
+    private final static int BT_DEVICE_END = 6;
 
     @Override
     public void onAttach(Context context) {
@@ -98,6 +104,27 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        //  bluetoothManager.unRegisterBTSettingListener(this);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+
+        super.onDestroy();
+        Log.w("BluetoothFragment", "onDestroy");
+    }
+
+    @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         this.hidden = hidden;
@@ -109,19 +136,6 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
             tvBtName.setText(tvBlutName);
             bluetoothManager.getBondDevice();
         }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        //  bluetoothManager.unRegisterBTSettingListener(this);
-    }
-
-    @Override
-    public void onDestroy() {
-
-        super.onDestroy();
-        Log.w("BluetoothFragment", "onDestroy");
     }
 
     @Override
@@ -293,7 +307,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                         }
                         //pairAdapter.notifyDataSetChanged();
                     }
-                }, 10);
+                }, 100);
 
 
                 break;
@@ -343,87 +357,46 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         settingDialog.show();
     }
 
-
     @Override
     public void onNotifyBTSwitchStateOn() {
-        mActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                linearBlue.setVisibility(View.VISIBLE);
-                mPresenter.searchPairedList();
-            }
-        });
-
-
+        handler.sendEmptyMessage(BT_SWITH_STATE_ON);
     }
 
     @Override
     public void onNotifyBTSwitchStateOff() {
-        mActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-//                Toast.makeText(getContext(), "蓝牙关闭nnnnn", Toast.LENGTH_SHORT).show();
-                pairedDataListList.clear();
-                unPairedDataListList.clear();
-                pairAdapter.notifyDataSetChanged();
-                avaAdapter.notifyDataSetChanged();
-                linearBlue.setVisibility(View.GONE);
+        handler.sendEmptyMessage(BT_SWITH_STATE_OFF);
 
-            }
-        });
     }
 
     @Override
     public void onNotifyOnUpdateUIPairedList(final List<BluetoothDeviceData> list) {
         Log.d(TAG, "UIlist.size():" + list.size());
-        this.pairedDataListList = list;
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                pairAdapter.setBookContact(pairedDataListList);
-                pairAdapter.changetShowDelImage(true);
-            }
-        });
+        this.pairedDataListList = new ArrayList<>(list);
+        handler.sendEmptyMessage(BT_SETTING_PAIR);
+//        handler.removeMessages(BT_SETTING_PAIR);
+//        handler.sendEmptyMessageDelayed(BT_SETTING_PAIR, 100);
     }
 
     @Override
     public void onNotifyOnUpdateUIUnpairedList(final List<BluetoothDeviceData> list) {
         Log.d(TAG, "UNlist.size():" + list.size());
-        this.unPairedDataListList = list;
-        mActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                avaAdapter.setBookContact(unPairedDataListList);
-                avaAdapter.changetShowDelImage(false);
-            }
-        });
+        this.unPairedDataListList = new ArrayList<>(list);
+        handler.sendEmptyMessage(BT_SETTING_UNPAIR);
+//        handler.removeMessages(BT_SETTING_UNPAIR);
+//        handler.sendEmptyMessageDelayed(BT_SETTING_UNPAIR, 100);
     }
 
 
     @Override
     public void onNotifyScanDeviceStart() {
-        mActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                tvSearch.setVisibility(View.GONE);
-                linearSearch.setVisibility(View.VISIBLE);
-                //animationDrawable.start();
-                ivSearch.show();
-            }
-        });
+        handler.sendEmptyMessage(BT_DEVICE_START);
+
     }
 
     @Override
     public void onNotifyScanDeviceEnd() {
-        mActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                //animationDrawable.stop();
-                ivSearch.hide();
-                linearSearch.setVisibility(View.GONE);
-                tvSearch.setVisibility(View.VISIBLE);
-            }
-        });
+        handler.sendEmptyMessage(BT_DEVICE_END);
+
     }
 
     @Override
@@ -436,4 +409,44 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         return bluetoothManager;
 
     }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case BT_SETTING_PAIR:
+                    pairAdapter.setBookContact(pairedDataListList);
+                    pairAdapter.changetShowDelImage(true);
+                    break;
+                case BT_SETTING_UNPAIR:
+                    avaAdapter.setBookContact(unPairedDataListList);
+                    avaAdapter.changetShowDelImage(false);
+                    break;
+                case BT_SWITH_STATE_ON:
+                    linearBlue.setVisibility(View.VISIBLE);
+                    mPresenter.searchPairedList();
+                    break;
+                case BT_SWITH_STATE_OFF:
+                    pairedDataListList.clear();
+                    unPairedDataListList.clear();
+                    pairAdapter.notifyDataSetChanged();
+                    avaAdapter.notifyDataSetChanged();
+                    linearBlue.setVisibility(View.GONE);
+                    break;
+                case BT_DEVICE_START:
+                    tvSearch.setVisibility(View.GONE);
+                    linearSearch.setVisibility(View.VISIBLE);
+                    //animationDrawable.start();
+                    ivSearch.show();
+                    break;
+                case BT_DEVICE_END:
+                    //animationDrawable.stop();
+                    ivSearch.hide();
+                    linearSearch.setVisibility(View.GONE);
+                    tvSearch.setVisibility(View.VISIBLE);
+                    break;
+            }
+        }
+    };
 }
