@@ -1,8 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black">
 
     <ScrollView
@@ -174,6 +174,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/px10"
+                    android:layout_marginLeft="@dimen/px60"
+                    android:layout_marginRight="@dimen/px60"
                     tools:listitem="@layout/item_equip_list" />
 
                 <TextView
@@ -188,6 +190,8 @@
                     android:id="@+id/setting_available"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/px60"
+                    android:layout_marginRight="@dimen/px60"
                     android:layout_marginTop="@dimen/px10"
                     tools:listitem="@layout/item_equip_list" />
             </LinearLayout>
@@ -203,21 +207,21 @@
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">
+
         <com.jancar.settings.widget.AVLoadingIndicatorView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/iv_setting_search"
-            app:indicatorColor="#fff"
-            android:layout_alignParentBottom="true"
             style="@style/AVLoadingIndicatorView.Large"
-            />
-     <!--   <ImageView
-            android:id="@+id/iv_setting_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:src="@drawable/loading_animation" />
--->
+            app:indicatorColor="#fff" />
+        <!--   <ImageView
+               android:id="@+id/iv_setting_search"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignParentBottom="true"
+               android:src="@drawable/loading_animation" />
+   -->
         <TextView
             style="@style/txt_normal_tip_px22"
             android:layout_width="wrap_content"
