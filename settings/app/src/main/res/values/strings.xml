@@ -298,6 +298,7 @@
     <string name="tv_setting_search_ing">正在搜索设备...</string>
     <string name="tv_setting_start_search">开始搜索</string>
     <string name="tv_setting_available">可用设备</string>
+    <string name="tv_setting_update_name">名称不能为空</string>
 
     <string name="txt_standard">标准</string>
     <string name="txt_popular">流行</string>
@@ -312,7 +313,7 @@
     <string name="end">结束</string>
     <string name="shorts">短</string>
     <string name="Long">长</string>
-    <string name="label_Waiting" >等响</string>
+    <string name="label_Waiting">等响</string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

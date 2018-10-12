@@ -1,4 +1,4 @@
-package com.jancar.bluetooth.phone.util;
+package com.jancar.settings.util;
 
 import android.content.Context;
 import android.view.Gravity;
@@ -7,7 +7,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jancar.bluetooth.phone.R;
+import com.jancar.settings.R;
+
 
 /**
  * @anthor Tzq

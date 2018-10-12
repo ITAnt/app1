@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="@dimen/px60"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center_horizontal"
     android:background="@drawable/iv_toast_bg"
     android:gravity="center"
@@ -12,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="蓝牙未连接"
+        tools:text="蓝牙未连接"
         android:textColor="#c2c5c7"
         android:textSize="@dimen/px20" />
 

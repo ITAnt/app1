@@ -293,6 +293,7 @@
     <string name="tv_setting_search_ing">正在蒐索設備...</string>
     <string name="tv_setting_start_search">開始蒐索</string>
     <string name="tv_setting_available">可用設備</string>
+    <string name="tv_setting_update_name">名稱不能為空</string>
 
     <string name="txt_standard">標準</string>
     <string name="txt_popular">流行</string>

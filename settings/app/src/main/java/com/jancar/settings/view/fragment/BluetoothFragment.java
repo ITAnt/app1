@@ -12,6 +12,7 @@ import android.os.Message;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ import com.jancar.settings.listener.IPresenter;
 import com.jancar.settings.manager.BaseFragments;
 import com.jancar.settings.presenter.BluetoothPresenter;
 import com.jancar.settings.util.Constants;
+import com.jancar.settings.util.ToastUtil;
 import com.jancar.settings.widget.AVLoadingIndicatorView;
 import com.jancar.settings.widget.SettingDialog;
 import com.jancar.settings.widget.SwitchButton;
@@ -96,8 +98,9 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         if (!hidden) {
             Log.w("BluetoothFragment", "onResumes");
             bluetoothManager.registerBTSettingListener(this);
-            tvBlutName = mPresenter.getBlutoothName();
+            tvBlutName = mPresenter.getBlutoothName().trim();
             tvBtName.setText(tvBlutName);
+            Log.d(TAG, "onResume:" + tvBlutName);
             bluetoothManager.getBondDevice();
         }
 
@@ -106,7 +109,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     @Override
     public void onPause() {
         super.onPause();
-        //  bluetoothManager.unRegisterBTSettingListener(this);
+          bluetoothManager.unRegisterBTSettingListener(this);
     }
 
     @Override
@@ -132,7 +135,8 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         if (!hidden) {
             Log.w("BluetoothFragment", "onHiddenChangeds");
             bluetoothManager.registerBTSettingListener(this);
-            tvBlutName = mPresenter.getBlutoothName();
+            tvBlutName = mPresenter.getBlutoothName().trim();
+            Log.d(TAG, "onHiddenChanged:" + tvBlutName);
             tvBtName.setText(tvBlutName);
             bluetoothManager.getBondDevice();
         }
@@ -167,6 +171,8 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
             tvDelAll.setOnClickListener(this);
             tvBtName.setOnClickListener(this);
             tvSearch.setOnClickListener(this);
+//            mPresenter.setBlutoothName("hknmnc");
+//            tvBtName.setText(mPresenter.getBlutoothName());
         }
     }
 
@@ -188,7 +194,8 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         //  bluetoothManager.
         isDisCovering = bluetoothManager.getBTIsDisCovering();
         //ivSearch.setImageResource(R.drawable.loading_animation);
-        tvBlutName = mPresenter.getBlutoothName();
+        tvBlutName = mPresenter.getBlutoothName().trim();
+        Log.d(TAG, "initData:" + tvBlutName);
         tvBtName.setText(tvBlutName);
      /*   SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
         Boolean first_run = sharedPreferences.getBoolean("Bluetooth", true);
@@ -338,7 +345,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         if (settingDialog == null) {
             settingDialog = new SettingDialog(getActivity(), R.style.AlertDialogCustom);
         }
-        settingDialog.setEditText(mPresenter.getBlutoothName());
+        settingDialog.setEditText(mPresenter.getBlutoothName().trim());
         settingDialog.setCanelOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -348,10 +355,18 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         settingDialog.setEditOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                settingDialog.dismiss();
-                String editText = settingDialog.getEditText();
-                mPresenter.setBlutoothName(editText);
-                tvBtName.setText(mPresenter.getBlutoothName());
+                String editText = settingDialog.getEditText().trim();
+                String replaceAll = editText.replaceAll(" ", "");
+                if (TextUtils.isEmpty(replaceAll)) {
+                    ToastUtil.ShowToast(mActivity, getString(R.string.tv_setting_update_name));
+                } else {
+                    settingDialog.dismiss();
+                    mPresenter.setBlutoothName(editText);
+                    Log.d(TAG, "edit:" + editText);
+                    tvBtName.setText(mPresenter.getBlutoothName().trim());
+                    Log.d(TAG, "set:" + mPresenter.getBlutoothName().trim());
+                }
+
             }
         });
         settingDialog.show();

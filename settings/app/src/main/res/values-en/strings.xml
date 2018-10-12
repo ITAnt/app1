@@ -13,6 +13,7 @@
 	<string name="tab_wifi_spot">wifi热点</string>
 	<string name="btn_clear_cache">Clear cache</string>
 	<string name="btn_clear_data">Clear data</string>
+	<string name="tv_setting_update_name">Name is empty</string>
 	<!--显示设置-->
 	<string name="rbtn_chinese">中文（简体）</string>
 	<string name="rbtn_chinese_">中文（繁体）</string>
