@@ -22,6 +22,7 @@ import com.jancar.bluetooth.phone.presenter.MusicPresenter;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.TimeUtil;
 import com.jancar.bluetooth.phone.util.ToastUtil;
+import com.jancar.bluetooth.phone.widget.ConnectDialog;
 import com.jancar.bluetooth.phone.widget.MarqueeTextView;
 import com.ui.mvp.view.BaseActivity;
 
@@ -55,40 +56,24 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     private BluetoothRequestFocus bluetoothRequestFocus;
     private boolean isConnect;
     private boolean isResume;
+    private ConnectDialog connectDialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bluetoothManager = BluetoothManager.getBluetoothManagerInstance(this);
-        isConnect = bluetoothManager.isConnect();
-        if (isConnect) {
-            setContentView(R.layout.activity_music);
-            bluetoothManager.registerBTMusicListener(this);
-//            UIHandler.sendEmptyMessageDelayed(MSG_UI_LISTENER, 200);
-            updateView();
-        } else {
-            setTheme(R.style.AlertDialogCustom);
-            setContentView(R.layout.dialog_connect);
-            findViewById(R.id.tv_connect_dialog_yes).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent();
-                    intent.setClassName("com.jancar.settingss", "com.jancar.settings.view.activity.MainActivity");
-                    intent.putExtra("position", 1);
-                    startActivity(intent);
-                    finish();
-                }
-            });
-            findViewById(R.id.tv_connect_dialog_no).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    finish();
-                }
-            });
-        }
+        setContentView(R.layout.activity_music);
+        initView();
     }
 
+    private void initView() {
+        bluetoothManager = BluetoothManager.getBluetoothManagerInstance(this);
+        bluetoothManager.registerBTMusicListener(this);
+        if (connectDialog == null) {
+            connectDialog = new ConnectDialog(this, R.style.AlertDialogCustom);
+        }
+        findView();
+    }
 
     @Override
     protected void onStart() {
@@ -109,7 +94,36 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     protected void onResume() {
         super.onResume();
         bluetoothManager.setBTConnectStatusListener(this);
+        isConnect = bluetoothManager.isConnect();
         isResume = true;
+        if (!isConnect) {
+            showDialog();
+        } else {
+            if (connectDialog.isShowing()) {
+                connectDialog.dismiss();
+            }
+        }
+    }
+
+    private void showDialog() {
+        connectDialog.setCanelOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                connectDialog.dismiss();
+            }
+        });
+        connectDialog.go2SettingOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClassName("com.jancar.settingss", "com.jancar.settings.view.activity.MainActivity");
+                intent.putExtra("position", 1);
+                startActivity(intent);
+            }
+        });
+        connectDialog.setCanceledOnTouchOutside(false);
+        connectDialog.setCancelable(false);
+        connectDialog.show();
     }
 
     @Override
@@ -130,7 +144,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
 
     }
 
-    private void updateView() {
+    private void findView() {
         tvPlayTime = (TextView) findViewById(R.id.tv_music_playTime);
         tvPlayTotalTime = (TextView) findViewById(R.id.tv_music_play_total_time);
         seekBar = (SeekBar) findViewById(R.id.seekbar_btmusic);
@@ -380,13 +394,11 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         if (state != BluetoothManager.BT_CONNECT_IS_CONNECTED) {
             bluetoothRequestFocus.releaseAudioFocus();
             isPlay = false;
-//            isConnect = false;
-        } else {
-//            isConnect = true;
-            Message msg = handler.obtainMessage();
-            msg.what = state;
-            handler.sendMessage(msg);
         }
+        Message message = new Message();
+        message.what = Constants.CONTACT_BT_CONNECT;
+        message.obj = state;
+        handler.sendMessage(message);
 
     }
 
@@ -394,10 +406,19 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what == BluetoothManager.BT_CONNECT_IS_CONNECTED) {
-                finish();
+            switch (msg.what) {
+                case Constants.CONTACT_BT_CONNECT:
+                    //蓝牙状态
+                    byte obj = (byte) msg.obj;
+                    if (obj == Constants.BT_CONNECT_IS_CONNECTED) {
+                        if (connectDialog.isShowing()) {
+                            connectDialog.dismiss();
+                        }
+                    }
+                    break;
             }
         }
     };
+
 
 }

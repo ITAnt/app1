@@ -19,19 +19,19 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/px60"
-            android:layout_marginStart="@dimen/px50"
             android:layout_marginEnd="@dimen/px40"
+            android:layout_marginStart="@dimen/px50"
             android:layout_marginTop="@dimen/px20"
             android:background="@drawable/ip_bt_reception_dail">
 
             <TextView
                 android:id="@+id/dial_tv_number"
-                style="@style/txt_px20"
-                android:layout_width="wrap_content"
+                style="@style/txt_normal_px28"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/px20"
+                android:gravity="center_vertical|end"
+                android:paddingEnd="@dimen/px20"
                 tools:text="13055555556" />
 
         </RelativeLayout>

@@ -15,16 +15,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
+import com.jancar.bluetooth.phone.BluetoothApplication;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.contract.EquipmentContract;
 import com.jancar.bluetooth.phone.presenter.EquipmentPresenter;
 import com.jancar.bluetooth.phone.util.Constants;
-import com.jancar.bluetooth.phone.util.IntentUtil;
 import com.jancar.bluetooth.phone.util.ToastUtil;
-import com.jancar.bluetooth.phone.view.SettingActivity;
+import com.squareup.leakcanary.RefWatcher;
 import com.ui.mvp.view.support.BaseFragment;
 
 import java.lang.ref.WeakReference;
@@ -41,7 +42,6 @@ import butterknife.Unbinder;
  * 设备管理
  */
 public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter, EquipmentContract.View> implements EquipmentContract.View, BTConnectStatusListener {
-    private static final String TAG = "EquipmentFragment";
     Unbinder unbinder;
     View mRootView;
     @BindView(R.id.tv_equipment_setting_name)
@@ -57,25 +57,8 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
     private Activity mActivity;
     private boolean isConnet;
     private boolean hidden = false;
+    BluetoothManager bluetoothManager;
 
-
-    private Handler mHandler = new EquipmentFragment.InternalHandler(this);
-
-
-    private static class InternalHandler extends Handler {
-        private WeakReference<Fragment> weakRefActivity;
-
-        public InternalHandler(Fragment fragment) {
-            weakRefActivity = new WeakReference<Fragment>(fragment);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            Fragment fragment = weakRefActivity.get();
-            if (fragment != null) {
-            }
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -129,40 +112,50 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
-        handler.removeCallbacksAndMessages(null);
-    }
-
-    public EquipmentFragment() {
-
     }
 
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what == Constants.BT_CONNECT_IS_NONE) {
-                ivConnet.setImageResource(R.drawable.iv_equipment_disconnect);
-                btnConn.setVisibility(View.VISIBLE);
-                btnClose.setVisibility(View.GONE);
-                tvConnName.setText(getPresenter().getConnetName());
+            switch (msg.what) {
+                case Constants.CONTACT_BT_CONNECT:
+                    //蓝牙状态
+                    byte obj = (byte) msg.obj;
+                    if (obj == Constants.BT_CONNECT_IS_NONE) {
+                        ivConnet.setImageResource(R.drawable.iv_equipment_disconnect);
+                        btnConn.setVisibility(View.VISIBLE);
+                        btnClose.setVisibility(View.GONE);
+                        tvConnName.setText(getPresenter().getConnetName());
+                        Toast.makeText(mActivity, "蓝牙未连接", Toast.LENGTH_SHORT).show();
 
-            } else if (msg.what == Constants.BT_CONNECT_IS_CONNECTED) {
-                ivConnet.setImageResource(R.drawable.iv_equipment_connet);
-                btnConn.setVisibility(View.GONE);
-                btnClose.setVisibility(View.VISIBLE);
-                tvConnName.setText(getPresenter().getConnetName());
+                    } else if (obj == Constants.BT_CONNECT_IS_CONNECTED) {
+                        ivConnet.setImageResource(R.drawable.iv_equipment_connet);
+                        btnConn.setVisibility(View.GONE);
+                        btnClose.setVisibility(View.VISIBLE);
+                        tvConnName.setText(getPresenter().getConnetName());
+                        Toast.makeText(mActivity, "蓝牙连接", Toast.LENGTH_SHORT).show();
 
-            } else if (msg.what == Constants.BT_CONNECT_IS_CLOSE) {
-                ivConnet.setImageResource(R.drawable.iv_equipment_disconnect);
-                btnConn.setVisibility(View.VISIBLE);
-                btnClose.setVisibility(View.GONE);
-                tvConnName.setText(getPresenter().getConnetName());
-
+                    } else if (obj == Constants.BT_CONNECT_IS_CLOSE) {
+                        ivConnet.setImageResource(R.drawable.iv_equipment_disconnect);
+                        btnConn.setVisibility(View.VISIBLE);
+                        btnClose.setVisibility(View.GONE);
+                        tvConnName.setText(getPresenter().getConnetName());
+                        Toast.makeText(mActivity, "蓝牙关闭", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
             }
-
         }
     };
 
@@ -177,14 +170,15 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
     }
 
     private void initView() {
+        bluetoothManager = BluetoothManager.getBluetoothManagerInstance(getUIContext());
         ConnShowView();
         tvselfName.setText(getPresenter().getSelfName());
         tvConnName.setText(getPresenter().getConnetName());
-
     }
 
     private void ConnShowView() {
         isConnet = getManager().isConnect();
+//        Toast.makeText(mActivity, "isConnet:" + isConnet, Toast.LENGTH_SHORT).show();
         if (isConnet) {
             ivConnet.setImageResource(R.drawable.iv_equipment_connet);
             btnConn.setVisibility(View.GONE);
@@ -205,23 +199,31 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
                 getPresenter().disConnectDevice();
                 break;
             case R.id.btn_equipment_setting:
-//               IntentUtil.gotoActivity(getActivity(), SettingActivity.class, false);
-                Intent intent = new Intent();
-                intent.setClassName("com.jancar.settingss", "com.jancar.settings.view.activity.MainActivity");
-                intent.putExtra("position", 1);
-                startActivity(intent);
+                go2Setting();
                 break;
             case R.id.btn_equipment_conn:
-                boolean btOn = getManager().isBTOn();
-                if (btOn) {
-                    String historyAddress = getManager().getHistoryConnectDeviceAddress();
-                    getManager().connectDevice(historyAddress);
-                } else {
-                    ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_bt_connect_is_close));
-                }
-
+                getConnect();
                 break;
         }
+    }
+
+    //连接蓝牙
+    private void getConnect() {
+        boolean btOn = getManager().isBTOn();
+        if (btOn) {
+            String historyAddress = getManager().getHistoryConnectDeviceAddress();
+            getManager().connectDevice(historyAddress);
+        } else {
+            ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_bt_connect_is_close));
+        }
+    }
+
+    //跳转到设置界面
+    private void go2Setting() {
+        Intent intent = new Intent();
+        intent.setClassName("com.jancar.settingss", "com.jancar.settings.view.activity.MainActivity");
+        intent.putExtra("position", 1);
+        startActivity(intent);
     }
 
     @Override
@@ -245,20 +247,19 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
 
     @Override
     public void runOnUIThread(Runnable runnable) {
-        mHandler.post(runnable);
+//        mHandler.post(runnable);
     }
 
     @Override
     public BluetoothManager getManager() {
-        BluetoothManager manager = BluetoothManager.getBluetoothManagerInstance(getUIContext());
-        return manager;
+        return bluetoothManager;
     }
 
     @Override
     public void onNotifyBTConnectStateChange(final byte b) {
-        Message msg = handler.obtainMessage();
-        msg.what = b;
-        handler.sendMessage(msg);
-
+        Message message = new Message();
+        message.what = Constants.CONTACT_BT_CONNECT;
+        message.obj = b;
+        handler.sendMessage(message);
     }
 }

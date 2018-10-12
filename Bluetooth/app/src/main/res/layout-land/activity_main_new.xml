@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px80"
+        android:background="@drawable/btn_bt_dail_n"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_keypad"
+                style="@style/main_activity_tab_style"
+                android:background="@drawable/relative_selector_bg"
+                android:checked="true"
+                android:drawablePadding="-15px"
+                android:drawableTop="@drawable/btn_bt_keypad_n_iv"
+                android:text="@string/tv_main_keypad" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/px2"
+                android:layout_marginStart="@dimen/px2"
+                android:background="@drawable/lin_bt_dail_n" />
+
+            <RadioButton
+                android:id="@+id/rb_contact"
+                style="@style/main_activity_tab_style"
+                android:background="@drawable/relative_selector_bg"
+                android:drawablePadding="-15px"
+                android:drawableTop="@drawable/btn_bt_contacts_n_iv"
+                android:text="@string/tv_mian_contact" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/px2"
+                android:layout_marginStart="@dimen/px2"
+                android:background="@drawable/lin_bt_dail_n" />
+
+            <RadioButton
+                android:id="@+id/rb_records"
+                style="@style/main_activity_tab_style"
+                android:background="@drawable/relative_selector_bg"
+                android:drawablePadding="-15px"
+                android:drawableTop="@drawable/btn_bt_mail_list_n_iv"
+                android:text="@string/tv_main_records" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/px2"
+                android:layout_marginStart="@dimen/px2"
+                android:background="@drawable/lin_bt_dail_n" />
+
+            <RadioButton
+                android:id="@+id/rb_mange"
+                style="@style/main_activity_tab_style"
+                android:background="@drawable/relative_selector_bg"
+                android:drawablePadding="-15px"
+                android:drawableTop="@drawable/btn_bt_device_management_n_iv"
+                android:text="@string/tv_mian_mange" />
+        </RadioGroup>
+    </RelativeLayout>
+</LinearLayout>
+
+

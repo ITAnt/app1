@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -284,11 +285,11 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         mCallScoState = scoState;
         if (BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT == mCallScoState) {
             //车机
-            ivVehicle.setImageResource(R.drawable.iv_commun_p_n);
+            ivVehicle.setImageResource(R.drawable.iv_commun_c_n);
             tvVehicle.setText(R.string.calling_vehicle);
         } else {
             //手机
-            ivVehicle.setImageResource(R.drawable.iv_commun_c_n);
+            ivVehicle.setImageResource(R.drawable.iv_commun_p_n);
             tvVehicle.setText(R.string.calling_phone);
         }
     }
@@ -301,10 +302,9 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         mCallScoState = scoState;
         if (BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT == mCallScoState) {
             //车机状态
-            ivHalfCar.setImageResource(R.drawable.iv_commun_half_p);
-        } else {
             ivHalfCar.setImageResource(R.drawable.iv_commun_half_c);
-
+        } else {
+            ivHalfCar.setImageResource(R.drawable.iv_commun_half_p);
         }
     }
 
@@ -637,11 +637,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 startTimer();
                 break;
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_TERMINATED:
-                BluetoothPhoneBookData bluetoothPhoneBookData = new BluetoothPhoneBookData();
-                bluetoothPhoneBookData.setPhoneName(mCallName);
-                bluetoothPhoneBookData.setPhoneNumber(mCallNumber);
-                bluetoothPhoneBookData.setPhoneBookCallType(mCallPhoneType);
-                bluetoothManager.addCallLogList(bluetoothPhoneBookData);
+                saveCallLog();
                 stopTimer();
                 mHandler.sendEmptyMessage(MSG_BLUETOOTH_DESTROY_VIEW);
                 //destroyView();
@@ -704,14 +700,27 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
 
     }
 
+    private void saveCallLog() {
+        BluetoothPhoneBookData bluetoothPhoneBookData = new BluetoothPhoneBookData();
+        bluetoothPhoneBookData.setPhoneName(mCallName);
+        bluetoothPhoneBookData.setPhoneNumber(mCallNumber);
+        bluetoothPhoneBookData.setPhoneBookCallType(mCallPhoneType);
+        bluetoothManager.addCallLogList(bluetoothPhoneBookData);
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_comm_message_hangup:
                 if (mCallType == BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_INCOMING) {
                     bluetoothManager.rejectCall();
+                    saveCallLog();
                 } else {
                     bluetoothManager.terminateCall();
+                }
+                String s = tvInputNum.getText().toString().replaceAll(" ", "");
+                if (!TextUtils.isEmpty(s)) {
+                    tvInputNum.setText("");
                 }
                 destroyView();
                 break;
@@ -735,12 +744,12 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
             case R.id.iv_comm_message_vehicle:
                 if (mCallScoState != BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT) {
                     bluetoothManager.switchAudioMode(false);
-                    ivVehicle.setImageResource(R.drawable.iv_commun_c_n);
+                    ivVehicle.setImageResource(R.drawable.iv_commun_p_n);
                     tvVehicle.setText(R.string.calling_phone);
 
                 } else {
                     bluetoothManager.switchAudioMode(true);
-                    ivVehicle.setImageResource(R.drawable.iv_commun_p_n);
+                    ivVehicle.setImageResource(R.drawable.iv_commun_c_n);
                     tvVehicle.setText(R.string.calling_vehicle);
                 }
                 break;
@@ -753,17 +762,16 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
             case R.id.iv_commun_half_phone:
                 if (mCallScoState != BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT) {
                     bluetoothManager.switchAudioMode(false);
-                    ivHalfCar.setImageResource(R.drawable.iv_commun_half_c);
-
-                } else {
-                    bluetoothManager.switchAudioMode(true);
                     ivHalfCar.setImageResource(R.drawable.iv_commun_half_p);
-
+                } else {
+                    ivHalfCar.setImageResource(R.drawable.iv_commun_half_c);
+                    bluetoothManager.switchAudioMode(true);
                 }
                 break;
             case R.id.iv_commun_half_hang:
                 if (mCallType == BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_INCOMING) {
                     bluetoothManager.rejectCall();
+                    saveCallLog();
                 } else {
                     bluetoothManager.terminateCall();
                 }
@@ -833,5 +841,4 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         }
         tvInputNum.setText(msgString);
     }
-
 }

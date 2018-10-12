@@ -85,6 +85,10 @@
         <item name="android:textSize">@dimen/px22</item>
     </style>
 
+    <style name="txt_normal_px28" parent="txt_default">
+        <item name="android:textSize">@dimen/px28</item>
+    </style>
+
     <style name="txt_normal_tip_px22" parent="txt_default_tip">
         <item name="android:textSize">@dimen/px22</item>
     </style>
@@ -109,6 +113,40 @@
         <item name="android:activityOpenExitAnimation">@null</item>
         <item name="android:activityCloseEnterAnimation">@null</item>
         <item name="android:activityCloseExitAnimation">@null</item>
+    </style>
+
+    <style name="main_activity_tab_style">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:textSize">18px</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:button">@null</item>
+    </style>
+    <style name="AVLoadingIndicatorView">
+        <item name="minWidth">48dip</item>
+        <item name="maxWidth">48dip</item>
+        <item name="minHeight">48dip</item>
+        <item name="maxHeight">48dip</item>
+        <item name="indicatorName">BallPulseIndicator</item>
+    </style>
+
+    <style name="AVLoadingIndicatorView.Large">
+        <item name="minWidth">60px</item>
+        <item name="maxWidth">60px</item>
+        <item name="minHeight">60px</item>
+        <item name="maxHeight">60px</item>
+        <item name="indicatorName">BallSpinFadeLoaderIndicator</item>
+    </style>
+
+    <style name="AVLoadingIndicatorView.Small">
+        <item name="minWidth">24dip</item>
+        <item name="maxWidth">24dip</item>
+        <item name="minHeight">24dip</item>
+        <item name="maxHeight">24dip</item>
+        <item name="indicatorName">BallPulseIndicator</item>
     </style>
 
 </resources>

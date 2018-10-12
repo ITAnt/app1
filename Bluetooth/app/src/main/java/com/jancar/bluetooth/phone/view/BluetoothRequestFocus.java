@@ -2,9 +2,12 @@ package com.jancar.bluetooth.phone.view;
 
 import android.content.Context;
 import android.media.AudioManager;
+import android.os.SystemProperties;
 import android.util.Log;
 
 import com.jancar.bluetooth.lib.BluetoothManager;
+
+import java.util.logging.Handler;
 
 /**
  * @anthor Tzq
@@ -74,7 +77,7 @@ public class BluetoothRequestFocus {
 
     private AudioManager.OnAudioFocusChangeListener mAudioFocusListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
-        public void onAudioFocusChange(int focusChange) {
+        public void onAudioFocusChange(final int focusChange) {
             Log.e(TAG, "onAudioFocusChange" + focusChange);
             switch (focusChange) {
                 case AudioManager.AUDIOFOCUS_GAIN:
@@ -86,7 +89,7 @@ public class BluetoothRequestFocus {
                 case AudioManager.AUDIOFOCUS_LOSS:
                     blueManager.setPlayerState(false);
                     releaseAudioFocus();
-                    if (blueManager.getBlueMusicData().getPlay_status() ==BluetoothManager.MUSIC_STATE_PLAY) {
+                    if (blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PLAY) {
                         blueManager.pause();
                     }
                     break;
@@ -97,7 +100,8 @@ public class BluetoothRequestFocus {
                     }
                     break;
                 case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
-                    if (blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PLAY) {
+                    boolean flag = SystemProperties.getBoolean("persist.jancar.gpsmix", true);
+                    if (!flag && blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PLAY) {
                         blueManager.pause();
                     }
                     break;

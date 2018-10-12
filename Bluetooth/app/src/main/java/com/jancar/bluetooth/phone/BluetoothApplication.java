@@ -1,10 +1,13 @@
 package com.jancar.bluetooth.phone;
 
 import android.app.Application;
+import android.content.Context;
 import android.view.ViewConfiguration;
 
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.phone.util.FlyLog;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.lang.reflect.Field;
 
@@ -14,6 +17,14 @@ import java.lang.reflect.Field;
  * @describe application
  */
 public class BluetoothApplication extends Application {
+    private RefWatcher refWatcher;
+
+    public static RefWatcher getRefWatcher(Context context) {
+        BluetoothApplication application = (BluetoothApplication) context.getApplicationContext();
+        return application.refWatcher;
+
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -30,6 +41,7 @@ public class BluetoothApplication extends Application {
         } catch (Exception e) {
             FlyLog.e(e.toString());
         }
+        refWatcher = LeakCanary.install(this);
     }
 
     @Override

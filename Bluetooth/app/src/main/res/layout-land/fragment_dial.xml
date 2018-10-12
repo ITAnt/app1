@@ -30,7 +30,7 @@
 
             <TextView
                 android:id="@+id/dial_tv_number"
-                style="@style/txt_normal_px22"
+                style="@style/txt_normal_px28"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/px60"
                 android:layout_toLeftOf="@id/dial_iv_del_number"
