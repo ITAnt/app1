@@ -98,7 +98,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         if (!hidden) {
             Log.w("BluetoothFragment", "onResumes");
             bluetoothManager.registerBTSettingListener(this);
-            tvBlutName = mPresenter.getBlutoothName().trim();
+            tvBlutName = mPresenter.getBlutoothName().replaceAll(" ", "");
             tvBtName.setText(tvBlutName);
             Log.d(TAG, "onResume:" + tvBlutName);
             bluetoothManager.getBondDevice();
@@ -109,7 +109,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     @Override
     public void onPause() {
         super.onPause();
-          bluetoothManager.unRegisterBTSettingListener(this);
+        bluetoothManager.unRegisterBTSettingListener(this);
     }
 
     @Override
@@ -135,7 +135,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         if (!hidden) {
             Log.w("BluetoothFragment", "onHiddenChangeds");
             bluetoothManager.registerBTSettingListener(this);
-            tvBlutName = mPresenter.getBlutoothName().trim();
+            tvBlutName = mPresenter.getBlutoothName().replaceAll(" ", "");
             Log.d(TAG, "onHiddenChanged:" + tvBlutName);
             tvBtName.setText(tvBlutName);
             bluetoothManager.getBondDevice();
@@ -194,7 +194,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         //  bluetoothManager.
         isDisCovering = bluetoothManager.getBTIsDisCovering();
         //ivSearch.setImageResource(R.drawable.loading_animation);
-        tvBlutName = mPresenter.getBlutoothName().trim();
+        tvBlutName = mPresenter.getBlutoothName().replaceAll(" ", "");
         Log.d(TAG, "initData:" + tvBlutName);
         tvBtName.setText(tvBlutName);
      /*   SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
@@ -363,8 +363,8 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                     settingDialog.dismiss();
                     mPresenter.setBlutoothName(editText);
                     Log.d(TAG, "edit:" + editText);
-                    tvBtName.setText(mPresenter.getBlutoothName().trim());
-                    Log.d(TAG, "set:" + mPresenter.getBlutoothName().trim());
+                    tvBtName.setText(mPresenter.getBlutoothName().replaceAll(" ", ""));
+                    Log.d(TAG, "set:" + mPresenter.getBlutoothName().replaceAll(" ", ""));
                 }
 
             }
@@ -439,10 +439,12 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                     avaAdapter.changetShowDelImage(false);
                     break;
                 case BT_SWITH_STATE_ON:
+//                    isBTon = true;
                     linearBlue.setVisibility(View.VISIBLE);
                     mPresenter.searchPairedList();
                     break;
                 case BT_SWITH_STATE_OFF:
+//                    isBTon = false;
                     pairedDataListList.clear();
                     unPairedDataListList.clear();
                     pairAdapter.notifyDataSetChanged();
