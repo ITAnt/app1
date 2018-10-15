@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -23,13 +22,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.Listener.BTPhonebookListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.lib.BluetoothPhoneBookData;
-import com.jancar.bluetooth.phone.BluetoothApplication;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.adapter.ContactAdapter;
 import com.jancar.bluetooth.phone.adapter.ContactSearchAdapter;
@@ -40,17 +37,10 @@ import com.jancar.bluetooth.phone.util.ToastUtil;
 import com.jancar.bluetooth.phone.widget.AVLoadingIndicatorView;
 import com.jancar.bluetooth.phone.widget.ContactDialog;
 import com.jancar.bluetooth.widget.SideBar;
-import com.squareup.leakcanary.RefWatcher;
 import com.ui.mvp.view.support.BaseFragment;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 
 /**
@@ -449,7 +439,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
         Log.e("ContactFragment", "DownloadContactsList:" + list);
         this.bookDataList = list;
         handler.removeMessages(Constants.CONTACT_UPDATA_REFRESH);
-        handler.sendEmptyMessageDelayed(Constants.CONTACT_UPDATA_REFRESH, 100);
+        handler.sendEmptyMessageDelayed(Constants.CONTACT_UPDATA_REFRESH, 10);
 
     }
 
@@ -483,12 +473,16 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
 
     @Override
     public void onNotifyDownloadContactsError() {
-        handler.sendEmptyMessage(Constants.CONTACT_SEARCH_END);
+//        handler.sendEmptyMessage(Constants.CONTACT_SEARCH_END);
+        handler.removeMessages(Constants.CONTACT_SEARCH_END);
+        handler.sendEmptyMessageDelayed(Constants.CONTACT_SEARCH_END, 100);
     }
 
     @Override
     public void onNotifyDownloadContactsFinish() {
-        handler.sendEmptyMessage(Constants.CONTACT_SEARCH_END);
+//        handler.sendEmptyMessage(Constants.CONTACT_SEARCH_END);
+        handler.removeMessages(Constants.CONTACT_SEARCH_END);
+        handler.sendEmptyMessageDelayed(Constants.CONTACT_SEARCH_END, 100);
     }
 
 

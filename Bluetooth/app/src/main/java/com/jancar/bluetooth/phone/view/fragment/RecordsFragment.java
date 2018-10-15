@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,29 +17,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jancar.bluetooth.Listener.BTCallLogListener;
 import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.lib.BluetoothPhoneBookData;
-import com.jancar.bluetooth.phone.BluetoothApplication;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.adapter.RecordsAdapter;
 import com.jancar.bluetooth.phone.contract.RecordsContract;
 import com.jancar.bluetooth.phone.presenter.RecordsPresenter;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.widget.AVLoadingIndicatorView;
-import com.squareup.leakcanary.RefWatcher;
 import com.ui.mvp.view.support.BaseFragment;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-
-
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 
 /**

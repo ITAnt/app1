@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -22,28 +21,17 @@ import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.Listener.BTPhonebookListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.lib.BluetoothPhoneBookData;
-import com.jancar.bluetooth.phone.BluetoothApplication;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.adapter.DialNumberAdapter;
 import com.jancar.bluetooth.phone.contract.DialContract;
 import com.jancar.bluetooth.phone.presenter.DialPresenter;
 import com.jancar.bluetooth.phone.util.Constants;
-import com.jancar.bluetooth.phone.util.IntentUtil;
 import com.jancar.bluetooth.phone.util.NumberFormatUtil;
 import com.jancar.bluetooth.phone.util.ToastUtil;
-import com.jancar.bluetooth.phone.view.MusicActivity;
-import com.squareup.leakcanary.RefWatcher;
 import com.ui.mvp.view.support.BaseFragment;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnLongClick;
-import butterknife.Unbinder;
 
 import static com.jancar.bluetooth.phone.util.Constants.BT_CONNECT_IS_NONE;
 

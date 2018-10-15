@@ -19,6 +19,7 @@ public class BluetoothRequestFocus {
     private static BluetoothRequestFocus bluetoothRequestFocus;
     private Context context;
     private BluetoothManager blueManager;
+    public static boolean HandPaused = true;
     private AudioManager audioManager;
 
     public boolean isNeedGainFocus() {
@@ -56,7 +57,9 @@ public class BluetoothRequestFocus {
         audioManager.requestAudioFocus(mAudioFocusListener, AudioManager.STREAM_MUSIC,
                 AudioManager.AUDIOFOCUS_GAIN);
         blueManager.setPlayerState(true);
-        if (blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PAUSE) {
+        Log.d(TAG, "blueManager.getBlueMusicData().getPlay_status():" + blueManager.getBlueMusicData().getPlay_status());
+        if (blueManager.getBlueMusicData().getPlay_status() != BluetoothManager.MUSIC_STATE_PLAY) {
+            Log.d("BluetoothRequestFocus", "blut");
             blueManager.play();
         }
     }
@@ -78,31 +81,39 @@ public class BluetoothRequestFocus {
     private AudioManager.OnAudioFocusChangeListener mAudioFocusListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(final int focusChange) {
-            Log.e(TAG, "onAudioFocusChange" + focusChange);
+            Log.e(TAG, "onAudioFocusChange:" + focusChange);
             switch (focusChange) {
                 case AudioManager.AUDIOFOCUS_GAIN:
+                    Log.e(TAG, "GAIN:" + focusChange);
                     blueManager.setPlayerState(true);
-                    if (blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PAUSE) {
+                    Log.d("BluetoothRequestFocus", "HandPaused:" + HandPaused);
+                    if (blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PAUSE && !HandPaused) {
                         blueManager.play();
                     }
                     break;
                 case AudioManager.AUDIOFOCUS_LOSS:
+                    Log.e(TAG, "LOSS:" + focusChange);
                     blueManager.setPlayerState(false);
                     releaseAudioFocus();
                     if (blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PLAY) {
                         blueManager.pause();
+                        HandPaused = false;
                     }
                     break;
                 case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
+                    Log.e(TAG, "TRANSIENT:" + focusChange);
                     blueManager.setPlayerState(false);
                     if (blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PLAY) {
                         blueManager.pause();
+                        HandPaused = false;
                     }
                     break;
                 case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
+                    Log.e(TAG, "CAN_DUCK:" + focusChange);
                     boolean flag = SystemProperties.getBoolean("persist.jancar.gpsmix", true);
                     if (!flag && blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PLAY) {
                         blueManager.pause();
+                        HandPaused = false;
                     }
                     break;
             }

@@ -26,7 +26,6 @@ import com.jancar.bluetooth.phone.view.fragment.DialFragment;
 import com.jancar.bluetooth.phone.view.fragment.EquipmentFragment;
 import com.jancar.bluetooth.phone.view.fragment.RecordsFragment;
 import com.jancar.bluetooth.phone.widget.ConnectDialog;
-import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

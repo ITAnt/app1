@@ -74,11 +74,6 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".broadcast.BTConnStatusReceiver">
-            <intent-filter>
-                <action android:name="com.jancar.bluetooth.phone.broadcast.BTConnStatus" />
-            </intent-filter>
-        </receiver>
 
         <service android:name=".view.BTUIService" />
     </application>

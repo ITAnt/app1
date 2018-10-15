@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,16 +18,12 @@ import android.widget.Toast;
 
 import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
-import com.jancar.bluetooth.phone.BluetoothApplication;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.contract.EquipmentContract;
 import com.jancar.bluetooth.phone.presenter.EquipmentPresenter;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.ToastUtil;
-import com.squareup.leakcanary.RefWatcher;
 import com.ui.mvp.view.support.BaseFragment;
-
-import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
