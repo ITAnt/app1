@@ -33,6 +33,8 @@ import com.jancar.bluetooth.phone.adapter.ContactSearchAdapter;
 import com.jancar.bluetooth.phone.contract.ContactContract;
 import com.jancar.bluetooth.phone.presenter.ContactPresenter;
 import com.jancar.bluetooth.phone.util.Constants;
+import com.jancar.bluetooth.phone.util.FlyLog;
+import com.jancar.bluetooth.phone.util.ThreadUtils;
 import com.jancar.bluetooth.phone.util.ToastUtil;
 import com.jancar.bluetooth.phone.widget.AVLoadingIndicatorView;
 import com.jancar.bluetooth.phone.widget.ContactDialog;
@@ -196,9 +198,14 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
         super.onResume();
         if (!hidden) {
             bluetoothManager.registerBTPhonebookListener(this);
-            bluetoothManager.getBTContacts();
             bluetoothManager.setBTConnectStatusListener(this);
             isConneView();
+            ThreadUtils.execute(new Runnable() {
+                @Override
+                public void run() {
+                    bluetoothManager.getBTContacts();
+                }
+            });
         }
     }
 
@@ -211,10 +218,10 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
             bluetoothManager.getBTContacts();
             bluetoothManager.setBTConnectStatusListener(this);
             isConneView();
-            adapter.setNormalPosition();
-            searchAdapter.setNormalPosition();
+//            adapter.setNormalPosition();
+//            searchAdapter.setNormalPosition();
+
         } else {
-            ToastUtil.cancleMyToast();
             bluetoothManager.setBTConnectStatusListener(null);
             bluetoothManager.unRegisterBTPhonebookListener();
         }
@@ -262,8 +269,6 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
         bluetoothManager = BluetoothManager.getBluetoothManagerInstance(getUIContext());
         editSearch.setCursorVisible(false);
         editInputString = editSearch.getText().toString().trim();
-//        ivSynIng.setImageResource(R.drawable.loading_animation_big);
-//        animationDrawable = (AnimationDrawable) ivSynIng.getDrawable();
         if (bookDataList == null) {
             bookDataList = new ArrayList<>();
         }
@@ -326,13 +331,13 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     }
 
     private void isConneView() {
+        FlyLog.d("Conatact", "isConneView");
         if (isBluConn()) {
             SynContactView();
         } else {
             linerSyn.setVisibility(View.VISIBLE);
             tvSynContact.setText(R.string.tv_bt_connect_is_none);
             ivSynContact.setVisibility(View.GONE);
-//            ivSynIng.setVisibility(View.GONE);
             ivSynIng.hide();
             relativeLayout.setVisibility(View.GONE);
         }
@@ -344,10 +349,8 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
             linerSyn.setVisibility(View.VISIBLE);
             tvSynContact.setText(R.string.tv_syning_contact);
             ivSynContact.setVisibility(View.GONE);
-//            ivSynIng.setVisibility(View.VISIBLE);
             ivSynIng.show();
             relativeLayout.setVisibility(View.GONE);
-            animationDrawable.start();
         } else {
             linerSyn.setVisibility(View.GONE);
             relativeLayout.setVisibility(View.VISIBLE);
@@ -455,6 +458,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     }
 
     private void ShowSynText() {
+        FlyLog.d("Contact", "ShowSynText");
         linerSyn.setVisibility(View.VISIBLE);
         ivSynContact.setVisibility(View.GONE);
 //        ivSynIng.setVisibility(View.GONE);
@@ -503,11 +507,11 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                     if (!isDownLoding()) {
                         showDialog();
                     } else {
-                        ToastUtil.ShowToast(mActivity.getString(R.string.tv_syning_contact));
+                        ToastUtil.ShowToast(mActivity,mActivity.getString(R.string.tv_syning_contact));
                     }
 
                 } else {
-                    ToastUtil.ShowToast(mActivity.getString(R.string.tv_bt_connect_is_none));
+                    ToastUtil.ShowToast(mActivity,mActivity.getString(R.string.tv_bt_connect_is_none));
                 }
                 break;
             case R.id.iv_syn_contact:

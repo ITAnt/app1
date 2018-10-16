@@ -27,6 +27,7 @@ import com.jancar.bluetooth.phone.adapter.RecordsAdapter;
 import com.jancar.bluetooth.phone.contract.RecordsContract;
 import com.jancar.bluetooth.phone.presenter.RecordsPresenter;
 import com.jancar.bluetooth.phone.util.Constants;
+import com.jancar.bluetooth.phone.util.ThreadUtils;
 import com.jancar.bluetooth.phone.widget.AVLoadingIndicatorView;
 import com.ui.mvp.view.support.BaseFragment;
 
@@ -112,9 +113,14 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
         super.onResume();
         if (!hidden) {
             getManager().registerBTCallLogListener(this);
-            getManager().getBTCallLogs();
             getManager().setBTConnectStatusListener(this);
             isConneView();
+            ThreadUtils.execute(new Runnable() {
+                @Override
+                public void run() {
+                    getManager().getBTCallLogs();
+                }
+            });
         }
     }
 
@@ -176,8 +182,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
                 }
             });
         }
-//        ivSynIng.setImageResource(R.drawable.loading_animation_big);
-//        animationDrawable = (AnimationDrawable) ivSynIng.getDrawable();
+
     }
 
     private void synShow() {
@@ -187,14 +192,11 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
             tvSynRecord.setText(R.string.tv_syning_record);
             ivSynRecord.setVisibility(View.GONE);
             ivSynError.setVisibility(View.GONE);
-//            ivSynIng.setVisibility(View.VISIBLE);
             ivSynIng.show();
             listView.setVisibility(View.GONE);
-            animationDrawable.start();
         } else {
             linearSyn.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
-            animationDrawable.stop();
         }
     }
 
@@ -216,7 +218,6 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
     private void showText() {
         linearSyn.setVisibility(View.VISIBLE);
         ivSynError.setVisibility(View.GONE);
-//        ivSynIng.setVisibility(View.GONE);
         ivSynIng.hide();
         ivSynRecord.setVisibility(View.GONE);
         tvSynRecord.setVisibility(View.VISIBLE);
@@ -327,15 +328,13 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
                     listView.setVisibility(View.GONE);
                     linearSyn.setVisibility(View.VISIBLE);
                     ivSynRecord.setVisibility(View.GONE);
-//                    ivSynIng.setVisibility(View.GONE);
                     ivSynIng.hide();
                     tvSynRecord.setText(R.string.tv_record_error);
-//                    animationDrawable.stop();
+
                     break;
                 case Constants.CONTACT_CALL_LOGS_FINISH:
                     linearSyn.setVisibility(View.GONE);
                     listView.setVisibility(View.VISIBLE);
-//                    animationDrawable.stop();
                     break;
             }
         }

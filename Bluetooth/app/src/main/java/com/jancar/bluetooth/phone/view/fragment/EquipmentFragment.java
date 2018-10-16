@@ -209,7 +209,7 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
             String historyAddress = getManager().getHistoryConnectDeviceAddress();
             getManager().connectDevice(historyAddress);
         } else {
-            ToastUtil.ShowToast(mActivity.getString(R.string.tv_bt_connect_is_close));
+            ToastUtil.ShowToast(mActivity,mActivity.getString(R.string.tv_bt_connect_is_close));
         }
     }
 
@@ -236,7 +236,6 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
             tvselfName.setText(getPresenter().getSelfName());
             tvConnName.setText(getPresenter().getConnetName());
         } else {
-            ToastUtil.cancleMyToast();
             getManager().setBTConnectStatusListener(null);
         }
     }

@@ -126,6 +126,10 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
         if (connectDialog == null) {
             connectDialog = new ConnectDialog(this, R.style.AlertDialogCustom);
         }
+//        String page = getIntent().getStringExtra("page");
+//        if (page.equals(Constants.MAIN_TAB)) {
+//            indexTab = TAB_CONTACT_MANAGER;
+//        }
         bluetoothManager = BluetoothManager.getBluetoothManagerInstance(this);
         fragmentManager = getSupportFragmentManager();
         go2Fragment(indexTab);
