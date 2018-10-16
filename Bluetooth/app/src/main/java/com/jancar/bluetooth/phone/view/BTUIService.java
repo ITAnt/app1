@@ -263,13 +263,11 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         Log.e(TAG, "updataScoState:" + scoState);
         mCallScoState = scoState;
         if (BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT == mCallScoState) {
-            //车机
-            ivVehicle.setImageResource(R.drawable.commun_car_selector);
-            tvVehicle.setText(R.string.calling_vehicle);
-        } else {
-            //手机
             ivVehicle.setImageResource(R.drawable.commun_phone_selector);
             tvVehicle.setText(R.string.calling_phone);
+        } else {
+            ivVehicle.setImageResource(R.drawable.commun_car_selector);
+            tvVehicle.setText(R.string.calling_vehicle);
         }
     }
 
@@ -282,9 +280,9 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         mCallScoState = scoState;
         if (BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT == mCallScoState) {
             //车机状态
-            ivHalfCar.setImageResource(R.drawable.iv_commun_half_c);
-        } else {
             ivHalfCar.setImageResource(R.drawable.iv_commun_half_p);
+        } else {
+            ivHalfCar.setImageResource(R.drawable.iv_commun_half_c);
         }
     }
 
@@ -728,14 +726,16 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 break;
             case R.id.iv_comm_message_vehicle:
                 if (mCallScoState != BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT) {
+                    //手机状态
                     bluetoothManager.switchAudioMode(false);
+                    ivVehicle.setImageResource(R.drawable.commun_car_selector);
+                    tvVehicle.setText(R.string.calling_vehicle);
+                } else {
+                    //车机状态
+                    bluetoothManager.switchAudioMode(true);
                     ivVehicle.setImageResource(R.drawable.commun_phone_selector);
                     tvVehicle.setText(R.string.calling_phone);
 
-                } else {
-                    bluetoothManager.switchAudioMode(true);
-                    ivVehicle.setImageResource(R.drawable.commun_car_selector);
-                    tvVehicle.setText(R.string.calling_vehicle);
                 }
                 break;
             case R.id.iv_comm_message_answer:
@@ -746,11 +746,13 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 break;
             case R.id.iv_commun_half_phone:
                 if (mCallScoState != BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT) {
+                    //手机状态
                     bluetoothManager.switchAudioMode(false);
-                    ivHalfCar.setImageResource(R.drawable.iv_commun_half_p);
-                } else {
-                    bluetoothManager.switchAudioMode(true);
                     ivHalfCar.setImageResource(R.drawable.iv_commun_half_c);
+                } else {
+                    //车机状态
+                    bluetoothManager.switchAudioMode(true);
+                    ivHalfCar.setImageResource(R.drawable.iv_commun_half_p);
                 }
                 break;
             case R.id.iv_commun_half_hang:
