@@ -264,11 +264,11 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         mCallScoState = scoState;
         if (BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT == mCallScoState) {
             //车机
-            ivVehicle.setImageResource(R.drawable.iv_commun_c_n);
+            ivVehicle.setImageResource(R.drawable.commun_car_selector);
             tvVehicle.setText(R.string.calling_vehicle);
         } else {
             //手机
-            ivVehicle.setImageResource(R.drawable.iv_commun_p_n);
+            ivVehicle.setImageResource(R.drawable.commun_phone_selector);
             tvVehicle.setText(R.string.calling_phone);
         }
     }
@@ -729,12 +729,12 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
             case R.id.iv_comm_message_vehicle:
                 if (mCallScoState != BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT) {
                     bluetoothManager.switchAudioMode(false);
-                    ivVehicle.setImageResource(R.drawable.iv_commun_p_n);
+                    ivVehicle.setImageResource(R.drawable.commun_phone_selector);
                     tvVehicle.setText(R.string.calling_phone);
 
                 } else {
                     bluetoothManager.switchAudioMode(true);
-                    ivVehicle.setImageResource(R.drawable.iv_commun_c_n);
+                    ivVehicle.setImageResource(R.drawable.commun_car_selector);
                     tvVehicle.setText(R.string.calling_vehicle);
                 }
                 break;
@@ -749,8 +749,8 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                     bluetoothManager.switchAudioMode(false);
                     ivHalfCar.setImageResource(R.drawable.iv_commun_half_p);
                 } else {
-                    ivHalfCar.setImageResource(R.drawable.iv_commun_half_c);
                     bluetoothManager.switchAudioMode(true);
+                    ivHalfCar.setImageResource(R.drawable.iv_commun_half_c);
                 }
                 break;
             case R.id.iv_commun_half_hang:
@@ -763,7 +763,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 if (isShowPhone) {
                     jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_HIDE);
                 }
-                destroyView();
+//                destroyView();
                 break;
             case R.id.item_dial_show_1:
                 getStrKeyNum("1");

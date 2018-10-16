@@ -22,6 +22,7 @@ import com.jancar.bluetooth.phone.presenter.MusicPresenter;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.TimeUtil;
 import com.jancar.bluetooth.phone.util.ToastUtil;
+import com.jancar.bluetooth.phone.widget.CircleImageView;
 import com.jancar.bluetooth.phone.widget.ConnectDialog;
 import com.jancar.bluetooth.phone.widget.MarqueeTextView;
 import com.ui.mvp.view.BaseActivity;
@@ -51,6 +52,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     MarqueeTextView tvTitle;
     MarqueeTextView tvAlbum;
     MarqueeTextView tvArtist;
+    CircleImageView circleImageView;
     private boolean isPlay = false;
     private RegisterMediaSession registerMediaSession;
     private BluetoothRequestFocus bluetoothRequestFocus;
@@ -133,6 +135,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     protected void onPause() {
         super.onPause();
         isResume = false;
+        ToastUtil.cancleMyToast();
     }
 
     @Override
@@ -156,6 +159,8 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         tvTitle = (MarqueeTextView) findViewById(R.id.tv_music_title);
         tvAlbum = (MarqueeTextView) findViewById(R.id.tv_music_album);
         tvArtist = (MarqueeTextView) findViewById(R.id.tv_music_artist);
+        circleImageView = (CircleImageView) findViewById(R.id.iv_music_rotating);
+//        circleImageView.setImageResource(R.drawable.iv_music_rotating);
         findViewById(R.id.iv_music_pre).setOnClickListener(this);
         findViewById(R.id.iv_music_next).setOnClickListener(this);
         findViewById(R.id.iv_music_play).setOnClickListener(this);
@@ -250,11 +255,14 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                     Log.d("MusicActivity", "BluetoothManager.MUSIC_STATE_PLAY");
                     bluetoothRequestFocus.requestAudioFocus();
                 }
+                circleImageView.setAnimatePlaying(isPlay);
+                bluetoothManager.setPlayerState(true);
                 break;
             case BluetoothManager.MUSIC_STATE_PAUSE:
             case BluetoothManager.MUSIC_STATE_STOP:
                 ivPlay.setImageResource(R.drawable.music_play_selector);
                 isPlay = false;
+                circleImageView.setAnimatePlaying(isPlay);
                 break;
         }
         if (song_len == 0) {
@@ -370,7 +378,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     @Override
     public void onClick(View view) {
         if (!bluetoothManager.isConnect()) {
-            ToastUtil.ShowToast(MusicActivity.this, getString(R.string.tv_bt_connect_is_close));
+            ToastUtil.ShowToast(getString(R.string.tv_bt_connect_is_close));
             return;
         }
         switch (view.getId()) {
@@ -390,6 +398,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                     bluetoothManager.play();
                     bluetoothManager.setPlayerState(true);
                 }
+                circleImageView.setAnimatePlaying(isPlay);
                 break;
         }
 
@@ -431,6 +440,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                             bluetoothManager.play();
                             bluetoothManager.setPlayerState(true);
                             isPlay = true;
+                            circleImageView.setAnimatePlaying(isPlay);
                         }
                         saveConnect = obj;
                     } else if (obj != Constants.BT_CONNECT_IS_CONNECTED && saveConnect == Constants.BT_CONNECT_IS_CONNECTED) {
@@ -438,6 +448,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                         bluetoothRequestFocus.releaseAudioFocus();
                         saveConnect = obj;
                         isPlay = false;
+                        circleImageView.setAnimatePlaying(isPlay);
                     }
                     break;
             }

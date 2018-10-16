@@ -486,10 +486,10 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
                         bluetoothManager.hfpCall(mStrKeyNum);
                         cleanCallNumber();
                     } else {
-                        ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_call_number_empty));
+//                        ToastUtil.ShowToast( mActivity.getString(R.string.tv_call_number_empty));
                     }
                 } else {
-                    ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_bt_connect_is_none));
+//                    ToastUtil.ShowToast(mActivity.getString(R.string.tv_bt_connect_is_none));
                 }
                 break;
             case R.id.dial_iv_del_number:

@@ -214,6 +214,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
             adapter.setNormalPosition();
             searchAdapter.setNormalPosition();
         } else {
+            ToastUtil.cancleMyToast();
             bluetoothManager.setBTConnectStatusListener(null);
             bluetoothManager.unRegisterBTPhonebookListener();
         }
@@ -502,11 +503,11 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                     if (!isDownLoding()) {
                         showDialog();
                     } else {
-                        ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_syning_contact));
+                        ToastUtil.ShowToast(mActivity.getString(R.string.tv_syning_contact));
                     }
 
                 } else {
-                    ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_bt_connect_is_none));
+                    ToastUtil.ShowToast(mActivity.getString(R.string.tv_bt_connect_is_none));
                 }
                 break;
             case R.id.iv_syn_contact:

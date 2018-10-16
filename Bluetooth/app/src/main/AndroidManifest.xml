@@ -43,14 +43,6 @@
             </intent-filter>
 
         </activity>
-        <!--<activity-->
-        <!--android:name=".view.CommunicateActivity"-->
-        <!--android:launchMode="singleTask"-->
-        <!--android:screenOrientation="landscape"-->
-        <!--android:theme="@style/Animation" />-->
-        <!--<activity-->
-        <!--android:name=".view.SettingActivity"-->
-        <!--android:screenOrientation="landscape" />-->
 
         <activity
             android:name=".view.MusicActivity"

@@ -133,21 +133,21 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
                         btnConn.setVisibility(View.VISIBLE);
                         btnClose.setVisibility(View.GONE);
                         tvConnName.setText(getPresenter().getConnetName());
-                        Toast.makeText(mActivity, "蓝牙未连接", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(mActivity, "蓝牙未连接", Toast.LENGTH_SHORT).show();
 
                     } else if (obj == Constants.BT_CONNECT_IS_CONNECTED) {
                         ivConnet.setImageResource(R.drawable.iv_equipment_connet);
                         btnConn.setVisibility(View.GONE);
                         btnClose.setVisibility(View.VISIBLE);
                         tvConnName.setText(getPresenter().getConnetName());
-                        Toast.makeText(mActivity, "蓝牙连接", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(mActivity, "蓝牙连接", Toast.LENGTH_SHORT).show();
 
                     } else if (obj == Constants.BT_CONNECT_IS_CLOSE) {
                         ivConnet.setImageResource(R.drawable.iv_equipment_disconnect);
                         btnConn.setVisibility(View.VISIBLE);
                         btnClose.setVisibility(View.GONE);
                         tvConnName.setText(getPresenter().getConnetName());
-                        Toast.makeText(mActivity, "蓝牙关闭", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(mActivity, "蓝牙关闭", Toast.LENGTH_SHORT).show();
                     }
                     break;
             }
@@ -209,7 +209,7 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
             String historyAddress = getManager().getHistoryConnectDeviceAddress();
             getManager().connectDevice(historyAddress);
         } else {
-            ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_bt_connect_is_close));
+            ToastUtil.ShowToast(mActivity.getString(R.string.tv_bt_connect_is_close));
         }
     }
 
@@ -236,6 +236,7 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
             tvselfName.setText(getPresenter().getSelfName());
             tvConnName.setText(getPresenter().getConnetName());
         } else {
+            ToastUtil.cancleMyToast();
             getManager().setBTConnectStatusListener(null);
         }
     }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jancar.bluetooth.phone.BluetoothApplication;
 import com.jancar.bluetooth.phone.R;
 
 /**
@@ -15,15 +16,31 @@ import com.jancar.bluetooth.phone.R;
  * @describe 自定义toast提示框
  */
 public class ToastUtil {
-    public static void ShowToast(Context context, String string) {
-        Toast toast = new Toast(context);
-        toast.setGravity(Gravity.BOTTOM, 0, 100);
-        View view = LayoutInflater.from(context).inflate(R.layout.activity_toast, null);
-        TextView tv = (TextView) view.findViewById(R.id.tv_toast);
-        tv.setText(string);
-        toast.setView(view);
-        toast.setDuration(Toast.LENGTH_SHORT);
-        toast.show();
+    private static Context mContext = null;
+    private static Toast mToast = null;
 
+    public static void ShowToast(String string) {
+        View view = LayoutInflater.from(mContext.getApplicationContext()).inflate(R.layout.activity_toast, null);
+        TextView tv = (TextView) view.findViewById(R.id.tv_toast);
+        //避免toast长时间显示
+        if (mToast != null) {
+            mToast.cancel();
+        }
+        tv.setText(string);
+        mToast = new Toast(mContext.getApplicationContext());
+        mToast.setGravity(Gravity.BOTTOM, 0, 100);
+        mToast.setDuration(Toast.LENGTH_SHORT);
+        mToast.setView(view);
+        mToast.show();
     }
+
+    /**
+     * 使toast不在显示
+     */
+    public static void cancleMyToast() {
+        if (mToast != null) {
+            mToast.cancel();
+        }
+    }
+
 }

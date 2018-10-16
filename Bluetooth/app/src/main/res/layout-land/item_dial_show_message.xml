@@ -118,7 +118,7 @@
                 android:id="@+id/iv_comm_message_vehicle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/commun_car_selector" />
+                android:src="@drawable/commun_phone_selector" />
 
             <TextView
                 android:id="@+id/tv_comm_vehicle"

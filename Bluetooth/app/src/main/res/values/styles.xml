@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimary</item>
-        <item name="android:windowIsTranslucent">true</item>
+        <!--<item name="android:windowIsTranslucent">false</item>-->
         <!--<item name="android:windowBackground">@android:color/transparent</item>-->
     </style>
 
@@ -125,6 +125,7 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:button">@null</item>
     </style>
+
     <style name="AVLoadingIndicatorView">
         <item name="minWidth">48dip</item>
         <item name="maxWidth">48dip</item>

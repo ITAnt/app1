@@ -88,7 +88,7 @@ public class BluetoothRequestFocus {
                     blueManager.setPlayerState(true);
                     Log.d("BluetoothRequestFocus", "HandPaused:" + HandPaused);
                     if (blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PAUSE && !HandPaused) {
-                        blueManager.play();
+//                        blueManager.play();
                     }
                     break;
                 case AudioManager.AUDIOFOCUS_LOSS:
