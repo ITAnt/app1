@@ -314,12 +314,13 @@
 	<string name="shorts">短</string>
 	<string name="Long">长</string>
 	<string name="label_Waiting" >等响</string>
+	<string name="dialog_tab_restart">确定重新启动吗？</string>
     <string-array name="timezone_id">
 		<item>Pacific/Majuro</item>
 		<item>Pacific/Midway</item>
 		<item>Pacific/Honolulu</item>
 		<item>America/Anchorage</item>
-		<item>America/Los_Angele</item>
+		<item>America/Los_Angeles</item>
 		<item>America/Tijuana</item>
 		<item>America/Phoenix</item>
 		<item>America/Chihuahua</item>

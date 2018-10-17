@@ -60,7 +60,7 @@ public class NavigationListAdapter extends BaseAdapter {
         } else {
             holder = (Holder) view.getTag();
         }
-        if (nameList.get(pos).getName().equals(ID)){
+        if (nameList.get(pos).isUp()){
             holder.timeListItemRlayout.setBackgroundResource(R.color.bg_main_rlayout_h);
         } else {
             holder.timeListItemRlayout.setBackgroundResource(R.color.colorPrimary);

@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.graphics.Color;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -44,6 +45,7 @@ import com.jancar.settings.listener.IPresenter;
 import com.jancar.settings.manager.BaseFragment;
 import com.jancar.settings.manager.BaseFragments;
 import com.jancar.settings.presenter.TimePresenter;
+import com.jancar.settings.util.GPS;
 import com.jancar.settings.util.wifi.WifiController;
 import com.jancar.settings.util.wifi.WifiEnabler;
 import com.jancar.settings.view.activity.MainActivity;
@@ -81,6 +83,7 @@ import static com.jancar.settings.util.Tool.setDialogParam;
  */
 
 public class TimeFragment extends BaseFragments<TimePresenter> implements TimeContractImpl.View, View.OnClickListener, TimePickerViewDialog.TimePickerViewCallBack, DatePickerViewDialog.DatePickerViewDialogCallBack, RadioGroup.OnCheckedChangeListener, Time12PickerViewDialog.TimePickerViewCallBack, AdapterView.OnItemClickListener {
+    public static final String AUTO_TIME_GPS = "auto_time_gps";
     private View view;
     private RelativeLayout rLayoutTime;
     private RelativeLayout rLayoutDate;
@@ -222,9 +225,21 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
 
     public void initHourSystem() {
         int autoTime = 0;
-        autoTime = Settings.Global.getInt(getActivity().getContentResolver(), AUTO_TIME,1);
-        if (autoTime == 1) {
+        try {
+            autoTime = Settings.Global.getInt(getActivity().getContentResolver(), AUTO_TIME_GPS);
+        } catch (Settings.SettingNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (autoTime==0){
+            try {
+                autoTime = Settings.Global.getInt(getActivity().getContentResolver(), AUTO_TIME);
+            } catch (Settings.SettingNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        if (autoTime==1) {
             adjustSwitch.setCheckedImmediately(true);
+            adjustSwitch.setChecked(true);
             adjustSummaryTxt.setText(R.string.label_adjust_open);
             timeTitleTxt.setTextColor(Color.parseColor("#484949"));
             dateTitleTxt.setTextColor(Color.parseColor("#484949"));
@@ -235,6 +250,7 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
         } else {
             adjustSummaryTxt.setText(R.string.label_adjust_off);
             adjustSwitch.setCheckedImmediately(false);
+            adjustSwitch.setChecked(false);
             timeTitleTxt.setTextColor(Color.parseColor("#ffffff"));
             dateTitleTxt.setTextColor(Color.parseColor("#ffffff"));
             dateTxt.setTextColor(Color.parseColor("#ffffff"));
@@ -249,9 +265,13 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
         Intent timeChanged = new Intent(Intent.ACTION_TIME_CHANGED);
         switch (v.getId()) {
             case R.id.switch_adjust:
-
-                setAutoTime(getContext(), adjustSwitch.isChecked());
+                setAutoTime(getContext(), adjustSwitch.isChecked(),1);
                 initHourSystem();
+                if (!adjustSwitch.isChecked()){
+                    Settings.Secure.setLocationProviderEnabled(getContext(). getContentResolver(), LocationManager.GPS_PROVIDER, false );
+                    GPS gps=new GPS();
+                    gps.openGPSSettings(getContext(),3);
+                }
                 break;
             case R.id.rbtn_24_hour_system:
                 set24Hour(getContext(), "24");

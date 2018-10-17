@@ -14,14 +14,14 @@ public class SettingsApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-        BluetoothSettingManager.getBluetoothSettingManager(this);
         SettingManager.getSettingManager(this);
+        BluetoothSettingManager.getBluetoothSettingManager(this);
     }
 
     @Override
     public void onTerminate() {
         super.onTerminate();
-       BluetoothSettingManager.getBluetoothSettingManager(this).release();
         SettingManager.releaseSettingManager();
+        BluetoothSettingManager.getBluetoothSettingManager(this).release();
     }
 }

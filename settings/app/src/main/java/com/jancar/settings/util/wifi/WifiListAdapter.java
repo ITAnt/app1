@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jancar.settings.R;
@@ -130,6 +131,7 @@ public class WifiListAdapter extends BaseAdapter {
 			viewHolder.pointSignal = (ImageView) convertView.findViewById(R.id.WifiSignal);
 			viewHolder.connectStateTxt = (TextView) convertView.findViewById(R.id.txt_connect_state);
 			viewHolder.operatingTxt = (TextView) convertView.findViewById(R.id.txt_operating);
+			viewHolder.wifiLlayout = (LinearLayout) convertView.findViewById(R.id.llayout_wifi);
 			convertView.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
@@ -151,7 +153,7 @@ public class WifiListAdapter extends BaseAdapter {
 
 		setSavedText(mDatas, mDatas.get(position), viewHolder.connectStateTxt, viewHolder.operatingTxt);
 
-		viewHolder.operatingTxt.setOnClickListener(new View.OnClickListener() {
+		viewHolder.wifiLlayout.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if (OnClickListener != null) {
@@ -262,6 +264,7 @@ public class WifiListAdapter extends BaseAdapter {
 		TextView connectStateTxt;
 		ImageView pointSignal;
 		TextView operatingTxt;
+		LinearLayout wifiLlayout;
 	}
 
 }

@@ -24,6 +24,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,7 @@ import java.util.List;
 import java.util.Set;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
+import static android.security.KeyStore.getApplicationContext;
 import static com.jancar.settings.util.Tool.setDialogParam;
 
 /**
@@ -360,18 +362,27 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
                     case R.id.wifi_connect_btn_scan:
                         mWifiController.disConnect();
                         String password = wifiPassword.getText().toString();
-                        WifiConfiguration config = mWifiController.createWifiConfig(finalSSID, password, finalType);
-                        int i = mWifiController.connect(config);
-                        //when we change the click the item, we need update state
-                        mWifiController.setConnectionState(mWifiController.STATE_CONNECTING);
-                        handleWifiScanResult();
-                        if (i == -1) {
+                        if (password.length()>=7){
+                            WifiConfiguration config = mWifiController.createWifiConfig(finalSSID, password, finalType);
+                            int i = mWifiController.connect(config);
+                            //when we change the click the item, we need update state
+                            mWifiController.setConnectionState(mWifiController.STATE_CONNECTING);
+                            handleWifiScanResult();
+                            if (i ==0) {
+                                dialog.dismiss();
+                            } else {
+                                wifiPassword.setText("");
+                                Toast toast = Toast.makeText(getApplicationContext(), "密码错误", Toast.LENGTH_SHORT);
+                                // toast.setGravity(Gravity.CENTER, 0, 0);
+                                toast.show();
+                            }
+                        }else {
                             wifiPassword.setText("");
-                            Toast.makeText(mContext, "密码错误", Toast.LENGTH_SHORT).show();
-                        } else {
-
-                            dialog.dismiss();
+                            Toast toast = Toast.makeText(getApplicationContext(), "密码不能少于8位", Toast.LENGTH_SHORT);
+                         //   toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
                         }
+
 
                         break;
                     case R.id.wifi_cancel_btn_scan:

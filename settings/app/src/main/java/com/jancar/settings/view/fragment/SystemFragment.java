@@ -137,7 +137,8 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                 showResetDialog();
                 break;
             case R.id.rlayout_restart:
-                showRestartDialog();
+                showRestartDialogs();
+
                 break;
             case R.id.switch_video:
                 settingManager.setDrivingStopVedio(!settingManager.getDrivingStopVedio());
@@ -146,6 +147,36 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                 settingManager.setIsNeedKeySound(!settingManager.getIsNeedkeySound());
                 break;
         }
+    }
+
+    private void showRestartDialogs() {
+        final Dialog dialog = new Dialog(getContext(), R.style.record_voice_dialog);
+        dialog.setContentView(R.layout.dialog_reset);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.setCancelable(true);
+        Button connect = (Button) dialog.findViewById(R.id.btn_connect_btn);
+        TextView TextView = (TextView) dialog.findViewById(R.id.text_name_dialog);
+        TextView.setText(getResources().getString(R.string.dialog_tab_restart));
+        Button cancel = (Button) dialog.findViewById(R.id.btn_cancel);
+        View.OnClickListener buttonListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (view.getId()) {
+                    case R.id.btn_connect_btn:
+                        showRestartDialog();
+                        dialog.dismiss();
+                        break;
+                    case R.id.btn_cancel:
+                        dialog.dismiss();
+                        break;
+                }
+            }
+        };
+        connect.setOnClickListener(buttonListener);
+        cancel.setOnClickListener(buttonListener);
+
+        dialog.show();
+        setDialogParam(dialog, 500, 316);
     }
 
     private void reboot() {
