@@ -75,7 +75,6 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     private boolean isDisCovering;
     private boolean isBTon;
     private String tvBlutName;
-    private boolean hidden = false;
     BluetoothSettingManager bluetoothManager;
     private final static int BT_SETTING_PAIR = 1;
     private final static int BT_SETTING_UNPAIR = 2;
@@ -95,14 +94,10 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     public void onResume() {
         super.onResume();
         Log.w("BluetoothFragment", "onResume");
-        if (!hidden) {
-            Log.w("BluetoothFragment", "onResumes");
-            bluetoothManager.registerBTSettingListener(this);
-            tvBlutName = mPresenter.getBlutoothName().replaceAll(" ", "");
-            tvBtName.setText(tvBlutName);
-            Log.d(TAG, "onResume:" + tvBlutName);
-            bluetoothManager.getBondDevice();
-        }
+        tvBlutName = bluetoothManager.getBTName().replaceAll(" ", "");
+        tvBtName.setText(tvBlutName);
+        Log.w(TAG, "onResumeName:" + tvBlutName);
+        bluetoothManager.getBondDevice();
 
     }
 
@@ -122,24 +117,8 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
 
     @Override
     public void onDestroy() {
-
         super.onDestroy();
         Log.w("BluetoothFragment", "onDestroy");
-    }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        this.hidden = hidden;
-        Log.w("BluetoothFragment", "onHiddenChanged");
-        if (!hidden) {
-            Log.w("BluetoothFragment", "onHiddenChangeds");
-            bluetoothManager.registerBTSettingListener(this);
-            tvBlutName = mPresenter.getBlutoothName().replaceAll(" ", "");
-            Log.d(TAG, "onHiddenChanged:" + tvBlutName);
-            tvBtName.setText(tvBlutName);
-            bluetoothManager.getBondDevice();
-        }
     }
 
     @Override
@@ -171,8 +150,6 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
             tvDelAll.setOnClickListener(this);
             tvBtName.setOnClickListener(this);
             tvSearch.setOnClickListener(this);
-//            mPresenter.setBlutoothName("hknmnc");
-//            tvBtName.setText(mPresenter.getBlutoothName());
         }
     }
 
@@ -189,14 +166,12 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         Log.w("BluetoothFragment", "initData");
-        bluetoothManager = BluetoothSettingManager.getBluetoothSettingManager(getContext());
+        bluetoothManager = BluetoothSettingManager.getBluetoothSettingManager(mActivity);
+        bluetoothManager.registerBTSettingListener(this);
         isBTon = bluetoothManager.isBTOn();
         //  bluetoothManager.
         isDisCovering = bluetoothManager.getBTIsDisCovering();
-        //ivSearch.setImageResource(R.drawable.loading_animation);
-        tvBlutName = mPresenter.getBlutoothName().replaceAll(" ", "");
-        Log.d(TAG, "initData:" + tvBlutName);
-        tvBtName.setText(tvBlutName);
+
      /*   SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
         Boolean first_run = sharedPreferences.getBoolean("Bluetooth", true);
         if (first_run) {
@@ -222,7 +197,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     if (pairedDataListList.size() > 0 && pairedDataListList != null) {
-                        Log.d(TAG, "listViewonItem");
+                        Log.w(TAG, "listViewonItem");
                         String remote_device_macaddr = pairedDataListList.get(i).getRemote_device_macaddr();
                         int status = pairedDataListList.get(i).getRemote_connect_status();
                         if (status == Constants.BLUETOOTH_DEVICE_BONDED) {
@@ -242,7 +217,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
             listAvailable.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Log.d(TAG, "listAvailableonItem");
+                    Log.w(TAG, "listAvailableonItem");
                     if (unPairedDataListList.size() > 0 && unPairedDataListList != null) {
                         if (i < unPairedDataListList.size()) {
                             String remote_device_macaddr = unPairedDataListList.get(i).getRemote_device_macaddr();
@@ -291,7 +266,6 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                 isBTon = !isBTon;
                 if (isBTon) {
                     linearBlue.setVisibility(View.VISIBLE);
-                    //linearSearch.setVisibility(View.VISIBLE);
                     tvClose.setText(R.string.tv_open);
                     mPresenter.openBluetooth();
                     mPresenter.searchPairedList();
@@ -312,7 +286,6 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                                 BluetoothSettingManager.getBluetoothSettingManager(getContext()).removeDevice(deviceData.getRemote_device_macaddr());
                             }
                         }
-                        //pairAdapter.notifyDataSetChanged();
                     }
                 }, 100);
 
@@ -345,7 +318,9 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         if (settingDialog == null) {
             settingDialog = new SettingDialog(getActivity(), R.style.AlertDialogCustom);
         }
-        settingDialog.setEditText(mPresenter.getBlutoothName().trim());
+        String s = tvBlutName.replaceAll(" ", "");
+        Log.w(TAG, "s:" + s);
+        settingDialog.setEditText(s);
         settingDialog.setCanelOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -355,18 +330,15 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         settingDialog.setEditOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String editText = settingDialog.getEditText().trim();
-                String replaceAll = editText.replaceAll(" ", "");
-                if (TextUtils.isEmpty(replaceAll)) {
+                String editText = settingDialog.getEditText().replaceAll(" ", "");
+                Log.w(TAG, "set1111:" + editText);
+                if (TextUtils.isEmpty(editText)) {
                     ToastUtil.ShowToast(mActivity, getString(R.string.tv_setting_update_name));
                 } else {
                     settingDialog.dismiss();
-                    mPresenter.setBlutoothName(editText);
-                    Log.d(TAG, "edit:" + editText);
-                    tvBtName.setText(mPresenter.getBlutoothName().replaceAll(" ", ""));
-                    Log.d(TAG, "set:" + mPresenter.getBlutoothName().replaceAll(" ", ""));
+                    bluetoothManager.setBTName(editText);
+                    tvBtName.setText(editText);
                 }
-
             }
         });
         settingDialog.show();
@@ -385,7 +357,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
 
     @Override
     public void onNotifyOnUpdateUIPairedList(final List<BluetoothDeviceData> list) {
-        Log.d(TAG, "UIlist.size():" + list.size());
+        Log.w(TAG, "UIlist.size():" + list.size());
         this.pairedDataListList = new ArrayList<>(list);
         handler.sendEmptyMessage(BT_SETTING_PAIR);
 //        handler.removeMessages(BT_SETTING_PAIR);
@@ -394,7 +366,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
 
     @Override
     public void onNotifyOnUpdateUIUnpairedList(final List<BluetoothDeviceData> list) {
-        Log.d(TAG, "UNlist.size():" + list.size());
+        Log.w(TAG, "UNlist.size():" + list.size());
         this.unPairedDataListList = new ArrayList<>(list);
         handler.sendEmptyMessage(BT_SETTING_UNPAIR);
 //        handler.removeMessages(BT_SETTING_UNPAIR);

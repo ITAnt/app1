@@ -84,10 +84,6 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         if (!bluetoothRequestFocus.isNeedGainFocus()) {
             bluetoothRequestFocus.requestAudioFocus();
         }
-//        bluetoothManager.setPlayerState(true);
-//        if (!isPlay) {
-//            bluetoothManager.play();
-//        }
         registerMediaSession = new RegisterMediaSession(this, bluetoothManager);
         registerMediaSession.requestMediaButton();
         super.onStart();
@@ -98,7 +94,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         super.onResume();
         Log.d("MusicActivity", "onResume");
         bluetoothManager.setBTConnectStatusListener(this);
-        isConnect = bluetoothManager.isConnect();
+        isConnect = bluetoothRequestFocus.isBTConnect();
         isResume = true;
         if (!isConnect) {
             showDialog();
@@ -135,16 +131,11 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     protected void onPause() {
         super.onPause();
         isResume = false;
-        ToastUtil.cancleMyToast();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        if (isPlay) {
-//            bluetoothManager.pause();
-//        }
-//        bluetoothManager.unRegisterBTMusicListener();
         bluetoothRequestFocus.HandPaused = true;
         bluetoothRequestFocus.releaseAudioFocus();
         registerMediaSession.releaseMediaButton();
@@ -251,18 +242,35 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
             case BluetoothManager.MUSIC_STATE_PLAY:
                 ivPlay.setImageResource(R.drawable.music_pause_selector);
                 isPlay = true;
-                if (!bluetoothRequestFocus.isNeedGainFocus() && isResume) {
-                    Log.d("MusicActivity", "BluetoothManager.MUSIC_STATE_PLAY");
-                    bluetoothRequestFocus.requestAudioFocus();
-                }
                 circleImageView.setAnimatePlaying(isPlay);
-                bluetoothManager.setPlayerState(true);
+                if (!bluetoothRequestFocus.getPlayStatus()) {
+                    bluetoothRequestFocus.setBTPlayStatus(true);
+                }
                 break;
             case BluetoothManager.MUSIC_STATE_PAUSE:
             case BluetoothManager.MUSIC_STATE_STOP:
                 ivPlay.setImageResource(R.drawable.music_play_selector);
                 isPlay = false;
                 circleImageView.setAnimatePlaying(isPlay);
+                switch (bluetoothRequestFocus.getCurrentBTStatus()) {
+                    case BluetoothRequestFocus.BT_INIT:
+                    case BluetoothRequestFocus.BT_FOCUSE_GAIN:
+                        if (bluetoothRequestFocus.isBTConnect()) {
+                            bluetoothRequestFocus.btMusicPlay();
+                            bluetoothRequestFocus.setCurrentBTStatus(BluetoothRequestFocus.BT_IDL);
+                        }
+                        break;
+                    case BluetoothRequestFocus.BT_FOCUSE_LOSS:
+                        bluetoothRequestFocus.setCurrentBTStatus(BluetoothRequestFocus.BT_IDL);
+                        finish();
+                        break;
+                    case BluetoothRequestFocus.BT_FOCUSE_LOSS_TRANSIENT:
+                        break;
+                    case BluetoothRequestFocus.BT_FOCUSE_TRANSIENT_CAN_DUCK:
+                        break;
+                    case BluetoothRequestFocus.BT_NONE:
+                        break;
+                }
                 break;
         }
         if (song_len == 0) {
@@ -377,26 +385,28 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
 
     @Override
     public void onClick(View view) {
-        if (!bluetoothManager.isConnect()) {
-            ToastUtil.ShowToast(getString(R.string.tv_bt_connect_is_close));
+        if (!bluetoothRequestFocus.isBTConnect()) {
+            ToastUtil.ShowToast(MusicActivity.this, getString(R.string.tv_bt_connect_is_close));
             return;
         }
         switch (view.getId()) {
             case R.id.iv_music_pre:
-                bluetoothManager.prev();
+                bluetoothRequestFocus.btMusicPre();
                 break;
             case R.id.iv_music_next:
-                bluetoothManager.next();
+                bluetoothRequestFocus.btMusicNext();
                 break;
             case R.id.iv_music_play:
                 if (isPlay) {
                     Log.d("MusicActivity", "iv_music_play111:" + isPlay);
-                    bluetoothManager.pause();
+                    bluetoothRequestFocus.btMusicPause();
                     bluetoothRequestFocus.HandPaused = true;
                 } else {
                     Log.d("MusicActivity", "iv_music_play222:" + isPlay);
-                    bluetoothManager.play();
-                    bluetoothManager.setPlayerState(true);
+                    bluetoothRequestFocus.btMusicPlay();
+                    if (!bluetoothRequestFocus.getPlayStatus()) {
+                        bluetoothRequestFocus.setBTPlayStatus(true);
+                    }
                 }
                 circleImageView.setAnimatePlaying(isPlay);
                 break;
@@ -417,6 +427,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
 
     }
 
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -437,15 +448,13 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                                 e.printStackTrace();
                             }
                             Log.d("MusicActivity", "Constants.BT_CONNECT_IS_CONNECTED");
-                            bluetoothManager.play();
-                            bluetoothManager.setPlayerState(true);
+                            bluetoothRequestFocus.btMusicPlay();
                             isPlay = true;
                             circleImageView.setAnimatePlaying(isPlay);
                         }
                         saveConnect = obj;
                     } else if (obj != Constants.BT_CONNECT_IS_CONNECTED && saveConnect == Constants.BT_CONNECT_IS_CONNECTED) {
                         Log.d("MMM", "releaseAudioFocus:" + isResume);
-                        bluetoothRequestFocus.releaseAudioFocus();
                         saveConnect = obj;
                         isPlay = false;
                         circleImageView.setAnimatePlaying(isPlay);
