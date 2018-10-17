@@ -13,15 +13,17 @@ import java.util.List;
  */
 public interface RadioModel extends Model {
 
-    List<RadioStation> initText(int band, int mLocation);
+    List<RadioStation> initText(int band, int mLocation,boolean first_run);
 
     void Replace(RadioStation radioStations, RadioStation radioStation);
 
     RadioStation select(int i, Integer tag ,int mLocation);
-
+    void select(Integer tag, int mLocation);
     void Change(int frequency, int mFreq, int mLocation);
 
     void processAndSave(ArrayList<RadioStation> mScanResultList, int mBand ,int mLocation);
+
+    void Change(List<RadioStation> radioStations);
 
     interface Callback {
 

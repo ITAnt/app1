@@ -1,6 +1,7 @@
 package com.ancar.suspension.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import java.util.List;
 public class FloatAdapter extends BaseAdapter {
     private Context context;
     private List<FloatEntry> floatEntryList;
+    private int defaultSelection = -1;
 
     public FloatAdapter(Context context, List<FloatEntry> data) {
         this.context = context;
@@ -58,6 +60,11 @@ public class FloatAdapter extends BaseAdapter {
         }
         viewHolder.imageView.setImageResource(floatEntry.getIcon());
         viewHolder.textView.setText(floatEntry.getTitle());
+        if (position == defaultSelection) {
+            convertView.setBackgroundColor(context.getResources().getColor(R.color.bgSelected));
+        } else {
+            convertView.setBackgroundColor(Color.TRANSPARENT);
+        }
 
         return convertView;
     }
@@ -67,4 +74,10 @@ public class FloatAdapter extends BaseAdapter {
         private TextView textView;
     }
 
+    public void setSelectPostion(int position) {
+        if (!(position < 0 || position > floatEntryList.size())) {
+            defaultSelection = position;
+            notifyDataSetChanged();
+        }
+    }
 }

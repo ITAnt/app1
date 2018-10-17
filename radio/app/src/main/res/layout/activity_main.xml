@@ -9,10 +9,11 @@
     <LinearLayout
 
         android:layout_width="match_parent"
-        android:layout_height="365px">
+        android:layout_height="wrap_content">
 
         <FrameLayout
-            android:layout_width="255px"
+            android:layout_marginLeft="-80dp"
+            android:layout_width="305px"
             android:layout_height="match_parent">
             <!--     <ImageView
                      android:layout_gravity="center"
@@ -20,7 +21,9 @@
                      android:layout_height="wrap_content"
                    />-->
 
+
             <RelativeLayout
+                android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|right"
@@ -31,34 +34,35 @@
                     android:id="@+id/txt_channel_list_one"
                     android:layout_width="120px"
                     android:layout_height="70px"
-                    android:layout_marginLeft="42px"
-                    android:layout_marginTop="10px"
+                    android:layout_marginLeft="32px"
                     android:gravity="center"
                     android:text="87.65"
+                    android:layout_marginTop="5px"
                     android:textColor="#fff"
-                    android:textSize="28px" />
+                    android:textSize="30px" />
 
                 <TextView
                     android:id="@+id/txt_channel_list_two"
                     android:layout_width="120px"
                     android:layout_height="70px"
                     android:layout_below="@+id/txt_channel_list_one"
-                    android:layout_marginLeft="32px"
+                    android:layout_marginLeft="22px"
                     android:gravity="center"
                     android:text="90.00"
                     android:textColor="#fff"
-                    android:textSize="28px" />
+                    android:textSize="30px" />
 
                 <TextView
+                    android:layout_marginBottom="50px"
                     android:id="@+id/txt_channel_list_three"
                     android:layout_width="120px"
                     android:layout_height="70px"
                     android:layout_below="@+id/txt_channel_list_two"
-                    android:layout_marginLeft="32px"
+                    android:layout_marginLeft="22px"
                     android:gravity="center"
                     android:text="90.00"
                     android:textColor="#fff"
-                    android:textSize="28px" />
+                    android:textSize="30px" />
             </RelativeLayout>
         </FrameLayout>
 
@@ -89,12 +93,13 @@
 
                 <TextView
                     android:id="@+id/txt_channel"
-                    android:layout_width="190px"
+                    android:layout_width="300px"
+                    android:gravity="center"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:textColor="#fff"
-                    android:textSize="60px" />
+                    android:textSize="70px" />
 
                 <TextView
                     android:id="@+id/txt_unit"
@@ -102,21 +107,23 @@
                     android:layout_height="wrap_content"
                     android:layout_alignRight="@id/txt_channel"
                     android:layout_below="@+id/txt_channel"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="55px"
                     android:layout_marginTop="5dp"
                     android:text="@string/unit_khz"
                     android:textColor="#fff"
-                    android:textSize="30px" />
+                    android:textSize="35px" />
 
                 <TextView
                     android:id="@+id/txt_band"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@id/txt_channel"
-                    android:layout_marginTop="120px"
+                    android:layout_marginTop="110px"
+                    android:layout_marginLeft="50px"
                     android:text="@string/fm1"
                     android:textColor="#fff"
-                    android:textSize="30px" />
+                    android:layout_marginBottom="10dp"
+                    android:textSize="35px" />
             </RelativeLayout>
 
             <LinearLayout
@@ -127,15 +134,16 @@
 
                 <ImageView
                     android:id="@+id/img_original"
-                    android:layout_width="354px"
-                    android:layout_height="354px"
+                    android:layout_width="400px"
+                    android:layout_height="400px"
                     android:layout_gravity="center"
-                    android:background="@mipmap/bg_radio_center" />
+                    android:src="@mipmap/bg_radio_center" />
             </LinearLayout>
         </FrameLayout>
 
         <FrameLayout
-            android:layout_width="255px"
+            android:layout_marginRight="-80dp"
+            android:layout_width="305px"
             android:layout_height="match_parent"
             android:layout_gravity="right">
 
@@ -146,7 +154,7 @@
                     android:id="@+id/txt_st"
                     android:layout_marginTop="20px"
                     android:layout_alignParentTop="true"
-                    android:layout_marginRight="40px"
+                    android:layout_marginRight="120px"
                     android:background="@drawable/cbb_bg_n"
                     android:text="@string/ST"
                     android:gravity="center"
@@ -175,7 +183,7 @@
                     android:gravity="center"
                     android:text="87.65"
                     android:textColor="#fff"
-                    android:textSize="28px" />
+                    android:textSize="30px" />
 
                 <TextView
                     android:id="@+id/txt_channel_list_fives"
@@ -186,7 +194,7 @@
                     android:gravity="center"
                     android:text="90.00"
                     android:textColor="#fff"
-                    android:textSize="28px" />
+                    android:textSize="30px" />
 
                 <TextView
                     android:id="@+id/txt_channel_list_six"
@@ -196,7 +204,7 @@
                     android:layout_marginLeft="32px"
                     android:gravity="center"
                     android:textColor="#fff"
-                    android:textSize="28px" />
+                    android:textSize="30px" />
             </RelativeLayout>
         </FrameLayout>
 
@@ -210,24 +218,96 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="255px"
-            android:layout_marginRight="255px">
-
-            <com.jancar.radio.widget.RuleView
-                android:id="@+id/gv_1"
+            android:layout_marginLeft="155px"
+            android:layout_marginRight="155px">
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                app:gv_gradationGap="12px"
-                app:gv_longGradationLen="26px"
-                app:gv_shortGradationLen="15px"
-                app:zjun_bgColor="#000"
-                app:zjun_textColor="#fff"
-                app:zjun_textSize="16px" />
+                android:layout_height="60dp">
+                <com.jancar.radio.widget.RuleView
+                    android:id="@+id/gv_1_one"
+                    android:layout_marginRight="18px"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    app:gv_gradationGap="18px"
+                    app:gv_longGradationLen="26px"
+                    app:gv_shortGradationLen="15px"
+                    app:gv_currentValue="1051.2"
+                    app:gv_maxValue="1693.8"
+                    app:gv_minValue="439.2"
+                    app:gv_gradationUnit="30.6"
+                    app:gv_numberPerCount="5"
+                    app:gv_b="false"
+                    app:gv_d="false"
+                    app:zjun_bgColor="#000"
+                    app:zjun_textColor="#fff"
+                    app:zjun_textSize="16px" />
+                <com.jancar.radio.widget.RuleView
+                    app:gv_currentValue="1043.6"
+                    app:gv_maxValue="1681.2"
+                    app:gv_minValue="430.2"
+                    app:gv_gradationUnit="30.6"
+                    app:gv_numberPerCount="5"
+                    app:gv_b="false"
+                    app:gv_d="true"
+                    android:id="@+id/gv_1_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="18px"
+                    app:gv_gradationGap="18px"
+                    app:gv_longGradationLen="26px"
+                    app:gv_shortGradationLen="15px"
+                    app:zjun_bgColor="#000"
+                    app:zjun_textColor="#fff"
+                    app:zjun_textSize="16px" />
+                <com.jancar.radio.widget.RuleView
+                    app:gv_currentValue="1098"
+                    app:gv_maxValue="1812"
+                    app:gv_minValue="418"
+                    app:gv_gradationUnit="34"
+                    app:gv_numberPerCount="5"
+                    app:gv_b="true"
+                    app:gv_d="false"
+                    android:id="@+id/gv_1_three"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    app:gv_gradationGap="18px"
+                    app:gv_longGradationLen="26px"
+                    app:gv_shortGradationLen="15px"
+                    android:layout_marginRight="18px"
+                    app:zjun_bgColor="#000"
+                    app:zjun_textColor="#fff"
+                    app:zjun_textSize="16px" />
+                <com.jancar.radio.widget.RuleView
+                    app:gv_currentValue="97.2"
+                    app:gv_maxValue="109.8"
+                    app:gv_minValue="84.6"
+                    app:gv_gradationUnit=" 0.6"
+                    app:gv_numberPerCount="5"
+                    app:gv_b="false"
+                    app:gv_d="false"
+                    android:id="@+id/gv_1_four"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    app:gv_gradationGap="18px"
+                    app:gv_longGradationLen="26px"
+                    app:gv_shortGradationLen="15px"
+                    app:zjun_bgColor="#000"
+                    android:layout_marginRight="18px"
+                    app:zjun_textColor="#fff"
+                    app:zjun_textSize="16px" />
+
+            </FrameLayout>
+
+
             <ImageView
-                android:src="@mipmap/line"
+                android:scaleType="centerCrop"
+                android:background="@mipmap/line"
                 android:layout_marginTop="50px"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent" />
             <SeekBar
                 android:id="@+id/FMFreqSeekBar"

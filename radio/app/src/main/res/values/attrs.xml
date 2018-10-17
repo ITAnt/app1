@@ -42,12 +42,15 @@
         <attr name="gv_minValue" format="reference|float" />
         <!--最大值-->
         <attr name="gv_maxValue" format="reference|float" />
+        <attr name="gv_b" format="boolean" />
+        <attr name="gv_d" format="boolean" />
         <!--当前值-->
         <attr name="gv_currentValue" format="reference|float" />
         <!--刻度最小单位-->
         <attr name="gv_gradationUnit" format="reference|float" />
         <!--需要绘制数值之间的最小单位个数-->
         <attr name="gv_numberPerCount" format="reference|integer" />
+
         <!--刻度间距离-->
         <attr name="gv_gradationGap" format="reference|dimension" />
         <!--刻度与文字的间距-->

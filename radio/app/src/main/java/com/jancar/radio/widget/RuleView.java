@@ -228,9 +228,11 @@ public class RuleView extends View {
         indicatorLineLen = ta.getDimension(R.styleable.RuleView_gv_indicatorLineLen, dp2px(35f));
         minValue = ta.getFloat(R.styleable.RuleView_gv_minValue, 0f);
         maxValue = ta.getFloat(R.styleable.RuleView_gv_maxValue, 100f);
+        d = ta.getBoolean(R.styleable.RuleView_gv_d, false);
+        b = ta.getBoolean(R.styleable.RuleView_gv_b, false);
         currentValue = ta.getFloat(R.styleable.RuleView_gv_currentValue, 50f);
         gradationUnit = ta.getFloat(R.styleable.RuleView_gv_gradationUnit, .1f);
-        numberPerCount = ta.getInt(R.styleable.RuleView_gv_numberPerCount, 10);
+        numberPerCount = ta.getInt(R.styleable.RuleView_gv_numberPerCount, 5);
         gradationGap = ta.getDimension(R.styleable.RuleView_gv_gradationGap, dp2px(10));
         gradationNumberGap = ta.getDimension(R.styleable.RuleView_gv_gradationNumberGap, dp2px(8));
         ta.recycle();
@@ -477,6 +479,12 @@ public class RuleView extends View {
                 final float textWidth = mTextPaint.measureText(text);
                 if (d) {
                     switch (text) {
+                        case "675":
+                            text = "684";
+                            break;
+                        case "828":
+                            text = "837";
+                            break;
                         case "981":
                             text = "990";
                             break;

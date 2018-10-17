@@ -43,16 +43,7 @@
             </intent-filter>
 
         </activity>
-        <activity
-            android:name=".view.CommunicateActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape"
-            android:theme="@style/Animation" />
-        <activity
-            android:name=".view.SettingActivity"
-            android:screenOrientation="landscape" />
 
-        <!--android:launchMode="singleTask"-->
         <activity
             android:name=".view.MusicActivity"
             android:icon="@mipmap/ic_music"

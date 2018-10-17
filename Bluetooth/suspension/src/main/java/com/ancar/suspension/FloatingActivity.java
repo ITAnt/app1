@@ -48,6 +48,7 @@ public class FloatingActivity extends FragmentActivity implements View.OnClickLi
     private String pos_title_2;
     private String pos_title_3;
     private String pos_title_4;
+    private int selectPos;
 
 
     @Override
@@ -67,11 +68,15 @@ public class FloatingActivity extends FragmentActivity implements View.OnClickLi
         pos_title_2 = Hawk.get(Contacts.ICON_POS_2, getResources().getString(R.string.tv_vioce_add));
         pos_title_3 = Hawk.get(Contacts.ICON_POS_3, getResources().getString(R.string.tv_vioce_dec));
         pos_title_4 = Hawk.get(Contacts.ICON_POS_4, getResources().getString(R.string.tv_back));
+        selectPos = Hawk.get(Contacts.SELECT_POS, 0);
+        indexIcon = Hawk.get(Contacts.TAB_POS, ICON_POWER);
         setImageRes(pos_title_0, ivPower);
         setImageRes(pos_title_1, ivHome);
         setImageRes(pos_title_2, ivAdd);
         setImageRes(pos_title_3, ivDec);
         setImageRes(pos_title_4, ivBack);
+        changeIconBg(indexIcon);
+        adapter.setSelectPostion(selectPos);
     }
 
     @Override
@@ -82,6 +87,8 @@ public class FloatingActivity extends FragmentActivity implements View.OnClickLi
         Hawk.put(Contacts.ICON_POS_2, pos_title_2);
         Hawk.put(Contacts.ICON_POS_3, pos_title_3);
         Hawk.put(Contacts.ICON_POS_4, pos_title_4);
+        Hawk.put(Contacts.SELECT_POS, selectPos);
+        Hawk.put(Contacts.TAB_POS, indexIcon);
     }
 
     @Override
@@ -92,32 +99,6 @@ public class FloatingActivity extends FragmentActivity implements View.OnClickLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-    }
-
-    private void changeIconBg(int indexIcon) {
-        ivPower.setSelected(false);
-        ivHome.setSelected(false);
-        ivAdd.setSelected(false);
-        ivDec.setSelected(false);
-        ivBack.setSelected(false);
-        switch (indexIcon) {
-            case ICON_POWER:
-                ivPower.setSelected(true);
-                break;
-            case ICON_HOME:
-                ivHome.setSelected(true);
-                break;
-            case ICON_VOICE_ADD:
-                ivAdd.setSelected(true);
-                break;
-            case ICON_VOICE_RED:
-                ivDec.setSelected(true);
-                break;
-            case ICON_BACK:
-                ivBack.setSelected(true);
-                break;
-
-        }
     }
 
 
@@ -161,9 +142,12 @@ public class FloatingActivity extends FragmentActivity implements View.OnClickLi
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(FloatingActivity.this, "position:" + position, Toast.LENGTH_SHORT).show();
-                String title = entryList.get(position).getTitle();
-                updateIcon(title);
+                if (entryList.size() > 0 && entryList != null) {
+                    adapter.setSelectPostion(position);
+                    selectPos = position;
+                    String title = entryList.get(position).getTitle();
+                    updateIcon(title);
+                }
             }
         });
     }
@@ -219,30 +203,35 @@ public class FloatingActivity extends FragmentActivity implements View.OnClickLi
                 if (indexIcon != ICON_POWER) {
                     changeIconBg(ICON_POWER);
                 }
+                updataListPos(pos_title_0);
                 indexIcon = ICON_POWER;
                 break;
             case R.id.iv_home:
                 if (indexIcon != ICON_HOME) {
                     changeIconBg(ICON_HOME);
                 }
+                updataListPos(pos_title_1);
                 indexIcon = ICON_HOME;
                 break;
             case R.id.iv_add:
                 if (indexIcon != ICON_VOICE_ADD) {
                     changeIconBg(ICON_VOICE_ADD);
                 }
+                updataListPos(pos_title_2);
                 indexIcon = ICON_VOICE_ADD;
                 break;
             case R.id.iv_dec:
                 if (indexIcon != ICON_VOICE_RED) {
                     changeIconBg(ICON_VOICE_RED);
                 }
+                updataListPos(pos_title_3);
                 indexIcon = ICON_VOICE_RED;
                 break;
             case R.id.iv_back:
                 if (indexIcon != ICON_BACK) {
                     changeIconBg(ICON_BACK);
                 }
+                updataListPos(pos_title_4);
                 indexIcon = ICON_BACK;
                 break;
             case R.id.iv_float_switch:
@@ -255,6 +244,40 @@ public class FloatingActivity extends FragmentActivity implements View.OnClickLi
                     stopService(new Intent(FloatingActivity.this, OverlayMenuService.class));
                 }
                 break;
+        }
+    }
+
+    private void changeIconBg(int indexIcon) {
+        ivPower.setSelected(false);
+        ivHome.setSelected(false);
+        ivAdd.setSelected(false);
+        ivDec.setSelected(false);
+        ivBack.setSelected(false);
+        switch (indexIcon) {
+            case ICON_POWER:
+                ivPower.setSelected(true);
+                break;
+            case ICON_HOME:
+                ivHome.setSelected(true);
+                break;
+            case ICON_VOICE_ADD:
+                ivAdd.setSelected(true);
+                break;
+            case ICON_VOICE_RED:
+                ivDec.setSelected(true);
+                break;
+            case ICON_BACK:
+                ivBack.setSelected(true);
+                break;
+        }
+    }
+
+    private void updataListPos(String title) {
+        for (int i = 0; i < entryList.size(); i++) {
+            if (title.equals(entryList.get(i).getTitle())) {
+                selectPos = i;
+                adapter.setSelectPostion(selectPos);
+            }
         }
     }
 }

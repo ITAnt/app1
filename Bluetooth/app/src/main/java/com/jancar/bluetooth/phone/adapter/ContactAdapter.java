@@ -2,6 +2,7 @@ package com.jancar.bluetooth.phone.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -40,8 +41,19 @@ public class ContactAdapter extends BaseViewAdapter<BluetoothPhoneBookData> {
         TextView tvName = viewHolder.get(R.id.tv_contact_name);
         TextView tvNumber = viewHolder.get(R.id.tv_contact_number);
         View view = viewHolder.get(R.id.content_framelayout);
-        tvName.setText(obj.getPhoneName());
-        tvNumber.setText(obj.getPhoneNumber());
+        String phoneName = obj.getPhoneName();
+        String phoneNumber = obj.getPhoneNumber();
+        if (!TextUtils.isEmpty(phoneName)) {
+            tvName.setText(obj.getPhoneName());
+        } else {
+            tvName.setText(mContext.getResources().getString(R.string.str_phone_name));
+        }
+        if (!TextUtils.isEmpty(phoneNumber)) {
+            tvNumber.setText(obj.getPhoneNumber());
+        } else {
+            tvNumber.setText(mContext.getResources().getString(R.string.str_phone_name));
+        }
+
         if (position == defaultSelection) {
             view.setBackgroundColor(mContext.getResources().getColor(R.color.bgSelected));
         } else {

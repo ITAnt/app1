@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -26,8 +27,10 @@ import com.jancar.bluetooth.lib.BluetoothPhoneClass;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.util.AnimationUtils;
 import com.jancar.bluetooth.phone.util.TimeUtil;
+import com.jancar.prompt.PromptController;
 import com.jancar.state.JacState;
 
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -123,6 +126,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d(TAG, "onStartCommand");
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -138,74 +142,59 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
             @Override
             public void OnCallEx(eCallState eState, String number) {
                 super.OnCallEx(eState, number);
-                Log.d("BTUIService", "isShowPhone:" + isShowPhone);
                 mCallType = eState.nativeInt;
                 mCallNumber = number;
+                Log.e(TAG, "OnCallEx isShowPhone==" + isShowPhone + "eState==" + eState);
                 if (eState != eCallState.eCall_Idle && eState != eCallState.eCall_Terminated) {
                     if (!isShowPhone) {
-                        showView();
+                        jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_SHOW);
                     }
-                    updataView(mCallType, mCallNumber);
                 }
-            }
-
-            @Override
-            public void OnGpsVisable(boolean bState) {
-                super.OnGpsVisable(bState);
-                if (bState) {
-                    isFull = false;
-                } else {
-                    isFull = true;
-                }
-                if (saveIsFull != isFull && isShowPhone) {
-                    if (isFull) {
-                        if (saveView != null && saveView == haifView) {
-                            mWindowManager.removeViewImmediate(haifView);
-                            mWindowManager.addView(phoneView, mLayoutParams);
-                            saveView = phoneView;
-                        }
-                    } else {
-                        if (saveView != null && saveView == phoneView) {
-                            mWindowManager.removeViewImmediate(phoneView);
-                            mWindowManager.addView(haifView, mLayoutParams1);
-                            saveView = haifView;
-                        }
-                    }
-                    updataView(mCallType, mCallNumber);
-                    saveIsFull = isFull;
-                }
-            }
-
-            @Override
-            public void OnBackCar(boolean bState) {
-                super.OnBackCar(bState);
-                if (bState) {
-                    isFull = false;
-                } else {
-                    isFull = true;
-                }
-                if (saveIsFull != isFull && isShowPhone) {
-                    if (isFull) {
-                        if (saveView != null && saveView == haifView) {
-                            mWindowManager.removeViewImmediate(haifView);
-                            mWindowManager.addView(phoneView, mLayoutParams);
-                            saveView = phoneView;
-                        }
-                    } else {
-                        if (saveView != null && saveView == phoneView) {
-                            mWindowManager.removeViewImmediate(phoneView);
-                            mWindowManager.addView(haifView, mLayoutParams1);
-                            saveView = haifView;
-                        }
-                    }
-                    updataView(mCallType, mCallNumber);
-                }
-                saveIsFull = isFull;
             }
         };
         jancarServer = (JancarServer) getSystemService(JancarServer.JAC_SERVICE);
         jancarServer.registerJacStateListener(jacState.asBinder());
+        jancarServer.registerPrompt(promptController.asBinder());
     }
+
+    PromptController promptController = new PromptController(PromptController.DisplayType.DT_PHONE) {
+        @Override
+        public void show(boolean bMaximize, HashMap<String, Object> map) {
+            super.show(bMaximize, map);
+            isFull = bMaximize;
+            Log.e(TAG, "show==" + isFull);
+            showView();
+            updataView(mCallType, mCallNumber);
+        }
+
+        @Override
+        public void hide(HashMap<String, Object> map) {
+            super.hide(map);
+            destroyView();
+        }
+
+        @Override
+        public void update(boolean bMaximize, HashMap<String, Object> map) {
+            super.update(bMaximize, map);
+            Log.e(TAG, "update" + bMaximize);
+            isFull = bMaximize;
+            if (isShowPhone) {
+                if (isFull) {
+                    mWindowManager.removeViewImmediate(haifView);
+                    mWindowManager.addView(phoneView, mLayoutParams);
+                    saveView = phoneView;
+                    updataScoState(mCallScoState);
+                } else {
+                    Log.e(TAG, "phoneLittileView===");
+                    mWindowManager.removeViewImmediate(phoneView);
+                    mWindowManager.addView(haifView, mLayoutParams1);
+                    saveView = haifView;
+                    updataHalfScoState(mCallScoState);
+                }
+                updataView(mCallType, mCallNumber);
+            }
+        }
+    };
 
 
     @Override
@@ -258,19 +247,10 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
 
                     break;
                 case MSG_BLUETOOTH_DESTROY_VIEW:
-                    destroyView();
-//                    mCallScoState = BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT;
-//                    stopTimer();
-//                    if (isShowPhone) {
-//                        if (isFull) {
-//                            mWindowManager.removeViewImmediate(phoneView);
-//                        } else {
-//                            mWindowManager.removeViewImmediate(haifView);
-//                        }
-//                    }
-//                    isShowPhone = false;
-//                    bluetoothManager.unregisterBTPhoneListener();
-//                    bluetoothManager.unRegisterCallOnKeyEvent();
+//                    destroyView();
+                    if (isShowPhone) {
+                        jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_HIDE);
+                    }
                     break;
 
             }
@@ -278,33 +258,32 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
     };
 
     private void updataScoState(int scoState) {
-        if (scoState == mCallScoState) {
-            return;
-        }
+//        if (scoState == mCallScoState) {
+//            return;
+//        }
+        Log.e(TAG, "updataScoState:" + scoState);
         mCallScoState = scoState;
         if (BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT == mCallScoState) {
-            //车机
-            ivVehicle.setImageResource(R.drawable.iv_commun_p_n);
-            tvVehicle.setText(R.string.calling_vehicle);
-        } else {
-            //手机
-            ivVehicle.setImageResource(R.drawable.iv_commun_c_n);
+            ivVehicle.setImageResource(R.drawable.commun_phone_selector);
             tvVehicle.setText(R.string.calling_phone);
+        } else {
+            ivVehicle.setImageResource(R.drawable.commun_car_selector);
+            tvVehicle.setText(R.string.calling_vehicle);
         }
     }
 
 
     private void updataHalfScoState(int scoState) {
-        if (scoState == mCallScoState) {
-            return;
-        }
+        Log.e(TAG, "updataHalfScoState:" + scoState);
+//        if (scoState == mCallScoState) {
+//            return;
+//        }
         mCallScoState = scoState;
         if (BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT == mCallScoState) {
             //车机状态
             ivHalfCar.setImageResource(R.drawable.iv_commun_half_p);
         } else {
             ivHalfCar.setImageResource(R.drawable.iv_commun_half_c);
-
         }
     }
 
@@ -316,16 +295,19 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         if (isFull) {
             mWindowManager.addView(phoneView, mLayoutParams);
             saveView = phoneView;
+            updataScoState(mCallScoState);
         } else {
             mWindowManager.addView(haifView, mLayoutParams1);
             saveView = haifView;
+            updataHalfScoState(mCallScoState);
         }
+
     }
 
     private void initView() {
         mWindowManager = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         mLayoutParams = new WindowManager.LayoutParams();
-        mLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+        mLayoutParams.type = WindowManager.LayoutParams.TYPE_PRIORITY_PHONE;
         mLayoutParams.format = PixelFormat.RGBA_8888;
         mLayoutParams.flags = WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
         mLayoutParams.gravity = Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL;
@@ -336,11 +318,11 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
 
         // 小屏
         mLayoutParams1 = new WindowManager.LayoutParams();
-        mLayoutParams1.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
+        mLayoutParams1.type = WindowManager.LayoutParams.TYPE_PRIORITY_PHONE;
         mLayoutParams1.format = PixelFormat.RGBA_8888;
         mLayoutParams1.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
         mLayoutParams1.gravity = Gravity.CENTER_HORIZONTAL;
-        mLayoutParams1.width = 400;
+        mLayoutParams1.width = 450;
         mLayoutParams1.height = 140;
         mLayoutParams1.y = -170;
         haifView = LayoutInflater.from(this).inflate(R.layout.activity_communicate_half, null);
@@ -434,15 +416,11 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         stopTimer();
         if (isShowPhone) {
             if (isFull) {
-                if (saveView != null && saveView == phoneView) {
-                    mWindowManager.removeViewImmediate(phoneView);
-                    saveView = null;
-                }
+                mWindowManager.removeViewImmediate(phoneView);
+                saveView = null;
             } else {
-                if (saveView != null && saveView == haifView) {
-                    mWindowManager.removeViewImmediate(haifView);
-                    saveView = null;
-                }
+                mWindowManager.removeViewImmediate(haifView);
+                saveView = null;
             }
         }
         if (saveView != null) {
@@ -556,7 +534,11 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 bluetoothPhoneBookData.setPhoneBookCallType(mCallPhoneType);
                 bluetoothManager.addCallLogList(bluetoothPhoneBookData);
                 stopTimer();
-                destroyView();
+//                destroyView();
+                if (isShowPhone) {
+                    jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_HIDE);
+                }
+                CleanNumberAndHideKey();
         }
     }
 
@@ -637,11 +619,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 startTimer();
                 break;
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_TERMINATED:
-                BluetoothPhoneBookData bluetoothPhoneBookData = new BluetoothPhoneBookData();
-                bluetoothPhoneBookData.setPhoneName(mCallName);
-                bluetoothPhoneBookData.setPhoneNumber(mCallNumber);
-                bluetoothPhoneBookData.setPhoneBookCallType(mCallPhoneType);
-                bluetoothManager.addCallLogList(bluetoothPhoneBookData);
+                saveCallLog();
                 stopTimer();
                 mHandler.sendEmptyMessage(MSG_BLUETOOTH_DESTROY_VIEW);
                 //destroyView();
@@ -704,16 +682,38 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
 
     }
 
+    private void saveCallLog() {
+        BluetoothPhoneBookData bluetoothPhoneBookData = new BluetoothPhoneBookData();
+        bluetoothPhoneBookData.setPhoneName(mCallName);
+        bluetoothPhoneBookData.setPhoneNumber(mCallNumber);
+        bluetoothPhoneBookData.setPhoneBookCallType(mCallPhoneType);
+        bluetoothManager.addCallLogList(bluetoothPhoneBookData);
+    }
+
+    private void CleanNumberAndHideKey() {
+        msgString = null;
+        tvInputNum.setText("");
+        isShowKey = false;
+        if (!isShowKey) {
+            linearInputKey.setVisibility(View.GONE);
+        }
+
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_comm_message_hangup:
                 if (mCallType == BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_INCOMING) {
                     bluetoothManager.rejectCall();
+                    saveCallLog();
                 } else {
                     bluetoothManager.terminateCall();
                 }
-                destroyView();
+                CleanNumberAndHideKey();
+                if (isShowPhone) {
+                    jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_HIDE);
+                }
                 break;
             case R.id.iv_comm_message_voice:
                 if (bluetoothManager.isMicMute()) {
@@ -734,14 +734,16 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 break;
             case R.id.iv_comm_message_vehicle:
                 if (mCallScoState != BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT) {
+                    //手机状态
                     bluetoothManager.switchAudioMode(false);
-                    ivVehicle.setImageResource(R.drawable.iv_commun_c_n);
+                    ivVehicle.setImageResource(R.drawable.commun_car_selector);
+                    tvVehicle.setText(R.string.calling_vehicle);
+                } else {
+                    //车机状态
+                    bluetoothManager.switchAudioMode(true);
+                    ivVehicle.setImageResource(R.drawable.commun_phone_selector);
                     tvVehicle.setText(R.string.calling_phone);
 
-                } else {
-                    bluetoothManager.switchAudioMode(true);
-                    ivVehicle.setImageResource(R.drawable.iv_commun_p_n);
-                    tvVehicle.setText(R.string.calling_vehicle);
                 }
                 break;
             case R.id.iv_comm_message_answer:
@@ -752,22 +754,26 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 break;
             case R.id.iv_commun_half_phone:
                 if (mCallScoState != BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT) {
+                    //手机状态
                     bluetoothManager.switchAudioMode(false);
                     ivHalfCar.setImageResource(R.drawable.iv_commun_half_c);
-
                 } else {
+                    //车机状态
                     bluetoothManager.switchAudioMode(true);
                     ivHalfCar.setImageResource(R.drawable.iv_commun_half_p);
-
                 }
                 break;
             case R.id.iv_commun_half_hang:
                 if (mCallType == BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_INCOMING) {
                     bluetoothManager.rejectCall();
+                    saveCallLog();
                 } else {
                     bluetoothManager.terminateCall();
                 }
-                destroyView();
+                if (isShowPhone) {
+                    jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_HIDE);
+                }
+//                destroyView();
                 break;
             case R.id.item_dial_show_1:
                 getStrKeyNum("1");
@@ -833,5 +839,4 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         }
         tvInputNum.setText(msgString);
     }
-
 }

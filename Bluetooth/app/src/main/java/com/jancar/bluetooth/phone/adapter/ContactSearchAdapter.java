@@ -2,6 +2,7 @@ package com.jancar.bluetooth.phone.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,8 +69,18 @@ public class ContactSearchAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.tvPhone.setText(bookData.getPhoneNumber());
-        viewHolder.tvName.setText(bookData.getPhoneName());
+        String phoneName = bookData.getPhoneName();
+        String phoneNumber = bookData.getPhoneNumber();
+        if (!TextUtils.isEmpty(phoneName)) {
+            viewHolder.tvName.setText(phoneName);
+        } else {
+            viewHolder.tvName.setText(mContext.getResources().getString(R.string.str_phone_name));
+        }
+        if (!TextUtils.isEmpty(phoneNumber)) {
+            viewHolder.tvPhone.setText(phoneNumber);
+        } else {
+            viewHolder.tvPhone.setText(mContext.getResources().getString(R.string.str_phone_name));
+        }
         viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

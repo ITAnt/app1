@@ -14,6 +14,8 @@ import java.lang.reflect.Field;
  * @describe application
  */
 public class BluetoothApplication extends Application {
+
+
     @Override
     public void onCreate() {
         super.onCreate();

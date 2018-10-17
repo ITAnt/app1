@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -19,18 +20,21 @@ import android.widget.RelativeLayout;
 
 import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
+import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.view.fragment.ContactFragment;
 import com.jancar.bluetooth.phone.view.fragment.DialFragment;
 import com.jancar.bluetooth.phone.view.fragment.EquipmentFragment;
 import com.jancar.bluetooth.phone.view.fragment.RecordsFragment;
+import com.jancar.bluetooth.phone.widget.ConnectDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.jancar.bluetooth.phone.util.Constants.BT_CONNECT_IS_NONE;
+
 public class MainActivity extends AppCompatActivity implements BTConnectStatusListener {
-    private static final String TAG = "MainActivity";
     public static final int TAB_DIAL_MANAGER = 1;
     public static final int TAB_CONTACT_MANAGER = 2;
     public static final int TAB_RECORD_MANAGER = 3;
@@ -50,56 +54,76 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
     RelativeLayout recordRelayout;
     @BindView(R.id.tab_statics_manager)
     RelativeLayout equipmentRelaout;
-    private boolean isConnect;
     BluetoothManager bluetoothManager;
+    ConnectDialog connectDialog;
+    boolean isConnect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bluetoothManager = BluetoothManager.getBluetoothManagerInstance(this);
-        isConnect = bluetoothManager.isConnect();
-        if (isConnect) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-            setContentView(R.layout.activity_main);
-            unbinder = ButterKnife.bind(this);
-            initComponent();
-        } else {
-            setTheme(R.style.AlertDialogCustom);
-            setContentView(R.layout.dialog_connect);
-            findViewById(R.id.tv_connect_dialog_yes).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent();
-                    intent.setClassName("com.jancar.settingss", "com.jancar.settings.view.activity.MainActivity");
-                    intent.putExtra("position", 1);
-                    startActivity(intent);
-                    finish();
-                }
-            });
-            findViewById(R.id.tv_connect_dialog_no).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    finish();
-                }
-            });
-        }
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        setContentView(R.layout.activity_main);
+        unbinder = ButterKnife.bind(this);
+        initComponent();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d("MainActivity", "onResume");
         bluetoothManager.setBTConnectStatusListener(this);
+        isConnect = bluetoothManager.isConnect();
+        if (!isConnect) {
+            showDialog();
+        } else {
+            if (connectDialog.isShowing()) {
+                connectDialog.dismiss();
+            }
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (isConnect) {
-            unbinder.unbind();
-        }
+        unbinder.unbind();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        Log.d("MainActivity", "onNewIntent");
+        go2Fragment(MainActivity.indexTab);
+    }
+
+    private void showDialog() {
+        connectDialog.setCanelOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                connectDialog.dismiss();
+            }
+        });
+        connectDialog.go2SettingOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClassName("com.jancar.settingss", "com.jancar.settings.view.activity.MainActivity");
+                intent.putExtra("position", 1);
+                startActivity(intent);
+            }
+        });
+        connectDialog.setCanceledOnTouchOutside(false);
+        connectDialog.setCancelable(false);
+        connectDialog.show();
     }
 
     private void initComponent() {
+        if (connectDialog == null) {
+            connectDialog = new ConnectDialog(this, R.style.AlertDialogCustom);
+        }
+//        String page = getIntent().getStringExtra("page");
+//        if (page.equals(Constants.MAIN_TAB)) {
+//            indexTab = TAB_CONTACT_MANAGER;
+//        }
+        bluetoothManager = BluetoothManager.getBluetoothManagerInstance(this);
         fragmentManager = getSupportFragmentManager();
         go2Fragment(indexTab);
     }
@@ -178,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
         fragmentTransaction.commitAllowingStateLoss();
     }
 
+
     private void changeTabBg(int indexTab) {
         dialRelayout.setSelected(false);
         contactRelayout.setSelected(false);
@@ -186,12 +211,15 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
         switch (indexTab) {
             case TAB_DIAL_MANAGER:
                 dialRelayout.setSelected(true);
+
                 break;
             case TAB_CONTACT_MANAGER:
                 contactRelayout.setSelected(true);
+
                 break;
             case TAB_RECORD_MANAGER:
                 recordRelayout.setSelected(true);
+
                 break;
             case TAB_EQUIPMENT_MANAGER:
                 equipmentRelaout.setSelected(true);
@@ -281,20 +309,34 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
 
     @Override
     public void onNotifyBTConnectStateChange(byte state) {
-        if (state == BluetoothManager.BT_CONNECT_IS_CONNECTED) {
-            Message msg = handler.obtainMessage();
-            msg.what = state;
-            handler.sendMessage(msg);
-        }
+        Message message = new Message();
+        message.what = Constants.CONTACT_BT_CONNECT;
+        message.obj = state;
+        handler.sendMessage(message);
+
     }
 
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what == BluetoothManager.BT_CONNECT_IS_CONNECTED) {
-                finish();
+            switch (msg.what) {
+                case Constants.CONTACT_BT_CONNECT:
+                    //蓝牙状态
+                    byte obj = (byte) msg.obj;
+                    if (obj == BT_CONNECT_IS_NONE) {
+
+                    } else if (obj == Constants.BT_CONNECT_IS_CONNECTED) {
+                        if (connectDialog.isShowing()) {
+                            connectDialog.dismiss();
+                        }
+
+                    } else if (obj == Constants.BT_CONNECT_IS_CLOSE) {
+
+                    }
+                    break;
             }
+
         }
     };
 }

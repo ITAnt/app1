@@ -24,6 +24,5 @@ public class ToastUtil {
         toast.setView(view);
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.show();
-
     }
 }
