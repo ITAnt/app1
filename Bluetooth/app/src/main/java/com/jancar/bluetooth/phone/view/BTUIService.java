@@ -126,6 +126,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d(TAG, "onStartCommand");
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -537,6 +538,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 if (isShowPhone) {
                     jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_HIDE);
                 }
+                CleanNumberAndHideKey();
         }
     }
 
@@ -688,6 +690,16 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         bluetoothManager.addCallLogList(bluetoothPhoneBookData);
     }
 
+    private void CleanNumberAndHideKey() {
+        msgString = null;
+        tvInputNum.setText("");
+        isShowKey = false;
+        if (!isShowKey) {
+            linearInputKey.setVisibility(View.GONE);
+        }
+
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -698,11 +710,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 } else {
                     bluetoothManager.terminateCall();
                 }
-                String s = tvInputNum.getText().toString().replaceAll(" ", "");
-                if (!TextUtils.isEmpty(s)) {
-                    tvInputNum.setText("");
-                }
-//                destroyView();
+                CleanNumberAndHideKey();
                 if (isShowPhone) {
                     jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_HIDE);
                 }

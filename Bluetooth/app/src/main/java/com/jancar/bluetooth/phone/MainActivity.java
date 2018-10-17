@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
     RelativeLayout equipmentRelaout;
     BluetoothManager bluetoothManager;
     ConnectDialog connectDialog;
-    private Intent homeIntent;
     boolean isConnect;
 
     @Override
@@ -92,13 +91,7 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
     @Override
     protected void onNewIntent(Intent intent) {
         Log.d("MainActivity", "onNewIntent");
-        homeIntent = intent;
-        Bundle extras = homeIntent.getExtras();
-        if (extras == null) {
-            return;
-        }
-        indexTab = extras.getInt("indexTab");
-        go2Fragment(indexTab);
+        go2Fragment(MainActivity.indexTab);
     }
 
     private void showDialog() {

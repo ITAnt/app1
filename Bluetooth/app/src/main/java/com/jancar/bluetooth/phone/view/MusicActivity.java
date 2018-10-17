@@ -94,6 +94,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         super.onResume();
         Log.d("MusicActivity", "onResume");
         bluetoothManager.setBTConnectStatusListener(this);
+        bluetoothManager.registerBTMusicListener(this);
         isConnect = bluetoothRequestFocus.isBTConnect();
         isResume = true;
         if (!isConnect) {
@@ -254,6 +255,11 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                 circleImageView.setAnimatePlaying(isPlay);
                 switch (bluetoothRequestFocus.getCurrentBTStatus()) {
                     case BluetoothRequestFocus.BT_INIT:
+                        if(bluetoothRequestFocus.isBTConnect()){
+                            bluetoothRequestFocus.btMusicPlay();
+                            bluetoothRequestFocus.setCurrentBTStatus(BluetoothRequestFocus.BT_IDL);
+                        }
+                        break;
                     case BluetoothRequestFocus.BT_FOCUSE_GAIN:
                         if (bluetoothRequestFocus.isBTConnect()) {
                             bluetoothRequestFocus.btMusicPlay();

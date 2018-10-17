@@ -200,12 +200,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
             bluetoothManager.registerBTPhonebookListener(this);
             bluetoothManager.setBTConnectStatusListener(this);
             isConneView();
-            ThreadUtils.execute(new Runnable() {
-                @Override
-                public void run() {
-                    bluetoothManager.getBTContacts();
-                }
-            });
+            getBTContacts();
         }
     }
 
@@ -215,16 +210,24 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
         this.hidden = hidden;
         if (!hidden) {
             bluetoothManager.registerBTPhonebookListener(this);
-            bluetoothManager.getBTContacts();
+            getBTContacts();
             bluetoothManager.setBTConnectStatusListener(this);
             isConneView();
-//            adapter.setNormalPosition();
-//            searchAdapter.setNormalPosition();
-
+            adapter.setNormalPosition();
+            searchAdapter.setNormalPosition();
         } else {
             bluetoothManager.setBTConnectStatusListener(null);
             bluetoothManager.unRegisterBTPhonebookListener();
         }
+    }
+
+    private void getBTContacts() {
+        ThreadUtils.execute(new Runnable() {
+            @Override
+            public void run() {
+                bluetoothManager.getBTContacts();
+            }
+        });
     }
 
     @Override
@@ -507,15 +510,21 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                     if (!isDownLoding()) {
                         showDialog();
                     } else {
-                        ToastUtil.ShowToast(mActivity,mActivity.getString(R.string.tv_syning_contact));
+                        ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_syning_contact));
                     }
 
                 } else {
-                    ToastUtil.ShowToast(mActivity,mActivity.getString(R.string.tv_bt_connect_is_none));
+                    ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_bt_connect_is_none));
                 }
                 break;
             case R.id.iv_syn_contact:
-                getPresenter().getSynContact();
+                ThreadUtils.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        getPresenter().getSynContact();
+                    }
+                });
+
                 break;
 
             case R.id.contact_search:

@@ -70,9 +70,9 @@ android {
         variant.outputs.all {
             def fileName
             if (variant.buildType.name.equals('release')) {
-                fileName = "${applicationId}_release_${gitSHA}_${gitCommitCount}_${createTime}.apk"
+                fileName = "${getApkPrefixName()}_release_${gitSHA}_${gitCommitCount}_${createTime}.apk"
             } else if (variant.buildType.name.equals('debug')) {
-                fileName = "${applicationId}_debug_${gitSHA}_${gitCommitCount}_${createTime}.apk"
+                fileName = "${getApkPrefixName()}_debug_${gitSHA}_${gitCommitCount}_${createTime}.apk"
             }
             outputFileName = fileName;
         }
@@ -112,6 +112,6 @@ dependencies {
 
 //apk前缀名
 def getApkPrefixName() {
-    return "Bluetooth_"
+    return "Bluetooth"
 }
 
