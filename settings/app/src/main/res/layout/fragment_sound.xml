@@ -247,8 +247,8 @@
 
             <com.jancar.settings.widget.DspBalance
                 android:id="@+id/dsp_balance"
-                android:layout_width="@dimen/px310"
-                android:layout_height="@dimen/px338"
+                android:layout_width="@dimen/px298"
+                android:layout_height="@dimen/px326"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginRight="@dimen/px58"
                 android:layout_marginLeft="@dimen/px58"

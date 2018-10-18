@@ -92,6 +92,7 @@
                     android:src="@drawable/bg_radio_arrow_right" />
 
                 <TextView
+                    android:tag="1"
                     android:id="@+id/txt_channel"
                     android:layout_width="300px"
                     android:gravity="center"

@@ -252,7 +252,6 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                         tiems = 5;
                         if (scheduleds != null) {
                             scheduleds.shutdown();
-                            scheduleds = null;
                         }
                     }
 
@@ -283,7 +282,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                 mJancarManager.abandonKeyFocus(keyFocusListener);
                 if (scheduleds != null) {
                     scheduleds.shutdown();
-                    scheduleds = null;
+
                 }
             }
         }
@@ -301,8 +300,8 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         unbinder = ButterKnife.bind(this);
         mAudioFocusChange = new RadioAudioFocusChange();
         initData();
-        s();
         onDoIntent(getIntent(), false);
+        s();
     }
 
     @SuppressLint("WrongConstant")
@@ -332,9 +331,9 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         bandTxt.setText(mBandAF[Band]);
         EventBus.getDefault().register(this);//订阅
         mFMFreqSeekBar.setOnSeekBarChangeListener(getPresenter());
-
-        getPresenter().initText(Band, mLocation, first_run);
         VarietyBand();
+        getPresenter().initText(Band, mLocation, first_run);
+
         initReceiver();
 
     }
@@ -425,6 +424,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
     int times = 10;
 
     public void s() {
+
         runnables = new Runnable() {
             @Override
             public void run() {
@@ -435,9 +435,20 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                 handler.sendMessage(mMessage);
             }
         };
+        if (scheduled != null) {
+            if (scheduleds.isShutdown()) {
+                scheduleds = new ScheduledThreadPoolExecutor(1);
+                scheduleds.scheduleAtFixedRate(runnables, 0, 1, TimeUnit.SECONDS);
+            } else {
+                scheduleds.shutdown();
+            }
+        } else {
+            scheduleds = new ScheduledThreadPoolExecutor(1);
+            scheduleds.scheduleAtFixedRate(runnables, 0, 1, TimeUnit.SECONDS);
+        }
         //初始化一个线程池大小为 1 的 ScheduledExecutorService
-        scheduleds = new ScheduledThreadPoolExecutor(1);
-        scheduleds.scheduleAtFixedRate(runnables, 0, 1, TimeUnit.SECONDS);
+
+
     }
 
     @Override
@@ -557,7 +568,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         mJancarManager.abandonKeyFocus(keyFocusListener);
         if (scheduleds != null) {
             scheduleds.shutdown();
-            scheduleds = null;
+
         }
     }
 
@@ -679,6 +690,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
 
     int time;
     int pd = 0;
+    int pds = 0;
 
     @OnClick({R.id.txt_channel_list_one, R.id.txt_channel_list_two, R.id.txt_channel_list_three,
             R.id.txt_channel_list_four, R.id.txt_channel_list_fives, R.id.txt_channel_list_six,
@@ -690,7 +702,6 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         }*/
         if (scheduleds != null) {
             scheduleds.shutdown();
-            scheduleds = null;
         }
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
@@ -701,7 +712,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             //mNeedScanStop = false;
         }
         if (isShortSearch) {
-            isShortSearch = false;
+         
             if (scheduled != null) {
                 scheduled.shutdown();
             }
@@ -728,6 +739,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                 getPresenter().select(2, Band, mLocation, first_run);
                 break;
             case R.id.txt_channel_list_four:
+                s();
                 getPresenter().select(3, Band, mLocation, first_run);
                 break;
             case R.id.txt_channel_list_fives:
@@ -739,6 +751,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                 getPresenter().select(5, Band, mLocation, first_run);
                 break;
             case R.id.btn_left:
+                s();
                 isMobile = false;
                 getPresenter().select(Band, mLocation, first_run);
                 if (this.mRadioManager != null) {
@@ -747,25 +760,48 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                 break;
             case R.id.img_search:
                 pd = 0;
+
                 if (!isShortSearch) {
                     isShortSearch = true;
-                    final Handler mHandler = new Handler() {
+                    @SuppressLint("HandlerLeak") final Handler m = new Handler() {
+                        @Override
+                        public void handleMessage(Message msg) {
+                            super.handleMessage(msg);
+                            if (list.get(pds).getTag().equals("1")) {
+                                Log.w("PDs", "1");
+                                list.get(radioStations.get(pds).getPosition()).setTag("0");
+                                list.get(radioStations.get(pds).getPosition()).setTextColor(Color.parseColor("#FF0B49E7"));
+                            } else {
+                                Log.w("PDs", "0");
+                                list.get(radioStations.get(pds).getPosition()).setTag("1");
+                                list.get(radioStations.get(pds).getPosition()).setTextColor(Color.parseColor("#ffffff"));
+
+                            }
+                        }
+                    };
+                    @SuppressLint("HandlerLeak") final Handler mHandler = new Handler() {
                         public void handleMessage(Message msg) {
 
-                          /*  if (list.get(radioStations.get(pd).getPosition()).getTag().equals("1")){
-                                list.get(radioStations.get(pd).getPosition()).setTextColor(Color.parseColor("#FF0B49E7"));
-                            }else {
-                                list.get(radioStations.get(pd).getPosition()).setTextColor(Color.parseColor("#ffffff"));
-                            }*/
-
-                            // list.get(radioStations.get(pd).getPosition()).setTextColor(Color.parseColor("#FF0B49E7"));
                             if (msg.what <= 0) {
+
+                                for (TextView m : list) {
+                                    m.setTextColor(Color.parseColor("#ffffff"));
+                                    m.setTag("1");
+                                }
+                                pds = pd;
+                                list.get(radioStations.get(pd).getPosition()).setTag("0");
+                                list.get(radioStations.get(pd).getPosition()).setTextColor(Color.parseColor("#FF0B49E7"));
                                 mRadioManager.setFreq(radioStations.get(pd).getMFreq());
                                 time = 10;
                                 pd++;
+
                                 if (pd == 6) {
+                                    scheduleds.shutdown();
                                     isShortSearch = false;
                                     scheduled.shutdown();
+                                    list.get(radioStations.get(pd).getPosition()).setTextColor(Color.parseColor("#FF0B49E7"));
+                                }else {
+                                    s();
                                 }
                             }
                         }
@@ -775,21 +811,32 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                         public void run() {
                             time--;
                             Message msg = mHandler.obtainMessage(time);
-
                             mHandler.sendMessage(msg);
+                            Message msgs = new Message();
+                            m.sendMessage(msgs);
                         }
                     };
                     time = 1;
-                    //初始化一个线程池大小为 1 的 ScheduledExecutorService
-                    scheduled = new ScheduledThreadPoolExecutor(1);
-                    scheduled.scheduleAtFixedRate(runnable, 0, 1, TimeUnit.SECONDS);
+                    if (scheduled!=null){
+                        if (scheduled.isShutdown()){
+                            scheduled = new ScheduledThreadPoolExecutor(1);
+                            scheduled.scheduleAtFixedRate(runnable, 0, 1, TimeUnit.SECONDS);
+                        }else {
+                            scheduled.shutdown();
+                        }
+                    }else {
+                        scheduled = new ScheduledThreadPoolExecutor(1);
+                        scheduled.scheduleAtFixedRate(runnable, 0, 1, TimeUnit.SECONDS);
+                    }
                 } else {
+
                     isShortSearch = false;
                     scheduled.shutdown();
                 }
                 //scheduled.
                 break;
             case R.id.btn_right:
+                s();
                 getPresenter().select(Band, mLocation, first_run);
                 isMobile = false;
                 if (this.mRadioManager != null) {
@@ -799,12 +846,18 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             case R.id.img_swap_band:
                 if (scheduleds != null) {
                     scheduleds.shutdown();
-                    scheduleds = null;
                 }
                 //  getPresenter().Change(Band, mFreq, mLocation);
                 Band++;
                 int band = Band % 5;
                 Band = band;
+                if (band>=3){
+                    if (scheduleds != null) {
+                        scheduleds.shutdown();
+                    }
+                }else {
+                    s();
+                }
                 Log.w("RadioActivity", Band + "");
                 setBand();
                 VarietyBand();
@@ -857,12 +910,10 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         if (scheduled != null) {
             isShortSearch = false;
             scheduled.shutdown();
-            scheduled = null;
         }
         if (scheduleds != null) {
 
             scheduleds.shutdown();
-            scheduleds = null;
         }
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
         Boolean first_run = sharedPreferences.getBoolean("Firsts", true);
@@ -978,20 +1029,20 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                         radioStation.setMFreq(RadioWrapper.getFreqStart(1, mLocation));
                         radioStation.setSelect(false);
                         radioStation.setMBand(1);
-                        radioStation.setPosition(i/2);
+                        radioStation.setPosition(i / 2);
                         radioStation.setName(RadioWrapper.getFreqString(RadioWrapper.getFreqStart(1, mLocation), 1, mLocation));
                         radioStation.setRdsname(RadioWrapper.getFreqString(RadioWrapper.getFreqStart(1, mLocation), 1, mLocation));
                         radioStation.setLocation(mLocation);
                         radioStation.setFrequency(Band);
                         mScanResultList.add(radioStation);
                     }
-                }else {
+                } else {
                     for (int i = mScanResultList.size() - 1; i < 12; i++) {
                         RadioStation radioStation = new RadioStation();
                         radioStation.setMFreq(RadioWrapper.getFreqStart(1, mLocation));
                         radioStation.setSelect(false);
                         radioStation.setMBand(0);
-                        radioStation.setPosition(i/2);
+                        radioStation.setPosition(i / 2);
                         radioStation.setName(RadioWrapper.getFreqString(RadioWrapper.getFreqStart(1, mLocation), 1, mLocation));
                         radioStation.setRdsname(RadioWrapper.getFreqString(RadioWrapper.getFreqStart(1, mLocation), 1, mLocation));
                         radioStation.setLocation(mLocation);
@@ -1019,6 +1070,10 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             }
         } else {
             if (isTinTai) {
+                SharedPreferences.Editor editor = getSharedPreferences("Radio", MODE_WORLD_WRITEABLE).edit();
+                editor.putInt("mFreq" + Band + mLocation, mRadioManager.getFreq());
+                Log.w("RadioActivity_mFreq", mRadioManager.getFreq() + "");
+                editor.commit();
                 mFreq = mRadioManager.getFreq();
                 //  mRadioManager.setFreq(ifreq);
                 isTinTai = false;
@@ -1031,7 +1086,6 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
     public void onScanStart(final RadioWrapper.EventScanStart event) {
         if (scheduleds != null) {
             scheduleds.shutdown();
-            scheduleds = null;
         }
         /*delete(mBand, mLocation);*/
         radioStations = getPresenter().queryFrequency(Band, mLocation);
@@ -1085,7 +1139,6 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         mJancarManager.abandonKeyFocus(keyFocusListener);
         if (scheduleds != null) {
             scheduleds.shutdown();
-            scheduleds = null;
         }
         unregisterReceiver(getPresenter().getmReceiver());
         resetFreqStart();
@@ -1305,7 +1358,6 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                         if (keyAction == KEY_ACTION_UP) {
                             if (scheduleds != null) {
                                 scheduleds.shutdown();
-                                scheduleds = null;
                             }
                             if (mNeedScanStop) {
                                 mRadioManager.scanStop();
@@ -1341,7 +1393,6 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                         if (keyAction == KEY_ACTION_UP) {
                             if (scheduleds != null) {
                                 scheduleds.shutdown();
-                                scheduleds = null;
                             }
                             if (mNeedScanStop) {
                                 // Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
@@ -1380,7 +1431,6 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                         if (keyAction == KEY_ACTION_UP) {
                             if (scheduleds != null) {
                                 scheduleds.shutdown();
-                                scheduleds = null;
                             }
                             if (mNeedScanStop) {
                                 mRadioManager.scanStop();
@@ -1444,76 +1494,20 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             String strMsg = null;
             if (intent != null) {
                 strMsg = intent.getStringExtra("device");
-
                 if (strMsg != null) {
                     Logcat.d("onDoIntent -> " + strMsg);
-
                     if (strMsg.equals("fm")) {
-                        if (scheduleds != null) {
-                            scheduleds.shutdown();
-                            scheduleds = null;
-                        }
-                        if (mNeedScanStop) {
-                            mRadioManager.scanStop();
-                        }
-                        if (isShortSearch) {
-                            isShortSearch = false;
-                            if (scheduled != null) {
-                                scheduled.shutdown();
-                            }
-                        }
-
-                        if (!isSwitch) {
-                            isSwitch = true;
-                            Message mMessage = new Message();
-                            mMessage.what = 2;
-                            mMessage.arg1 = 0;
-                            handler.sendMessage(mMessage);
-                            isSwitchs = false;
-                            stringIntegerMap.clear();
-                        } else {
-                            stringIntegerMap.put("scheduled", 2);
-                                /*SharedPreferences.Editor editors = getSharedPreferences("Radio", MODE_WORLD_WRITEABLE).edit();
-                                editors.putInt("isSwitch", 2);
-                                editors.commit();
-                                isSwitchs=true;*/
-                               /* isSwitch = true;
-                                Message mMessage = new Message();
-                                mMessage.what = 2;
-                                mMessage.arg1 = 0;
-                                handler.sendMessage(mMessage);*/
-                        }
+                        Message mMessage = new Message();
+                        mMessage.what = 2;
+                        mMessage.arg1 = 0;
+                        handler.sendMessage(mMessage);
+                        stringIntegerMap.clear();
                     } else if (strMsg.equals("am")) {
-                        if (scheduleds != null) {
-                            scheduleds.shutdown();
-                            scheduleds = null;
-                        }
-                        if (mNeedScanStop) {
-                            // Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
-                            mRadioManager.scanStop();
-                            //mNeedScanStop = false;
-                        }
-                        if (isShortSearch) {
-                            isShortSearch = false;
-                            if (scheduled != null) {
-                                scheduled.shutdown();
-                            }
-                        }
-                        if (!isSwitch) {
-                            isSwitch = true;
-                            isSwitchs = false;
-                            Message mMessage = new Message();
-                            mMessage.what = 1;
-                            mMessage.arg1 = 3;
-                            handler.sendMessage(mMessage);
-                            stringIntegerMap.clear();
-                        } else {
-                            stringIntegerMap.put("scheduled", 1);
-                                /*isSwitchs=true;
-                                SharedPreferences.Editor editors = getSharedPreferences("Radio", MODE_WORLD_WRITEABLE).edit();
-                                editors.putInt("isSwitch", 1);
-                                editors.commit();*/
-                        }
+                        Message mMessage = new Message();
+                        mMessage.what = 1;
+                        mMessage.arg1 = 3;
+                        handler.sendMessage(mMessage);
+                        stringIntegerMap.clear();
                     } else if (strMsg.equals("band")) {
 
                     } else if (strMsg.equals("freq")) {
