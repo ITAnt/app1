@@ -62,6 +62,10 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
     private LinearLayout linearAnswer;      //接听
     private LinearLayout linearVehicle;     //车载
     private LinearLayout linearInputKey;    //键盘布局
+    private TextView tvHangUp;              //挂断文字
+    private TextView tvVoice;               //静音文字
+    private TextView tvKeyPad;              //键盘文字
+    private TextView tvComming;             //来电文字
 
     private TextView tvHalfName;            //小屏界面来电显示name
     private TextView tvHalfNumber;          //小屏来电号码
@@ -346,6 +350,10 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         linearAnswer = phoneView.findViewById(R.id.linear_answer);
         linearVehicle = phoneView.findViewById(R.id.liner_vehicle);
         linearInputKey = phoneView.findViewById(R.id.liner_comm_key);
+        tvHangUp = phoneView.findViewById(R.id.tv_call_hangup);
+        tvVoice = phoneView.findViewById(R.id.tv_call_voice);
+        tvKeyPad = phoneView.findViewById(R.id.tv_call_keypad);
+        tvComming = phoneView.findViewById(R.id.tv_call_comming);
 
         ivVoice.setEnabled(false);
         ivKeyPad.setEnabled(false);
@@ -492,10 +500,15 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 } else {
                     mCallType = calltype;
                 }
+                tvHangUp.setText(R.string.calling_hangup);
+                tvVoice.setText(R.string.dial_show_voice);
+                tvKeyPad.setText(R.string.calling_keypad);
                 break;
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_INCOMING:
                 mCallPhoneType = CALLHISTROY_TYPE_MISSED;
                 tvCommunType.setText(R.string.str_phone_missed);
+                tvHangUp.setText(R.string.calling_hangup);
+                tvComming.setText(R.string.str_phone_missed);
                 linearKey.setVisibility(View.INVISIBLE);
                 linearVoice.setVisibility(View.INVISIBLE);
                 linearVehicle.setVisibility(View.GONE);

@@ -4,7 +4,7 @@
     <string name="calling_hangup">Hang</string>
     <string name="calling_keypad">Keyboard</string>
     <string name="calling_vehicle">Car</string>
-    <string name="calling_phone"> Phone</string>
+    <string name="calling_phone">Phone</string>
     <string name="dial_show_voice">Mute</string>
     <string name="str_phone_unkonow">unknown number</string>
     <string name="str_phone_mobile">Mobile</string>

@@ -27,6 +27,7 @@ import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.Listener.BTPhonebookListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.lib.BluetoothPhoneBookData;
+import com.jancar.bluetooth.phone.MainActivity;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.adapter.ContactAdapter;
 import com.jancar.bluetooth.phone.adapter.ContactSearchAdapter;
@@ -93,6 +94,9 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                         relativeLayout.setVisibility(View.GONE);
                     } else if (obj == Constants.BT_CONNECT_IS_CONNECTED) {
                         SynContactView();
+                        if (MainActivity.connectDialog.isShowing()) {
+                            MainActivity.connectDialog.dismiss();
+                        }
                     } else if (obj == Constants.BT_CONNECT_IS_CLOSE) {
                         ShowSynText();
                         tvSynContact.setText(R.string.tv_bt_connect_is_none);

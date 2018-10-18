@@ -21,12 +21,14 @@ import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.Listener.BTPhonebookListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.lib.BluetoothPhoneBookData;
+import com.jancar.bluetooth.phone.MainActivity;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.adapter.DialNumberAdapter;
 import com.jancar.bluetooth.phone.contract.DialContract;
 import com.jancar.bluetooth.phone.presenter.DialPresenter;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.NumberFormatUtil;
+import com.jancar.bluetooth.phone.util.ThreadUtils;
 import com.jancar.bluetooth.phone.util.ToastUtil;
 import com.ui.mvp.view.support.BaseFragment;
 
@@ -74,6 +76,9 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
 
                     } else if (obj == Constants.BT_CONNECT_IS_CONNECTED) {
                         synContactView();
+                        if (MainActivity.connectDialog.isShowing()) {
+                            MainActivity.connectDialog.dismiss();
+                        }
 
                     } else if (obj == Constants.BT_CONNECT_IS_CLOSE) {
                         tvSynContact.setVisibility(View.VISIBLE);
@@ -83,13 +88,13 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
                     break;
                 case Constants.PHONEBOOK_DATA_REFRESH:
                     final String number = (String) msg.obj;
-                    new Thread() {
+                    ThreadUtils.execute(new Runnable() {
                         @Override
                         public void run() {
-                            super.run();
                             getPresenter().getDialContactList((number), DialFragmentType);
+
                         }
-                    }.start();
+                    });
                     break;
                 case Constants.PHONEBOOK_SEACH_LIST:
                     adapter.setBookDataList(bookDataList);

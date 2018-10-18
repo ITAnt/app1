@@ -22,6 +22,7 @@ import com.jancar.bluetooth.Listener.BTCallLogListener;
 import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.lib.BluetoothPhoneBookData;
+import com.jancar.bluetooth.phone.MainActivity;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.adapter.RecordsAdapter;
 import com.jancar.bluetooth.phone.contract.RecordsContract;
@@ -325,7 +326,9 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
                         listView.setVisibility(View.GONE);
                     } else if (obj == Constants.BT_CONNECT_IS_CONNECTED) {
                         synShow();
-
+                        if (MainActivity.connectDialog.isShowing()) {
+                            MainActivity.connectDialog.dismiss();
+                        }
                     } else if (obj == Constants.BT_CONNECT_IS_CLOSE) {
                         showText();
                         tvSynRecord.setText(R.string.tv_bt_connect_is_none);

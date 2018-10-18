@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
+import com.jancar.bluetooth.phone.MainActivity;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.contract.EquipmentContract;
 import com.jancar.bluetooth.phone.presenter.EquipmentPresenter;
@@ -133,21 +134,21 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
                         btnConn.setVisibility(View.VISIBLE);
                         btnClose.setVisibility(View.GONE);
                         tvConnName.setText(getPresenter().getConnetName());
-//                        Toast.makeText(mActivity, "蓝牙未连接", Toast.LENGTH_SHORT).show();
 
                     } else if (obj == Constants.BT_CONNECT_IS_CONNECTED) {
                         ivConnet.setImageResource(R.drawable.iv_equipment_connet);
                         btnConn.setVisibility(View.GONE);
                         btnClose.setVisibility(View.VISIBLE);
                         tvConnName.setText(getPresenter().getConnetName());
-//                        Toast.makeText(mActivity, "蓝牙连接", Toast.LENGTH_SHORT).show();
+                        if (MainActivity.connectDialog.isShowing()) {
+                            MainActivity.connectDialog.dismiss();
+                        }
 
                     } else if (obj == Constants.BT_CONNECT_IS_CLOSE) {
                         ivConnet.setImageResource(R.drawable.iv_equipment_disconnect);
                         btnConn.setVisibility(View.VISIBLE);
                         btnClose.setVisibility(View.GONE);
                         tvConnName.setText(getPresenter().getConnetName());
-//                        Toast.makeText(mActivity, "蓝牙关闭", Toast.LENGTH_SHORT).show();
                     }
                     break;
             }
@@ -209,7 +210,7 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
             String historyAddress = getManager().getHistoryConnectDeviceAddress();
             getManager().connectDevice(historyAddress);
         } else {
-            ToastUtil.ShowToast(mActivity,mActivity.getString(R.string.tv_bt_connect_is_close));
+            ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_bt_connect_is_close));
         }
     }
 
