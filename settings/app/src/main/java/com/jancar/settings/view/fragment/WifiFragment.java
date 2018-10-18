@@ -77,7 +77,7 @@ import static com.jancar.settings.util.Tool.setDialogParam;
  * Created by ouyan on 2018/8/30.
  */
 
-public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiContractImpl.View, WifiListAdapter.OnClickListener, View.OnClickListener {
+public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiContractImpl.View, WifiListAdapter.OnClickListener, View.OnClickListener, WifiListAdapter.delete {
     private final String TAG = "WifiSettings";
     private static final int WIFICIPHER_NOPASS = 0;
     private static final int WIFICIPHER_WEP = 1;
@@ -115,6 +115,15 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
     List<ScanResult> mSavedResultsShow = new ArrayList<ScanResult>();
     private View view;
     private boolean isFirst = true;
+
+    @Override
+    public void delete(String finalSSID) {
+        final WifiConfiguration config = mWifiController.getConfig(finalSSID);
+        if (null != config) {
+            mWifiController.removeConfig(config);
+        }
+        handleWifiScanResult();
+    }
 
     class WifiReceiver extends BroadcastReceiver {
         @Override
@@ -172,6 +181,9 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
                     }*/
 
                 } else if (NetworkInfo.State.DISCONNECTING.equals(info.getState())) {
+                    if (!isFirst) {
+                        loadingStopRefresh();
+                    }
                     mWifiController.setConnectionState(mWifiController.STATE_DISCONNECTING);
                 } else if (NetworkInfo.State.CONNECTED.equals(info.getState())) {
                     if (!isFirst) {
@@ -183,14 +195,15 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
                 } else {
                     Log.d(TAG, "qyp onReceive: NETWORK_STATE_CHANGED_ACTION" + info.getDetailedState());
                     NetworkInfo.DetailedState state = info.getDetailedState();
-                    if (state == state.CONNECTING) {
+                    if (state == NetworkInfo.DetailedState.CONNECTING) {
                         Log.d(TAG, "qyp onReceive: NETWORK_STATE_CHANGED_ACTION" + info.getDetailedState());
                         mWifiController.setConnectionState(mWifiController.STATE_CONNECTING);
-                    } else if (state == state.AUTHENTICATING) {
+                    } else if (state == NetworkInfo.DetailedState.AUTHENTICATING) {
                         mWifiController.setConnectionState(mWifiController.STATE_AUTHENTICATING);
-                    } else if (state == state.OBTAINING_IPADDR) {
+                    } else if (state == NetworkInfo.DetailedState.OBTAINING_IPADDR) {
                         mWifiController.setConnectionState(mWifiController.STATE_OBTAINING_IPADDR);
-                    } else if (state == state.FAILED) {
+                    } else if (state == NetworkInfo.DetailedState.FAILED) {
+
                         mWifiController.setConnectionState(mWifiController.STATE_FAILED);
                     }
                 }
@@ -311,6 +324,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
         mLoading = (AVLoadingIndicatorView) view.findViewById(R.id.wifi_refresh_image);
         mScanAdapter = new WifiListAdapter(this.getContext(), mScanResults);
         mScanAdapter.setOnClickListener(this);
+        mScanAdapter.setMdelete(this);
         mScanList.setAdapter(mScanAdapter);
         ListAnimation();
         mSavedAdapter = new WifiSavedListAdapter(this.getContext(), mSavedResultsShow);
@@ -329,6 +343,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
     }
 
     private void showScanResultNopassDialog(String ssid, int type) {
+        loadingStartRefresh();
         Log.d(TAG, "showScanResultDialog()");
         final int finalType = type;
         final String finalSSID = ssid;
@@ -368,14 +383,15 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
                             //when we change the click the item, we need update state
                             mWifiController.setConnectionState(mWifiController.STATE_CONNECTING);
                             handleWifiScanResult();
-                            if (i ==0) {
-                                dialog.dismiss();
+                            dialog.dismiss();
+                            loadingStartRefresh();
+                        /*    if (state ==7) {
                             } else {
                                 wifiPassword.setText("");
                                 Toast toast = Toast.makeText(getApplicationContext(), "密码错误", Toast.LENGTH_SHORT);
                                 // toast.setGravity(Gravity.CENTER, 0, 0);
                                 toast.show();
-                            }
+                            }*/
                         }else {
                             wifiPassword.setText("");
                             Toast toast = Toast.makeText(getApplicationContext(), "密码不能少于8位", Toast.LENGTH_SHORT);
@@ -559,7 +575,9 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
         String configSSID = mWifiController.getConnectedSSID();
         switch (Type) {
             case 0:
+
                 if (WIFICIPHER_NOPASS != type) {//需要密码，则dialog获取密码；
+
                     showScanResultDialog(scanResult.SSID, type);
                 } else {//不需要密码则直接连接
                     showScanResultNopassDialog(scanResult.SSID, type);
