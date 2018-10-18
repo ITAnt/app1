@@ -17,8 +17,8 @@ public class BootReceiver extends BroadcastReceiver {
 		Boolean first_run = sharedPreferences.getBoolean("Time", true);
 		Log.w("BootReceiver","afa");
 		if (first_run) {
-			sharedPreferences.edit().putBoolean("Time", false).commit();
-			setAutoTime(context,true);
+			/*sharedPreferences.edit().putBoolean("Time", false).commit();
+			setAutoTime(context,true);*/
 		}
 
 	}

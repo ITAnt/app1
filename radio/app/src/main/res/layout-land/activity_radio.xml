@@ -6,52 +6,50 @@
     android:orientation="vertical">
 
     <LinearLayout
-
+android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="440px">
+        android:layout_height="wrap_content">
 
         <include layout="@layout/activity_main" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="120px"
-            android:layout_marginRight="120px"
+
             android:gravity="center">
 
             <ImageView
                 android:id="@+id/img_swap_band"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="30px"
+                android:layout_marginRight="60px"
                 android:background="@drawable/btn_radio_band" />
 
             <ImageView
                 android:id="@+id/img_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
-                android:layout_marginRight="30px"
+                android:layout_marginLeft="60px"
+                android:layout_marginRight="60px"
                 android:background="@drawable/btn_radio_search" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
-
-                android:layout_marginRight="30px"
+                android:layout_marginLeft="60px"
+                android:layout_marginRight="60px"
                 android:background="@mipmap/btn_radio_rds_d" />
 
             <ImageView
                 android:id="@+id/img_st"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
+                android:layout_marginLeft="60px"
                 android:background="@drawable/btn_radio_st" />
         </LinearLayout>
     </LinearLayout>

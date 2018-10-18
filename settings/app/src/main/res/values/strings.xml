@@ -266,6 +266,7 @@
     <string name="tab_reset_system">恢复出厂设置</string>
     <string name="tab_restart">重新启动</string>
     <string name="dialog_restore_defaults">确定恢复出厂设置吗？</string>
+    <string name="dialog_tab_restart">确定重新启动吗？</string>
     <!--系统设置-->
     <string name="tab_cleaning_up">清理中.....</string>
     <string name="tab_clean_up">清理完成</string>
@@ -319,7 +320,7 @@
         <item>Pacific/Midway</item>
         <item>Pacific/Honolulu</item>
         <item>America/Anchorage</item>
-        <item>America/Los_Angele</item>
+        <item>America/Los_Angeles</item>
         <item>America/Tijuana</item>
         <item>America/Phoenix</item>
         <item>America/Chihuahua</item>

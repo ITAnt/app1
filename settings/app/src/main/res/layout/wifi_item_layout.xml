@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/layout_default_px77"
+    android:id="@+id/llayout_wifi"
     android:orientation="vertical">
 
     <LinearLayout style="@style/llayout_item_child">

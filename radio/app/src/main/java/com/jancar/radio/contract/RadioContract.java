@@ -25,12 +25,17 @@ public interface RadioContract {
         void init(List<RadioStation> radioStations);
 
         void initSelect(List<RadioStation> radioStations, RadioStation mRadioStation);
+        void initSelect(List<RadioStation> radioStations);
 
         void requestRadioFocus();
 
         void abandonRadioFocus();
 
         Activity getActivity();
+
+        void onStereo(int i, boolean b);
+
+        void onStartTrackingTouch();
     }
 
     interface Presenter extends IPresenter, SeekBar.OnSeekBarChangeListener {
@@ -48,16 +53,23 @@ public interface RadioContract {
         @Override
         void onStopTrackingTouch(SeekBar seekBar);
 
-        void initText(int Band, int mLocation);
+        void initText(int Band, int mLocation, boolean first_run);
 
-        void Replace(RadioStation radioStations, RadioStation radioStation);
+        void Replace(RadioStation radioStations, RadioStation radioStation , boolean first_run);
 
-        void select(int i, Integer tag, int mLocation);
+        void select(int i, Integer tag, int mLocation ,boolean first_run);
+        void select( Integer tag, int mLocation ,boolean first_run);
 
-        void Change(int frequency, int mFreq, int mLocation);
-        void Change( int mFreq,List<RadioStation> radioStations);
+        void Change(int frequency, int mFreq, int mLocation );
+        void Change( List<RadioStation> radioStations );
+
+        void Change(int mFreq, List<RadioStation> radioStations);
+        void Change(int mFreq, List<RadioStation> radioStations,int mSignalStrength);
+
         BroadcastReceiver getmReceiver();
 
-        void save(ArrayList<RadioStation> mScanResultList, int mBand, int Band, int mLocation);
+        void save(ArrayList<RadioStation> mScanResultList, int mBand, int Band, int mLocation,boolean first_run);
+
+        List<RadioStation> queryFrequency(int band, int mLocation);
     }
 }

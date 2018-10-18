@@ -54,7 +54,9 @@ public class RadioStationDaos {
     public static void insertRadioStation(RadioStation shop) {
         RadioApplication.getDaoInstant().getRadioStationDao().insertOrReplace(shop);
     }
-
+    public static void insertRadioStationList(List<RadioStation> shop) {
+        RadioApplication.getDaoInstant().getRadioStationDao().insertOrReplaceInTx(shop);
+    }
     /**
      * 添加数据，如果有重复则覆盖
      *
@@ -72,18 +74,34 @@ public class RadioStationDaos {
     public static void deleteRadioStation(long id) {
         RadioApplication.getDaoInstant().getRadioStationDao().deleteByKey(id);
     }
-
+    /**
+     * 删除数据
+     *
+     * @param shop
+     */
+    public static void deleteRadioStation(List<RadioStation> shop) {
+        RadioApplication.getDaoInstant().getRadioStationDao().deleteInTx(shop);
+    }
     /**
      * 删除数据
      *
      * @param mBand
      */
-    public static void delete(int mBand ,int mLocation) {
+    public static void  delete(int mBand ,int mLocation) {
         RadioApplication.getDaoInstant().getRadioStationDao().deleteInTx(RadioApplication.getDaoInstant().getRadioStationDao().queryBuilder().where(RadioStationDao.Properties.MBand.eq(mBand),RadioStationDao.Properties.Location.eq(mLocation)).list());
 
        /* RadioApplication.getDaoInstant().getRadioStationDao().;*/
     }
+    /**
+     * 删除数据
+     *
+     * @param mBand
+     */
+    public static void deletes(int mBand ,int mLocation) {
+        RadioApplication.getDaoInstant().getRadioStationDao().deleteInTx(RadioApplication.getDaoInstant().getRadioStationDao().queryBuilder().where(RadioStationDao.Properties.Frequency.eq(mBand),RadioStationDao.Properties.Location.eq(mLocation)).list());
 
+       /* RadioApplication.getDaoInstant().getRadioStationDao().;*/
+    }
     /**
      * 更新数据
      */
@@ -104,6 +122,7 @@ public class RadioStationDaos {
      * @return
      */
     public static List<RadioStation> queryFrequency(int frequency, int mLocation) {
+
         return RadioApplication.getDaoInstant().getRadioStationDao().queryBuilder().where(RadioStationDao.Properties.Frequency.eq(frequency), RadioStationDao.Properties.Location.eq(mLocation)).orderAsc(RadioStationDao.Properties.Position).list();
 
     }

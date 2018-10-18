@@ -312,12 +312,13 @@
 	<string name="shorts">Short</string>
 	<string name="Long">Long</string>
     <string name="label_Waiting">Waiting</string>
+    <string name="dialog_tab_restart" >Are you sure to restart？</string>
     <string-array name="timezone_id">
 		<item>Pacific/Majuro</item>
 		<item>Pacific/Midway</item>
 		<item>Pacific/Honolulu</item>
 		<item>America/Anchorage</item>
-		<item>America/Los_Angele</item>
+		<item>America/Los_Angeles</item>
 		<item>America/Tijuana</item>
 		<item>America/Phoenix</item>
 		<item>America/Chihuahua</item>

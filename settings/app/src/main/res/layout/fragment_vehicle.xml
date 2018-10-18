@@ -97,7 +97,6 @@
 
                     <RadioButton
                         android:id="@+id/rbtn_about_normal_system"
-
                         style="@style/style_rbtns"
                         android:layout_weight="1"
                         android:button="@drawable/check_selector"
