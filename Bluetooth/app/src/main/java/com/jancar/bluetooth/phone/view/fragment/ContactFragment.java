@@ -94,9 +94,8 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                         relativeLayout.setVisibility(View.GONE);
                     } else if (obj == Constants.BT_CONNECT_IS_CONNECTED) {
                         SynContactView();
-                        if (MainActivity.connectDialog.isShowing()) {
-                            MainActivity.connectDialog.dismiss();
-                        }
+                        getBTContacts();
+
                     } else if (obj == Constants.BT_CONNECT_IS_CLOSE) {
                         ShowSynText();
                         tvSynContact.setText(R.string.tv_bt_connect_is_none);
@@ -201,10 +200,8 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     public void onResume() {
         super.onResume();
         if (!hidden) {
-            bluetoothManager.registerBTPhonebookListener(this);
-            bluetoothManager.setBTConnectStatusListener(this);
-            isConneView();
             getBTContacts();
+            isConneView();
         }
     }
 
@@ -213,9 +210,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
         super.onHiddenChanged(hidden);
         this.hidden = hidden;
         if (!hidden) {
-            bluetoothManager.registerBTPhonebookListener(this);
             getBTContacts();
-            bluetoothManager.setBTConnectStatusListener(this);
             isConneView();
             adapter.setNormalPosition();
             searchAdapter.setNormalPosition();
@@ -226,6 +221,8 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     }
 
     private void getBTContacts() {
+        bluetoothManager.registerBTPhonebookListener(this);
+        bluetoothManager.setBTConnectStatusListener(this);
         ThreadUtils.execute(new Runnable() {
             @Override
             public void run() {
@@ -447,7 +444,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
 
     @Override
     public void onNotifyDownloadContactsList(final List<BluetoothPhoneBookData> list) {
-        Log.e("ContactFragment", "DownloadContactsList:" + list);
+        Log.e("ContactFragment", "DownloadContactsList:" + list.size());
         this.bookDataList = list;
         handler.removeMessages(Constants.CONTACT_UPDATA_REFRESH);
         handler.sendEmptyMessageDelayed(Constants.CONTACT_UPDATA_REFRESH, 10);

@@ -76,9 +76,7 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
 
                     } else if (obj == Constants.BT_CONNECT_IS_CONNECTED) {
                         synContactView();
-                        if (MainActivity.connectDialog.isShowing()) {
-                            MainActivity.connectDialog.dismiss();
-                        }
+
 
                     } else if (obj == Constants.BT_CONNECT_IS_CLOSE) {
                         tvSynContact.setVisibility(View.VISIBLE);

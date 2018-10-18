@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
     @BindView(R.id.tab_statics_manager)
     RelativeLayout equipmentRelaout;
     BluetoothManager bluetoothManager;
-    public static ConnectDialog connectDialog;
+    private ConnectDialog connectDialog;
     boolean isConnect;
 
     @Override

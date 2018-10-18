@@ -326,9 +326,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
                         listView.setVisibility(View.GONE);
                     } else if (obj == Constants.BT_CONNECT_IS_CONNECTED) {
                         synShow();
-                        if (MainActivity.connectDialog.isShowing()) {
-                            MainActivity.connectDialog.dismiss();
-                        }
+
                     } else if (obj == Constants.BT_CONNECT_IS_CLOSE) {
                         showText();
                         tvSynRecord.setText(R.string.tv_bt_connect_is_none);

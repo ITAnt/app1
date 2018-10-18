@@ -140,9 +140,7 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
                         btnConn.setVisibility(View.GONE);
                         btnClose.setVisibility(View.VISIBLE);
                         tvConnName.setText(getPresenter().getConnetName());
-                        if (MainActivity.connectDialog.isShowing()) {
-                            MainActivity.connectDialog.dismiss();
-                        }
+
 
                     } else if (obj == Constants.BT_CONNECT_IS_CLOSE) {
                         ivConnet.setImageResource(R.drawable.iv_equipment_disconnect);
