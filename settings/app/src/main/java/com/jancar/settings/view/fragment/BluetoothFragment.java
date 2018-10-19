@@ -34,6 +34,7 @@ import com.jancar.settings.listener.IPresenter;
 import com.jancar.settings.manager.BaseFragments;
 import com.jancar.settings.presenter.BluetoothPresenter;
 import com.jancar.settings.util.Constants;
+import com.jancar.settings.util.DelayedUtils;
 import com.jancar.settings.util.ToastUtil;
 import com.jancar.settings.widget.AVLoadingIndicatorView;
 import com.jancar.settings.widget.SettingDialog;
@@ -263,18 +264,22 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                 bluetoothManager.setBTIsDisCovering(isDisCovering);
                 break;
             case R.id.iv_setting_switch:
-                isBTon = !isBTon;
-                if (isBTon) {
-                    linearBlue.setVisibility(View.VISIBLE);
-                    tvClose.setText(R.string.tv_open);
-                    mPresenter.openBluetooth();
-                    mPresenter.searchPairedList();
-                } else {
-                    linearBlue.setVisibility(View.GONE);
-                    linearSearch.setVisibility(View.GONE);
-                    tvClose.setText(R.string.tv_closed);
-                    mPresenter.closeBluetooth();
+                if (!DelayedUtils.isFastDoubleClick()) {
+                    Log.w(TAG, "iv_setting_switch");
+                    isBTon = !isBTon;
+                    if (isBTon) {
+                        linearBlue.setVisibility(View.VISIBLE);
+                        tvClose.setText(R.string.tv_open);
+                        mPresenter.openBluetooth();
+                        mPresenter.searchPairedList();
+                    } else {
+                        linearBlue.setVisibility(View.GONE);
+                        linearSearch.setVisibility(View.GONE);
+                        tvClose.setText(R.string.tv_closed);
+                        mPresenter.closeBluetooth();
+                    }
                 }
+
                 break;
             case R.id.tv_del_all:
                 //断开连接
@@ -318,7 +323,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         if (settingDialog == null) {
             settingDialog = new SettingDialog(getActivity(), R.style.AlertDialogCustom);
         }
-        String s = tvBlutName.trim();
+        String s = bluetoothManager.getBTName().trim();
         Log.w(TAG, "s:" + s);
         settingDialog.setEditText(s);
         settingDialog.setCanelOnClickListener(new View.OnClickListener() {
