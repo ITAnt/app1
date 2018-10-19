@@ -26,12 +26,15 @@ import com.jancar.bluetooth.phone.MainActivity;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.adapter.RecordsAdapter;
 import com.jancar.bluetooth.phone.contract.RecordsContract;
+import com.jancar.bluetooth.phone.entity.Event;
 import com.jancar.bluetooth.phone.presenter.RecordsPresenter;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.FlyLog;
 import com.jancar.bluetooth.phone.util.ThreadUtils;
 import com.jancar.bluetooth.phone.widget.AVLoadingIndicatorView;
 import com.ui.mvp.view.support.BaseFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,28 +106,26 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
     public void onResume() {
         super.onResume();
         if (!hidden) {
-            getManager().registerBTCallLogListener(this);
-            getManager().setBTConnectStatusListener(this);
-            isConneView();
             getBTCallLog();
+            isConneView();
         }
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        Log.d("RecordsFragment", "onHiddenChanged");
+        Log.e("RecordsFragment", "onHiddenChanged");
         this.hidden = hidden;
         if (!hidden) {
-            FlyLog.d("RecordsFragment", "onHidden");
-            getManager().registerBTCallLogListener(this);
+            FlyLog.e("RecordsFragment", "onHidden");
             getBTCallLog();
-            getManager().setBTConnectStatusListener(this);
             isConneView();
             adapter.setNormalPosition();
         } else {
-            getManager().unRegisterBTCallLogListener();
-            getManager().setBTConnectStatusListener(null);
+            if (getManager() != null) {
+                getManager().unRegisterBTCallLogListener();
+                getManager().setBTConnectStatusListener(null);
+            }
         }
     }
 
@@ -260,6 +261,11 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
 
 
     private void getBTCallLog() {
+        if (bluetoothManager == null) {
+            bluetoothManager = BluetoothManager.getBluetoothManagerInstance(mActivity);
+        }
+        getManager().registerBTCallLogListener(this);
+        getManager().setBTConnectStatusListener(this);
         ThreadUtils.execute(new Runnable() {
             @Override
             public void run() {
@@ -288,7 +294,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
         Log.d("RecordsFragment", "list.size(rr):" + list.size());
         this.callDataList = list;
         handler.removeMessages(Constants.CONTACT_CALL_LOGS);
-        handler.sendEmptyMessageDelayed(Constants.CONTACT_CALL_LOGS, 100);
+        handler.sendEmptyMessageDelayed(Constants.CONTACT_CALL_LOGS, 10);
     }
 
     @Override
@@ -326,6 +332,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
                         listView.setVisibility(View.GONE);
                     } else if (obj == Constants.BT_CONNECT_IS_CONNECTED) {
                         synShow();
+                        EventBus.getDefault().post(new Event(true));
 
                     } else if (obj == Constants.BT_CONNECT_IS_CLOSE) {
                         showText();
@@ -351,7 +358,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
                     linearSyn.setVisibility(View.VISIBLE);
                     ivSynRecord.setVisibility(View.GONE);
                     ivSynIng.show();
-                    tvSynRecord.setText(R.string.tv_record_error);
+                    tvSynRecord.setText(R.string.tv_syning_record);
                     break;
                 case Constants.CONTACT_CALL_LOGS_FINISH:
                     linearSyn.setVisibility(View.GONE);

@@ -32,6 +32,7 @@ import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.adapter.ContactAdapter;
 import com.jancar.bluetooth.phone.adapter.ContactSearchAdapter;
 import com.jancar.bluetooth.phone.contract.ContactContract;
+import com.jancar.bluetooth.phone.entity.Event;
 import com.jancar.bluetooth.phone.presenter.ContactPresenter;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.FlyLog;
@@ -41,6 +42,8 @@ import com.jancar.bluetooth.phone.widget.AVLoadingIndicatorView;
 import com.jancar.bluetooth.phone.widget.ContactDialog;
 import com.jancar.bluetooth.widget.SideBar;
 import com.ui.mvp.view.support.BaseFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,9 +95,11 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                         ShowSynText();
                         tvSynContact.setText(R.string.tv_bt_connect_is_none);
                         relativeLayout.setVisibility(View.GONE);
+
                     } else if (obj == Constants.BT_CONNECT_IS_CONNECTED) {
                         SynContactView();
                         getBTContacts();
+                        EventBus.getDefault().post(new Event(true));
 
                     } else if (obj == Constants.BT_CONNECT_IS_CLOSE) {
                         ShowSynText();
@@ -215,12 +220,18 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
             adapter.setNormalPosition();
             searchAdapter.setNormalPosition();
         } else {
-            bluetoothManager.setBTConnectStatusListener(null);
-            bluetoothManager.unRegisterBTPhonebookListener();
+            if (bluetoothManager != null) {
+                bluetoothManager.setBTConnectStatusListener(null);
+                bluetoothManager.unRegisterBTPhonebookListener();
+            }
+
         }
     }
 
     private void getBTContacts() {
+        if (bluetoothManager == null) {
+            bluetoothManager = BluetoothManager.getBluetoothManagerInstance(mActivity);
+        }
         bluetoothManager.registerBTPhonebookListener(this);
         bluetoothManager.setBTConnectStatusListener(this);
         ThreadUtils.execute(new Runnable() {

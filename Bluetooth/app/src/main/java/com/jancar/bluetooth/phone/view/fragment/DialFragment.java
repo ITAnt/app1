@@ -1,6 +1,7 @@
 package com.jancar.bluetooth.phone.view.fragment;
 
 import android.app.Activity;
+import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,12 +26,15 @@ import com.jancar.bluetooth.phone.MainActivity;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.adapter.DialNumberAdapter;
 import com.jancar.bluetooth.phone.contract.DialContract;
+import com.jancar.bluetooth.phone.entity.Event;
 import com.jancar.bluetooth.phone.presenter.DialPresenter;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.NumberFormatUtil;
 import com.jancar.bluetooth.phone.util.ThreadUtils;
 import com.jancar.bluetooth.phone.util.ToastUtil;
 import com.ui.mvp.view.support.BaseFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +80,7 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
 
                     } else if (obj == Constants.BT_CONNECT_IS_CONNECTED) {
                         synContactView();
-
+                        EventBus.getDefault().post(new Event(true));
 
                     } else if (obj == Constants.BT_CONNECT_IS_CLOSE) {
                         tvSynContact.setVisibility(View.VISIBLE);
@@ -190,7 +194,6 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     @Override
     public void onResume() {
         super.onResume();
-        bluetoothManager = BluetoothManager.getBluetoothManagerInstance(getUIContext());
         bluetoothManager.registerBTPhonebookListener(this);
         bluetoothManager.setBTConnectStatusListener(this);
         if (!hidden) {
@@ -235,6 +238,9 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
         super.onHiddenChanged(hidden);
         this.hidden = hidden;
         if (!hidden) {
+            if (bluetoothManager == null) {
+                bluetoothManager = BluetoothManager.getBluetoothManagerInstance(mActivity);
+            }
             bluetoothManager.registerBTPhonebookListener(this);
             bluetoothManager.setBTConnectStatusListener(this);
             isConneView();
@@ -246,9 +252,11 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
                 handler.sendMessageDelayed(message, 100);
             }
         } else {
-            bluetoothManager.unRegisterBTPhonebookListener();
+            if (bluetoothManager != null) {
+                bluetoothManager.unRegisterBTPhonebookListener();
+                bluetoothManager.setBTConnectStatusListener(null);
+            }
             handler.removeMessages(Constants.PHONEBOOK_DATA_REFRESH);
-            bluetoothManager.setBTConnectStatusListener(null);
         }
     }
 
@@ -264,6 +272,7 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     }
 
     private void init() {
+        bluetoothManager = BluetoothManager.getBluetoothManagerInstance(getUIContext());
         if (adapter == null) {
             if (bookDataList == null) {
                 bookDataList = new ArrayList<>();

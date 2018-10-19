@@ -95,16 +95,21 @@ public class RegisterMediaSession {
     private void handleMediaButton(KeyEvent keyEvent) {
         int keyCode = keyEvent.getKeyCode();
         if (KeyEvent.KEYCODE_MEDIA_NEXT == keyCode) {
+            Log.e(TAG, "KEYCODE_MEDIA_NEXT===");
             bluetoothManager.prev();
         } else if (KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE == keyCode) {
         } else if (KeyEvent.KEYCODE_HEADSETHOOK == keyCode) {
         } else if (KeyEvent.KEYCODE_MEDIA_PREVIOUS == keyCode) {
+            Log.e(TAG, "KEYCODE_MEDIA_PLAY_PAUSE===");
             bluetoothManager.next();
         } else if (KeyEvent.KEYCODE_MEDIA_STOP == keyCode) {
+            Log.e(TAG, "KEYCODE_MEDIA_STOP===");
             bluetoothManager.pause();
         } else if (KeyEvent.KEYCODE_MEDIA_PAUSE == keyCode) {
+            Log.e(TAG, "KEYCODE_MEDIA_PAUSE===");
             bluetoothManager.pause();
         } else if (KeyEvent.KEYCODE_MEDIA_PLAY == keyCode) {
+            Log.e(TAG, "KEYCODE_MEDIA_PLAY===");
             bluetoothManager.play();
         }
     }

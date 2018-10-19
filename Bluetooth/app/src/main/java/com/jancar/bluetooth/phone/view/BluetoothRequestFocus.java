@@ -1,11 +1,14 @@
 package com.jancar.bluetooth.phone.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.AudioManager;
 import android.os.SystemProperties;
 import android.util.Log;
 
+import com.jancar.JancarManager;
 import com.jancar.bluetooth.lib.BluetoothManager;
+import com.jancar.state.JacState;
 
 import java.util.logging.Handler;
 
@@ -29,6 +32,23 @@ public class BluetoothRequestFocus {
     public final static int BT_FOCUSE_TRANSIENT_CAN_DUCK = 4;//类似蓝牙音乐临时失去焦点状态
     public final static int BT_NONE = 5;//蓝牙音乐暂时没有状态
     public final static int BT_IDL = 6;//蓝牙音乐每个状态处理后进入该状态
+    public final static int CallStateIdle = 0;//电话空闲状态
+    public final static int CallStateTer = 1;//电话挂断
+    public final static int CallStateAct = 2;//通话中
+    public static int CallState = 0;
+    public static boolean CarState = false;//是否处于倒车状态
+    private JancarManager jancarManager;
+    private BackCarListener backCarListener;
+
+    public void setBackCarListener(BackCarListener backCarListener) {
+        this.backCarListener = backCarListener;
+    }
+
+    public interface BackCarListener {
+        void onNotifyBackCarStop();
+
+        void onNotifyBackCarStart();
+    }
 
     public int getCurrentBTStatus() {
         Log.e(TAG, "getCurrentBTStatus==" + currentBTStatus);
@@ -54,9 +74,43 @@ public class BluetoothRequestFocus {
         init();
     }
 
+    @SuppressLint("WrongConstant")
     private void init() {
         blueManager = BluetoothManager.getBluetoothManagerInstance(context);
         audioManager = (AudioManager) context.getSystemService(context.AUDIO_SERVICE);
+        jancarManager = (JancarManager) context.getSystemService(JancarManager.JAC_SERVICE);
+        JacState jacState = new JacState() {
+            @Override
+            public void OnCallEx(eCallState eState, String number) {
+                super.OnCallEx(eState, number);
+                Log.e("BluetoothRequestFocus", "eState====:" + eState);
+                if (eState == eCallState.eCall_Idle) {
+                    CallState = CallStateIdle;
+                } else if (eState == eCallState.eCall_Terminated) {
+//                    CallState = CallStateTer;
+                    CallState = CallStateIdle;
+                } else {
+                    CallState = CallStateAct;
+                }
+            }
+
+            @Override
+            public void OnBackCar(boolean bState) {
+                super.OnBackCar(bState);
+                Log.e("BluetoothRequestFocus", "bState===:" + bState);
+                CarState = bState;
+                if (!bState) {
+                    if (backCarListener != null) {
+                        backCarListener.onNotifyBackCarStop();
+                    }
+                } else {
+                    if (backCarListener != null) {
+                        backCarListener.onNotifyBackCarStart();
+                    }
+                }
+            }
+        };
+        jancarManager.registerJacStateListener(jacState.asBinder());
     }
 
     public boolean isBTConnect() {
@@ -124,16 +178,16 @@ public class BluetoothRequestFocus {
     private AudioManager.OnAudioFocusChangeListener mAudioFocusListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(final int focusChange) {
-            Log.e(TAG, "onAudioFocusChange:" + focusChange);
+            Log.e(TAG, "onAudioFocusChange:===" + focusChange);
             switch (focusChange) {
                 case AudioManager.AUDIOFOCUS_GAIN:
                     Log.e(TAG, "GAIN:" + focusChange);
                     setCurrentBTStatus(BT_FOCUSE_GAIN);
-                    Log.d("BluetoothRequestFocus", "HandPaused:" + HandPaused);
+                    Log.d("BluetoothRequestFocus", "HandPaused:===" + HandPaused);
                     break;
                 case AudioManager.AUDIOFOCUS_LOSS:
                     setCurrentBTStatus(BT_FOCUSE_LOSS);
-                    Log.e(TAG, "LOSS:" + focusChange);
+                    Log.e(TAG, "LOSS===:" + focusChange);
                     if (blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PLAY) {
                         btMusicPause();
                         HandPaused = false;
@@ -141,7 +195,7 @@ public class BluetoothRequestFocus {
                     break;
                 case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
                     setCurrentBTStatus(BT_FOCUSE_LOSS_TRANSIENT);
-                    Log.e(TAG, "TRANSIENT:" + focusChange);
+                    Log.e(TAG, "TRANSIENT===:" + focusChange);
                     if (blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PLAY) {
                         btMusicPause();
                         HandPaused = false;
@@ -149,7 +203,7 @@ public class BluetoothRequestFocus {
                     break;
                 case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
                     setCurrentBTStatus(BT_FOCUSE_TRANSIENT_CAN_DUCK);
-                    Log.e(TAG, "CAN_DUCK:" + focusChange);
+                    Log.e(TAG, "CAN_DUCK===:" + focusChange);
                     boolean flag = SystemProperties.getBoolean("persist.jancar.gpsmix", true);
                     if (!flag && blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PLAY) {
                         btMusicPause();

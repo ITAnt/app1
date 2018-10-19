@@ -6,4 +6,17 @@ package com.jancar.bluetooth.phone.entity;
  * @describe TODO
  */
 public class Event {
+    private boolean isConnect;
+
+    public Event(boolean isConnect) {
+        this.isConnect = isConnect;
+    }
+
+    public boolean isConnect() {
+        return isConnect;
+    }
+
+    public void setConnect(boolean connect) {
+        isConnect = connect;
+    }
 }

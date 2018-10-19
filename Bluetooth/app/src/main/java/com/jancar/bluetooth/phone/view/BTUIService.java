@@ -120,6 +120,8 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
     private boolean isShowPhone = false;
     private int visibility;
     private View saveView;
+    public static RegisterMediaSession registerMediaSession;
+    public static BluetoothRequestFocus bluetoothRequestFocus;
 
 
     @Nullable
@@ -130,7 +132,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "onStartCommand");
+        Log.d(TAG, "onStartCommand===");
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -142,6 +144,8 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         initView();
         findView();
         bluetoothManager = BluetoothManager.getBluetoothManagerInstance(this.getApplicationContext());
+        bluetoothRequestFocus = BluetoothRequestFocus.getBluetoothRequestFocusStance(this.getApplicationContext());
+        registerMediaSession = new RegisterMediaSession(this.getApplicationContext(), bluetoothManager);
         JacState jacState = new JacState() {
             @Override
             public void OnCallEx(eCallState eState, String number) {
@@ -180,7 +184,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         @Override
         public void update(boolean bMaximize, HashMap<String, Object> map) {
             super.update(bMaximize, map);
-            Log.e(TAG, "update" + bMaximize);
+            Log.e(TAG, "update==" + bMaximize);
             isFull = bMaximize;
             if (isShowPhone) {
                 if (isFull) {
@@ -307,6 +311,20 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         }
 
     }
+//    public void translateSystemBar(View view, boolean bTranslate) {
+//        try {
+//            int visable = view.getSystemUiVisibility();
+//            if (visable & View.SYSTEM_UI_FLAG_LOW_PROFILE) {
+//                visable &= ~View.SYSTEM_UI_FLAG_LOW_PROFILE;
+//            }
+//            if (bTranslate) {
+//                view.setSystemUiVisibility();
+//            } else {
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void initView() {
         mWindowManager = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
@@ -316,8 +334,9 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         mLayoutParams.flags = WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
         mLayoutParams.gravity = Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL;
         mLayoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-        mLayoutParams.height = 541;
-        mLayoutParams.y = 59;
+        mLayoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
+//        mLayoutParams.height = 541;
+//        mLayoutParams.y = 59;
         phoneView = LayoutInflater.from(this).inflate(R.layout.activity_communicate, null);
 
         // 小屏

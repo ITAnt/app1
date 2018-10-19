@@ -1,5 +1,6 @@
 package com.jancar.bluetooth.phone;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,12 +21,17 @@ import android.widget.RelativeLayout;
 
 import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
+import com.jancar.bluetooth.phone.entity.Event;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.view.fragment.ContactFragment;
 import com.jancar.bluetooth.phone.view.fragment.DialFragment;
 import com.jancar.bluetooth.phone.view.fragment.EquipmentFragment;
 import com.jancar.bluetooth.phone.view.fragment.RecordsFragment;
 import com.jancar.bluetooth.phone.widget.ConnectDialog;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,6 +71,13 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
         setContentView(R.layout.activity_main);
         unbinder = ButterKnife.bind(this);
         initComponent();
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -81,6 +94,26 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
             }
         }
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * 事件响应方法
+     * 接收消息
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(Event event) {
+        if (event.isConnect() && connectDialog.isShowing()) {
+            connectDialog.dismiss();
+        }
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -233,6 +266,11 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
 //        super.onRestoreInstanceState(savedInstanceState);
     }
 
+    @SuppressLint("MissingSuperCall")
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+    }
 
     @OnClick({R.id.tab_dial_manager, R.id.tab_contact_manager, R.id.tab_records_manager, R.id.tab_statics_manager})
     public void onViewClick(View view) {
