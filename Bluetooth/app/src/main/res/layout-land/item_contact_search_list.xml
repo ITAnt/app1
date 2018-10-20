@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px78">
+        android:layout_height="@dimen/px79">
 
         <TextView
             android:id="@+id/tv_contact_search_name"
@@ -17,8 +17,8 @@
             android:layout_centerVertical="true"
             android:maxLines="1"
             android:minWidth="@dimen/px100"
-            tools:text="阿华阿华阿华阿华阿华"
-            android:paddingLeft="@dimen/px10"/>
+            android:paddingLeft="@dimen/px10"
+            tools:text="阿华阿华阿华阿华阿华" />
 
         <ImageView
             android:id="@+id/iv_contact_search_call"
@@ -42,10 +42,10 @@
 
 
     </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/px2"
-        android:background="@drawable/lin_bt_dail" />
+    <!--  android:background="@drawable/lin_bt_dail" -->
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/px1"-->
+        <!--android:background="@color/lin_bt_dail" />-->
 
 </LinearLayout>

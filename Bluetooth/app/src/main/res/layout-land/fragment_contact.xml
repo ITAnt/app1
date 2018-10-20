@@ -69,7 +69,7 @@
             android:layout_marginStart="@dimen/px45"
             android:layout_toLeftOf="@+id/item_sidebar"
             android:scrollbars="none"
-            tools:listitem="@layout/item_contact_list" />
+            tools:listitem="@layout/item_contact_search_list" />
     </RelativeLayout>
 
 

@@ -20,10 +20,10 @@
         android:text="A"
         android:layout_marginStart="@dimen/px10"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/px2"
-        android:background="@drawable/lin_bt_dail" />
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/px1"-->
+        <!--android:background="@drawable/lin_bt_dail" />-->
 
     <FrameLayout
         android:id="@+id/content_framelayout"

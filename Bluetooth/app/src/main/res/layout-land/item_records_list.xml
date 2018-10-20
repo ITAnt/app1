@@ -22,8 +22,8 @@
             android:layout_width="@dimen/px200"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/px30"
             android:layout_marginEnd="@dimen/px30"
+            android:layout_marginStart="@dimen/px30"
             android:layout_toRightOf="@+id/iv_records_call_type"
             android:maxLines="1"
             android:minWidth="@dimen/px100"
@@ -47,11 +47,11 @@
             android:layout_toRightOf="@+id/iv_records_call_name"
             tools:text="13500000000" />
     </RelativeLayout>
-
+    <!--  android:background="@drawable/lin_bt_dail"-->
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px2"
-        android:background="@drawable/lin_bt_dail" />
+        android:layout_height="@dimen/px1"
+        android:background="@color/lin_bt_dail" />
 
 
 </LinearLayout>

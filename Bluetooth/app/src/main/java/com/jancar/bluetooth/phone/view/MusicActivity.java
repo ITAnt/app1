@@ -323,6 +323,9 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                         }
                         break;
                     case BluetoothRequestFocus.BT_NONE:
+                        if (bluetoothRequestFocus.getPlayStatus()) {
+                            bluetoothRequestFocus.setBTPlayStatus(false);
+                        }
                         Log.e("MusicActivity", "BT_NONE===");
                         break;
                 }
