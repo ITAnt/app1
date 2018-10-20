@@ -1,16 +1,17 @@
-package com.ancar.suspension.widget;
+package com.jancar.settings.suspension.widget;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 
 
-import com.ancar.suspension.R;
-import com.ancar.suspension.animation.FadeAnimation;
-import com.ancar.suspension.animation.MenuAnimation;
+import com.jancar.settings.R;
+import com.jancar.settings.suspension.animation.FadeAnimation;
+import com.jancar.settings.suspension.animation.MenuAnimation;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * A FloatingActionMenuBuilder for {@link FloatingMenu} in conventional Java FloatingActionMenuBuilder format
  */

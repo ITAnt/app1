@@ -86,4 +86,6 @@ dependencies {
     implementation files('libs/classes.jar')
     implementation files('libs/common.jar')
     compileOnly files('libs/wheelkey.jar')
+    implementation 'com.github.orhanobut:hawk:1.21'
+    implementation 'org.greenrobot:eventbus:3.1.1'
 }

@@ -811,4 +811,23 @@
     <dimen name="px359">359px</dimen>
     <dimen name="px360">360px</dimen>
 
+
+    <dimen name="action_button_size">72dp</dimen>
+    <dimen name="action_button_content_margin">16dp</dimen>
+    <dimen name="main_action_button_margin">12dp</dimen>
+    <dimen name="action_menu_radius">48dp</dimen>
+
+    <dimen name="sub_action_button_size">36dp</dimen>
+    <dimen name="sub_action_button_content_margin">0dp</dimen>
+
+    <dimen name="main_action_button_size">106dp</dimen>
+    <dimen name="red_action_button_margin">48dp</dimen>
+
+    <dimen name="main_action_button_content_size">106dp</dimen>
+    <dimen name="main_action_button_content_margin">106dp</dimen>
+
+    <dimen name="main_action_menu_radius">80px</dimen>
+    <dimen name="child_action_button_size">30dp</dimen>
+    <dimen name="child_action_button_content_margin">30px</dimen>
+
 </resources>

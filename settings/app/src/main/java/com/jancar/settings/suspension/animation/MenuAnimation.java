@@ -1,7 +1,7 @@
 /*
  *   Copyright 2014 Oguz Bilgener
  */
-package com.ancar.suspension.animation;
+package com.jancar.settings.suspension.animation;
 
 import android.animation.Animator;
 import android.graphics.Point;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
-import com.ancar.suspension.widget.FloatingMenu;
+import com.jancar.settings.suspension.widget.FloatingMenu;
 
 
 /**

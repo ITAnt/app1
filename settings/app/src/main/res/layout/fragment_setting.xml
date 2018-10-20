@@ -46,10 +46,10 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/px2"
+                android:layout_height="@dimen/px1"
                 android:layout_marginLeft="@dimen/px30"
                 android:layout_marginRight="@dimen/px30"
-                android:background="@drawable/lin_bt_dail" />
+                android:background="@color/bg_line_txt" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -90,10 +90,10 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/px2"
+                android:layout_height="@dimen/px1"
                 android:layout_marginLeft="@dimen/px32"
                 android:layout_marginRight="@dimen/px32"
-                android:background="@drawable/lin_bt_dail" />
+                android:background="@color/bg_line_txt" />
 
             <LinearLayout
                 android:id="@+id/liner_open_blue"
@@ -142,10 +142,10 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/px2"
+                    android:layout_height="@dimen/px1"
                     android:layout_marginLeft="@dimen/px32"
                     android:layout_marginRight="@dimen/px32"
-                    android:background="@drawable/lin_bt_dail" />
+                    android:background="@color/bg_line_txt" />
 
                 <RelativeLayout
                     android:id="@+id/rela_del"
@@ -179,6 +179,7 @@
                     android:layout_marginEnd="@dimen/px30"
                     android:layout_marginStart="@dimen/px30"
                     android:layout_marginTop="@dimen/px10"
+                    android:divider="@null"
                     tools:listitem="@layout/item_equip_list" />
 
                 <TextView
@@ -196,6 +197,7 @@
                     android:layout_marginEnd="@dimen/px30"
                     android:layout_marginStart="@dimen/px30"
                     android:layout_marginTop="@dimen/px10"
+                    android:divider="@null"
                     tools:listitem="@layout/item_equip_list" />
             </LinearLayout>
         </LinearLayout>

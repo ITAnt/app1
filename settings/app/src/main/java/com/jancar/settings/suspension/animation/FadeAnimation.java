@@ -1,7 +1,7 @@
 /*
  *   Copyright 2014 Oguz Bilgener
  */
-package com.ancar.suspension.animation;
+package com.jancar.settings.suspension.animation;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 
-import com.ancar.suspension.widget.FloatingMenu;
+import com.jancar.settings.suspension.widget.FloatingMenu;
 
 
 /**
@@ -137,6 +137,7 @@ public class FadeAnimation extends MenuAnimation {
             restoreSubActionViewAfterAnimation(subActionItem, actionType);
         }
 
-        @Override public void onAnimationRepeat(Animator animation) {}
+        @Override
+        public void onAnimationRepeat(Animator animation) {}
     }
 }

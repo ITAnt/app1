@@ -1,4 +1,4 @@
-package com.ancar.suspension.widget;
+package com.jancar.settings.suspension.widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

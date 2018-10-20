@@ -1,4 +1,4 @@
-package com.ancar.suspension.widget;
+package com.jancar.settings.suspension.widget;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 
-import com.ancar.suspension.animation.MenuAnimation;
+import com.jancar.settings.suspension.animation.MenuAnimation;
 
 import java.util.List;
 

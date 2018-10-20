@@ -1,4 +1,4 @@
-package com.ancar.suspension.widget;
+package com.jancar.settings.suspension.widget;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;

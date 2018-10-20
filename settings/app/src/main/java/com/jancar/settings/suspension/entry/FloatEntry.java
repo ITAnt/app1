@@ -1,4 +1,4 @@
-package com.ancar.suspension.entry;
+package com.jancar.settings.suspension.entry;
 
 /**
  * @anthor Tzq

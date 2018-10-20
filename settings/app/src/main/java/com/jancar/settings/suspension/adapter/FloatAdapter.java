@@ -1,4 +1,4 @@
-package com.ancar.suspension.adapter;
+package com.jancar.settings.suspension.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,10 +9,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ancar.suspension.R;
-import com.ancar.suspension.entry.FloatEntry;
+
+import com.jancar.settings.R;
+import com.jancar.settings.suspension.entry.FloatEntry;
 
 import java.util.List;
+
 
 /**
  * @anthor Tzq

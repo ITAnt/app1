@@ -1,7 +1,7 @@
 /*
  *   Copyright 2014 Oguz Bilgener
  */
-package com.ancar.suspension.widget;
+package com.jancar.settings.suspension.widget;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -10,7 +10,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.ancar.suspension.R;
+import com.jancar.settings.R;
 
 
 /**

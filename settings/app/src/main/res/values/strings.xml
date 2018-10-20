@@ -301,6 +301,14 @@
     <string name="tv_setting_available">可用设备</string>
     <string name="tv_setting_update_name">名称不能为空</string>
 
+    <!-- 悬浮按钮-->
+    <string name="tv_power">电 源</string>
+    <string name="tv_home">主屏幕</string>
+    <string name="tv_vioce_add">音量加</string>
+    <string name="tv_vioce_dec">音量减</string>
+    <string name="tv_back">返 回</string>
+    <!-- =====================-->
+
     <string name="txt_standard">标准</string>
     <string name="txt_popular">流行</string>
     <string name="txt_ock">摇滚</string>

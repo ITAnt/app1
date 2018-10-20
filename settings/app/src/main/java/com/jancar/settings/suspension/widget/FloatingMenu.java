@@ -1,12 +1,11 @@
 /*
  *   Copyright 2014 Oguz Bilgener
  */
-package com.ancar.suspension.widget;
+package com.jancar.settings.suspension.widget;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.PixelFormat;
@@ -24,7 +23,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 
-import com.ancar.suspension.animation.MenuAnimation;
+import com.jancar.settings.suspension.animation.MenuAnimation;
 
 import java.util.List;
 
