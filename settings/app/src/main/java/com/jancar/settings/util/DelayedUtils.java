@@ -11,7 +11,7 @@ public class DelayedUtils {
     public static boolean isFastDoubleClick() {
         long time = System.currentTimeMillis();
         long timeD = time - lastClickTime;
-        if (0 < timeD && timeD < 300) {
+        if (0 < timeD && timeD < 3000) {
             return true;
         }
         lastClickTime = time;

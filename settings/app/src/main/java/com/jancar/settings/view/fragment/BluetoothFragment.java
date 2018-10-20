@@ -84,6 +84,8 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     private final static int BT_SWITH_STATE_OFF = 4;
     private final static int BT_DEVICE_START = 5;
     private final static int BT_DEVICE_END = 6;
+    private final static int BT_SWITCH = 7;
+    private boolean isClick = true;
 
     @Override
     public void onAttach(Context context) {
@@ -95,14 +97,18 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     @Override
     public void onResume() {
         super.onResume();
+        Log.w(TAG, "onResume===");
         tvBlutName = bluetoothManager.getBTName().trim();
         tvBtName.setText(tvBlutName);
+        avaAdapter.notifyDataSetChanged();
+        pairAdapter.notifyDataSetChanged();
         bluetoothManager.getBondDevice();
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        Log.w(TAG, "onPause==");
         bluetoothManager.unRegisterBTSettingListener(this);
     }
 
@@ -233,9 +239,6 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     private void BTonView() {
         tvClose.setText(R.string.tv_open);
         linearBlue.setVisibility(View.VISIBLE);
-//        linearSearch.setVisibility(View.VISIBLE);
-//        tvSearch.setVisibility(View.GONE);
-//        ivSearch.show();
         mPresenter.searchPairedList();
     }
 
@@ -254,18 +257,20 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                     tvCheckSw.setText(R.string.tv_setting_check_);
                 } else {
                     tvCheckSw.setText(R.string.tv_setting_check_des);
-
                 }
                 bluetoothManager.setBTIsDisCovering(isDisCovering);
                 break;
             case R.id.iv_setting_switch:
-                if (!DelayedUtils.isFastDoubleClick()) {
+                if (isClick) {
                     isBTon = !isBTon;
                     if (isBTon) {
                         mPresenter.openBluetooth();
                     } else {
                         mPresenter.closeBluetooth();
                     }
+                    isClick = false;
+                    ivOnSw.setEnabled(false);
+                    handler.sendEmptyMessageDelayed(BT_SWITCH, 3000);
                 }
 
                 break;
@@ -388,27 +393,34 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                     break;
                 case BT_SWITH_STATE_ON://蓝牙开启
                     Log.w(TAG, "BT_SWITH_STATE_ON");
+                    tvClose.setText(R.string.tv_open);
                     tvSearch.setVisibility(View.GONE);
-                    ivSearch.show();
                     linearBlue.setVisibility(View.VISIBLE);
+                    ivSearch.show();
                     mPresenter.searchPairedList();
                     break;
                 case BT_SWITH_STATE_OFF://蓝牙关闭
                     Log.w(TAG, "BT_SWITH_STATE_OFF");
+                    tvClose.setText(R.string.tv_closed);
                     linearBlue.setVisibility(View.GONE);
+                    ivSearch.hide();
                     tvSearch.setVisibility(View.VISIBLE);
                     break;
                 case BT_DEVICE_START://开始搜索
                     Log.w(TAG, "BT_DEVICE_START");
-                    ivSearch.show();
                     tvSearch.setVisibility(View.GONE);
                     linearSearch.setVisibility(View.VISIBLE);
+                    ivSearch.show();
                     break;
                 case BT_DEVICE_END://结束搜索
                     Log.w(TAG, "BT_DEVICE_END");
                     linearSearch.setVisibility(View.GONE);
                     tvSearch.setVisibility(View.VISIBLE);
                     ivSearch.hide();
+                    break;
+                case BT_SWITCH:
+                    isClick = true;
+                    ivOnSw.setEnabled(true);
                     break;
             }
         }
