@@ -187,12 +187,13 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     if (pairedDataListList.size() > 0 && pairedDataListList != null) {
-                        Log.w(TAG, "listViewonItem");
+                        Log.w(TAG, "listViewonItem===");
                         String remote_device_macaddr = pairedDataListList.get(i).getRemote_device_macaddr();
                         int status = pairedDataListList.get(i).getRemote_connect_status();
                         if (status == Constants.BLUETOOTH_DEVICE_BONDED) {
                             mPresenter.connBlutoth(remote_device_macaddr);
                         }
+                        pairAdapter.notifyDataSetChanged();
                     }
                 }
             });
@@ -213,6 +214,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                             String remote_device_macaddr = unPairedDataListList.get(i).getRemote_device_macaddr();
                             mPresenter.connBlutoth(remote_device_macaddr);
                         }
+                        avaAdapter.notifyDataSetChanged();
                     }
                 }
             });
