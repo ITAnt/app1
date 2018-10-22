@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,11 +73,13 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        Log.e("SuspensionFragment", "onAttach===");
         this.activity = (Activity) context;
     }
 
     @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.e("SuspensionFragment", "initView===");
         view = inflater.inflate(R.layout.fragment_suspension, null);
         initView(savedInstanceState);
         initData(savedInstanceState);
@@ -87,6 +90,7 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
     @Override
     public void onResume() {
         super.onResume();
+        Log.e("SuspensionFragment", "onResume===");
         pos_title_0 = Hawk.get(Contacts.ICON_POS_0, getResources().getString(R.string.tv_power));
         pos_title_1 = Hawk.get(Contacts.ICON_POS_1, getResources().getString(R.string.tv_home));
         pos_title_2 = Hawk.get(Contacts.ICON_POS_2, getResources().getString(R.string.tv_vioce_add));
@@ -106,11 +110,13 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
     @Override
     public void onStop() {
         super.onStop();
+        Log.e("SuspensionFragment", "onStop===");
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        Log.e("SuspensionFragment", "onPause===");
         Hawk.put(Contacts.ICON_POS_0, pos_title_0);
         Hawk.put(Contacts.ICON_POS_1, pos_title_1);
         Hawk.put(Contacts.ICON_POS_2, pos_title_2);
@@ -124,9 +130,11 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.e("SuspensionFragment", "onDestroy===");
     }
 
     private void changeIconBg(int indexIcon) {
+        Log.e("SuspensionFragment", "changeIconBg===");
         ivPower.setSelected(false);
         ivHome.setSelected(false);
         ivAdd.setSelected(false);
@@ -153,6 +161,7 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
+        Log.e("SuspensionFragment", "initView===");
         if (view != null) {
             ivPower = view.findViewById(R.id.iv_power);
             ivHome = view.findViewById(R.id.iv_home);
