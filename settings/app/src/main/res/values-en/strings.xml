@@ -318,12 +318,8 @@
     <string name="shorts">Short</string>
     <string name="Long">Long</string>
     <string name="label_Waiting">Waiting</string>
-<<<<<<< HEAD
     <string name="dialog_tab_restart" >Are you sure to restart？</string>
     <string name="tab_suspension_driving">Floating button switch</string>
-=======
-    <string name="dialog_tab_restart">Are you sure to restart？</string>
->>>>>>> 060f77cf078cedf16aa8149a5709e85156729000
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>
