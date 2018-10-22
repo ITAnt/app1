@@ -554,11 +554,11 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
                         formatter = new SimpleDateFormat("hh:mm");
                         Date curDate = new Date(System.currentTimeMillis());
 
-                        return     getResources().getString(R.string.tab_am)+" " + formatter.format(curDate);
+                        return      formatter.format(curDate)+" "+getResources().getString(R.string.tab_am)+" ";
                     } else {
                         formatter = new SimpleDateFormat("hh:mm");
                         Date curDate = new Date(System.currentTimeMillis());
-                        return  getResources().getString(R.string.tab_pm) +" " + formatter.format(curDate);
+                        return  formatter.format(curDate) +" "+getResources().getString(R.string.tab_pm) ;
                     }
                 }
 

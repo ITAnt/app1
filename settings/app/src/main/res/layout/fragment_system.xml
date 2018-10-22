@@ -13,54 +13,18 @@
 
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <RelativeLayout
-                android:id="@+id/rlayout_suspension"
-                style="@style/style_rlayout"
-              >
 
-                <com.jancar.settings.widget.SwitchButton
-                    android:id="@+id/switch_suspension"
-                    style="@style/style_switch"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true" />
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:gravity="center|left"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/txt_suspension_title"
-                        style="@style/style_title_txt"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="2.5dp"
-                        android:layout_marginTop="5dp"
-                        android:text="@string/tab_suspension_driving" />
-
-                    <TextView
-                        android:id="@+id/txt_suspension_summary"
-                        style="@style/style_summary_txt"
-                        android:text="@string/label_adjust_off"
-                        android:visibility="gone" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/txt_suspension_system_line"
-                style="@style/style_line_txt"
-                android:layout_below="@+id/rlayout_suspension" />
 
             <FrameLayout
-                android:layout_below="@+id/txt_suspension_system_line"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <RelativeLayout
-                    android:visibility="visible"
                     android:id="@+id/llayout_system"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:visibility="visible">
+
                     <RelativeLayout
                         android:id="@+id/rlayout_video_system"
                         style="@style/style_rlayout">
@@ -142,15 +106,53 @@
                         android:layout_below="@+id/rlayout_touch_tone" />
 
                     <RelativeLayout
-                        android:id="@+id/rlayout_system_cleanup"
+                        android:id="@+id/rlayout_suspension"
                         style="@style/style_rlayout"
                         android:layout_below="@+id/rlayout_touch_tone">
+
+
+                        <ImageView
+                            android:id="@+id/img_suspension_cleanup_arrow"
+                            style="@style/style_img"
+                            android:src="@drawable/balance_btn_right_state" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentLeft="true"
+                            android:gravity="center|left"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/txt_suspension_title"
+                                style="@style/style_title_txt"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="2.5dp"
+                                android:layout_marginTop="5dp"
+                                android:text="@string/tab_suspension_driving" />
+
+                            <TextView
+                                android:id="@+id/txt_suspension_summary"
+                                style="@style/style_summary_txt"
+                                android:text="@string/label_adjust_off"
+                                android:visibility="gone" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/txt_suspension_system_line"
+                        style="@style/style_line_txt"
+                        android:layout_below="@+id/rlayout_suspension" />
+
+                    <RelativeLayout
+                        android:id="@+id/rlayout_system_cleanup"
+                        style="@style/style_rlayout"
+                        android:layout_below="@+id/txt_suspension_system_line">
 
                         <TextView
                             android:id="@+id/txt_system_cleanup_title"
                             style="@style/style_txt"
-                            android:text="@string/tab_system_cleanup"
-                            />
+                            android:text="@string/tab_system_cleanup" />
 
 
                         <ImageView
@@ -187,6 +189,7 @@
                         android:id="@+id/txt_factory_setting_line"
                         style="@style/style_line_txt"
                         android:layout_below="@+id/rlayout_factory_setting" />
+
                     <RelativeLayout
                         android:id="@+id/rlayout_restore_default"
                         style="@style/style_rlayout"
@@ -195,8 +198,7 @@
                         <TextView
                             android:id="@+id/txt_time_zone_title"
                             style="@style/style_txt"
-                            android:text="@string/label_restore_default"
-                            />
+                            android:text="@string/label_restore_default" />
 
 
                         <ImageView
@@ -216,6 +218,7 @@
                         android:id="@+id/txt_restore_default_line"
                         style="@style/style_line_txt"
                         android:layout_below="@+id/rlayout_restore_default" />
+
                     <RelativeLayout
                         android:id="@+id/rlayout_reset"
                         style="@style/style_rlayout"
@@ -265,11 +268,11 @@
                 </RelativeLayout>
 
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:visibility="gone"
                     android:id="@+id/llayout_suspension"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                 </LinearLayout>
             </FrameLayout>

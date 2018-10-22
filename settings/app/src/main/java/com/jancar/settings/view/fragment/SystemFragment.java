@@ -79,7 +79,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
     private RelativeLayout restartRlayout;
     private SwitchButton videoSwitch;
     private SwitchButton touchToneSwitch;
-    private SwitchButton suspensionSwitch;//悬浮按钮开关
+    //  private SwitchButton suspensionSwitch;//悬浮按钮开关
     private RelativeLayout suspensionRlayout;//悬浮按钮
     private int cleanAppCount = 0;
     private int appListSize = 0;
@@ -108,7 +108,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         if (view != null) {
             videoSwitch = (SwitchButton) view.findViewById(R.id.switch_video);
             touchToneSwitch = (SwitchButton) view.findViewById(R.id.switch_touch_tone);
-            suspensionSwitch = (SwitchButton) view.findViewById(R.id.switch_suspension);
+            // suspensionSwitch = (SwitchButton) view.findViewById(R.id.switch_suspension);
             systemCleanupRlayout = (RelativeLayout) view.findViewById(R.id.rlayout_system_cleanup);
             factorySettingRlayout = (RelativeLayout) view.findViewById(R.id.rlayout_factory_setting);
             suspensionRlayout = (RelativeLayout) view.findViewById(R.id.rlayout_suspension);
@@ -146,8 +146,8 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         touchToneSwitch.setBackDrawableRes(R.drawable.switch_custom_track_selector);
         videoSwitch.setThumbDrawableRes(R.drawable.switch_custom_thumb_selector);
         videoSwitch.setBackDrawableRes(R.drawable.switch_custom_track_selector);
-        suspensionSwitch.setThumbDrawableRes(R.drawable.switch_custom_thumb_selector);
-        suspensionSwitch.setBackDrawableRes(R.drawable.switch_custom_track_selector);
+      /*  suspensionSwitch.setThumbDrawableRes(R.drawable.switch_custom_thumb_selector);
+        suspensionSwitch.setBackDrawableRes(R.drawable.switch_custom_track_selector);*/
         videoSwitch.setCheckedImmediately(settingManager.getDrivingStopVedio());
         touchToneSwitch.setCheckedImmediately(settingManager.getIsNeedkeySound());
         systemCleanupRlayout.setOnClickListener(this);
@@ -159,7 +159,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         restoreDefaultRlayout.setOnClickListener(this);
         settingManager.setListener(this);
         suspensionRlayout.setOnClickListener(this);
-        mSuspensionFragment = newInstance(suspensionSwitch.isChecked());
+        mSuspensionFragment = newInstance(false);
         getFragmentManager().beginTransaction()
                 .add(R.id.llayout_suspension, mSuspensionFragment)
                 .commit();
@@ -237,8 +237,8 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                         mAudioEffectManager.setAudioEffectBass(7, true);
                         mAudioEffectManager.setAudioEffectBass(7, true);
                         SharedPreferences.Editor editor = getActivity().getSharedPreferences("EQ", MODE_WORLD_WRITEABLE).edit();
-                        editor.putFloat("fad", 0.186724f);
-                        editor.putFloat("bal", 0.076622f);
+                        editor.putFloat("x", 0.9633102f);
+                        editor.putFloat("y", 0.8699093f);
                         editor.putInt("ValueTTxt", 7);
                         editor.putInt("ValueMTxt", 7);
                         editor.putInt("ValueBTxt", 7);
@@ -554,8 +554,8 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
             Settings.Secure.setLocationProviderEnabled(getContext().getContentResolver(), LocationManager.GPS_PROVIDER, false);
             GPS gps = new GPS();
             gps.openGPSSettings(getContext(), 3);
+            settingManager.changeSystemLanguage(settingManager.locales[settingManager.getLanguage()], settingManager.getLanguage());
         }
-        settingManager.changeSystemLanguage(settingManager.locales[settingManager.getLanguage()], settingManager.getLanguage());
         //Toast.makeText(getContext(), "123", Toast.LENGTH_SHORT).show();
 
     }
