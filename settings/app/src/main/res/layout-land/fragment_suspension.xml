@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:text="悬浮开关" />
 
-        <com.ancar.suspension.widget.SwitchButton
+        <com.jancar.settings.widget.SwitchButton
             android:id="@+id/iv_float_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -96,9 +96,9 @@
         <ListView
             android:id="@+id/sus_listview"
             android:layout_width="387px"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/px10"
-            android:layout_marginStart="300px"
+            android:layout_marginStart="150px"
             android:layout_marginTop="@dimen/px23"
             android:background="@drawable/iv_sus_list_bg"
             android:divider="@drawable/iv_sus_div"
