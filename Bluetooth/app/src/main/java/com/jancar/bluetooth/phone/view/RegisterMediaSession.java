@@ -21,11 +21,12 @@ public class RegisterMediaSession {
     private Context context;
     private BluetoothManager bluetoothManager;
 
-    public RegisterMediaSession(Context context,BluetoothManager bluetoothManager) {
+    public RegisterMediaSession(Context context, BluetoothManager bluetoothManager) {
         this.context = context;
         this.bluetoothManager = bluetoothManager;
         setupMediaSession();
     }
+
     /**
      * 初始化并激活 MediaSession
      */
@@ -49,7 +50,7 @@ public class RegisterMediaSession {
                 KeyEvent keyEvent;
                 if (Intent.ACTION_MEDIA_BUTTON.equals(intent.getAction())) {
                     keyEvent = intent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
-                    if (keyEvent != null) {
+                    if (keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_UP) {
                         handleMediaButton(keyEvent);
                     }
                 }
@@ -95,16 +96,21 @@ public class RegisterMediaSession {
     private void handleMediaButton(KeyEvent keyEvent) {
         int keyCode = keyEvent.getKeyCode();
         if (KeyEvent.KEYCODE_MEDIA_NEXT == keyCode) {
-            bluetoothManager.prev();
+            Log.e(TAG, "KEYCODE_MEDIA_NEXT===");
+            bluetoothManager.next();
         } else if (KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE == keyCode) {
         } else if (KeyEvent.KEYCODE_HEADSETHOOK == keyCode) {
         } else if (KeyEvent.KEYCODE_MEDIA_PREVIOUS == keyCode) {
-            bluetoothManager.next();
+            Log.e(TAG, "KEYCODE_MEDIA_PLAY_PAUSE===");
+            bluetoothManager.prev();
         } else if (KeyEvent.KEYCODE_MEDIA_STOP == keyCode) {
+            Log.e(TAG, "KEYCODE_MEDIA_STOP===");
             bluetoothManager.pause();
         } else if (KeyEvent.KEYCODE_MEDIA_PAUSE == keyCode) {
+            Log.e(TAG, "KEYCODE_MEDIA_PAUSE===");
             bluetoothManager.pause();
         } else if (KeyEvent.KEYCODE_MEDIA_PLAY == keyCode) {
+            Log.e(TAG, "KEYCODE_MEDIA_PLAY===");
             bluetoothManager.play();
         }
     }

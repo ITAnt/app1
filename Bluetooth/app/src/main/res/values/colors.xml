@@ -7,4 +7,5 @@
     <color name="black">#000000</color>
     <color name="bgSelected">#0068b7</color>
     <color name="tipColor">#787878</color>
+    <color name="lin_bt_dail">#1f1f1f</color>
 </resources>

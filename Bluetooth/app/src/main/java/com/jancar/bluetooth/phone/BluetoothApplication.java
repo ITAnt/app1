@@ -5,6 +5,9 @@ import android.view.ViewConfiguration;
 
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.phone.util.FlyLog;
+import com.orhanobut.hawk.Hawk;
+import com.orhanobut.hawk.HawkBuilder;
+import com.orhanobut.hawk.LogLevel;
 
 import java.lang.reflect.Field;
 
@@ -32,6 +35,11 @@ public class BluetoothApplication extends Application {
         } catch (Exception e) {
             FlyLog.e(e.toString());
         }
+        Hawk.init(this)
+                .setEncryptionMethod(HawkBuilder.EncryptionMethod.MEDIUM)
+                .setStorage(HawkBuilder.newSqliteStorage(this))
+                .setLogLevel(LogLevel.FULL)
+                .build();
     }
 
     @Override

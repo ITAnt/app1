@@ -21,10 +21,13 @@ import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.phone.MainActivity;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.contract.EquipmentContract;
+import com.jancar.bluetooth.phone.entity.Event;
 import com.jancar.bluetooth.phone.presenter.EquipmentPresenter;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.ToastUtil;
 import com.ui.mvp.view.support.BaseFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -140,9 +143,7 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
                         btnConn.setVisibility(View.GONE);
                         btnClose.setVisibility(View.VISIBLE);
                         tvConnName.setText(getPresenter().getConnetName());
-                        if (MainActivity.connectDialog.isShowing()) {
-                            MainActivity.connectDialog.dismiss();
-                        }
+                        EventBus.getDefault().post(new Event(true));
 
                     } else if (obj == Constants.BT_CONNECT_IS_CLOSE) {
                         ivConnet.setImageResource(R.drawable.iv_equipment_disconnect);

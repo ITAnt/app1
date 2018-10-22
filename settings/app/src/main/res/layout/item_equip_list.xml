@@ -14,8 +14,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:text="蓝牙09080"
-            android:paddingStart="@dimen/px50"/>
+            android:paddingStart="@dimen/px50"
+            android:text="蓝牙09080" />
 
         <ImageView
             android:id="@+id/iv_setting_del"
@@ -26,9 +26,9 @@
 
             android:background="@drawable/setting_del_selector" />
     </RelativeLayout>
-
+    <!-- android:background="@drawable/lin_bt_dail"-->
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/px1"
-        android:background="@drawable/lin_bt_dail" />
+        android:background="@color/bg_line_txt" />
 </LinearLayout>
