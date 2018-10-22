@@ -17,7 +17,7 @@
         style="@style/txt_normal_px22"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/px40"
+        android:layout_marginStart="@dimen/px40"
         tools:text="电源"
         android:layout_gravity="center_vertical"
         android:layout_toRightOf="@id/iv_list_icon"/>

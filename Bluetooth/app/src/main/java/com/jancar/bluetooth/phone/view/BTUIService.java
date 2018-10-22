@@ -170,7 +170,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         public void show(boolean bMaximize, HashMap<String, Object> map) {
             super.show(bMaximize, map);
             isFull = bMaximize;
-            Log.e(TAG, "show==" + isFull);
+            Log.e(TAG, "show====" + isFull);
             showView();
             updataView(mCallType, mCallNumber);
         }
@@ -178,6 +178,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         @Override
         public void hide(HashMap<String, Object> map) {
             super.hide(map);
+            Log.e(TAG, "hide===");
             destroyView();
         }
 
@@ -282,7 +283,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
 
 
     private void updataHalfScoState(int scoState) {
-        Log.e(TAG, "updataHalfScoState:" + scoState);
+        Log.e(TAG, "updataHalfScoState===" + scoState);
 //        if (scoState == mCallScoState) {
 //            return;
 //        }
@@ -559,14 +560,9 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 startTimer();
                 break;
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_TERMINATED:
-                Log.d("CommunicateActivity", "nnnnnnnn");
-                BluetoothPhoneBookData bluetoothPhoneBookData = new BluetoothPhoneBookData();
-                bluetoothPhoneBookData.setPhoneName(mCallName);
-                bluetoothPhoneBookData.setPhoneNumber(mCallNumber);
-                bluetoothPhoneBookData.setPhoneBookCallType(mCallPhoneType);
-                bluetoothManager.addCallLogList(bluetoothPhoneBookData);
+                Log.d("CommunicateActivity", "BLUETOOTH_PHONE_CALL_STATE_TERMINATED===");
+                saveCallLog();
                 stopTimer();
-//                destroyView();
                 if (isShowPhone) {
                     jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_HIDE);
                 }

@@ -33,14 +33,11 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 import static com.jancar.bluetooth.phone.util.Constants.BT_CONNECT_IS_NONE;
 
-public class MainActivity extends AppCompatActivity implements BTConnectStatusListener {
+public class MainActivity extends AppCompatActivity implements BTConnectStatusListener, View.OnClickListener {
     public static final int TAB_DIAL_MANAGER = 1;
     public static final int TAB_CONTACT_MANAGER = 2;
     public static final int TAB_RECORD_MANAGER = 3;
@@ -51,14 +48,9 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
     private RecordsFragment recordsFragment;       //通话记录
     private EquipmentFragment equipmentFragment;   //设备管理
     private FragmentManager fragmentManager;
-    private Unbinder unbinder;
-    @BindView(R.id.tab_dial_manager)
     RelativeLayout dialRelayout;
-    @BindView(R.id.tab_contact_manager)
     RelativeLayout contactRelayout;
-    @BindView(R.id.tab_records_manager)
     RelativeLayout recordRelayout;
-    @BindView(R.id.tab_statics_manager)
     RelativeLayout equipmentRelaout;
     BluetoothManager bluetoothManager;
     private ConnectDialog connectDialog;
@@ -67,23 +59,22 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_main);
-        unbinder = ButterKnife.bind(this);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         initComponent();
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        Log.e("MainActivity", "onStart===");
         EventBus.getDefault().register(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("MainActivity", "onResume");
+        Log.e("MainActivity", "onResume===");
         bluetoothManager.setBTConnectStatusListener(this);
         isConnect = bluetoothManager.isConnect();
         if (!isConnect) {
@@ -98,7 +89,14 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
     @Override
     protected void onStop() {
         super.onStop();
+        Log.e("MainActivity", "onStop===");
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("MainActivity", "onDestroy===");
     }
 
     /**
@@ -116,14 +114,8 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
 
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unbinder.unbind();
-    }
-
-    @Override
     protected void onNewIntent(Intent intent) {
-        Log.d("MainActivity", "onNewIntent");
+        Log.e("MainActivity", "onNewIntent");
         go2Fragment(MainActivity.indexTab);
     }
 
@@ -149,16 +141,24 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
     }
 
     private void initComponent() {
+        findView();
         if (connectDialog == null) {
             connectDialog = new ConnectDialog(this, R.style.AlertDialogCustom);
         }
-//        String page = getIntent().getStringExtra("page");
-//        if (page.equals(Constants.MAIN_TAB)) {
-//            indexTab = TAB_CONTACT_MANAGER;
-//        }
         bluetoothManager = BluetoothManager.getBluetoothManagerInstance(this);
         fragmentManager = getSupportFragmentManager();
         go2Fragment(indexTab);
+    }
+
+    private void findView() {
+        dialRelayout = findViewById(R.id.tab_dial_manager);
+        contactRelayout = findViewById(R.id.tab_contact_manager);
+        recordRelayout = findViewById(R.id.tab_records_manager);
+        equipmentRelaout = findViewById(R.id.tab_statics_manager);
+        dialRelayout.setOnClickListener(this);
+        contactRelayout.setOnClickListener(this);
+        recordRelayout.setOnClickListener(this);
+        equipmentRelaout.setOnClickListener(this);
     }
 
     private void go2Fragment(int indexTab) {
@@ -272,35 +272,6 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
 //        super.onSaveInstanceState(outState);
     }
 
-    @OnClick({R.id.tab_dial_manager, R.id.tab_contact_manager, R.id.tab_records_manager, R.id.tab_statics_manager})
-    public void onViewClick(View view) {
-        switch (view.getId()) {
-            case R.id.tab_dial_manager:
-                if (indexTab != TAB_DIAL_MANAGER) {
-                    changeTab(TAB_DIAL_MANAGER);
-                    changeTabBg(TAB_DIAL_MANAGER);
-                }
-                break;
-            case R.id.tab_contact_manager:
-                if (indexTab != TAB_CONTACT_MANAGER) {
-                    changeTab(TAB_CONTACT_MANAGER);
-                    changeTabBg(TAB_CONTACT_MANAGER);
-                }
-                break;
-            case R.id.tab_records_manager:
-                if (indexTab != TAB_RECORD_MANAGER) {
-                    changeTab(TAB_RECORD_MANAGER);
-                    changeTabBg(TAB_RECORD_MANAGER);
-                }
-                break;
-            case R.id.tab_statics_manager:
-                if (indexTab != TAB_EQUIPMENT_MANAGER) {
-                    changeTab(TAB_EQUIPMENT_MANAGER);
-                    changeTabBg(TAB_EQUIPMENT_MANAGER);
-                }
-                break;
-        }
-    }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -347,6 +318,7 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
 
     @Override
     public void onNotifyBTConnectStateChange(byte state) {
+        Log.e("MainActivity", "onNotifyBTConnectStateChange===Main");
         Message message = new Message();
         message.what = Constants.CONTACT_BT_CONNECT;
         message.obj = state;
@@ -365,6 +337,7 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
                     if (obj == BT_CONNECT_IS_NONE) {
 
                     } else if (obj == Constants.BT_CONNECT_IS_CONNECTED) {
+                        Log.e("MainActivity", "BT_CONNECT_IS_CONNECTED===Main");
                         if (connectDialog.isShowing()) {
                             connectDialog.dismiss();
                         }
@@ -377,4 +350,34 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
 
         }
     };
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tab_dial_manager:
+                if (indexTab != TAB_DIAL_MANAGER) {
+                    changeTab(TAB_DIAL_MANAGER);
+                    changeTabBg(TAB_DIAL_MANAGER);
+                }
+                break;
+            case R.id.tab_contact_manager:
+                if (indexTab != TAB_CONTACT_MANAGER) {
+                    changeTab(TAB_CONTACT_MANAGER);
+                    changeTabBg(TAB_CONTACT_MANAGER);
+                }
+                break;
+            case R.id.tab_records_manager:
+                if (indexTab != TAB_RECORD_MANAGER) {
+                    changeTab(TAB_RECORD_MANAGER);
+                    changeTabBg(TAB_RECORD_MANAGER);
+                }
+                break;
+            case R.id.tab_statics_manager:
+                if (indexTab != TAB_EQUIPMENT_MANAGER) {
+                    changeTab(TAB_EQUIPMENT_MANAGER);
+                    changeTabBg(TAB_EQUIPMENT_MANAGER);
+                }
+                break;
+        }
+    }
 }

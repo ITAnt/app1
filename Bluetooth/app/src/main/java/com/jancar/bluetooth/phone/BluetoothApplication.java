@@ -1,6 +1,8 @@
 package com.jancar.bluetooth.phone;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 import android.view.ViewConfiguration;
 
 import com.jancar.bluetooth.lib.BluetoothManager;
@@ -46,5 +48,11 @@ public class BluetoothApplication extends Application {
     public void onTerminate() {
         BluetoothManager.getBluetoothManagerInstance(this).release();
         super.onTerminate();
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 }
