@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e("MainActivity", "savedInstanceState====" + savedInstanceState);
         setContentView(R.layout.activity_main);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         initComponent();
@@ -107,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(Event event) {
+        Log.e("MainActivity", "onEvent===");
         if (event.isConnect() && connectDialog.isShowing()) {
             connectDialog.dismiss();
         }
@@ -115,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
 
     @Override
     protected void onNewIntent(Intent intent) {
-        Log.e("MainActivity", "onNewIntent");
+        Log.e("MainActivity", "onNewIntent===");
         go2Fragment(MainActivity.indexTab);
     }
 
@@ -264,12 +266,14 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
 //        super.onRestoreInstanceState(savedInstanceState);
+        Log.e("MainActivity", "onRestoreInstanceState====");
     }
 
     @SuppressLint("MissingSuperCall")
     @Override
     protected void onSaveInstanceState(Bundle outState) {
 //        super.onSaveInstanceState(outState);
+        Log.e("MainActivity", "onSaveInstanceState===");
     }
 
 
