@@ -117,6 +117,10 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
     public void onPause() {
         super.onPause();
         Log.e("SuspensionFragment", "onPause===");
+//        keepValue();
+    }
+
+    public void keepValue() {
         Hawk.put(Contacts.ICON_POS_0, pos_title_0);
         Hawk.put(Contacts.ICON_POS_1, pos_title_1);
         Hawk.put(Contacts.ICON_POS_2, pos_title_2);
@@ -125,6 +129,7 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
         Hawk.put(Contacts.SELECT_POS, selectPos);
         Hawk.put(Contacts.TAB_POS, indexIcon);
         EventBus.getDefault().post(new UpdateEntry(true));
+
     }
 
     @Override

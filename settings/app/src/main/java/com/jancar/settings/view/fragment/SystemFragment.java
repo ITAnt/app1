@@ -96,6 +96,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
             if (systemRlayout != null) {
                 suspensionLlayout.setVisibility(View.GONE);
                 systemRlayout.setVisibility(View.VISIBLE);
+                mSuspensionFragment.keepValue();
             }
 
             super.handleMessage(msg);
