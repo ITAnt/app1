@@ -202,7 +202,7 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        initImgRes();
+//        initImgRes();
         return super.onStartCommand(intent, flags, startId);
 
     }
@@ -296,14 +296,14 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
         switch (flag) {
             case FLOAT_LEFT:
                 Flag = 0;
-                initImgRes();
+//                initImgRes();
                 topCenterMenu.setBackgroundResource(R.drawable.iv_sus_bg_left);
                 topCenterMenu.setMainActionViewImageResource(R.drawable.iv_sus_left_btn);
                 topCenterMenu.setAngle(275, 445);
                 break;
             case FLOAT_RIGHT:
                 Flag = 1;
-                initImgRes();
+//                initImgRes();
                 topCenterMenu.setBackgroundResource(R.drawable.iv_sus_bg_right);
                 topCenterMenu.setMainActionViewImageResource(R.drawable.iv_sus_right_btn);
                 topCenterMenu.setAngle(265, 95);
