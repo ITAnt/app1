@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
 
-    android:windowBackground="@color/white"
+
     android:orientation="vertical">
 
     <RelativeLayout
@@ -17,30 +17,38 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:id="@+id/flayout_schedule"
-            android:layout_width="100dp"
-            android:layout_height="100dp">
+            android:layout_width="150dp"
+            android:layout_height="150dp">
+
+
+            <com.jancar.settings.widget.CircleBarView
+                android:layout_width="155dp"
+                android:visibility="gone"
+                android:layout_height="155dp"
+                android:layout_gravity="center"
+                app:bg_color="@color/bg_dialog" />
 
             <com.jancar.settings.widget.CircleProgressView
                 android:id="@+id/circle_progress_view"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:background="@drawable/switch_custom_thumb_off"
-                app:circle_color="@color/normal_bg_wifi__btn"
-                app:circle_stoken="3dp" />
+                app:circle_color="@color/normal_bg_wifi__btns"
+                app:circle_stoken="10px" />
 
             <com.jancar.settings.widget.CircleBarView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="145dp"
+                android:visibility="gone"
+                android:layout_height="145dp"
                 android:layout_gravity="center"
-                app:bar_width="2dp"
-                app:bg_color="@color/bg_dialog" />
+                app:bg_color="#3DFFFFFF" />
 
             <TextView
                 android:id="@+id/txt_schedule"
                 style="@style/style_txt"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/textsize_s"
+                android:textColor="@color/text_txt"
+                android:textSize="@dimen/px24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center" />

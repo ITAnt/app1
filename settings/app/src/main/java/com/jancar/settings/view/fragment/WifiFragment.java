@@ -304,13 +304,13 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
                 hideListView();
                 wifiSummary.setText(R.string.label_adjust_off);
                 mSwitch.setEnabled(true);
-                scanTxt.setEnabled(true);
-                scanTxt.setTextColor(Color.parseColor("#ffffff"));
+                scanTxt.setEnabled(false);
+                scanTxt.setTextColor(Color.parseColor("#484949"));
                 break;
             default:
                 mSwitch.setEnabled(true);
-                scanTxt.setEnabled(true);
-                scanTxt.setTextColor(Color.parseColor("#ffffff"));
+                scanTxt.setEnabled(false);
+                scanTxt.setTextColor(Color.parseColor("#484949"));
         }
     }
 
@@ -435,7 +435,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                llayoutFragmentScanning.setVisibility(View.GONE);
+                mScanList.setVisibility(View.GONE);
                 llayoutFragmentPrompt.setVisibility(View.VISIBLE);
                 llayoutFragmentLoading.setVisibility(View.GONE);
                 mLoading.setVisibility(View.GONE);
@@ -467,7 +467,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
     public void loadingStopRefresh() {
         llayoutFragmentLoading.setVisibility(View.GONE);
         mLoading.setVisibility(View.GONE);
-        llayoutFragmentScanning.setVisibility(View.VISIBLE);
+        mScanList.setVisibility(View.VISIBLE);
 
     }
 
@@ -553,6 +553,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
    /*     mSwitch.setCheckedImmediately(b);*/
         mBgThread = new HandlerThread(TAG);
         mBgThread.start();
+        scanTxt.setTextColor(Color.parseColor("#484949"));
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
         Boolean first_run = sharedPreferences.getBoolean("First", true);
         if (first_run) {

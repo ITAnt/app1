@@ -316,6 +316,7 @@
 	<string name="Long">长</string>
 	<string name="label_Waiting" >等响</string>
 	<string name="dialog_tab_restart">确定重新启动吗？</string>
+    <string name="tab_suspension_driving">悬浮按钮开关</string>
     <string-array name="timezone_id">
 		<item>Pacific/Majuro</item>
 		<item>Pacific/Midway</item>

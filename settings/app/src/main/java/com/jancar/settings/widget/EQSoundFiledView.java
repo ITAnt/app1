@@ -26,23 +26,19 @@ public class EQSoundFiledView extends View {
     private int rCircle = 100;
     private Rect inRect = new Rect(START_X_LENGH, START_Y_LENGH, END_X_LENGH,
             END_Y_LENGH);
-    private int xValue, yValue;
+    private float xValue, yValue;
     private EQSoundFiledListener mEQSoundFiledListener;
 
-    public void setxValue(int xValue) {
-
+    public void setxValue(float xValue) {
+        this.xValue = xValue;
     }
 
-    public void setxyValue(int xValue,int yValue) {
+    public void setyValue(float yValue) {
         this.yValue = yValue;
-        this.xValue = xValue;
-        calculateXTouch();
-        calculateYTouch();
-        invalidate();
     }
 
     public interface EQSoundFiledListener {
-        void notifyLeftRightPisionChange(int left, int right);
+        void notifyLeftRightPisionChange(float left, float right,boolean s);
     };
 
     public void setEQSoundFiledListener(
@@ -75,15 +71,15 @@ public class EQSoundFiledView extends View {
         paintLine.setAlpha(0xff);
         Style style = Style.FILL_AND_STROKE;
         paintLine.setStyle(style);
-		/*touchX = centerX - rCircle;
-		touchY = centerY - rCircle;*/
+        touchX = centerX - rCircle;
+        touchY = centerY - rCircle;
 //		initData();
 //		calculateXYValue();
     }
 
     private void initData() {
-	/*	touchX = centerX;
-		touchY = centerY;*/
+        touchX = centerX;
+        touchY = centerY;
         START_X_LENGH = centerX - rCircle;
         START_Y_LENGH = centerY - rCircle;
         END_X_LENGH = centerX +  rCircle;
@@ -142,10 +138,10 @@ public class EQSoundFiledView extends View {
         canvas.drawLine(centerX-rCircle, centerY, END_X_LENGH, centerY, paintLine);
         canvas.drawLine(centerX, centerY-rCircle, centerX, END_Y_LENGH, paintLine);
         paintLine.setTextSize(30);
-	/*	canvas.drawText(xValue + "", touchX, 31, paintLine);
-		canvas.drawText(yValue + "", END_X_LENGH, touchY, paintLine);*/
+        canvas.drawText(xValue + "", touchX, 31, paintLine);
+        canvas.drawText(yValue + "", END_X_LENGH, touchY, paintLine);
         paintLine.setColor(Color.GREEN);
-        canvas.drawCircle(touchX, touchY, 10, paintLine);
+        canvas.drawCircle(centerX, centerY, 10, paintLine);
     }
 
     @Override
@@ -155,23 +151,23 @@ public class EQSoundFiledView extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 if (inRect.contains(x, y)) {
-                    doInRectActition(x, y);
+                    doInRectActition(x, y,false);
                 } else {
                     return false;
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (inRect.contains(x, y)) {
-                    doInRectActition(x, y);
+                    doInRectActition(x, y,false);
                 } else {
-                    doOutRectAction(x, y);
+                    doOutRectAction(x, y,false);
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 if (inRect.contains(x, y)) {
-                    doInRectActition(x, y);
+                    doInRectActition(x, y,true);
                 } else {
-                    doOutRectAction(x, y);
+                    doOutRectAction(x, y,true);
                 }
                 break;
             default:
@@ -181,18 +177,18 @@ public class EQSoundFiledView extends View {
         return true;
     }
 
-    private void doInRectActition(int x, int y) {
+    private void doInRectActition(int x, int y,boolean s) {
         touchX = x;
         touchY = y;
         calculateXYValue();
         if (mEQSoundFiledListener != null) {
-            mEQSoundFiledListener.notifyLeftRightPisionChange(xValue, yValue);
+            mEQSoundFiledListener.notifyLeftRightPisionChange(xValue, yValue,s);
         }
         ;
         invalidate();
     }
 
-    private void doOutRectAction(int x, int y) {
+    private void doOutRectAction(int x, int y,boolean s) {
         if (x <= START_X_LENGH && y <= START_Y_LENGH) {
             touchX = START_X_LENGH;
             touchY = START_Y_LENGH;
@@ -220,40 +216,19 @@ public class EQSoundFiledView extends View {
         }
         calculateXYValue();
         if (mEQSoundFiledListener != null) {
-            mEQSoundFiledListener.notifyLeftRightPisionChange(xValue, yValue);
+            mEQSoundFiledListener.notifyLeftRightPisionChange(xValue, yValue,s);
         }
         ;
         invalidate();
     }
 
     private void calculateXYValue() {
-        int xLengh = (int) (touchX - START_X_LENGH);
-        int yLengh = (int) (touchY - START_Y_LENGH);
+        float xLengh = touchX - START_X_LENGH;
+        float yLengh =touchY - START_Y_LENGH;
         xValue = xLengh * MAX_LENGH / MAX_SIZE;
         yValue = yLengh * MAX_LENGH / MAX_SIZE;
-        xValue = xValue - 8;
-        yValue = yValue - 8;
+        xValue = xValue - 7;
+        yValue = yValue - 7;
     }
-    private void calculateXTouch() {
-        xValue=xValue+8;
-        int xLengh =xValue*MAX_SIZE/MAX_LENGH;
-        touchX=xLengh+START_X_LENGH;
-		/*int xLengh = (int) (touchX - START_X_LENGH);
-		int yLengh = (int) (touchY - START_Y_LENGH);
-		xValue = xLengh * MAX_LENGH / MAX_SIZE;
-		yValue = yLengh * MAX_LENGH / MAX_SIZE;
-		xValue = xValue - 8;
-		yValue = yValue - 8;*/
-    }
-    private void calculateYTouch() {
-        yValue=yValue+8;
-        int xLengh =yValue*MAX_SIZE/MAX_LENGH;
-        touchY=xLengh+START_Y_LENGH;
-		/*int xLengh = (int) (touchX - START_X_LENGH);
-		int yLengh = (int) (touchY - START_Y_LENGH);
-		xValue = xLengh * MAX_LENGH / MAX_SIZE;
-		yValue = yLengh * MAX_LENGH / MAX_SIZE;
-		xValue = xValue - 8;
-		yValue = yValue - 8;*/
-    }
+
 }

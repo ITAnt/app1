@@ -156,35 +156,7 @@
                 android:visibility="gone" />
 -->
 
-            <RelativeLayout
-                android:id="@+id/rlayout_restore_default"
-                style="@style/style_rlayout"
-                android:layout_below="@+id/txt_language_line">
 
-                <TextView
-                    android:id="@+id/txt_time_zone_title"
-                    style="@style/style_txt"
-                    android:text="@string/label_restore_default"
-                    />
-
-
-                <ImageView
-                    android:id="@+id/img_restore_default_arrow"
-                    style="@style/style_img"
-                    android:src="@drawable/balance_btn_right_state" />
-
-                <TextView
-                    android:id="@+id/txt_restore_default"
-                    style="@style/style_txt"
-                    android:layout_marginRight="5dp"
-                    android:layout_toStartOf="@+id/img_restore_default_arrow" />
-
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/txt_restore_default_line"
-                style="@style/style_line_txt"
-                android:layout_below="@+id/rlayout_restore_default" />
         </RelativeLayout>
 
     </ScrollView>

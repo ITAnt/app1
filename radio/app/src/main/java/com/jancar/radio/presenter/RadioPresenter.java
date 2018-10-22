@@ -118,7 +118,6 @@ public class RadioPresenter extends BaseModelPresenter<RadioContract.View, Radio
     @Override
     public void initText(int Band, int mLocation, boolean first_run) {
         getUi().initText(getModel().initText(Band, mLocation, first_run));
-
     }
 
     @Override

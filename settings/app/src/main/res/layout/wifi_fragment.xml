@@ -49,19 +49,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/fragment_scanning"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
             <TextView
                 android:id="@+id/txt_scan"
                 style="@style/txt_btn_normal_wifi"
                 android:text="@string/str_scanning" />
-
             <ListView
+                android:visibility="gone"
                 android:divider="@null"
                 android:id="@+id/scan_list"
                 android:layout_width="match_parent"

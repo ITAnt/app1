@@ -5,18 +5,22 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.IPackageDataObserver;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.location.LocationManager;
 import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.RemoteException;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -27,11 +31,15 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jancar.audio.AudioEffectManager;
+import com.jancar.audio.AudioEffectParam;
+import com.jancar.bluetooth.lib.BluetoothSettingManager;
 import com.jancar.settings.R;
 import com.jancar.settings.lib.SettingManager;
 import com.jancar.settings.listener.Contract.OnContractImpl;
@@ -41,7 +49,9 @@ import com.jancar.settings.manager.BaseFragments;
 import com.jancar.settings.presenter.OnPresenter;
 import com.jancar.settings.presenter.SystemPresenter;
 import com.jancar.settings.util.AppCleanEngine;
+import com.jancar.settings.util.GPS;
 import com.jancar.settings.util.QRCodeUtil;
+import com.jancar.settings.view.activity.MainActivity;
 import com.jancar.settings.widget.CircleProgressView;
 import com.jancar.settings.widget.SwitchButton;
 
@@ -52,14 +62,16 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import static android.content.Context.MODE_WORLD_WRITEABLE;
 import static com.jancar.settings.util.Tool.setDialogParam;
+import static com.jancar.settings.view.fragment.SuspensionFragment.newInstance;
 
 
 /**
  * Created by ouyan on 2018/9/11.
  */
 
-public class SystemFragment extends BaseFragments<SystemPresenter> implements SystemContractImpl.View, View.OnClickListener {
+public class SystemFragment extends BaseFragments<SystemPresenter> implements SystemContractImpl.View, View.OnClickListener, AudioEffectManager.AudioListener, SettingManager.SettingsManagerListener {
     private View view;
     private RelativeLayout systemCleanupRlayout;
     private RelativeLayout factorySettingRlayout;
@@ -67,9 +79,28 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
     private RelativeLayout restartRlayout;
     private SwitchButton videoSwitch;
     private SwitchButton touchToneSwitch;
+    private SwitchButton suspensionSwitch;//悬浮按钮开关
+    private RelativeLayout suspensionRlayout;//悬浮按钮
     private int cleanAppCount = 0;
     private int appListSize = 0;
     private SettingManager settingManager;
+    private RelativeLayout restoreDefaultRlayout;
+    private RelativeLayout systemRlayout;
+    private LinearLayout suspensionLlayout;
+    SuspensionFragment mSuspensionFragment;
+    Handler mHadler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+
+            ((MainActivity) getActivity()).mHadler = null;
+            if (systemRlayout != null) {
+                suspensionLlayout.setVisibility(View.GONE);
+                systemRlayout.setVisibility(View.VISIBLE);
+            }
+
+            super.handleMessage(msg);
+        }
+    };
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
@@ -77,10 +108,15 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         if (view != null) {
             videoSwitch = (SwitchButton) view.findViewById(R.id.switch_video);
             touchToneSwitch = (SwitchButton) view.findViewById(R.id.switch_touch_tone);
+            suspensionSwitch = (SwitchButton) view.findViewById(R.id.switch_suspension);
             systemCleanupRlayout = (RelativeLayout) view.findViewById(R.id.rlayout_system_cleanup);
             factorySettingRlayout = (RelativeLayout) view.findViewById(R.id.rlayout_factory_setting);
+            suspensionRlayout = (RelativeLayout) view.findViewById(R.id.rlayout_suspension);
             resetRlayout = (RelativeLayout) view.findViewById(R.id.rlayout_reset);
             restartRlayout = (RelativeLayout) view.findViewById(R.id.rlayout_restart);
+            restoreDefaultRlayout = (RelativeLayout) view.findViewById(R.id.rlayout_restore_default);
+            systemRlayout = (RelativeLayout) view.findViewById(R.id.llayout_system);
+            suspensionLlayout = (LinearLayout) view.findViewById(R.id.llayout_suspension);
         }
 
     }
@@ -108,11 +144,10 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         settingManager = SettingManager.getSettingManager(this.getActivity());
         touchToneSwitch.setThumbDrawableRes(R.drawable.switch_custom_thumb_selector);
         touchToneSwitch.setBackDrawableRes(R.drawable.switch_custom_track_selector);
-        // settingManager.setIsNeedKeySound();
-
-     /*   touchToneSwitch.setBackRadius(60);*/
         videoSwitch.setThumbDrawableRes(R.drawable.switch_custom_thumb_selector);
         videoSwitch.setBackDrawableRes(R.drawable.switch_custom_track_selector);
+        suspensionSwitch.setThumbDrawableRes(R.drawable.switch_custom_thumb_selector);
+        suspensionSwitch.setBackDrawableRes(R.drawable.switch_custom_track_selector);
         videoSwitch.setCheckedImmediately(settingManager.getDrivingStopVedio());
         touchToneSwitch.setCheckedImmediately(settingManager.getIsNeedkeySound());
         systemCleanupRlayout.setOnClickListener(this);
@@ -121,12 +156,30 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         restartRlayout.setOnClickListener(this);
         touchToneSwitch.setOnClickListener(this);
         videoSwitch.setOnClickListener(this);
-
+        restoreDefaultRlayout.setOnClickListener(this);
+        settingManager.setListener(this);
+        suspensionRlayout.setOnClickListener(this);
+        mSuspensionFragment = newInstance(suspensionSwitch.isChecked());
+        getFragmentManager().beginTransaction()
+                .add(R.id.llayout_suspension, mSuspensionFragment)
+                .commit();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.rlayout_suspension:
+                //showCleanupDialog();
+                if (suspensionLlayout.getVisibility() == View.GONE) {
+                    suspensionLlayout.setVisibility(View.VISIBLE);
+                    systemRlayout.setVisibility(View.GONE);
+                    ((MainActivity) getActivity()).mHadler = mHadler;
+                } else {
+                    ((MainActivity) getActivity()).mHadler = null;
+                    suspensionLlayout.setVisibility(View.GONE);
+                    systemRlayout.setVisibility(View.VISIBLE);
+                }
+                break;
             case R.id.rlayout_system_cleanup:
                 showCleanupDialog();
                 break;
@@ -135,6 +188,9 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                 break;
             case R.id.rlayout_reset:
                 showResetDialog();
+                break;
+            case R.id.rlayout_restore_default:
+                showRestoreDefaultDialog();
                 break;
             case R.id.rlayout_restart:
                 showRestartDialogs();
@@ -147,6 +203,76 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                 settingManager.setIsNeedKeySound(!settingManager.getIsNeedkeySound());
                 break;
         }
+    }
+
+    private void showRestoreDefaultDialog() {
+        final Dialog dialog = new Dialog(getContext(), R.style.record_voice_dialog);
+        dialog.setContentView(R.layout.display_dialog_restore_default);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.setCancelable(true);
+        Button connect = (Button) dialog.findViewById(R.id.btn_connect_btn);
+        Button cancel = (Button) dialog.findViewById(R.id.btn_cancel);
+        View.OnClickListener buttonListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (view.getId()) {
+                    case R.id.btn_connect_btn:
+                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
+                        sharedPreferences.edit().putBoolean("DisplayFragmetn", true).commit();
+                        //     dropLanguage.setLaguageVisibility(View.GONE);
+                       /* SettingManager.getSettingManager(getContext()).setAutoBrightness(true);
+                        if (!settingManager.getTailState()) {
+                            settingManager.setBrightness(100, false);
+                        }
+                        settingManager.setDayBrightness(100, true);
+                        if (settingManager.getTailState()) {
+                            settingManager.setBrightness(100, false);
+                        }
+                        settingManager.setNightBrightness(100, true);
+*/
+                        AudioEffectManager mAudioEffectManager;
+                        mAudioEffectManager = new AudioEffectManager(getContext(), SystemFragment.this, getActivity().getPackageName());
+                        mAudioEffectManager.setAudioEffectTreble(7, true);
+                        mAudioEffectManager.setAudioEffectMiddle(7, true);
+                        mAudioEffectManager.setAudioEffectBass(7, true);
+                        mAudioEffectManager.setAudioEffectBass(7, true);
+                        SharedPreferences.Editor editor = getActivity().getSharedPreferences("EQ", MODE_WORLD_WRITEABLE).edit();
+                        editor.putFloat("fad", 0.186724f);
+                        editor.putFloat("bal", 0.076622f);
+                        editor.putInt("ValueTTxt", 7);
+                        editor.putInt("ValueMTxt", 7);
+                        editor.putInt("ValueBTxt", 7);
+                        editor.putInt("Types", 0);
+                        editor.apply();
+                        mAudioEffectManager.setAudioEffectLoudness(0, true);
+                        mAudioEffectManager.setBalanceSpeakerValue(AudioEffectParam.getBalanceFadeCombine(0, 0), true);
+                        WifiManager wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                        wifiManager.setWifiEnabled(true);
+                        BluetoothSettingManager manager = BluetoothSettingManager.getBluetoothSettingManager(getContext());
+                        manager.openBluetooth();
+                        //manager.searchPairedList();
+                        settingManager.resetDeafaultSettings();
+                      /*  displayScrollView.setVisibility(View.VISIBLE);
+                        languageList.setVisibility(View.GONE);*/
+                        dialog.dismiss();
+                        // settingManager.changeSystemLanguage(settingManager.locales[0], 0);
+                        //((MainActivity) getActivity()).finish();
+                      /*  Intent intent = new Intent(getContext(), MainActivity.class);
+                        intent.putExtra("position", 2);
+                        startActivity(intent);
+                       */
+                        break;
+                    case R.id.btn_cancel:
+                        dialog.dismiss();
+                        break;
+                }
+            }
+        };
+        connect.setOnClickListener(buttonListener);
+        cancel.setOnClickListener(buttonListener);
+
+        dialog.show();
+        setDialogParam(dialog, 500, 316);
     }
 
     private void showRestartDialogs() {
@@ -402,6 +528,35 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
 
     @Override
     public void setData(@Nullable Object data) {
+
+    }
+
+    @Override
+    public void onVolumeChanged(int i, int i1) {
+
+    }
+
+    @Override
+    public void onMuteChanged(boolean b, int i) {
+
+    }
+
+    boolean isDefault = false;
+
+    @Override
+    public void notifyRefreshUI() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
+        isDefault = sharedPreferences.getBoolean("DisplayFragmetn", false);
+        if (isDefault) {
+            sharedPreferences.edit().putBoolean("DisplayFragmetn", false).commit();
+            videoSwitch.setCheckedImmediately(settingManager.getDrivingStopVedio());
+            touchToneSwitch.setCheckedImmediately(settingManager.getIsNeedkeySound());
+            Settings.Secure.setLocationProviderEnabled(getContext().getContentResolver(), LocationManager.GPS_PROVIDER, false);
+            GPS gps = new GPS();
+            gps.openGPSSettings(getContext(), 3);
+        }
+        settingManager.changeSystemLanguage(settingManager.locales[settingManager.getLanguage()], settingManager.getLanguage());
+        //Toast.makeText(getContext(), "123", Toast.LENGTH_SHORT).show();
 
     }
 }

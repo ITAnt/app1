@@ -810,5 +810,6 @@
     <dimen name="px358">358px</dimen>
     <dimen name="px359">359px</dimen>
     <dimen name="px360">360px</dimen>
+    <dimen name="px400">400px</dimen>
 
 </resources>

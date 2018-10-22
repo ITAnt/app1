@@ -56,7 +56,7 @@ public class CircleBarView extends View {
         bgColor = typedArray.getColor(R.styleable.CircleBarView_bg_color,Color.GRAY);
         startAngle = typedArray.getFloat(R.styleable.CircleBarView_start_angle,0);
         sweepAngle = typedArray.getFloat(R.styleable.CircleBarView_sweep_angle,360);
-        barWidth = typedArray.getDimension(R.styleable.CircleBarView_bar_width,DpOrPxUtils.dip2px(context,10));
+        barWidth = typedArray.getDimension(R.styleable.CircleBarView_bar_width,DpOrPxUtils.dip2px(context,5));
         typedArray.recycle();
 
         progressNum = 0;
