@@ -13,7 +13,6 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-
 import com.jancar.JancarServer;
 import com.jancar.key.KeyDef;
 import com.jancar.settings.R;
