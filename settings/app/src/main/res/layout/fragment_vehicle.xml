@@ -131,7 +131,7 @@
                         android:layout_weight="1"
                         android:button="@drawable/check_selector"
                         android:paddingLeft="@dimen/px10"
-                        android:layout_marginLeft="30px"
+                        android:layout_marginLeft="40px"
                         android:text="@string/tab_up_down_left_right_normal" />
                 </LinearLayout>
 

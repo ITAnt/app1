@@ -284,8 +284,8 @@
     <string name="device_restart">%1$d s后重新启动</string>
     <string name="device_restarts">5s后重新启动</string>
     <string name="str_scanning">扫描</string>
-    <string name="str_sound_7">7</string>
-    <string name="str_sound_negative_7">-7</string>
+    <string name="str_sound_7">15</string>
+    <string name="str_sound_negative_7">-15</string>
 
     <!--蓝牙设置-->
     <string name="tv_setting_name">本机蓝牙</string>

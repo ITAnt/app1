@@ -183,6 +183,7 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
         dateTxt.setText(getTime(1));
         mDummyDate = Calendar.getInstance();
         String strTimeFormat = android.provider.Settings.System.getString(getContext().getContentResolver(), android.provider.Settings.System.TIME_12_24);
+        Log.w("TimeFormat",strTimeFormat+"");
         if ("24".equals(strTimeFormat)) {
             timeTxt.setText(getTime(0));
             twentyHourSystemRbtn.setChecked(true);
@@ -353,7 +354,7 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
                                 }
                                 i++;
                             }
-                            timeZoneList.smoothScrollToPosition(i);
+                            timeZoneList.setSelection(i);
                         }
                     });
 
@@ -553,12 +554,11 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
                     if (apm == 0) {
                         formatter = new SimpleDateFormat("hh:mm");
                         Date curDate = new Date(System.currentTimeMillis());
-
-                        return      formatter.format(curDate)+" "+getResources().getString(R.string.tab_am)+" ";
+                        return  getTimeAm(getResources().getString(R.string.tab_am),formatter.format(curDate) );
                     } else {
                         formatter = new SimpleDateFormat("hh:mm");
                         Date curDate = new Date(System.currentTimeMillis());
-                        return  formatter.format(curDate) +" "+getResources().getString(R.string.tab_pm) ;
+                        return  getTimePm(getResources().getString(R.string.tab_pm),formatter.format(curDate) ) ;
                     }
                 }
 
@@ -572,5 +572,22 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
         return formatter.format(curDate);
     }
 
-
+    public String getTimeAm(String s,String time){
+        String am;
+        if (s.equals("AM")){
+            am=time +" "+getResources().getString(R.string.tab_pm) ;
+        }else {
+            am=getResources().getString(R.string.tab_pm) +" "+time ;
+        }
+        return am;
+    }
+    public String getTimePm(String s,String time){
+        String am;
+        if (s.equals("PM")){
+            am=time +" "+getResources().getString(R.string.tab_pm) ;
+        }else {
+            am=getResources().getString(R.string.tab_pm) +" "+time ;
+        }
+        return am;
+    }
 }

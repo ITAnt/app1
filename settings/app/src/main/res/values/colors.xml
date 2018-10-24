@@ -16,6 +16,7 @@
     <color name="normal_bg_wifi__btns">#088bee</color>
     <color name="selected_bg_wifi__btn">#2c2e34</color>
     <color name="bg_dialog">#1f1f1f</color>
+    <color name="bg_dialogs">#81ffffff</color>
     <color name="div_dialog">#474747</color>
     <color name="bg_dialog_btn">#FF2C2E34</color>
     <color name="bg_dialog_edt">#FF2C2C2C</color>

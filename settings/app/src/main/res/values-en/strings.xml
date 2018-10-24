@@ -300,7 +300,7 @@
     <string name="tv_setting_available">Available equipment</string>
 
     <string name="txt_standard">Normal</string>
-    <string name="txt_popular">LIVE</string>
+    <string name="txt_popular">POP</string>
     <string name="txt_ock">ROCK</string>
     <string name="txt_jazz">Jazz</string>
     <string name="txt_classical">CLASSIC</string>
@@ -317,7 +317,7 @@
     <string name="end">End</string>
     <string name="shorts">Short</string>
     <string name="Long">Long</string>
-    <string name="label_Waiting">Loud</string>
+    <string name="label_Waiting">LOUD</string>
     <string name="dialog_tab_restart" >Are you sure to restart？</string>
     <string name="tab_suspension_driving">Floating button switch</string>
     <string-array name="timezone_id">

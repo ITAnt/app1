@@ -320,7 +320,6 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
                 Hawk.put(Contacts.ISOPEN_OVERLAY, isOpen);
                 if (isOpen) {
                     activity.startService(new Intent(activity, OverlayMenuService.class));
-
                 } else {
                     activity.stopService(new Intent(activity, OverlayMenuService.class));
                 }

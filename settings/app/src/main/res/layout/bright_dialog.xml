@@ -3,9 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_dialogs"
     android:gravity="center"
     android:orientation="vertical">
     <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -18,16 +25,17 @@
             android:gravity="center"
             android:padding="20dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_brightness" />
 
         <SeekBar
+            style="@style/style_seekbar"
             android:id="@+id/brightSeekbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/px46"
             android:layout_centerVertical="true"
             android:layout_weight="1"
             android:max="10"
-            android:padding="10dp" />
+            android:padding="20dp" />
 
         <TextView
             android:id="@+id/brightValue"
@@ -40,6 +48,7 @@
             android:textSize="@dimen/px22" />
     </LinearLayout>
     <LinearLayout
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -52,16 +61,17 @@
             android:gravity="center"
             android:padding="20dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_chroma" />
 
         <SeekBar
+            style="@style/style_seekbar"
             android:id="@+id/chromaSeekbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/px280"
+            android:layout_height="@dimen/px46"
             android:layout_centerVertical="true"
             android:layout_weight="1"
             android:max="10"
-            android:padding="10dp" />
+            />
 
         <TextView
             android:id="@+id/chromaValue"
@@ -74,6 +84,7 @@
             android:textSize="@dimen/px22" />
     </LinearLayout>
     <LinearLayout
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -86,16 +97,17 @@
             android:gravity="center"
             android:padding="20dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_contrast" />
 
         <SeekBar
+            style="@style/style_seekbar"
             android:id="@+id/contrastSeekbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/px280"
+            android:layout_height="@dimen/px46"
             android:layout_centerVertical="true"
             android:layout_weight="1"
             android:max="10"
-            android:padding="10dp" />
+            />
 
         <TextView
             android:id="@+id/contrastValue"
@@ -107,4 +119,10 @@
             android:text="15"
             android:textSize="@dimen/px22" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>

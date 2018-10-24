@@ -233,16 +233,16 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
 */
                         AudioEffectManager mAudioEffectManager;
                         mAudioEffectManager = new AudioEffectManager(getContext(), SystemFragment.this, getActivity().getPackageName());
-                        mAudioEffectManager.setAudioEffectTreble(7, true);
-                        mAudioEffectManager.setAudioEffectMiddle(7, true);
-                        mAudioEffectManager.setAudioEffectBass(7, true);
-                        mAudioEffectManager.setAudioEffectBass(7, true);
+                        mAudioEffectManager.setAudioEffectTreble(0, true);
+                        mAudioEffectManager.setAudioEffectMiddle(0, true);
+                        mAudioEffectManager.setAudioEffectBass(0, true);
+                        mAudioEffectManager.setAudioEffectLoudness(0, true);
                         SharedPreferences.Editor editor = getActivity().getSharedPreferences("EQ", MODE_WORLD_WRITEABLE).edit();
                         editor.putFloat("x", 0.9633102f);
                         editor.putFloat("y", 0.8699093f);
-                        editor.putInt("ValueTTxt", 7);
-                        editor.putInt("ValueMTxt", 7);
-                        editor.putInt("ValueBTxt", 7);
+                        editor.putInt("ValueTTxt", 0);
+                        editor.putInt("ValueMTxt", 0);
+                        editor.putInt("ValueBTxt", 0);
                         editor.putInt("Types", 0);
                         editor.apply();
                         mAudioEffectManager.setAudioEffectLoudness(0, true);
@@ -548,15 +548,16 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
     public void notifyRefreshUI() {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
         isDefault = sharedPreferences.getBoolean("DisplayFragmetn", false);
-        if (isDefault) {
-            sharedPreferences.edit().putBoolean("DisplayFragmetn", false).commit();
-            videoSwitch.setCheckedImmediately(settingManager.getDrivingStopVedio());
-            touchToneSwitch.setCheckedImmediately(settingManager.getIsNeedkeySound());
-            Settings.Secure.setLocationProviderEnabled(getContext().getContentResolver(), LocationManager.GPS_PROVIDER, false);
-            GPS gps = new GPS();
-            gps.openGPSSettings(getContext(), 3);
-            settingManager.changeSystemLanguage(settingManager.locales[settingManager.getLanguage()], settingManager.getLanguage());
-        }
+      /*  if (isDefault) {
+
+        }*/
+        sharedPreferences.edit().putBoolean("DisplayFragmetn", false).commit();
+        videoSwitch.setCheckedImmediately(settingManager.getDrivingStopVedio());
+        touchToneSwitch.setCheckedImmediately(settingManager.getIsNeedkeySound());
+        Settings.Secure.setLocationProviderEnabled(getContext().getContentResolver(), LocationManager.GPS_PROVIDER, false);
+        GPS gps = new GPS();
+        gps.openGPSSettings(getContext(), 3);
+        settingManager.changeSystemLanguage(settingManager.locales[settingManager.getLanguage()], settingManager.getLanguage());
         //Toast.makeText(getContext(), "123", Toast.LENGTH_SHORT).show();
 
     }

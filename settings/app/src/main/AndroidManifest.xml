@@ -93,20 +93,17 @@
 
         </activity>
 
-        <service android:name=".service.SetDataTimeService">
-            <intent-filter>
-                <action android:name="com.android.aidl.setdatetime" />
-            </intent-filter>
-        </service>
 
         <receiver android:name=".broadcast.SendResetBroadcast">
             <intent-filter>
                 <action android:name="com.qucii.sendreset" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".broadcast.SettingsReceiver">
+        <receiver android:name=".broadcast.SettingsReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                />
             </intent-filter>
         </receiver>
 
@@ -118,7 +115,11 @@
         <service
             android:name=".suspension.OverlayMenuService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.jancar.settings.suspension.OverlayMenuService" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

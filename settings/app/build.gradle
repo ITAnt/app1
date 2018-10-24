@@ -49,6 +49,10 @@ android {
         debug {
             signingConfig signingConfigs.debug
         }
+        sourceSets.main {
+            jni.srcDirs = []
+            jniLibs.srcDir "src/main/libs"
+        }
     }
     buildToolsVersion rootProject.ext.buildToolsVersion
 
