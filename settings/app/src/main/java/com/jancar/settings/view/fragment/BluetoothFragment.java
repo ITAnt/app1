@@ -91,6 +91,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     public void onResume() {
         super.onResume();
         Log.w(TAG, "onResume===");
+        bluetoothManager.registerBTSettingListener(this);
         tvBlutName = bluetoothManager.getBTName().trim();
         Log.e(TAG, "tvBlutName====" + tvBlutName);
         String s = null;
@@ -173,7 +174,6 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     public void initData(@Nullable Bundle savedInstanceState) {
         Log.w("BluetoothFragment", "initData");
         bluetoothManager = BluetoothSettingManager.getBluetoothSettingManager(mActivity);
-        bluetoothManager.registerBTSettingListener(this);
         isBTon = bluetoothManager.isBTOn();
         isDisCovering = bluetoothManager.getBTIsDisCovering();
         //配对设备

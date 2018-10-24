@@ -1,39 +1,36 @@
 package com.jancar.settings.service;
 
 
-        import android.annotation.SuppressLint;
-        import android.app.Service;
-        import android.content.BroadcastReceiver;
-        import android.content.Context;
-        import android.content.Intent;
-        import android.content.IntentFilter;
-        import android.graphics.PixelFormat;
-        import android.os.Handler;
-        import android.os.IBinder;
-        import android.os.Message;
-        import android.support.annotation.Nullable;
-        import android.util.Log;
-        import android.view.Gravity;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.WindowManager;
-        import android.widget.ImageView;
-        import android.widget.SeekBar;
-        import android.widget.TextView;
-        import com.jancar.JancarManager;
-        import com.jancar.common.ExtraData;
-        import com.jancar.globallib.contentprovider.ContentData;
-        import com.jancar.globallib.globaldatamanager.GlobaldataManager;
-        import com.jancar.model.DisplayController;
-        import com.jancar.prompt.PromptController;
-        import com.jancar.settings.R;
-        import com.jancar.settings.lib.SettingManager;
-        import com.jancar.state.JacState;
+import android.annotation.SuppressLint;
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.PixelFormat;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
+import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
-        import java.util.HashMap;
+import com.jancar.JancarManager;
+import com.jancar.common.ExtraData;
+import com.jancar.model.DisplayController;
+import com.jancar.prompt.PromptController;
+import com.jancar.settings.R;
+import com.jancar.settings.lib.SettingManager;
+import com.jancar.state.JacState;
 
-        import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
-        import static android.view.WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR;
+import java.util.HashMap;
+
+import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
+import static android.view.WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR;
 
 public class SettingsUIService extends Service implements SeekBar.OnSeekBarChangeListener {
     private final String TAG= SettingsUIService.class.getSimpleName();
