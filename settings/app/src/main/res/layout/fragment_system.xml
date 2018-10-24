@@ -129,7 +129,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginBottom="2.5dp"
                                 android:layout_marginTop="5dp"
-                                android:text="@string/tab_suspension_driving" />
+                                android:text="@string/tab_suspension_Setting" />
 
                             <TextView
                                 android:id="@+id/txt_suspension_summary"

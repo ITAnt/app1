@@ -102,6 +102,7 @@
     <string name="tab_reset">复位</string>
     <string name="tab_am">上午</string>
     <string name="tab_pm">下午</string>
+    <string name="tab_suspension_Setting">悬浮按钮设置</string>
     <string name="dialog_prompt">是否要保存为自定义?</string>
     <string-array name="hour_apm">
         <item>上午</item>

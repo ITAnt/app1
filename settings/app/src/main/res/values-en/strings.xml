@@ -103,6 +103,8 @@
     <string name="tab_pm">PM</string>
     <string name="dialog_prompt">Do you want to save as custom?</string>
 
+    <string name="tab_suspension_Setting">Floating button settings</string>
+
     <string-array name="hour_apm">
         <item>AM</item>
         <item>PM</item>

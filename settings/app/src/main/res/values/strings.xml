@@ -324,6 +324,7 @@
     <string name="Long">长</string>
     <string name="label_Waiting">等响</string>
     <string name="tab_suspension_driving">悬浮按钮开关</string>
+    <string name="tab_suspension_Setting">悬浮按钮设置</string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>
