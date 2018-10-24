@@ -84,8 +84,8 @@
         android:orientation="horizontal">
 
         <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/px249"
+            android:layout_height="@dimen/px249"
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/px140">
 
@@ -96,10 +96,10 @@
 
             <com.jancar.bluetooth.phone.widget.CircleImageView
                 android:id="@+id/iv_music_rotating"
-                android:layout_width="@dimen/px150"
-                android:layout_height="@dimen/px150"
-                android:layout_marginTop="@dimen/px61"
-                android:layout_marginStart="@dimen/px57"
+                android:layout_width="@dimen/px143"
+                android:layout_height="@dimen/px143"
+                android:layout_marginTop="@dimen/px53"
+                android:layout_marginStart="@dimen/px53"
                 android:background="@drawable/iv_music_rotating" />
         </FrameLayout>
 

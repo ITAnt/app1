@@ -48,6 +48,7 @@ public class RegisterMediaSession {
             public boolean onMediaButtonEvent(Intent intent) {
                 // TODO Auto-generated method stub
                 KeyEvent keyEvent;
+                Log.e(TAG, "onMediaButtonEvent: " + intent );
                 if (Intent.ACTION_MEDIA_BUTTON.equals(intent.getAction())) {
                     keyEvent = intent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
                     if (keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_UP) {

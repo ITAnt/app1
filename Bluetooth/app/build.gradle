@@ -108,9 +108,11 @@ dependencies {
     implementation 'org.jetbrains:annotations-java5:15.0'
     //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
     //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
-    compileOnly files('libs/classes(17).jar')
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.github.orhanobut:hawk:1.21'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.android.support:support-v4:23.2.1'
+    implementation files('libs/classes(18).jar')
 }
 
 //apk前缀名

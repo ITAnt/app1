@@ -59,7 +59,6 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
     private boolean isSynRecord;
     private List<BluetoothPhoneBookData> callDataList;
     private RecordsAdapter adapter;
-    private AnimationDrawable animationDrawable;
     private int selectPos = -1;
     private boolean hidden = false;
     BluetoothManager bluetoothManager;
@@ -189,6 +188,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                    Log.e("RecordsFragment", "position====" + position);
                     String phoneNumber = callDataList.get(position).getPhoneNumber();
                     adapter.setSelectPosition(position);
                     if (position == selectPos) {
@@ -292,7 +292,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
     @Override
     public void onNotifyDownloadCallLogsList(final List<BluetoothPhoneBookData> list) {
         Log.d("RecordsFragment", "list.size(rr):" + list.size());
-        this.callDataList = list;
+        this.callDataList = new ArrayList<>(list);
         handler.removeMessages(Constants.CONTACT_CALL_LOGS);
         handler.sendEmptyMessageDelayed(Constants.CONTACT_CALL_LOGS, 10);
     }
@@ -305,6 +305,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
 
     @Override
     public void onNotifyDownloadCallLogsStop() {
+
 
     }
 

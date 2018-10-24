@@ -43,7 +43,7 @@ import static android.security.keystore.SoterUtil.TAG;
  */
 public class BTUIService extends Service implements BTPhoneCallListener, View.OnClickListener {
 
-
+    private static final String TAG = "BTUIService";
     private WindowManager mWindowManager;
     private WindowManager.LayoutParams mLayoutParams;
     private WindowManager.LayoutParams mLayoutParams1;
@@ -122,6 +122,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
     private View saveView;
     public static RegisterMediaSession registerMediaSession;
     public static BluetoothRequestFocus bluetoothRequestFocus;
+    private boolean isAudioTowardsAG;
 
 
     @Nullable
@@ -301,6 +302,11 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         bluetoothManager.registerBTPhoneListener(this);
         bluetoothManager.muteMic(false);
         bluetoothManager.registerCallOnKeyEvent();
+        isAudioTowardsAG = bluetoothManager.isAudioTowardsAG();
+        if (isAudioTowardsAG) {
+            mCallScoState = BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT;
+        }
+        Log.e(TAG, "isFull==showView==" + isFull);
         if (isFull) {
             mWindowManager.addView(phoneView, mLayoutParams);
             saveView = phoneView;
@@ -734,10 +740,10 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
             case R.id.iv_comm_message_hangup:
                 if (mCallType == BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_INCOMING) {
                     bluetoothManager.rejectCall();
-                    saveCallLog();
                 } else {
                     bluetoothManager.terminateCall();
                 }
+                saveCallLog();
                 CleanNumberAndHideKey();
                 if (isShowPhone) {
                     jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_HIDE);
@@ -781,12 +787,15 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 bluetoothManager.acceptCall();
                 break;
             case R.id.iv_commun_half_phone:
+                Log.e(TAG, "mCallScoState=====half===" + mCallScoState);
                 if (mCallScoState != BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT) {
                     //手机状态
+                    Log.e(TAG, "iv_commun_half_phone====ccc");
                     bluetoothManager.switchAudioMode(false);
                     ivHalfCar.setImageResource(R.drawable.iv_commun_half_c);
                 } else {
                     //车机状态
+                    Log.e(TAG, "iv_commun_half_phone====ppp");
                     bluetoothManager.switchAudioMode(true);
                     ivHalfCar.setImageResource(R.drawable.iv_commun_half_p);
                 }
@@ -794,10 +803,11 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
             case R.id.iv_commun_half_hang:
                 if (mCallType == BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_INCOMING) {
                     bluetoothManager.rejectCall();
-                    saveCallLog();
+
                 } else {
                     bluetoothManager.terminateCall();
                 }
+                saveCallLog();
                 if (isShowPhone) {
                     jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_HIDE);
                 }

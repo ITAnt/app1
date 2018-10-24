@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.Listener.BTMusicListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
@@ -26,7 +27,6 @@ import com.jancar.bluetooth.phone.util.ToastUtil;
 import com.jancar.bluetooth.phone.widget.CircleImageView;
 import com.jancar.bluetooth.phone.widget.ConnectDialog;
 import com.jancar.bluetooth.phone.widget.MarqueeTextView;
-import com.orhanobut.hawk.Hawk;
 import com.ui.mvp.view.BaseActivity;
 
 
@@ -100,16 +100,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     @Override
     protected void onStart() {
         Log.e("MusicActivity", "onStart===");
-        bluetoothRequestFocus = BTUIService.bluetoothRequestFocus;
-        registerMediaSession = BTUIService.registerMediaSession;
-        if (bluetoothRequestFocus == null) {
-            bluetoothRequestFocus = BluetoothRequestFocus.getBluetoothRequestFocusStance(this);
-        }
-        if (registerMediaSession == null) {
-            registerMediaSession = new RegisterMediaSession(this, bluetoothManager);
-        }
-        bluetoothRequestFocus.setBackCarListener(this);
-        registerMediaSession.requestMediaButton();
+        registerListener();
         super.onStart();
     }
 
@@ -117,11 +108,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     protected void onResume() {
         super.onResume();
         Log.e("MusicActivity", "onResume===");
-        bluetoothManager.setBTConnectStatusListener(this);
-        bluetoothManager.registerBTMusicListener(this);
-        if (!bluetoothRequestFocus.isNeedGainFocus()) {
-            bluetoothRequestFocus.requestAudioFocus();
-        }
+//        registerListener();
         isConnect = bluetoothRequestFocus.isBTConnect();
         isResume = true;
         if (!isConnect) {
@@ -132,6 +119,25 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
             if (connectDialog.isShowing()) {
                 connectDialog.dismiss();
             }
+        }
+    }
+
+    private void registerListener() {
+        bluetoothRequestFocus = BTUIService.bluetoothRequestFocus;
+        registerMediaSession = BTUIService.registerMediaSession;
+        if (bluetoothRequestFocus == null) {
+            bluetoothRequestFocus = BluetoothRequestFocus.getBluetoothRequestFocusStance(this);
+        }
+        if (registerMediaSession == null) {
+            registerMediaSession = new RegisterMediaSession(this, bluetoothManager);
+        }
+        bluetoothRequestFocus.setBackCarListener(this);
+        registerMediaSession.requestMediaButton();
+        bluetoothManager.setBTConnectStatusListener(this);
+        bluetoothManager.registerBTMusicListener(this);
+        Log.e("MusicActivity", "registerListenerFocus()===" + bluetoothRequestFocus.isNeedGainFocus());
+        if (!bluetoothRequestFocus.isNeedGainFocus()) {
+            bluetoothRequestFocus.requestAudioFocus();
         }
     }
 
@@ -159,8 +165,8 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         super.onPause();
         Log.e("MusicActivity", "onPause===");
         isResume = false;
-        if(!bluetoothRequestFocus.isBTConnect()){
-            if(bluetoothRequestFocus.isNeedGainFocus()){
+        if (!bluetoothRequestFocus.isBTConnect()) {
+            if (bluetoothRequestFocus.isNeedGainFocus()) {
                 bluetoothRequestFocus.releaseAudioFocus();
             }
         }
@@ -173,7 +179,6 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         bluetoothRequestFocus.HandPaused = true;
         bluetoothRequestFocus.releaseAudioFocus();
         registerMediaSession.releaseMediaButton();
-
     }
 
     private void findView() {
@@ -185,7 +190,6 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         tvAlbum = (MarqueeTextView) findViewById(R.id.tv_music_album);
         tvArtist = (MarqueeTextView) findViewById(R.id.tv_music_artist);
         circleImageView = (CircleImageView) findViewById(R.id.iv_music_rotating);
-//        circleImageView.setImageResource(R.drawable.iv_music_rotating);
         findViewById(R.id.iv_music_pre).setOnClickListener(this);
         findViewById(R.id.iv_music_next).setOnClickListener(this);
         findViewById(R.id.iv_music_play).setOnClickListener(this);
@@ -417,6 +421,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
             pos = "00:00:00";
         }
         tvPlayTotalTime.setText(length);//总时间
+        Log.e("MusicActivity", "updatePlayingStatus==" + pos);
         tvPlayTime.setText(pos);//播放的时间
     }
 

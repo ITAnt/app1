@@ -456,9 +456,9 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     @Override
     public void onNotifyDownloadContactsList(final List<BluetoothPhoneBookData> list) {
         Log.e("ContactFragment", "DownloadContactsList:" + list.size());
-        this.bookDataList = list;
+        this.bookDataList = new ArrayList<>(list);
         handler.removeMessages(Constants.CONTACT_UPDATA_REFRESH);
-        handler.sendEmptyMessageDelayed(Constants.CONTACT_UPDATA_REFRESH, 10);
+        handler.sendEmptyMessageDelayed(Constants.CONTACT_UPDATA_REFRESH, 100);
 
     }
 
@@ -466,7 +466,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     public void onNotifySeachContactsList(List<BluetoothPhoneBookData> list, final int i) {
         Log.e("ContactFragment", "SeachContactsList:" + list);
         if (i == ContactFragmentType) {
-            this.bookSearchList = list;
+            this.bookSearchList = new ArrayList<>(list);
             handler.removeMessages(Constants.CONTACT_SEARCH_REFRESH);
             handler.sendEmptyMessageDelayed(Constants.CONTACT_SEARCH_REFRESH, 100);
         }

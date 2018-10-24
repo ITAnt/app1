@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.jancar.bluetooth.Listener.BTCallLogListener;
 import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.Listener.BTPhonebookListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
@@ -47,7 +48,7 @@ import static com.jancar.bluetooth.phone.util.Constants.BT_CONNECT_IS_NONE;
  * @date 2018-8-21 16:34:02
  * 拨号键盘界面
  */
-public class DialFragment extends BaseFragment<DialContract.Presenter, DialContract.View> implements DialContract.View, BTPhonebookListener, BTConnectStatusListener, View.OnClickListener {
+public class DialFragment extends BaseFragment<DialContract.Presenter, DialContract.View> implements DialContract.View, BTPhonebookListener, BTConnectStatusListener, View.OnClickListener, BTCallLogListener {
     private View mRootView;
     private Activity mActivity;
     TextView tvInput;
@@ -56,9 +57,10 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     ImageView number1, number2, number3, number4, number5, number6, number7, number8, number9, number10, number11, number12, numberCall, numberDel;
     private BluetoothManager bluetoothManager;
     private DialNumberAdapter adapter;
-    private List<BluetoothPhoneBookData> bookDataList;
+    private List<BluetoothPhoneBookData> bookDataList, callLogsList;
     private boolean hidden = false;
     private static int DialFragmentType = 1;
+    String FirstLog;
 
 
     //点击的数字
@@ -94,7 +96,6 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
                         @Override
                         public void run() {
                             getPresenter().getDialContactList((number), DialFragmentType);
-
                         }
                     });
                     break;
@@ -103,6 +104,11 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
                     break;
                 case Constants.Dial_UPDATE_TEXT:
                     tvInput.setText(NumberFormatUtil.getNumber(mStrKeyNum));
+                    break;
+                case Constants.CONTACT_CALL_LOGS_FIRST:
+                    for (int i = 0; i < callLogsList.size(); i++) {
+                        FirstLog = callLogsList.get(0).getPhoneNumber();
+                    }
                     break;
             }
         }
@@ -196,7 +202,9 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
         super.onResume();
         bluetoothManager.registerBTPhonebookListener(this);
         bluetoothManager.setBTConnectStatusListener(this);
+        bluetoothManager.registerBTCallLogListener(this);
         if (!hidden) {
+            getBTCallLog();
             isConneView();
             if (mStrKeyNum != null && listView.getVisibility() == View.VISIBLE) {
                 Message message = new Message();
@@ -230,6 +238,7 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
             handler.removeCallbacksAndMessages(null);
         }
         bluetoothManager.unRegisterBTPhonebookListener();
+        bluetoothManager.unRegisterBTCallLogListener();
         bluetoothManager.setBTConnectStatusListener(null);
     }
 
@@ -241,9 +250,11 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
             if (bluetoothManager == null) {
                 bluetoothManager = BluetoothManager.getBluetoothManagerInstance(mActivity);
             }
+            bluetoothManager.registerBTCallLogListener(this);
             bluetoothManager.registerBTPhonebookListener(this);
             bluetoothManager.setBTConnectStatusListener(this);
             isConneView();
+            getBTCallLog();
             if (mStrKeyNum != null && listView.getVisibility() == View.VISIBLE) {
                 Message message = new Message();
                 message.what = Constants.PHONEBOOK_DATA_REFRESH;
@@ -254,10 +265,20 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
         } else {
             if (bluetoothManager != null) {
                 bluetoothManager.unRegisterBTPhonebookListener();
+                bluetoothManager.unRegisterBTCallLogListener();
                 bluetoothManager.setBTConnectStatusListener(null);
             }
             handler.removeMessages(Constants.PHONEBOOK_DATA_REFRESH);
         }
+    }
+
+    private void getBTCallLog() {
+        ThreadUtils.execute(new Runnable() {
+            @Override
+            public void run() {
+                getManager().getBTCallLogs();
+            }
+        });
     }
 
 
@@ -420,7 +441,7 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     public void onNotifySeachContactsList(final List<BluetoothPhoneBookData> list, int i) {
         Log.d("Dial", "list.size():" + list.size());
         if (i == DialFragmentType) {
-            this.bookDataList = list;
+            this.bookDataList = new ArrayList<>(list);
             handler.sendEmptyMessage(Constants.PHONEBOOK_SEACH_LIST);
         }
     }
@@ -499,6 +520,8 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
                         cleanCallNumber();
                     } else {
 //                        ToastUtil.ShowToast( mActivity.getString(R.string.tv_call_number_empty));
+                        mStrKeyNum = FirstLog;
+                        tvInput.setText(mStrKeyNum);
                     }
                 } else {
 //                    ToastUtil.ShowToast(mActivity.getString(R.string.tv_bt_connect_is_none));
@@ -514,4 +537,40 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
 
     }
 
+    @Override
+    public void onNotifyDownloadCallLogsIndex(int i) {
+
+    }
+
+    @Override
+    public void onNotifyDownloadCallLogsCount(int i) {
+
+    }
+
+    @Override
+    public void onNotifyDownloadCallLogsList(List<BluetoothPhoneBookData> list) {
+        this.callLogsList = new ArrayList<>(list);
+        handler.sendEmptyMessage(Constants.CONTACT_CALL_LOGS_FIRST);
+
+    }
+
+    @Override
+    public void onNotifyDownloadCallLogsStart() {
+
+    }
+
+    @Override
+    public void onNotifyDownloadCallLogsStop() {
+
+    }
+
+    @Override
+    public void onNotifyDownloadCallLogsError() {
+
+    }
+
+    @Override
+    public void onNotifyDownloadCallLogsFinish() {
+
+    }
 }
