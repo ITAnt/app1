@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Binder;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -275,18 +276,23 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
 
     private void onPosClick(String title) {
         if (title.equals(getResources().getString(R.string.tv_power))) {
+            Log.e("OverlayMenuService", "Pos0===");
             jancarManager.requestDisplay(false);
         }
         if (title.equals(getResources().getString(R.string.tv_home))) {
+            Log.e("OverlayMenuService", "Pos1===");
             jancarManager.simulateKey(KeyDef.KeyType.KEY_HOME.nativeInt);
         }
         if (title.equals(getResources().getString(R.string.tv_vioce_add))) {
+            Log.e("OverlayMenuService", "Pos2===");
             jancarManager.simulateKey(KeyDef.KeyType.KEY_VOL_INC.nativeInt);
         }
         if (title.equals(getResources().getString(R.string.tv_vioce_dec))) {
+            Log.e("OverlayMenuService", "Pos3===");
             jancarManager.simulateKey(KeyDef.KeyType.KEY_VOL_DEC.nativeInt);
         }
         if (title.equals(getResources().getString(R.string.tv_back))) {
+            Log.e("OverlayMenuService", "Pos4===");
             jancarManager.simulateKey(KeyDef.KeyType.KEY_BACK.nativeInt);
         }
     }
@@ -298,7 +304,7 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
 //                initImgRes();
                 topCenterMenu.setBackgroundResource(R.drawable.iv_sus_bg_left);
                 topCenterMenu.setMainActionViewImageResource(R.drawable.iv_sus_left_btn);
-                topCenterMenu.setAngle(275, 445);
+                topCenterMenu.setAngle(280, 445);
                 break;
             case FLOAT_RIGHT:
                 Flag = 1;

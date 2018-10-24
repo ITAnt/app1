@@ -193,7 +193,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                         int status = pairedDataListList.get(i).getRemote_connect_status();
                         if (status == Constants.BLUETOOTH_DEVICE_BONDED) {
                             mPresenter.connBlutoth(remote_device_macaddr);
-                        } else {
+                        } else if (status == Constants.BLUETOOTH_DEVICE_STATE_CONNECT) {
                             bluetoothManager.disConnectDevice(remote_device_macaddr);
                         }
                         pairAdapter.notifyDataSetChanged();

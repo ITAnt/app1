@@ -815,10 +815,10 @@
 
     <dimen name="action_button_size">72dp</dimen>
     <dimen name="action_button_content_margin">16dp</dimen>
-    <dimen name="main_action_button_margin">12dp</dimen>
+    <dimen name="main_action_button_margin">15dp</dimen>
     <dimen name="action_menu_radius">48dp</dimen>
 
-    <dimen name="sub_action_button_size">36dp</dimen>
+    <dimen name="sub_action_button_size">48dp</dimen>
     <dimen name="sub_action_button_content_margin">0dp</dimen>
 
     <dimen name="main_action_button_size">106dp</dimen>

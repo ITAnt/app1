@@ -19,10 +19,11 @@
         android:background="@mipmap/ip_bt_dail"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        android:maxLength="18"
         android:paddingLeft="@dimen/px6"
         android:singleLine="true"
         android:textCursorDrawable="@drawable/edit_cursor_color"
-        tools:text="vvvvvvvvvvv" />
+        tools:text="vvvvvvvvvvvvvvvvvvvvvvvv" />
 
     <LinearLayout
         android:layout_width="match_parent"
