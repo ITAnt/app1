@@ -3,13 +3,9 @@ package com.jancar.settings.view.fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -18,11 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jancar.bluetooth.Listener.BTSettingListener;
 import com.jancar.bluetooth.lib.BluetoothDeviceData;
@@ -34,16 +28,15 @@ import com.jancar.settings.listener.IPresenter;
 import com.jancar.settings.manager.BaseFragments;
 import com.jancar.settings.presenter.BluetoothPresenter;
 import com.jancar.settings.util.Constants;
-import com.jancar.settings.util.DelayedUtils;
 import com.jancar.settings.util.ToastUtil;
 import com.jancar.settings.widget.AVLoadingIndicatorView;
 import com.jancar.settings.widget.SettingDialog;
 import com.jancar.settings.widget.SwitchButton;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.Unbinder;
 
 /**
  * Created by ouyan on 2018/9/17.
@@ -99,7 +92,15 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         super.onResume();
         Log.w(TAG, "onResume===");
         tvBlutName = bluetoothManager.getBTName().trim();
-        tvBtName.setText(tvBlutName);
+        Log.e(TAG, "tvBlutName====" + tvBlutName);
+        String s = null;
+        try {
+            s = URLDecoder.decode(tvBlutName, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        Log.e(TAG, "tvssss====" + s);
+        tvBtName.setText(s);
         avaAdapter.notifyDataSetChanged();
         pairAdapter.notifyDataSetChanged();
         bluetoothManager.getBondDevice();
@@ -192,6 +193,8 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                         int status = pairedDataListList.get(i).getRemote_connect_status();
                         if (status == Constants.BLUETOOTH_DEVICE_BONDED) {
                             mPresenter.connBlutoth(remote_device_macaddr);
+                        } else {
+                            bluetoothManager.disConnectDevice(remote_device_macaddr);
                         }
                         pairAdapter.notifyDataSetChanged();
                     }
@@ -323,7 +326,14 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                     ToastUtil.ShowToast(mActivity, getString(R.string.tv_setting_update_name));
                 } else {
                     settingDialog.dismiss();
-                    bluetoothManager.setBTName(editText);
+                    try {
+                        String decode = URLDecoder.decode(editText, "UTF-8");
+                        bluetoothManager.setBTName(decode);
+                        Log.e(TAG, "decode===" + decode);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+
                     tvBtName.setText(editText);
                 }
             }
@@ -395,6 +405,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                     break;
                 case BT_SWITH_STATE_ON://蓝牙开启
                     Log.w(TAG, "BT_SWITH_STATE_ON");
+                    ivOnSw.setCheckedImmediately(isBTon);
                     tvClose.setText(R.string.tv_open);
                     tvSearch.setVisibility(View.GONE);
                     linearBlue.setVisibility(View.VISIBLE);
@@ -402,6 +413,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                     mPresenter.searchPairedList();
                     break;
                 case BT_SWITH_STATE_OFF://蓝牙关闭
+                    ivOnSw.setCheckedImmediately(isBTon);
                     Log.w(TAG, "BT_SWITH_STATE_OFF");
                     tvClose.setText(R.string.tv_closed);
                     linearBlue.setVisibility(View.GONE);
