@@ -304,7 +304,7 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
                 initImgRes();
                 topCenterMenu.setBackgroundResource(R.drawable.iv_sus_bg_left);
                 topCenterMenu.setMainActionViewImageResource(R.drawable.iv_sus_left_btn);
-                topCenterMenu.setAngle(280, 445);
+                topCenterMenu.setAngle(280, 443);
                 break;
             case FLOAT_RIGHT:
                 Flag = 1;
