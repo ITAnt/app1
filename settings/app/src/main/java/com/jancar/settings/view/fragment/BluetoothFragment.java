@@ -94,14 +94,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         bluetoothManager.registerBTSettingListener(this);
         tvBlutName = bluetoothManager.getBTName().trim();
         Log.e(TAG, "tvBlutName====" + tvBlutName);
-        String s = null;
-        try {
-            s = URLDecoder.decode(tvBlutName, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        Log.e(TAG, "tvssss====" + s);
-        tvBtName.setText(s);
+        tvBtName.setText(tvBlutName);
         avaAdapter.notifyDataSetChanged();
         pairAdapter.notifyDataSetChanged();
         bluetoothManager.getBondDevice();
@@ -174,13 +167,13 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     public void initData(@Nullable Bundle savedInstanceState) {
         Log.w("BluetoothFragment", "initData");
         bluetoothManager = BluetoothSettingManager.getBluetoothSettingManager(mActivity);
+        bluetoothManager.registerBTSettingListener(this);
         isBTon = bluetoothManager.isBTOn();
         isDisCovering = bluetoothManager.getBTIsDisCovering();
         //配对设备
         if (pairAdapter == null) {
             if (pairedDataListList == null) {
                 pairedDataListList = new ArrayList<>();
-
             }
             pairAdapter = new BluetoothAdapter(getContext());
             listView.setAdapter(pairAdapter);
@@ -224,7 +217,14 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         }
         ivOnSw.setThumbDrawableRes(R.drawable.switch_custom_thumb_selector);
         ivOnSw.setBackDrawableRes(R.drawable.switch_custom_track_selector);
+        ivCheckSw.setThumbDrawableRes(R.drawable.switch_custom_thumb_selector);
+        ivCheckSw.setBackDrawableRes(R.drawable.switch_custom_track_selector);
         ivOnSw.setCheckedImmediately(isBTon);
+        ivCheckSw.setCheckedImmediately(isDisCovering);
+        initBTSw();
+    }
+
+    private void initBTSw() {
         if (isBTon) {
             BTonView();
         } else {
@@ -234,11 +234,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
             tvCheckSw.setText(R.string.tv_setting_check_);
         } else {
             tvCheckSw.setText(R.string.tv_setting_check_des);
-
         }
-        ivCheckSw.setThumbDrawableRes(R.drawable.switch_custom_thumb_selector);
-        ivCheckSw.setBackDrawableRes(R.drawable.switch_custom_track_selector);
-        ivCheckSw.setCheckedImmediately(isDisCovering);
     }
 
     private void BTonView() {
@@ -326,14 +322,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                     ToastUtil.ShowToast(mActivity, getString(R.string.tv_setting_update_name));
                 } else {
                     settingDialog.dismiss();
-                    try {
-                        String decode = URLDecoder.decode(editText, "UTF-8");
-                        bluetoothManager.setBTName(decode);
-                        Log.e(TAG, "decode===" + decode);
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-
+                    bluetoothManager.setBTName(editText);
                     tvBtName.setText(editText);
                 }
             }
