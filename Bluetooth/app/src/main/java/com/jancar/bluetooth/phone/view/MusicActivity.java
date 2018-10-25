@@ -100,7 +100,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     @Override
     protected void onStart() {
         Log.e("MusicActivity", "onStart===");
-        registerListener();
+//        registerListener();
         super.onStart();
     }
 
@@ -108,7 +108,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     protected void onResume() {
         super.onResume();
         Log.e("MusicActivity", "onResume===");
-//        registerListener();
+        registerListener();
         isConnect = bluetoothRequestFocus.isBTConnect();
         isResume = true;
         if (!isConnect) {
@@ -135,8 +135,8 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         registerMediaSession.requestMediaButton();
         bluetoothManager.setBTConnectStatusListener(this);
         bluetoothManager.registerBTMusicListener(this);
-        Log.e("MusicActivity", "registerListenerFocus()===" + bluetoothRequestFocus.isNeedGainFocus());
         if (!bluetoothRequestFocus.isNeedGainFocus()) {
+            Log.e("MusicActivity", "registerListenerFocus()===" + bluetoothRequestFocus.isNeedGainFocus());
             bluetoothRequestFocus.requestAudioFocus();
         }
     }
