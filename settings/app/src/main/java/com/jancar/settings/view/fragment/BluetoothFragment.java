@@ -92,7 +92,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         super.onResume();
         Log.w(TAG, "onResume===");
         bluetoothManager.registerBTSettingListener(this);
-        tvBlutName = bluetoothManager.getBTName().trim();
+        tvBlutName = bluetoothManager.getBTName();
         Log.e(TAG, "tvBlutName====" + tvBlutName);
         tvBtName.setText(tvBlutName);
         avaAdapter.notifyDataSetChanged();
@@ -306,7 +306,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         if (settingDialog == null) {
             settingDialog = new SettingDialog(getActivity(), R.style.AlertDialogCustom);
         }
-        String s = bluetoothManager.getBTName().trim();
+        String s = bluetoothManager.getBTName();
         settingDialog.setEditText(s);
         settingDialog.setCanelOnClickListener(new View.OnClickListener() {
             @Override
@@ -317,7 +317,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
         settingDialog.setEditOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String editText = settingDialog.getEditText().trim();
+                String editText = settingDialog.getEditText();
                 if (TextUtils.isEmpty(editText)) {
                     ToastUtil.ShowToast(mActivity, getString(R.string.tv_setting_update_name));
                 } else {
