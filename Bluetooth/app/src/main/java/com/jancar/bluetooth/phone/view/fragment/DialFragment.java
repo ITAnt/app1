@@ -439,7 +439,7 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
 
     @Override
     public void onNotifySeachContactsList(final List<BluetoothPhoneBookData> list, int i) {
-        Log.d("Dial", "list.size():" + list.size());
+        Log.d("DialFragment", "list.size():" + list.size());
         if (i == DialFragmentType) {
             this.bookDataList = new ArrayList<>(list);
             handler.sendEmptyMessage(Constants.PHONEBOOK_SEACH_LIST);
@@ -516,14 +516,17 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
             case R.id.item_dial_number_call:
                 if (getManager().isConnect()) {
                     if (!TextUtils.isEmpty(mStrKeyNum)) {
+                        Log.e("DialFragment", "number_call===");
                         bluetoothManager.hfpCall(mStrKeyNum);
                         cleanCallNumber();
                     } else {
+                        Log.e("DialFragment", "number_call===Empty==");
 //                        ToastUtil.ShowToast( mActivity.getString(R.string.tv_call_number_empty));
                         mStrKeyNum = FirstLog;
                         tvInput.setText(mStrKeyNum);
                     }
                 } else {
+                    Log.e("DialFragment", "isConnect()===false==");
 //                    ToastUtil.ShowToast(mActivity.getString(R.string.tv_bt_connect_is_none));
                 }
                 break;

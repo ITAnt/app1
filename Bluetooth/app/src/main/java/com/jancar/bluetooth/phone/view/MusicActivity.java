@@ -135,8 +135,8 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         registerMediaSession.requestMediaButton();
         bluetoothManager.setBTConnectStatusListener(this);
         bluetoothManager.registerBTMusicListener(this);
+        Log.e("MusicActivity", "registerListenerFocus()===" + bluetoothRequestFocus.isNeedGainFocus());
         if (!bluetoothRequestFocus.isNeedGainFocus()) {
-            Log.e("MusicActivity", "registerListenerFocus()===" + bluetoothRequestFocus.isNeedGainFocus());
             bluetoothRequestFocus.requestAudioFocus();
         }
     }

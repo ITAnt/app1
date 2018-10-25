@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/px60"
-            android:src="@drawable/iv_commun_half_c" />
+            android:src="@drawable/half_car_selector" />
 
         <ImageView
             android:id="@+id/iv_commun_half_hang"
