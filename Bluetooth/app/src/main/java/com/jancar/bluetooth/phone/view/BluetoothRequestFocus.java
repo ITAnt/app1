@@ -48,6 +48,8 @@ public class BluetoothRequestFocus {
         void onNotifyBackCarStop();
 
         void onNotifyBackCarStart();
+
+        void onNotifyActivityFinish();
     }
 
     public int getCurrentBTStatus() {
@@ -191,6 +193,9 @@ public class BluetoothRequestFocus {
                     if (blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PLAY) {
                         btMusicPause();
                         HandPaused = false;
+                        if (backCarListener != null) {
+                            backCarListener.onNotifyActivityFinish();
+                        }
                     }
                     break;
                 case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:

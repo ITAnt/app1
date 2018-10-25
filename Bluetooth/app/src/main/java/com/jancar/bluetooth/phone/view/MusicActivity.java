@@ -572,4 +572,9 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         Log.e("MusicActivity", "onNotifyBackCarStart=====");
         isResume = false;
     }
+
+    @Override
+    public void onNotifyActivityFinish() {
+        this.finish();
+    }
 }
