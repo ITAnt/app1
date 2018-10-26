@@ -275,9 +275,11 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         Log.e(TAG, "updataScoState:" + scoState);
         mCallScoState = scoState;
         if (BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT == mCallScoState) {
+            Log.e(TAG, "updataScoState==show==phone");
             ivVehicle.setImageResource(R.drawable.commun_phone_selector);
             tvVehicle.setText(R.string.calling_phone);
         } else {
+            Log.e(TAG, "updataScoState==show==car");
             ivVehicle.setImageResource(R.drawable.commun_car_selector);
             tvVehicle.setText(R.string.calling_vehicle);
         }
@@ -292,8 +294,10 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         mCallScoState = scoState;
         if (BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT == mCallScoState) {
             //车机状态
+            Log.e(TAG, "updataHalfScoState==show==phone");
             ivHalfCar.setImageResource(R.drawable.half_phone_selector);
         } else {
+            Log.e(TAG, "updataHalfScoState==show==car");
             ivHalfCar.setImageResource(R.drawable.half_car_selector);
         }
     }
@@ -546,7 +550,10 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 Log.e(TAG, "isAudioTowardsAG====" + isAudioTowardsAG);
                 if (isAudioTowardsAG) {
                     mCallScoState = BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT;
+                } else {
+                    mCallScoState = BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_DISCONNECT;
                 }
+                updataScoState(mCallScoState);
                 if (mCallPhoneType == null) {
                     mCallPhoneType = CALLHISTROY_TYPE_INCOMING;
                 } else {
@@ -568,7 +575,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 startTimer();
                 break;
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_TERMINATED:
-                Log.d("CommunicateActivity", "BLUETOOTH_PHONE_CALL_STATE_TERMINATED===");
+                Log.e("BTUIService", "BLUETOOTH_PHONE_CALL_STATE_TERMINATED===");
                 saveCallLog();
                 stopTimer();
                 if (isShowPhone) {
@@ -647,7 +654,10 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 Log.e(TAG, "isAudioTowardsAG==half==" + isAudioTowardsAG);
                 if (isAudioTowardsAG) {
                     mCallScoState = BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT;
+                } else {
+                    mCallScoState = BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_DISCONNECT;
                 }
+                updataHalfScoState(mCallScoState);
                 ivHalfAns.setVisibility(View.GONE);
                 ivHalfCar.setEnabled(true);
                 if (mCallPhoneType == null) {
@@ -663,6 +673,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 startTimer();
                 break;
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_TERMINATED:
+                Log.e(TAG, "CALL_STATE_TERMINATED==Half==");
                 saveCallLog();
                 stopTimer();
                 mHandler.sendEmptyMessage(MSG_BLUETOOTH_DESTROY_VIEW);
@@ -750,10 +761,11 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
             case R.id.iv_comm_message_hangup:
                 if (mCallType == BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_INCOMING) {
                     bluetoothManager.rejectCall();
+                    saveCallLog();
                 } else {
                     bluetoothManager.terminateCall();
                 }
-                saveCallLog();
+
                 CleanNumberAndHideKey();
                 if (isShowPhone) {
                     jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_HIDE);
@@ -814,11 +826,11 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
             case R.id.iv_commun_half_hang:
                 if (mCallType == BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_INCOMING) {
                     bluetoothManager.rejectCall();
-
+                    saveCallLog();
                 } else {
                     bluetoothManager.terminateCall();
                 }
-                saveCallLog();
+
                 if (isShowPhone) {
                     jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_HIDE);
                 }
