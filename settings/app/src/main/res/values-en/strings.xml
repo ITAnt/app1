@@ -91,7 +91,7 @@
     <string name="label_adjust_open">ON</string>
     <string name="label_time_zone">Time zone setting</string>
     <string name="time_12_24">24</string>
-
+    <string name="label_wrong_password">wrong password</string>
     <string name="hour_hint">hour</string>
     <string name="minute_hint">minute</string>
     <string name="year_hint">year</string>
@@ -322,6 +322,8 @@
     <string name="label_Waiting">LOUD</string>
     <string name="dialog_tab_restart" >Are you sure to restart？</string>
     <string name="tab_suspension_driving">Floating button switch</string>
+    <string name="password">Password cannot be less than 8 digits</string>
+    <string name="tab_android_system">Android settings</string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

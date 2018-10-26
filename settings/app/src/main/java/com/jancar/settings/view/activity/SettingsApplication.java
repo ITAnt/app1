@@ -1,5 +1,6 @@
 package com.jancar.settings.view.activity;
 
+import android.app.Activity;
 import android.app.Application;
 
 import com.jancar.bluetooth.lib.BluetoothSettingManager;
@@ -13,6 +14,7 @@ import com.orhanobut.hawk.LogLevel;
  */
 
 public class SettingsApplication extends Application{
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -24,11 +26,19 @@ public class SettingsApplication extends Application{
                 .setLogLevel(LogLevel.FULL)
                 .build();
     }
-
+  private Activity activity;
     @Override
     public void onTerminate() {
         super.onTerminate();
         SettingManager.releaseSettingManager();
         BluetoothSettingManager.getBluetoothSettingManager(this).release();
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
 }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.IPackageDataObserver;
@@ -51,6 +52,7 @@ import com.jancar.settings.presenter.SystemPresenter;
 import com.jancar.settings.util.AppCleanEngine;
 import com.jancar.settings.util.GPS;
 import com.jancar.settings.util.QRCodeUtil;
+import com.jancar.settings.util.ToastUtil;
 import com.jancar.settings.view.activity.MainActivity;
 import com.jancar.settings.widget.CircleProgressView;
 import com.jancar.settings.widget.SwitchButton;
@@ -63,6 +65,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import static android.content.Context.MODE_WORLD_WRITEABLE;
+import static android.security.KeyStore.getApplicationContext;
 import static com.jancar.settings.util.Tool.setDialogParam;
 import static com.jancar.settings.view.fragment.SuspensionFragment.newInstance;
 
@@ -71,7 +74,7 @@ import static com.jancar.settings.view.fragment.SuspensionFragment.newInstance;
  * Created by ouyan on 2018/9/11.
  */
 
-public class SystemFragment extends BaseFragments<SystemPresenter> implements SystemContractImpl.View, View.OnClickListener, AudioEffectManager.AudioListener, SettingManager.SettingsManagerListener {
+public class SystemFragment extends BaseFragments<SystemPresenter> implements SystemContractImpl.View, View.OnClickListener, AudioEffectManager.AudioListener, SettingManager.SettingsManagerListener, DialogInterface.OnCancelListener {
     private View view;
     private RelativeLayout systemCleanupRlayout;
     private RelativeLayout factorySettingRlayout;
@@ -86,6 +89,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
     private SettingManager settingManager;
     private RelativeLayout restoreDefaultRlayout;
     private RelativeLayout systemRlayout;
+    private RelativeLayout systemRlayouts;
     private LinearLayout suspensionLlayout;
     SuspensionFragment mSuspensionFragment;
     Handler mHadler = new Handler() {
@@ -117,6 +121,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
             restartRlayout = (RelativeLayout) view.findViewById(R.id.rlayout_restart);
             restoreDefaultRlayout = (RelativeLayout) view.findViewById(R.id.rlayout_restore_default);
             systemRlayout = (RelativeLayout) view.findViewById(R.id.llayout_system);
+            systemRlayouts = (RelativeLayout) view.findViewById(R.id.rlayout_system);
             suspensionLlayout = (LinearLayout) view.findViewById(R.id.llayout_suspension);
         }
 
@@ -160,6 +165,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         restoreDefaultRlayout.setOnClickListener(this);
         settingManager.setListener(this);
         suspensionRlayout.setOnClickListener(this);
+        systemRlayouts.setOnClickListener(this);
         mSuspensionFragment = newInstance(false);
         getFragmentManager().beginTransaction()
                 .add(R.id.llayout_suspension, mSuspensionFragment)
@@ -182,9 +188,13 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                 }
                 break;
             case R.id.rlayout_system_cleanup:
-                showCleanupDialog();
+              //  systemCleanupRlayout.setEnabled(false);
+                if (CleanupDialog==null){
+                    showCleanupDialog();
+                }
                 break;
             case R.id.rlayout_factory_setting:
+                //factorySettingRlayout.setEnabled(false);
                 showSettingDialog();
                 break;
             case R.id.rlayout_reset:
@@ -202,6 +212,12 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                 break;
             case R.id.switch_touch_tone:
                 settingManager.setIsNeedKeySound(!settingManager.getIsNeedkeySound());
+                break;
+            case R.id.rlayout_system:
+                Intent intent = new Intent();
+               // intent.setAction("com.android.settings");
+                intent.setClassName("com.android.settings","com.android.settings.Settings");
+                startActivity(intent);
                 break;
         }
     }
@@ -407,7 +423,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                             dialog.dismiss();
                         } else {
                             passwordEdit.setText("");
-                            Toast.makeText(getContext(), "密码错误", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), R.string.label_wrong_password, Toast.LENGTH_SHORT).show();
                         }
 
                         break;
@@ -440,16 +456,18 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         dialog.setCancelable(true);
         dialog.show();
         setDialogParam(dialog, 393, 393);
+        factorySettingRlayout.setEnabled(true);
     }
-
+    Dialog CleanupDialog=null ;
     private void showCleanupDialog() {
 
-        final Dialog dialog = new Dialog(getContext(), R.style.record_voice_dialogs);
-        dialog.setContentView(R.layout.display_dialog_cleanup);
-        final CircleProgressView mCircleProgressView = (CircleProgressView) dialog.findViewById(R.id.circle_progress_view);
-        final TextView scheduleTxt = (TextView) dialog.findViewById(R.id.txt_schedule);
+        CleanupDialog=    new Dialog(getContext(), R.style.record_voice_dialogs);
+        CleanupDialog.setContentView(R.layout.display_dialog_cleanup);
+        CleanupDialog.setOnCancelListener(this);
+        final CircleProgressView mCircleProgressView = (CircleProgressView) CleanupDialog.findViewById(R.id.circle_progress_view);
+        final TextView scheduleTxt = (TextView) CleanupDialog.findViewById(R.id.txt_schedule);
         scheduleTxt.setText("0%");
-        final TextView statusTxt = (TextView) dialog.findViewById(R.id.txt_status);
+        final TextView statusTxt = (TextView) CleanupDialog.findViewById(R.id.txt_status);
         mCircleProgressView.setAnime(true);
         mCircleProgressView.setMaxProgress(100);
         @SuppressLint("HandlerLeak") final Handler handler = new Handler() {
@@ -466,22 +484,23 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                         statusTxt.setText(R.string.tab_clean_up);
                         mCircleProgressView.setProgress(100);
                         scheduleTxt.setText(100 + "%");
-
-                        dialog.dismiss();
-                        Toast.makeText(getContext(), R.string.tab_clean_up, Toast.LENGTH_SHORT).show();
+                        CleanupDialog.dismiss();
+                        ToastUtil.ShowToast(getContext(),getContext(). getString(R.string.tab_clean_up));
+                        CleanupDialog=null;
+                      //  Toast.makeText(getContext(), R.string.tab_clean_up, Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
-
-                        dialog.dismiss();
+                        CleanupDialog.dismiss();
                         break;
                 }
             }
         };
         cleanSystemCache(handler);
-        dialog.setCanceledOnTouchOutside(true);
-        dialog.setCancelable(false);
-        dialog.show();
-        setDialogParam(dialog, 324, 324);
+        CleanupDialog.setCanceledOnTouchOutside(true);
+        CleanupDialog.setCancelable(false);
+        CleanupDialog.show();
+        setDialogParam(CleanupDialog, 324, 324);
+        //systemCleanupRlayout.setEnabled(true);
     }
 
     public void cleanSystemCache(final Handler handler) {
@@ -560,5 +579,10 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         settingManager.changeSystemLanguage(settingManager.locales[settingManager.getLanguage()], settingManager.getLanguage());
         //Toast.makeText(getContext(), "123", Toast.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    public void onCancel(DialogInterface dialogInterface) {
+        CleanupDialog=null;
     }
 }

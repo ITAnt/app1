@@ -58,6 +58,7 @@
     <string name="wifi_text_state_disconnected">連接斷開</string>
     <string name="wifi_text_state_disconnecting">正在斷開</string>
     <string name="wifi_text_state_failed">連接失敗</string>
+    <string name="label_wrong_password">密碼錯誤</string>
     <string name="wifi_text_state_authenticating">身份認證</string>
     <string name="wifi_text_state_obtaining_ipaddr">獲取地址</string>
     <string name="wifi_scan">掃描</string>
@@ -324,6 +325,8 @@
     <string name="label_Waiting">等響</string>
     <string name="dialog_tab_restart">確定重新啟動嗎？</string>
     <string name="tab_suspension_driving">懸浮按鈕開關</string>
+    <string name="password">密碼不能少於8位</string>
+    <string name="tab_android_system">安卓設置</string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

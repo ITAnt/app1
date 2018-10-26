@@ -264,6 +264,28 @@
                         android:id="@+id/txt_restart_line"
                         style="@style/style_line_txt"
                         android:layout_below="@+id/rlayout_restart" />
+                    <RelativeLayout
+                        android:id="@+id/rlayout_system"
+                        style="@style/style_rlayout"
+                        android:layout_below="@+id/txt_restart_line">
+
+                        <TextView
+                            android:id="@+id/txt_system_title"
+                            style="@style/style_txt"
+                            android:text="@string/tab_android_system" />
+
+
+                        <ImageView
+                            android:id="@+id/img_system_arrow"
+                            style="@style/style_img"
+                            android:src="@drawable/balance_btn_right_state" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/txt_system_line"
+                        style="@style/style_line_txt"
+                        android:layout_below="@+id/rlayout_system" />
 
                 </RelativeLayout>
 

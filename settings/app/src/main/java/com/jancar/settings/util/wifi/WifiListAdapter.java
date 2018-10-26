@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jancar.settings.R;
+import com.jancar.settings.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -245,10 +246,11 @@ public class WifiListAdapter extends BaseAdapter {
                     break;
                 case STATE_FAILED:
                     operating.setEnabled(true);
-                    text.setText(R.string.wifi_text_state_failed);
-                    Toast toast = Toast.makeText(getApplicationContext(), "密码错误", Toast.LENGTH_SHORT);
+                   /* text.setText(R.string.wifi_text_state_failed);
+                    Toast toast = Toast.makeText(getApplicationContext(), R.string.label_wrong_password, Toast.LENGTH_SHORT);
                     // toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
+                    toast.show();*/
+                    ToastUtil.ShowToast(mContext,mContext. getString(R.string.wifi_text_state_failed));
                     if (mdelete != null) {
                         mdelete.delete(mScanResult.SSID);
                     }

@@ -55,6 +55,7 @@ import com.jancar.settings.manager.BaseFragment;
 import com.jancar.settings.manager.BaseFragments;
 import com.jancar.settings.presenter.WifiPresenter;
 import com.jancar.settings.presenter.WifiSpotPresenter;
+import com.jancar.settings.util.ToastUtil;
 import com.jancar.settings.util.wifi.WifiController;
 import com.jancar.settings.util.wifi.WifiEnabler;
 import com.jancar.settings.util.wifi.WifiListAdapter;
@@ -394,9 +395,10 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
                             }*/
                         }else {
                             wifiPassword.setText("");
-                            Toast toast = Toast.makeText(getApplicationContext(), "密码不能少于8位", Toast.LENGTH_SHORT);
+                            ToastUtil.ShowToast(getContext(), getString(R.string.password));
+                           // Toast toast = Toast.makeText(getApplicationContext(), R.string.password, Toast.LENGTH_SHORT);
                          //   toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
+                           // toast.show();
                         }
 
 

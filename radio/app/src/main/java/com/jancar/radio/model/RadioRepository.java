@@ -159,14 +159,16 @@ public class RadioRepository implements RadioModel {
         int mAmreqOne[];
         switch (mLocation) {
             case 0:
-                mAmreqOne = new int[]{87500, 90000, 93000, 96000, 99000, 102000};
+                mAmreqOne = new int[]{87500, 90100, 98100, 106100, 108000, 87500};
                 break;
-            // gv_1.setValue(439.2f, 1693.8f, 1135.4f, 30.6f, 5, false);
             case 1:
-                mAmreqOne = new int[]{87500, 90000, 93000, 96000, 99000, 102000};
+                mAmreqOne = new int[]{87500, 90000, 98000, 106000, 108000, 87500};
+                break;
+            case 2:
+                mAmreqOne = new int[]{87500, 90100, 98100, 106100, 107900, 87500};
                 break;
             default:
-                mAmreqOne = new int[]{87500, 90000, 93000, 96000, 99000, 102000};
+                mAmreqOne = new int[]{87500, 90100, 98100, 106100, 107900, 87500};
                 break;
 
         }
@@ -177,14 +179,17 @@ public class RadioRepository implements RadioModel {
         int mAmreqOne[];
         switch (mLocation) {
             case 0:
-                mAmreqOne = new int[]{531, 684, 837, 990, 1143, 1296};
+                mAmreqOne = new int[]{531, 600, 1000, 1400, 1620, 531};
                 break;
             // gv_1.setValue(439.2f, 1693.8f, 1135.4f, 30.6f, 5, false);
             case 1:
-                mAmreqOne = new int[]{522, 684, 837, 990, 1143, 1305};
+                mAmreqOne = new int[]{522, 603, 999, 1404, 1620, 522};
+                break;
+            case 2:
+                mAmreqOne = new int[]{520, 600, 1000, 1400, 1710, 520};
                 break;
             default:
-                mAmreqOne = new int[]{520, 690, 860, 1030, 1200, 1370};
+                mAmreqOne = new int[]{530, 600, 1000, 1400, 1710, 530};
                 break;
 
         }

@@ -87,6 +87,7 @@
     <string name="label_adjust">自动调节时钟</string>
     <string name="label_adjust_off">关闭</string>
     <string name="label_adjust_open">打开</string>
+    <string name="label_wrong_password">密码错误</string>
     <string name="label_time_zone">时区设置</string>
     <string name="time_12_24">24</string>
     <string name="dialog_prompt">是否要保存为自定义?</string>
@@ -325,6 +326,8 @@
     <string name="label_Waiting">等响</string>
     <string name="tab_suspension_driving">悬浮按钮开关</string>
     <string name="tab_suspension_Setting">悬浮按钮设置</string>
+    <string name="password">密码不能少于8位</string>
+    <string name="tab_android_system">安卓设置</string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

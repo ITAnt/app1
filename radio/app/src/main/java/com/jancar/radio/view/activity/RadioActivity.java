@@ -94,6 +94,7 @@ import static com.jancar.key.KeyDef.KeyType.KEY_NEXT;
 import static com.jancar.radio.listener.utils.RadioStationDaos.delete;
 import static com.jancar.radio.listener.utils.RadioStationDaos.deleteRadioStation;
 import static com.jancar.radio.listener.utils.RadioStationDaos.queryFrequency;
+import static com.jancar.radio.listener.utils.ToastUtil.ShowToast;
 
 import android.content.Context;
 import android.telephony.PhoneStateListener;
@@ -375,6 +376,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         unbinder = ButterKnife.bind(this);
         mAudioFocusChange = new RadioAudioFocusChange();
         manager = new GlobaldataManager(getApplicationContext(), null, 0);
+        mRadioManager = new RadioManager((Context) this, this, getPresenter().getRadioListener(), getPackageName());
         initData();
         onDoIntent(getIntent(), false);
         s();
@@ -454,7 +456,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             mLocation = manager.getRadioLocal();
             RadioCacheUtil.getInstance().setLocation(mLocation);
         }
-        mRadioManager = new RadioManager((Context) this, this, getPresenter().getRadioListener(), getPackageName());
+
         SharedPreferences read = getSharedPreferences("Radio", MODE_WORLD_READABLE);
         Band = read.getInt("Band", 0);
         //步骤2：获取文件中的值
@@ -1311,7 +1313,8 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                 delete(mBand, mLocation);
                 radioStations = getPresenter().queryFrequency(Band, mLocation);
                 init(radioStations);
-                Toast.makeText(this, R.string.search_no_result, Toast.LENGTH_SHORT).show();
+                ShowToast(this,getString(R.string.search_no_result));
+              //  Toast.makeText(this, R.string.search_no_result, Toast.LENGTH_SHORT).show();
             }
         } else {
             if (isTinTai) {

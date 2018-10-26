@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 import com.jancar.settings.R;
 import com.jancar.settings.contract.KeyValue;
-
+import com.jancar.globallib.contentprovider.ContentData;
 /**
  * Created by User on 2018/5/8.
  */

@@ -106,7 +106,9 @@ public class RadioPresenter extends BaseModelPresenter<RadioContract.View, Radio
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-             getUi().onStartTrackingTouch();
+        if (getUi() != null) {
+            getUi().onStartTrackingTouch();
+        }
     }
 
     @Override
@@ -117,36 +119,52 @@ public class RadioPresenter extends BaseModelPresenter<RadioContract.View, Radio
 
     @Override
     public void initText(int Band, int mLocation, boolean first_run) {
-        getUi().initText(getModel().initText(Band, mLocation, first_run));
+        if (getUi() != null) {
+            getUi().initText(getModel().initText(Band, mLocation, first_run));
+        }
     }
 
     @Override
     public void Replace(RadioStation radioStations, RadioStation radioStation, boolean first_run) {
-        getModel().Replace(radioStations, radioStation);
-        getUi().initText(getModel().initText(radioStations.getFrequency(), radioStations.getLocation(), first_run));
-        //initText();
+        if (getUi() != null) {
+            getModel().Replace(radioStations, radioStation);
+            getUi().initText(getModel().initText(radioStations.getFrequency(), radioStations.getLocation(), first_run));
+        }   //initText();
     }
 
     @Override
     public void select(int i, Integer tag, int mLocation, boolean first_run) {
-        RadioStation radioStation=   getModel().select(i, tag, mLocation);
-        getUi().initSelect(getModel().initText(tag, mLocation, first_run),radioStation);
+        if (getUi() != null) {
+            RadioStation radioStation = getModel().select(i, tag, mLocation);
+            getUi().initSelect(getModel().initText(tag, mLocation, first_run), radioStation);
+        }
     }
+
     @Override
     public void select(Integer tag, int mLocation, boolean first_run) {
-           getModel().select( tag, mLocation);
-           getUi().initSelect(getModel().initText(tag, mLocation, first_run));
+        if (  getModel() != null) {
+            getModel().select(tag, mLocation);
+        }
+        if (getUi() != null) {
+            getUi().initSelect(getModel().initText(tag, mLocation, first_run));
+        }
     }
 
     @Override
     public void Change(int frequency, int mFreq, int mLocation) {
-        getModel().Change(frequency, mFreq, mLocation);
+
+        if (  getModel() != null) {
+            getModel().Change(frequency, mFreq, mLocation);
+        }
         // getUi().init(getModel().initText(frequency, mLocation));
     }
 
     @Override
     public void Change(List<RadioStation> radioStations) {
-        getModel().Change(radioStations);
+
+        if (  getModel() != null) {
+            getModel().Change(radioStations);
+        }
     }
 
     @Override
@@ -159,21 +177,23 @@ public class RadioPresenter extends BaseModelPresenter<RadioContract.View, Radio
             }
         }
         getModel().Change(radioStations);
-        getUi().init(radioStations);
+        if (getUi() != null) {
+            getUi().init(radioStations);
+        }
     }
 
     @Override
-    public void Change(int mFreq, List<RadioStation> radioStations,int mSignalStrength) {
-        List<RadioStation> radioStation=new ArrayList<>();
-       List<Integer> a=new ArrayList<>();
-       int i=0;
+    public void Change(int mFreq, List<RadioStation> radioStations, int mSignalStrength) {
+        List<RadioStation> radioStation = new ArrayList<>();
+        List<Integer> a = new ArrayList<>();
+        int i = 0;
         Iterator<RadioStation> it = radioStations.iterator();
-        while(it.hasNext()){
+        while (it.hasNext()) {
             RadioStation x = it.next();
             if (x.getMFreq() == mFreq) {
-                if (mSignalStrength>0){
+                if (mSignalStrength > 0) {
                     x.setSelect(true);
-                }else {
+                } else {
                     radioStation.add(x);
                     it.remove();
                 }
@@ -182,7 +202,10 @@ public class RadioPresenter extends BaseModelPresenter<RadioContract.View, Radio
             }
         }
         deleteRadioStation(radioStation);
-        getUi().init(radioStations);
+        if (getUi()!=null){
+
+            getUi().init(radioStations);
+        }
     }
 
 
@@ -313,19 +336,26 @@ public class RadioPresenter extends BaseModelPresenter<RadioContract.View, Radio
 
         @Override
         public void requestRadioFocus() {
-            getUi().requestRadioFocus();
+            if (getUi() != null) {
+                getUi().requestRadioFocus();
+            }
             //    RadioMainActivity.this.mAudioManager.requestAudioFocus(mAudioFocusChange, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
         }
 
         @Override
         public void abandonRadioFocus() {
-            getUi().abandonRadioFocus();
+
+            if (getUi() != null) {
+                getUi().abandonRadioFocus();
+            }
             // RadioMainActivity.this.mAudioManager.abandonAudioFocus(mAudioFocusChange);
         }
 
         @Override
         public void onStereo(int i, boolean b) {
-            getUi().onStereo(i, b);
+            if (getUi() != null) {
+                getUi().onStereo(i, b);
+            }
         }
     };
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -337,7 +367,9 @@ public class RadioPresenter extends BaseModelPresenter<RadioContract.View, Radio
 
                 if (getUi().getRadioManager() == null ||
                         getUi().getRadioManager().getRdIsOpenDev()) {
-
+                    if (  getUi() != null) {
+                    }
+               /* getUi().getActivity().finish();*/
                  /*   if (RadioMainActivity.this.getCurRadioFragment().getRegionDialog() != null &&
                             RadioMainActivity.this.getCurRadioFragment().getRegionDialog().isShowing()) {
                         RadioMainActivity.this.getCurRadioFragment().getRegionDialog().cancel();
@@ -354,8 +386,10 @@ public class RadioPresenter extends BaseModelPresenter<RadioContract.View, Radio
 
                     return;
                 }
+                if (  getUi() != null) {
+                    getUi().getActivity().finish();
+                }
 
-                getUi().getActivity().finish();
             }
         }
     };
@@ -368,11 +402,13 @@ public class RadioPresenter extends BaseModelPresenter<RadioContract.View, Radio
     @Override
     public void save(ArrayList<RadioStation> mScanResultList, int mBand, int Band, int mLocation, boolean first_run) {
         getModel().processAndSave(mScanResultList, mBand, mLocation);
-        getUi().initText(getModel().initText(Band, mLocation, first_run));
+        if (getUi()!=null){
+            getUi().initText(getModel().initText(Band, mLocation, first_run));
+        }
     }
 
     @Override
     public List<RadioStation> queryFrequency(int band, int mLocation) {
-        return   getModel().initText(band, mLocation, false);
+        return getModel().initText(band, mLocation, false);
     }
 }

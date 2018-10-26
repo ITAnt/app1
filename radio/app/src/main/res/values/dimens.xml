@@ -2,4 +2,6 @@
 <resources>
     <dimen name="font_text_60_size">30.0sp</dimen>
     <dimen name="font_text_48_size">24.0sp</dimen>
+    <dimen name="px60">60px</dimen>
+    <dimen name="px20">20px</dimen>
 </resources>

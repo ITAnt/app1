@@ -2,10 +2,12 @@ package com.jancar.settings.service;
 
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -18,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jancar.JancarManager;
 import com.jancar.common.ExtraData;
@@ -25,12 +28,21 @@ import com.jancar.model.DisplayController;
 import com.jancar.prompt.PromptController;
 import com.jancar.settings.R;
 import com.jancar.settings.lib.SettingManager;
+import com.jancar.settings.view.activity.MainActivity;
+import com.jancar.settings.view.activity.SettingsApplication;
 import com.jancar.state.JacState;
 
 import java.util.HashMap;
 
+import static android.view.View.SYSTEM_UI_FLAG_LOW_PROFILE;
+import static android.view.WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_OFF;
+import static android.view.WindowManager.LayoutParams.FIRST_SYSTEM_WINDOW;
+import static android.view.WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN;
 import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 import static android.view.WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR;
+import static android.view.WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
+import static android.view.WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+
 
 public class SettingsUIService extends Service implements SeekBar.OnSeekBarChangeListener {
     private final String TAG= SettingsUIService.class.getSimpleName();
@@ -112,6 +124,10 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
             super.show(bMaximize, map);
             String value = (String) map.get("show");
             Log.e(TAG,"show=="+map+"value=="+value);
+            WindowManager.LayoutParams params =((SettingsApplication)getApplication()).getActivity().getWindow().getAttributes();
+            params.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+            ((SettingsApplication)getApplication()).getActivity().getWindow().setAttributes(params);
+         ((SettingsApplication)getApplication()).getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
             if(!isShow&&value.equals("DT_ADJUSTMENT")){
                 initData(TYPE_BACKCAR);
                 showView();
@@ -123,6 +139,13 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
         @Override
         public void hide(HashMap<String, Object> map) {
             super.hide(map);
+
+            WindowManager.LayoutParams params =((SettingsApplication)getApplication()).getActivity().getWindow().getAttributes();
+            params.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            ((SettingsApplication)getApplication()).getActivity().getWindow().setAttributes(params);
+            ((SettingsApplication)getApplication()).getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS );
+            ((MainActivity)((SettingsApplication)getApplication()).getActivity()).initStatusBar();
+            //   ((SettingsApplication)getApplication()).getActivity().getWindow().setType(WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR );
             String value = (String) map.get("hide");
             Log.e(TAG,"hide=="+map+"value=="+value);
             if(isShow&&value.equals("DT_ADJUSTMENT")){
@@ -145,18 +168,32 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
     }
 
     private void initView(){
-        mWindowManager = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
 
+        mWindowManager = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         mLayoutParams = new WindowManager.LayoutParams();
+    /*    mLayoutParams = new WindowManager.LayoutParams();
         mLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
         mLayoutParams.format = PixelFormat.RGBA_8888;
 
         mLayoutParams.flags = FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN|FLAG_LAYOUT_INSET_DECOR ;
         mLayoutParams.gravity = Gravity.CENTER;
         mLayoutParams.width = 500;
-        mLayoutParams.height = 316;
+        mLayoutParams.height = 316;*/
+        mLayoutParams.width = 500;
+        mLayoutParams.height =316;
+        mLayoutParams.type =WindowManager.LayoutParams.TYPE_SYSTEM_ALERT  ;
+        mLayoutParams.format = PixelFormat.RGBA_8888;
+        mLayoutParams.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+       /* mLayoutParams.flags = */
+       /* mLayoutParams.flags = 17368856 | WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR|FLAG_FULLSCREEN|FLAG_LAYOUT_IN_SCREEN;*/
+       // mLayoutParams.flags =FLAG_FULLSCREEN;
+        mLayoutParams.dimAmount = -1f;
+        mLayoutParams.gravity = Gravity.CENTER;
+        mLayoutParams.buttonBrightness = BRIGHTNESS_OVERRIDE_OFF;
+        mLayoutParams.systemUiVisibility = SYSTEM_UI_FLAG_LOW_PROFILE;
         brightView = LayoutInflater.from(this).inflate(R.layout.bright_dialog, null);
-
+      /* getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         findView();
     }
 
