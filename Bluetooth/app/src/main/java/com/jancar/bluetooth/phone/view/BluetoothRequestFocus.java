@@ -22,7 +22,7 @@ public class BluetoothRequestFocus {
     private static BluetoothRequestFocus bluetoothRequestFocus;
     private Context context;
     private BluetoothManager blueManager;
-    public static boolean HandPaused = true;
+    public static boolean HandPaused = false;
     private AudioManager audioManager;
     private static boolean BT_PLAY_STATUS = false;
     public final static int BT_INIT = 0; //蓝牙音乐的初始化状态
@@ -184,8 +184,11 @@ public class BluetoothRequestFocus {
             switch (focusChange) {
                 case AudioManager.AUDIOFOCUS_GAIN:
                     Log.e(TAG, "GAIN:" + focusChange);
-                    setCurrentBTStatus(BT_FOCUSE_GAIN);
                     Log.d("BluetoothRequestFocus", "HandPaused:===" + HandPaused);
+                    if (!HandPaused) {
+                        setCurrentBTStatus(BT_FOCUSE_GAIN);
+                    }
+
                     break;
                 case AudioManager.AUDIOFOCUS_LOSS:
                     setCurrentBTStatus(BT_FOCUSE_LOSS);
@@ -203,7 +206,7 @@ public class BluetoothRequestFocus {
                     Log.e(TAG, "TRANSIENT===:" + focusChange);
                     if (blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PLAY) {
                         btMusicPause();
-                        HandPaused = false;
+//                        HandPaused = false;
                     }
                     break;
                 case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
@@ -212,7 +215,7 @@ public class BluetoothRequestFocus {
                     boolean flag = SystemProperties.getBoolean("persist.jancar.gpsmix", true);
                     if (!flag && blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PLAY) {
                         btMusicPause();
-                        HandPaused = false;
+//                        HandPaused = false;
                     }
                     break;
             }
