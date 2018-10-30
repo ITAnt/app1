@@ -220,6 +220,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
             super.handleMessage(msg);
             switch (msg.what) {
                 case MSG_UPDATA_PHONE_UI:
+                    Log.e(TAG, "MSG_UPDATA_PHONE_UI==");
                     BluetoothPhoneBookData phoneBookData = (BluetoothPhoneBookData) msg.obj;
                     int callState = phoneBookData.getPhoneType();
                     String phoneNumber = phoneBookData.getPhoneNumber();
@@ -233,6 +234,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                     }
                     break;
                 case MSG_BLUETOOTH_SERVICE_READY:
+                    Log.e(TAG, "MSG_BLUETOOTH_SERVICE_READY==");
                     if (bluetoothManager.isMicMute()) {
 //                        bluetoothManager.muteMic(false);
                         if (isFull) {
@@ -245,7 +247,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                         }
 
                     }
-                    updataView(mCallType, mCallNumber);
+//                    updataView(mCallType, mCallNumber);
                     break;
 
                 case MSG_BLUETOOTH_UPDATA_SCO_STATE:
@@ -738,6 +740,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
     }
 
     private void saveCallLog() {
+        Log.e(TAG, "saveCallLog=========");
         BluetoothPhoneBookData bluetoothPhoneBookData = new BluetoothPhoneBookData();
         bluetoothPhoneBookData.setPhoneName(mCallName);
         bluetoothPhoneBookData.setPhoneNumber(mCallNumber);

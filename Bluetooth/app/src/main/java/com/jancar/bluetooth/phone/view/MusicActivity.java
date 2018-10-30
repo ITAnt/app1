@@ -281,8 +281,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                 isPlay = true;
                 circleImageView.setAnimatePlaying(isPlay);
                 Log.e("MusicActivity", "updatePlaybackStatus===" + BluetoothRequestFocus.CarState + "===" + bluetoothRequestFocus.getPlayStatus());
-                if (!bluetoothRequestFocus.getPlayStatus() && !BluetoothRequestFocus.CarState) {
-                    Log.e("MusicActivity", "BluetoothRequestFocus.CarState===" + BluetoothRequestFocus.CarState);
+                if (!bluetoothRequestFocus.getPlayStatus() && !BluetoothRequestFocus.CarState && isResume) {
                     bluetoothRequestFocus.setBTPlayStatus(true);
                 }
                 break;
@@ -292,7 +291,6 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                 ivPlay.setImageResource(R.drawable.music_play_selector);
                 isPlay = false;
                 circleImageView.setAnimatePlaying(isPlay);
-                Log.e("MusicActivity", "Paush==getCurrentBTStatus()===" + bluetoothRequestFocus.getCurrentBTStatus());
                 switch (bluetoothRequestFocus.getCurrentBTStatus()) {
                     case BluetoothRequestFocus.BT_INIT:
                         Log.e("MusicActivity", "BT_INIT===");
@@ -336,9 +334,10 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                         break;
                     case BluetoothRequestFocus.BT_NONE:
                         Log.e("MusicActivity", "BT_NONE===");
-                        if (bluetoothRequestFocus.getPlayStatus()) {
-                            bluetoothRequestFocus.setBTPlayStatus(false);
-                        }
+//                        if (bluetoothRequestFocus.getPlayStatus()) {
+//                            bluetoothRequestFocus.setBTPlayStatus(false);
+//                        }
+
                         break;
                 }
                 break;
