@@ -125,12 +125,14 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     private void registerListener() {
         bluetoothRequestFocus = BTUIService.bluetoothRequestFocus;
         registerMediaSession = BTUIService.registerMediaSession;
+        Log.e("MusicActivity", "registerMediaSession=k===" + registerMediaSession);
         if (bluetoothRequestFocus == null) {
             bluetoothRequestFocus = BluetoothRequestFocus.getBluetoothRequestFocusStance(this);
         }
         if (registerMediaSession == null) {
             registerMediaSession = new RegisterMediaSession(this, bluetoothManager);
         }
+        Log.e("MusicActivity", "registerMediaSession===" + registerMediaSession);
         bluetoothRequestFocus.setBackCarListener(this);
         registerMediaSession.requestMediaButton();
         bluetoothManager.setBTConnectStatusListener(this);
@@ -144,6 +146,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        registerListener();
         Log.e("MusicActivity", "onNewIntent===");
     }
 

@@ -48,7 +48,7 @@ public class RegisterMediaSession {
             public boolean onMediaButtonEvent(Intent intent) {
                 // TODO Auto-generated method stub
                 KeyEvent keyEvent;
-                Log.e(TAG, "onMediaButtonEvent: " + intent );
+                Log.e(TAG, "onMediaButtonEvent: " + intent);
                 if (Intent.ACTION_MEDIA_BUTTON.equals(intent.getAction())) {
                     keyEvent = intent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
                     if (keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_UP) {
@@ -69,6 +69,7 @@ public class RegisterMediaSession {
     @SuppressLint("NewApi")
     public void requestMediaButton() {
         try {
+            Log.e(TAG, "mMediaSession.isActive()===" + mMediaSession.isActive());
             if (!mMediaSession.isActive()) {
                 mMediaSession.setActive(true);
             }
