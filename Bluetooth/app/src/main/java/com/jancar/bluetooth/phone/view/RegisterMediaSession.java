@@ -70,9 +70,9 @@ public class RegisterMediaSession {
     public void requestMediaButton() {
         try {
             Log.e(TAG, "mMediaSession.isActive()===" + mMediaSession.isActive());
-            if (!mMediaSession.isActive()) {
+//            if (!mMediaSession.isActive()) {
                 mMediaSession.setActive(true);
-            }
+//            }
             Log.e(TAG, "requestMediaButton:" + context.getPackageName());
         } catch (Exception e) {
             e.printStackTrace();

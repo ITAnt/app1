@@ -222,7 +222,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
         } else {
             if (bluetoothManager != null) {
                 bluetoothManager.setBTConnectStatusListener(null);
-                bluetoothManager.unRegisterBTPhonebookListener();
+//                bluetoothManager.unRegisterBTPhonebookListener();
             }
 
         }
@@ -266,7 +266,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
         }
-        bluetoothManager.unRegisterBTPhonebookListener();
+//        bluetoothManager.unRegisterBTPhonebookListener();
     }
 
 

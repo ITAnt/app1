@@ -237,7 +237,7 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
         }
-        bluetoothManager.unRegisterBTPhonebookListener();
+//        bluetoothManager.unRegisterBTPhonebookListener();
         bluetoothManager.unRegisterBTCallLogListener();
         bluetoothManager.setBTConnectStatusListener(null);
     }
@@ -264,7 +264,7 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
             }
         } else {
             if (bluetoothManager != null) {
-                bluetoothManager.unRegisterBTPhonebookListener();
+//                bluetoothManager.unRegisterBTPhonebookListener();
                 bluetoothManager.unRegisterBTCallLogListener();
                 bluetoothManager.setBTConnectStatusListener(null);
             }

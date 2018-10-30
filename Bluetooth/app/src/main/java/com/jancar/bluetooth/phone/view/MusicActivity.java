@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.Listener.BTMusicListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
@@ -146,7 +145,6 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        registerListener();
         Log.e("MusicActivity", "onNewIntent===");
     }
 
@@ -567,9 +565,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                     connectDialog.dismiss();
                 }
                 Log.e("MusicActivity", "onNotifyBackCarStop.CallState===" + BluetoothRequestFocus.CallState);
-                Log.e("MusicActivity", "onNotifyBackCarStop.HandPaused===" + BluetoothRequestFocus.HandPaused);
                 if (!BluetoothRequestFocus.HandPaused && BluetoothRequestFocus.CallState == 0) {
-                    Log.e("MusicActivity", "onNotifyBackCarStop===CallState");
                     bluetoothRequestFocus.btMusicPlay();
                 }
                 bluetoothRequestFocus.setCurrentBTStatus(BluetoothRequestFocus.BT_IDL);

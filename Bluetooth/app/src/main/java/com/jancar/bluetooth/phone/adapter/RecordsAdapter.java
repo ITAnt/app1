@@ -79,25 +79,29 @@ public class RecordsAdapter extends BaseAdapter {
         } else {
             viewHolder.tvName.setText(phoneName);
         }
-
         String phoneBookCallType = bookData.getPhoneBookCallType();
-        switch (phoneBookCallType) {
-            case INCOMG:
-                viewHolder.ivcallType.setImageResource(R.drawable.iv_records_call_in);
-                break;
-            case OUTGOING:
-                viewHolder.ivcallType.setImageResource(R.drawable.iv_records_call_out);
+        if (!TextUtils.isEmpty(phoneBookCallType)) {
+            switch (phoneBookCallType) {
+                case INCOMG:
+                    viewHolder.ivcallType.setImageResource(R.drawable.iv_records_call_in);
+                    break;
+                case OUTGOING:
+                    viewHolder.ivcallType.setImageResource(R.drawable.iv_records_call_out);
 
-                break;
-            case MISSED:
-                viewHolder.ivcallType.setImageResource(R.drawable.iv_records_call_missed);
-                break;
+                    break;
+                case MISSED:
+                    viewHolder.ivcallType.setImageResource(R.drawable.iv_records_call_missed);
+                    break;
+            }
         }
 
         viewHolder.ivCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BluetoothManager.getBluetoothManagerInstance(mContext).hfpCall(bookData.getPhoneNumber());
+                String phoneNumber = bookData.getPhoneNumber();
+                if (!TextUtils.isEmpty(phoneNumber)) {
+                    BluetoothManager.getBluetoothManagerInstance(mContext).hfpCall(bookData.getPhoneNumber());
+                }
             }
         });
         if (position == defaultSelection) {
