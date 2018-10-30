@@ -43,6 +43,12 @@ public class MagneticMenu extends FloatingMenu {
         super(mainActionView, startAngle, endAngle, radius, subActionItems, animationHandler, animated, stateChangeListener, systemOverlay);
         mainActionView.setOnTouchListener(onTouchListener);
         super.setStateChangeListener(menuStateChangeListener);
+        getOverlayContainer().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                close(true);
+            }
+        });
     }
     
     /**

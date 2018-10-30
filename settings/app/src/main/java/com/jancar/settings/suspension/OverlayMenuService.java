@@ -7,7 +7,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Binder;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -185,6 +187,9 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
                 onMenuFloat(flag);
             }
         });
+
+
+
     }
 
     private void initImgRes() {
