@@ -188,8 +188,6 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
             }
         });
 
-
-
     }
 
     private void initImgRes() {
@@ -207,9 +205,7 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-//        initImgRes();
         return super.onStartCommand(intent, flags, startId);
-
     }
 
     private void setImgResource(String title, ImageView view) {
@@ -283,6 +279,7 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
         if (title.equals(getResources().getString(R.string.tv_power))) {
             Log.e("OverlayMenuService", "Pos0===");
             jancarManager.requestDisplay(false);
+            closeMenu();
         }
         if (title.equals(getResources().getString(R.string.tv_home))) {
             Log.e("OverlayMenuService", "Pos1===");
@@ -323,10 +320,16 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
 
     @Override
     public void onDestroy() {
-        if (topCenterMenu != null && topCenterMenu.isOpen()) topCenterMenu.close(false);
+        closeMenu();
         if (mainCenterButton != null) mainCenterButton.detach();
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    private void closeMenu() {
+        if (topCenterMenu != null && topCenterMenu.isOpen()) {
+            topCenterMenu.close(false);
+        }
     }
 
     /**

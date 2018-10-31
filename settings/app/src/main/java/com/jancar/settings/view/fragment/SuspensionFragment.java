@@ -117,18 +117,18 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
     public void onPause() {
         super.onPause();
         Log.e("SuspensionFragment", "onPause===");
-//        keepValue();
+        keepValue();
     }
 
     public void keepValue() {
-        Hawk.put(Contacts.ICON_POS_0, pos_title_0);
-        Hawk.put(Contacts.ICON_POS_1, pos_title_1);
-        Hawk.put(Contacts.ICON_POS_2, pos_title_2);
-        Hawk.put(Contacts.ICON_POS_3, pos_title_3);
-        Hawk.put(Contacts.ICON_POS_4, pos_title_4);
+//        Hawk.put(Contacts.ICON_POS_0, pos_title_0);
+//        Hawk.put(Contacts.ICON_POS_1, pos_title_1);
+//        Hawk.put(Contacts.ICON_POS_2, pos_title_2);
+//        Hawk.put(Contacts.ICON_POS_3, pos_title_3);
+//        Hawk.put(Contacts.ICON_POS_4, pos_title_4);
         Hawk.put(Contacts.SELECT_POS, selectPos);
         Hawk.put(Contacts.TAB_POS, indexIcon);
-        EventBus.getDefault().post(new UpdateEntry(true));
+//        EventBus.getDefault().post(new UpdateEntry(true));
 
     }
 
@@ -209,29 +209,40 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
         }
     }
 
+
     private void updateIcon(String title) {
         switch (indexIcon) {
             case ICON_POWER:
                 setImageRes(title, ivPower);
                 pos_title_0 = title;
+                saveAndUpdate(Contacts.ICON_POS_0, pos_title_0);
                 break;
             case ICON_HOME:
                 setImageRes(title, ivHome);
                 pos_title_1 = title;
+                saveAndUpdate(Contacts.ICON_POS_1, pos_title_1);
                 break;
             case ICON_VOICE_ADD:
                 setImageRes(title, ivAdd);
                 pos_title_2 = title;
+                saveAndUpdate(Contacts.ICON_POS_2, pos_title_2);
                 break;
             case ICON_VOICE_RED:
                 setImageRes(title, ivDec);
                 pos_title_3 = title;
+                saveAndUpdate(Contacts.ICON_POS_3, pos_title_3);
                 break;
             case ICON_BACK:
                 setImageRes(title, ivBack);
                 pos_title_4 = title;
+                saveAndUpdate(Contacts.ICON_POS_4, pos_title_4);
                 break;
         }
+    }
+
+    private void saveAndUpdate(String key, String value) {
+        Hawk.put(key, value);
+        EventBus.getDefault().post(new UpdateEntry(true));
     }
 
     private void setImageRes(String title, ImageView view) {
