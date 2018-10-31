@@ -18,12 +18,14 @@ import android.widget.ImageView;
 
 import com.jancar.JancarServer;
 import com.jancar.key.KeyDef;
+import com.jancar.prompt.PromptController;
 import com.jancar.settings.R;
 import com.jancar.settings.suspension.entry.UpdateEntry;
 import com.jancar.settings.suspension.utils.Contacts;
 import com.jancar.settings.suspension.widget.ChildButton;
 import com.jancar.settings.suspension.widget.FloatingButton;
 import com.jancar.settings.suspension.widget.MagneticMenu;
+import com.jancar.state.JacState;
 import com.orhanobut.hawk.Hawk;
 
 import org.greenrobot.eventbus.EventBus;
@@ -187,6 +189,31 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
                 onMenuFloat(flag);
             }
         });
+
+        JacState jacState = new JacState() {
+            @Override
+            public void OnPhone(boolean bState) {
+                super.OnPhone(bState);
+                Log.e("OverlayMenuService", "OnPhone===");
+                if (bState) {
+                    mainCenterButton.setVisibility(View.GONE);
+                } else {
+                    mainCenterButton.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void OnBackCar(boolean bState) {
+                super.OnBackCar(bState);
+                Log.e("OverlayMenuService", "OnBackCar===");
+                if (bState) {
+                    mainCenterButton.setVisibility(View.GONE);
+                } else {
+                    mainCenterButton.setVisibility(View.VISIBLE);
+                }
+            }
+        };
+        jancarManager.registerJacStateListener(jacState.asBinder());
 
     }
 
