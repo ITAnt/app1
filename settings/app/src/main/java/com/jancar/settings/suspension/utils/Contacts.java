@@ -14,5 +14,8 @@ public class Contacts {
     public static final String ISOPEN_OVERLAY = "isopen";
     public static final String SELECT_POS = "selectpos";
     public static final String TAB_POS = "tabpos";
+    public static final String PACKAGE_NAME = "PackageName";
+    public static final String CLASS_NAME = "ClassName";
+    public static final String GPS = "gps";
 
 }

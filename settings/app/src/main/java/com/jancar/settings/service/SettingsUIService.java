@@ -3,15 +3,22 @@ package com.jancar.settings.service;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningTaskInfo;
+import android.app.Application;
 import android.app.Service;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -28,11 +35,14 @@ import com.jancar.model.DisplayController;
 import com.jancar.prompt.PromptController;
 import com.jancar.settings.R;
 import com.jancar.settings.lib.SettingManager;
+import com.jancar.settings.suspension.utils.Contacts;
+import com.jancar.settings.util.GPS;
 import com.jancar.settings.view.activity.MainActivity;
 import com.jancar.settings.view.activity.SettingsApplication;
 import com.jancar.state.JacState;
 
 import java.util.HashMap;
+import java.util.List;
 
 import static android.view.View.SYSTEM_UI_FLAG_LOW_PROFILE;
 import static android.view.WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_OFF;
@@ -42,10 +52,12 @@ import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 import static android.view.WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR;
 import static android.view.WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
 import static android.view.WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+import static com.jancar.settings.suspension.utils.Contacts.CLASS_NAME;
+import static com.jancar.settings.suspension.utils.Contacts.PACKAGE_NAME;
 
 
 public class SettingsUIService extends Service implements SeekBar.OnSeekBarChangeListener {
-    private final String TAG= SettingsUIService.class.getSimpleName();
+    private final String TAG = SettingsUIService.class.getSimpleName();
     private final String ACTION_SHOW_BRIGHT_ADJUST = "com.jancar.adjust.bright";
     private final String EXTRA_BRIGHT_ADJUST = "extra.bright.adjust";
     private final String TYPE_BACKCAR = "type_backcar";
@@ -58,20 +70,20 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
     private final static long DELAY_CLOSE_TIME = 3000;
     private SettingManager settingManager;
     private int max = 9;
-    private ImageView brightImage,chromaImage,contrastImage;
-    private SeekBar brightSeekbar,chromaSeekbar,contrastSeekbar;
-    private TextView brightValue,chromaValue,contrastValue;
+    private ImageView brightImage, chromaImage, contrastImage;
+    private SeekBar brightSeekbar, chromaSeekbar, contrastSeekbar;
+    private TextView brightValue, chromaValue, contrastValue;
     private String currentType = "";
     private JancarManager jancarManager;
     private DisplayController displayController;
     private boolean isShow;
 
     @SuppressLint("HandlerLeak")
-    private Handler UIHandler = new Handler(){
+    private Handler UIHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case MSG_CLOSE_VIEW:
                     destroyView();
                     break;
@@ -89,25 +101,59 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.e(TAG,"onCreate");
+        Log.e(TAG, "onCreate");
         settingManager = SettingManager.getSettingManager(this);
-        jancarManager  = (JancarManager) getSystemService(JancarManager.JAC_SERVICE);
+        jancarManager = (JancarManager) getSystemService(JancarManager.JAC_SERVICE);
         displayController = new DisplayController();
         initView();
         jancarManager.registerJacStateListener(jacState.asBinder());
         jancarManager.registerPrompt(promptController.asBinder());
-        Log.e(TAG,"onCreate end");
+        Log.e(TAG, "onCreate end");
+        // getApplicationContext(
+     /* Intent intent=getApplication().*/
+     /*  String s =settingManager.getNaviInfo().trim();
+        if (s != null&&!"".equals(s)) {
+            String[] String =s.split("\\|");
+            if (String.length>0){
+                String PackageName =String[0];
+                String ClassName = String[1];
+                if (PackageName != null && ClassName != null) {
+                    jancarManager.registerPage(Contacts.GPS, PackageName, ClassName, false, false);
+                    Log.w("SettingsUIService", PackageName);
+                    Log.w("SettingsUIService", ClassName);
+                }
+            }
+        }*/
+        Settings.Secure.setLocationProviderEnabled(getApplicationContext().getContentResolver(), LocationManager.GPS_PROVIDER, false);
+        GPS gps = new GPS();
+        gps.openGPSSettings(getApplicationContext(), 3);
     }
 
-    JacState jacState = new JacState(){
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d(TAG, "onStartCommand = " + intent);
+        if (intent != null) {
+            String PackageName = intent.getStringExtra(PACKAGE_NAME);
+            String ClassName = intent.getStringExtra(CLASS_NAME);
+            if (PackageName != null && ClassName != null) {
+                jancarManager.registerPage(Contacts.GPS, PackageName, ClassName, false, false);
+                Log.w("SettingsUIService", PackageName);
+                Log.w("SettingsUIService", ClassName);
+            }
+        }
+        return START_REDELIVER_INTENT;
+    }
+
+    JacState jacState = new JacState() {
         @Override
         public void OnBackCar(boolean bState) {
             super.OnBackCar(bState);
-            if(bState){
+            Log.e(TAG, "--"+bState);
+            if (bState) {
                 displayController.nativeSetContrastAdjIndex(settingManager.getDisplayBackCarContrast());
                 displayController.nativeSetBrightnessAdjIndex(settingManager.getDisplayBackCarBrightness());
                 displayController.nativeSetSatAdjIndex(settingManager.getDisplayBackCarChroma());
-            }else{
+            } else {
                 jancarManager.requestPrompt(PromptController.DisplayType.DT_ADJUSTMENT,
                         PromptController.DisplayParam.DP_HIDE, new ExtraData().put("hide", "" +
                                 PromptController.DisplayType.DT_ADJUSTMENT));
@@ -122,13 +168,14 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
         @Override
         public void show(boolean bMaximize, HashMap<String, Object> map) {
             super.show(bMaximize, map);
+            Log.e(TAG, "show");
             String value = (String) map.get("show");
-            Log.e(TAG,"show=="+map+"value=="+value);
-            WindowManager.LayoutParams params =((SettingsApplication)getApplication()).getActivity().getWindow().getAttributes();
-            params.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
-            ((SettingsApplication)getApplication()).getActivity().getWindow().setAttributes(params);
-         ((SettingsApplication)getApplication()).getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-            if(!isShow&&value.equals("DT_ADJUSTMENT")){
+            Log.e(TAG, "show==" + map + "value==" + value);
+           /*
+           // WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+            DisplayMetrics dm = new DisplayMetrics();
+            mWindowManager.getDefaultDisplay().getMetrics(dm);*/
+            if (!isShow && value.equals("DT_ADJUSTMENT")) {
                 initData(TYPE_BACKCAR);
                 showView();
                 currentType = TYPE_BACKCAR;
@@ -139,16 +186,10 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
         @Override
         public void hide(HashMap<String, Object> map) {
             super.hide(map);
-
-            WindowManager.LayoutParams params =((SettingsApplication)getApplication()).getActivity().getWindow().getAttributes();
-            params.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            ((SettingsApplication)getApplication()).getActivity().getWindow().setAttributes(params);
-            ((SettingsApplication)getApplication()).getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS );
-            ((MainActivity)((SettingsApplication)getApplication()).getActivity()).initStatusBar();
-            //   ((SettingsApplication)getApplication()).getActivity().getWindow().setType(WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR );
             String value = (String) map.get("hide");
-            Log.e(TAG,"hide=="+map+"value=="+value);
-            if(isShow&&value.equals("DT_ADJUSTMENT")){
+
+            Log.e(TAG, "hide==" + map + "value==" + value);
+            if (isShow && value.equals("DT_ADJUSTMENT")) {
                 UIHandler.removeMessages(MSG_CLOSE_VIEW);
                 destroyView();
             }
@@ -157,6 +198,8 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
         @Override
         public void update(boolean bMaximize, HashMap<String, Object> map) {
             super.update(bMaximize, map);
+            String value = (String) map.get("update");
+            Log.e(TAG, "update==" + map + "value==" + value);
         }
     };
 
@@ -167,37 +210,27 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
         jancarManager.unregisterPrompt(promptController.asBinder());
     }
 
-    private void initView(){
+    private void initView() {
 
         mWindowManager = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         mLayoutParams = new WindowManager.LayoutParams();
-    /*    mLayoutParams = new WindowManager.LayoutParams();
+        mLayoutParams.width = 500;
+        mLayoutParams.height = 316;
         mLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
         mLayoutParams.format = PixelFormat.RGBA_8888;
 
-        mLayoutParams.flags = FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN|FLAG_LAYOUT_INSET_DECOR ;
-        mLayoutParams.gravity = Gravity.CENTER;
-        mLayoutParams.width = 500;
-        mLayoutParams.height = 316;*/
-        mLayoutParams.width = 500;
-        mLayoutParams.height =316;
-        mLayoutParams.type =WindowManager.LayoutParams.TYPE_SYSTEM_ALERT  ;
-        mLayoutParams.format = PixelFormat.RGBA_8888;
-        mLayoutParams.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN;
-       /* mLayoutParams.flags = */
-       /* mLayoutParams.flags = 17368856 | WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR|FLAG_FULLSCREEN|FLAG_LAYOUT_IN_SCREEN;*/
-       // mLayoutParams.flags =FLAG_FULLSCREEN;
-        mLayoutParams.dimAmount = -1f;
+        mLayoutParams.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN ;
+        mLayoutParams.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                View.STATUS_BAR_HIDDEN | View.SYSTEM_UI_FLAG_FULLSCREEN |
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
         mLayoutParams.gravity = Gravity.CENTER;
         mLayoutParams.buttonBrightness = BRIGHTNESS_OVERRIDE_OFF;
-        mLayoutParams.systemUiVisibility = SYSTEM_UI_FLAG_LOW_PROFILE;
+
         brightView = LayoutInflater.from(this).inflate(R.layout.bright_dialog, null);
-      /* getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         findView();
     }
 
-    private void findView(){
+    private void findView() {
         brightImage = brightView.findViewById(R.id.brightImage);
         chromaImage = brightView.findViewById(R.id.chromaImage);
         contrastImage = brightView.findViewById(R.id.contrastImage);
@@ -219,16 +252,16 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
         contrastValue = brightView.findViewById(R.id.contrastValue);
     }
 
-    private void showView(){
-        mWindowManager.addView(brightView,mLayoutParams);
+    private void showView() {
+        mWindowManager.addView(brightView, mLayoutParams);
         UIHandler.removeMessages(MSG_CLOSE_VIEW);
-        UIHandler.sendEmptyMessageDelayed(MSG_CLOSE_VIEW,DELAY_CLOSE_TIME);
+        UIHandler.sendEmptyMessageDelayed(MSG_CLOSE_VIEW, DELAY_CLOSE_TIME);
     }
 
-    private void initData(String type){
-        if(type.equals(TYPE_BACKCAR)){
+    private void initData(String type) {
+        if (type.equals(TYPE_BACKCAR)) {
             //brightImage.setImageResource();
-            Log.e(TAG,"settingManager.getDisplayBackCarBrightness()=="+settingManager.getDisplayBackCarBrightness());
+            Log.e(TAG, "settingManager.getDisplayBackCarBrightness()==" + settingManager.getDisplayBackCarBrightness());
             brightSeekbar.setProgress(settingManager.getDisplayBackCarBrightness());
             brightValue.setText(String.valueOf(settingManager.getDisplayBackCarBrightness()));
             //brightImage.setImageResource();
@@ -241,7 +274,7 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
         }
     }
 
-    private void destroyView(){
+    private void destroyView() {
         mWindowManager.removeViewImmediate(brightView);
         isShow = false;
     }
@@ -249,23 +282,23 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
         UIHandler.removeMessages(MSG_CLOSE_VIEW);
-        UIHandler.sendEmptyMessageDelayed(MSG_CLOSE_VIEW,DELAY_CLOSE_TIME);
-        Log.e(TAG,"onProgressChanged progress=="+progress+seekBar.getId());
-        switch (seekBar.getId()){
+        UIHandler.sendEmptyMessageDelayed(MSG_CLOSE_VIEW, DELAY_CLOSE_TIME);
+        Log.e(TAG, "onProgressChanged progress==" + progress + seekBar.getId());
+        switch (seekBar.getId()) {
             case R.id.brightSeekbar:
-                if(currentType==TYPE_BACKCAR){
+                if (currentType == TYPE_BACKCAR) {
                     displayController.nativeSetBrightnessAdjIndex(settingManager.getDisplayBackCarBrightness());
                     brightValue.setText(String.valueOf(progress));
                 }
                 break;
             case R.id.chromaSeekbar:
-                if(currentType==TYPE_BACKCAR){
+                if (currentType == TYPE_BACKCAR) {
                     displayController.nativeSetSatAdjIndex(settingManager.getDisplayBackCarChroma());
                     chromaValue.setText(String.valueOf(progress));
                 }
                 break;
             case R.id.contrastSeekbar:
-                if(currentType==TYPE_BACKCAR){
+                if (currentType == TYPE_BACKCAR) {
                     displayController.nativeSetContrastAdjIndex(settingManager.getDisplayBackCarContrast());
                     contrastValue.setText(String.valueOf(progress));
                 }
@@ -276,40 +309,40 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
         UIHandler.removeMessages(MSG_CLOSE_VIEW);
-        UIHandler.sendEmptyMessageDelayed(MSG_CLOSE_VIEW,DELAY_CLOSE_TIME);
+        UIHandler.sendEmptyMessageDelayed(MSG_CLOSE_VIEW, DELAY_CLOSE_TIME);
     }
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         UIHandler.removeMessages(MSG_CLOSE_VIEW);
-        UIHandler.sendEmptyMessageDelayed(MSG_CLOSE_VIEW,DELAY_CLOSE_TIME);
+        UIHandler.sendEmptyMessageDelayed(MSG_CLOSE_VIEW, DELAY_CLOSE_TIME);
         int progress = seekBar.getProgress();
-        Log.e(TAG,"onStopTrackingTouch progress=="+progress);
-        switch (seekBar.getId()){
+        Log.e(TAG, "onStopTrackingTouch progress==" + progress);
+        switch (seekBar.getId()) {
             case R.id.brightSeekbar:
-                if(currentType.equals(TYPE_BACKCAR)){
-                    Log.e(TAG,"progress=="+progress);
-                    settingManager.setDisplayBackCarBrightness((byte) progress,true);
-                }else if(currentType.equals(TYPE_VEDIO)){
-                }else{
+                if (currentType.equals(TYPE_BACKCAR)) {
+                    Log.e(TAG, "progress==" + progress);
+                    settingManager.setDisplayBackCarBrightness((byte) progress, true);
+                } else if (currentType.equals(TYPE_VEDIO)) {
+                } else {
 
                 }
                 break;
             case R.id.chromaSeekbar:
-                if(currentType.equals(TYPE_BACKCAR)){
-                    settingManager.setDisplayBackCarChroma((byte) progress,true);
-                }else if(currentType.equals(TYPE_VEDIO)){
+                if (currentType.equals(TYPE_BACKCAR)) {
+                    settingManager.setDisplayBackCarChroma((byte) progress, true);
+                } else if (currentType.equals(TYPE_VEDIO)) {
 
-                }else{
+                } else {
 
                 }
                 break;
             case R.id.contrastSeekbar:
-                if(currentType.equals(TYPE_BACKCAR)){
-                    settingManager.setDisplayBackCarContrast((byte) progress,true);
-                }else if(currentType.equals(TYPE_VEDIO)){
+                if (currentType.equals(TYPE_BACKCAR)) {
+                    settingManager.setDisplayBackCarContrast((byte) progress, true);
+                } else if (currentType.equals(TYPE_VEDIO)) {
 
-                }else{
+                } else {
 
                 }
                 break;

@@ -159,7 +159,7 @@ public class RadioRepository implements RadioModel {
         int mAmreqOne[];
         switch (mLocation) {
             case 0:
-                mAmreqOne = new int[]{87500, 90100, 98100, 106100, 108000, 87500};
+                mAmreqOne = new int[]{87500, 90000, 98000, 106000, 108000, 87500};
                 break;
             case 1:
                 mAmreqOne = new int[]{87500, 90000, 98000, 106000, 108000, 87500};
@@ -179,7 +179,7 @@ public class RadioRepository implements RadioModel {
         int mAmreqOne[];
         switch (mLocation) {
             case 0:
-                mAmreqOne = new int[]{531, 600, 1000, 1400, 1620, 531};
+                mAmreqOne = new int[]{531, 603, 999, 1404, 1602, 531};
                 break;
             // gv_1.setValue(439.2f, 1693.8f, 1135.4f, 30.6f, 5, false);
             case 1:

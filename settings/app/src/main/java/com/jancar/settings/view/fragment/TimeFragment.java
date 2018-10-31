@@ -575,9 +575,9 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
     public String getTimeAm(String s,String time){
         String am;
         if (s.equals("AM")){
-            am=time +" "+getResources().getString(R.string.tab_pm) ;
+            am=time +" "+getResources().getString(R.string.tab_am) ;
         }else {
-            am=getResources().getString(R.string.tab_pm) +" "+time ;
+            am=getResources().getString(R.string.tab_am) +" "+time ;
         }
         return am;
     }

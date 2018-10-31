@@ -567,9 +567,6 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
     public void notifyRefreshUI() {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
         isDefault = sharedPreferences.getBoolean("DisplayFragmetn", false);
-      /*  if (isDefault) {
-
-        }*/
         sharedPreferences.edit().putBoolean("DisplayFragmetn", false).commit();
         videoSwitch.setCheckedImmediately(settingManager.getDrivingStopVedio());
         touchToneSwitch.setCheckedImmediately(settingManager.getIsNeedkeySound());
