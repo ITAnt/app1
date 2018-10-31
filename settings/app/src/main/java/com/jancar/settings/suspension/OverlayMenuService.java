@@ -20,6 +20,7 @@ import com.jancar.JancarServer;
 import com.jancar.key.KeyDef;
 import com.jancar.prompt.PromptController;
 import com.jancar.settings.R;
+import com.jancar.settings.suspension.entry.OpenedEntry;
 import com.jancar.settings.suspension.entry.UpdateEntry;
 import com.jancar.settings.suspension.utils.Contacts;
 import com.jancar.settings.suspension.widget.ChildButton;
@@ -37,6 +38,7 @@ import static com.jancar.settings.suspension.widget.MagneticMenu.OnDragListener.
 
 
 public class OverlayMenuService extends Service implements View.OnClickListener {
+    public static final int MENU_CLOSE = 1;
 
     private final IBinder mBinder = new LocalBinder();
 
@@ -56,6 +58,24 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
     private String tcTitle4;
     private String tcTitle5;
     private int Flag = 0;
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case MENU_CLOSE:
+                    closeMenu();
+                    break;
+            }
+        }
+    };
+
+    public void resetTime() {
+        handler.removeMessages(MENU_CLOSE);
+        Message msg = handler.obtainMessage(MENU_CLOSE);
+        handler.sendMessageDelayed(msg, 3000);
+    }
 
     public OverlayMenuService() {
     }
@@ -303,6 +323,7 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
     }
 
     private void onPosClick(String title) {
+        resetTime();
         if (title.equals(getResources().getString(R.string.tv_power))) {
             Log.e("OverlayMenuService", "Pos0===");
             jancarManager.requestDisplay(false);
@@ -372,4 +393,16 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
         }
     }
 
+    /**
+     * 事件响应方法
+     * 接收消息
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onOpenEvent(OpenedEntry event) {
+        if (event.isOpen()) {
+            handler.sendEmptyMessageDelayed(MENU_CLOSE, 3000);
+        }
+    }
 }

@@ -9,26 +9,32 @@ import android.view.WindowManager;
 
 
 import com.jancar.settings.suspension.animation.MenuAnimation;
+import com.jancar.settings.suspension.entry.OpenedEntry;
+import com.jancar.settings.suspension.entry.UpdateEntry;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
 public class MagneticMenu extends FloatingMenu {
-    
+
     /**
      * drag event listener
      */
     public interface OnDragListener {
         int FLOAT_LEFT = 0;
         int FLOAT_RIGHT = 1;
-        
+
         void onDragStart();
+
         void onDragEnd(int flag);
     }
-    
+
     OnDragListener dragListener;
-    
+
     /**
      * Constructor that takes the parameters collected using {@link Builder}
+     *
      * @param mainActionView
      * @param startAngle
      * @param endAngle
@@ -50,14 +56,14 @@ public class MagneticMenu extends FloatingMenu {
             }
         });
     }
-    
+
     /**
      * move main button to suitable point for sub-buttons when menu opened
      */
     private MenuStateChangeListener menuStateChangeListener = new MenuStateChangeListener() {
-        
+
         WindowManager.LayoutParams lp;
-        
+
         @Override
         public void onMenuOpened(FloatingMenu menu) {
             lp = (WindowManager.LayoutParams) getMainActionView().getLayoutParams();
@@ -66,30 +72,33 @@ public class MagneticMenu extends FloatingMenu {
             if (menu.getActionViewCenter().y < menuHeight / 2) {
                 lp.y = -rect.height() / 2 + menuHeight / 2;
             } else if (menu.getActionViewCenter().y > rect.height() - menuHeight / 2) {
-                lp.y =  rect.height() / 2 - menuHeight / 2;
+                lp.y = rect.height() / 2 - menuHeight / 2;
             }
 //            Log.e("JanCar", "onMenuOpened: " + menu.getActionViewCenter() + " y:" + lp.y);
             updatePosition(lp);
+            EventBus.getDefault().post(new OpenedEntry(true));
         }
-    
+
         @Override
         public void onMenuClosed(FloatingMenu menu) {
 //            updatePosition(lp);
         }
     };
-    
+
     int iCoverSize = 20;
-    
+
     /**
      * set cover size when panel at the edge of the screen
+     *
      * @param size
      */
     public void setCoverSize(int size) {
         iCoverSize = size;
     }
-    
+
     /**
      * get sub-button center point around
+     *
      * @return
      */
     @Override
@@ -103,7 +112,7 @@ public class MagneticMenu extends FloatingMenu {
         }
         return point;
     }
-   
+
     @Override
     protected WindowManager.LayoutParams calculateOverlayContainerParams() {
         WindowManager.LayoutParams params = super.calculateOverlayContainerParams();
@@ -115,15 +124,16 @@ public class MagneticMenu extends FloatingMenu {
         }
         return params;
     }
-    
+
     /**
      * set drag listener
+     *
      * @param dragListener
      */
     public void setDragListener(OnDragListener dragListener) {
         this.dragListener = dragListener;
     }
-    
+
     /**
      * handle touch event, update display position
      */
@@ -132,7 +142,7 @@ public class MagneticMenu extends FloatingMenu {
         int currentX, currentY;
         WindowManager.LayoutParams lp;
         boolean bMove = false;
-        
+
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             switch (event.getAction()) {
@@ -153,7 +163,7 @@ public class MagneticMenu extends FloatingMenu {
                         }
                         lp.x = currentX + dx;
                         lp.y = currentY + dy;
-                        
+
                         if (bMove) {
                             if (dragListener != null) {
                                 dragListener.onDragStart();
@@ -185,31 +195,31 @@ public class MagneticMenu extends FloatingMenu {
             }
         }
     };
-    
+
     /**
      * Builder mode
      */
     public static class Builder extends MenuBuilder<MagneticMenu> {
-        
+
         public Builder(Context context) {
             this(context, false);
         }
-    
+
         public Builder(Context context, boolean systemOverlay) {
             super(context, systemOverlay);
         }
-        
+
         @Override
         public MagneticMenu build() {
             return new MagneticMenu(actionView,
-                startAngle,
-                endAngle,
-                radius,
-                subActionItems,
-                animationHandler,
-                animated,
-                stateChangeListener,
-                systemOverlay);
+                    startAngle,
+                    endAngle,
+                    radius,
+                    subActionItems,
+                    animationHandler,
+                    animated,
+                    stateChangeListener,
+                    systemOverlay);
         }
     }
 }
