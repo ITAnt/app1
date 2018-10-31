@@ -82,6 +82,7 @@ public class MagneticMenu extends FloatingMenu {
         @Override
         public void onMenuClosed(FloatingMenu menu) {
 //            updatePosition(lp);
+            EventBus.getDefault().post(new OpenedEntry(false));
         }
     };
 

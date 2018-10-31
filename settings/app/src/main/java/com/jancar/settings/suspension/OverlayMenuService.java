@@ -403,6 +403,8 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
     public void onOpenEvent(OpenedEntry event) {
         if (event.isOpen()) {
             handler.sendEmptyMessageDelayed(MENU_CLOSE, 3000);
+        } else {
+            handler.removeMessages(MENU_CLOSE);
         }
     }
 }
