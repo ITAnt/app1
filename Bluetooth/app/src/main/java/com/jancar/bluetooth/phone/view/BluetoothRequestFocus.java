@@ -197,6 +197,7 @@ public class BluetoothRequestFocus {
                         btMusicPause();
                         HandPaused = false;
                         if (backCarListener != null) {
+                            Log.e("BluetoothRequestFocus", "onNotifyActivityFinish===");
                             backCarListener.onNotifyActivityFinish();
                         }
                     }
@@ -212,8 +213,9 @@ public class BluetoothRequestFocus {
                 case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
                     setCurrentBTStatus(BT_FOCUSE_TRANSIENT_CAN_DUCK);
                     Log.e(TAG, "CAN_DUCK===:" + focusChange);
-                    boolean flag = SystemProperties.getBoolean("persist.jancar.gpsmix", true);
-                    if (!flag && blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PLAY) {
+                    int flag = SystemProperties.getInt("persist.jancar.gpsmix", 100);
+                    Log.e("BluetoothRequestFocus", "flag:" + flag);
+                    if (flag == 0 && blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PLAY) {
                         btMusicPause();
 //                        HandPaused = false;
                     }

@@ -3,6 +3,7 @@ package com.jancar.bluetooth.phone;
 import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 import android.view.ViewConfiguration;
 
 import com.jancar.bluetooth.lib.BluetoothManager;
@@ -46,8 +47,15 @@ public class BluetoothApplication extends Application {
 
     @Override
     public void onTerminate() {
+        Log.e("BluetoothApplication", "onTerminate===");
         BluetoothManager.getBluetoothManagerInstance(this).release();
         super.onTerminate();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        Log.e("BluetoothApplication", "onLowMemory===");
     }
 
     @Override
