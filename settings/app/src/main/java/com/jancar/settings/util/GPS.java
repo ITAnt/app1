@@ -13,6 +13,7 @@ import android.os.Message;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+
 import java.util.Iterator;
 
 import static android.provider.Settings.Global.AUTO_TIME;
@@ -24,15 +25,57 @@ public class GPS {
     private Context context;
     private boolean isTest;
 
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            ContentResolver cv = context.getContentResolver();
+            int autoTime = 0;
+            try {
+                autoTime = Settings.Global.getInt(context.getContentResolver(), AUTO_TIME_GPS);
+            } catch (Settings.SettingNotFoundException e) {
+                e.printStackTrace();
+            }
+            if (autoTime == 0) {
+                try {
+                    autoTime = Settings.Global.getInt(context.getContentResolver(), AUTO_TIME);
+                } catch (Settings.SettingNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+            switch (msg.what) {
+                case 1:
+                    if (!isTest){
+                        Log.w("AUTO_TIME",""+autoTime);
+                        if (autoTime != 0) {
+                            Settings.Global.putInt(cv,
+                                    AUTO_TIME, 1); //1：设置为On； 0：设置为Off
+                        }
+                        isTest=false;
+                    }
 
-    public void openGPSSettings(Context context,int value) {
-        isTest = true;
+                    break;
+                case 2:
+                    if (autoTime != 0) {
+                        Settings.Global.putInt(cv,
+                                AUTO_TIME_GPS, 1); //1：设置为On； 0：设置为Off
+                    }
+                    break;
+            }
+        }
+    };
+
+    public void openGPSSettings(Context context, int value) {
+
+        handler.sendEmptyMessageDelayed(1, 600000);
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         this.context = context;
         toggleGps();
-       @SuppressLint("MissingPermission")
-       boolean b = locationManager.addGpsStatusListener(listener);
+        @SuppressLint("MissingPermission")
+        boolean b = locationManager.addGpsStatusListener(listener);
         Log.i("ygl", "openGPSSettings==" + b);
+
     }
 
     GpsStatus.Listener listener = new GpsStatus.Listener() {
@@ -41,10 +84,12 @@ public class GPS {
                 //第一次定位
                 case GpsStatus.GPS_EVENT_FIRST_FIX:
                     Log.i("ygl", "第一次定位");
+
                     break;
                 //卫星状态改变
                 case GpsStatus.GPS_EVENT_SATELLITE_STATUS:
                     Log.i("ygl", "卫星状态改变");
+                    isTest = true;
                     //获取当前状态
                     if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         return;
@@ -59,7 +104,7 @@ public class GPS {
                         GpsSatellite s = iters.next();
                         count++;
                     }
-                    setAutoTime(context, false,1);
+                    setAutoTime(context, false, 1);
                     ContentResolver cv = context.getContentResolver();
                     int autoTime = 0;
                     try {
@@ -67,34 +112,27 @@ public class GPS {
                     } catch (Settings.SettingNotFoundException e) {
                         e.printStackTrace();
                     }
-                    if (autoTime==0){
+                    if (autoTime == 0) {
                         try {
                             autoTime = Settings.Global.getInt(context.getContentResolver(), AUTO_TIME);
                         } catch (Settings.SettingNotFoundException e) {
                             e.printStackTrace();
                         }
                     }
-                    if (count >=3) {
+                    if (count >= 3) {
 
 
-                        if (autoTime!=0){
+                        if (autoTime != 0) {
                             Settings.Global.putInt(cv,
                                     AUTO_TIME_GPS, 1); //1：设置为On； 0：设置为Off
                             releaseGps();
+                        }
 
-                         /*   Settings.Secure.setLocationProviderEnabled(context. getContentResolver(), LocationManager.GPS_PROVIDER, false );
-                            Settings.Secure.setLocationProviderEnabled(context. getContentResolver(), LocationManager.GPS_PROVIDER, true );
-              */          }
-
-                    }else {
-                        if (autoTime!=0){
+                    } else {
+                        if (autoTime != 0) {
                             Settings.Global.putInt(cv,
                                     AUTO_TIME, 1); //1：设置为On； 0：设置为Off
-
-                         /*   Settings.Secure.setLocationProviderEnabled(context. getContentResolver(), LocationManager.GPS_PROVIDER, false );
-                            Settings.Secure.setLocationProviderEnabled(context. getContentResolver(), LocationManager.GPS_PROVIDER, true );
-              */          }
-                        //
+                        }
                     }
                     Log.i("ygl", "搜索到：" + count + "颗卫星");
                     //Toast.makeText(context,"搜索到：" + count + "颗卫星",0).show();
@@ -106,7 +144,7 @@ public class GPS {
                 //定位结束
                 case GpsStatus.GPS_EVENT_STOPPED:
 
-                    Settings.Secure.setLocationProviderEnabled(context. getContentResolver(), LocationManager.GPS_PROVIDER, true );
+                    Settings.Secure.setLocationProviderEnabled(context.getContentResolver(), LocationManager.GPS_PROVIDER, true);
                     //  Settings.Secure.setLocationProviderEnabled(context. getContentResolver(), LocationManager.GPS_PROVIDER, true );
                     Log.i("ygl", "定位结束");
                     break;
@@ -134,8 +172,8 @@ public class GPS {
         Settings.Secure.putString(resolver, Settings.Secure.LOCATION_PROVIDERS_ALLOWED, value);
     }
 
-    public void releaseGps(){
-      //  mHandler.removeMessages(1);
+    public void releaseGps() {
+        //  mHandler.removeMessages(1);
         listener.onGpsStatusChanged(GpsStatus.GPS_EVENT_STOPPED);
         locationManager.removeGpsStatusListener(listener);
     }
