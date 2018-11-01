@@ -154,7 +154,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 bluetoothManager.registerBTPhoneListener(BTUIService.this);
                 mCallType = eState.nativeInt;
                 mCallNumber = number;
-                Log.e(TAG, "OnCallEx isShowPhone==" + isShowPhone + "eState==" + eState);
+                Log.e(TAG, "OnCallEx isShowPhone==" + isShowPhone + "==" + "eState==" + eState);
                 if (eState != eCallState.eCall_Idle && eState != eCallState.eCall_Terminated) {
                     if (!isShowPhone) {
                         jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_SHOW);
@@ -308,33 +308,20 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         isShowPhone = true;
         bluetoothManager.muteMic(false);
         bluetoothManager.registerCallOnKeyEvent();
-
         Log.e(TAG, "isFull==showView==" + isFull);
         if (isFull) {
+            Log.e(TAG, "showView==phoneView==");
             mWindowManager.addView(phoneView, mLayoutParams);
             saveView = phoneView;
             updataScoState(mCallScoState);
         } else {
+            Log.e(TAG, "showView==haifView==");
             mWindowManager.addView(haifView, mLayoutParams1);
             saveView = haifView;
             updataHalfScoState(mCallScoState);
         }
 
     }
-//    public void translateSystemBar(View view, boolean bTranslate) {
-//        try {
-//            int visable = view.getSystemUiVisibility();
-//            if (visable & View.SYSTEM_UI_FLAG_LOW_PROFILE) {
-//                visable &= ~View.SYSTEM_UI_FLAG_LOW_PROFILE;
-//            }
-//            if (bTranslate) {
-//                view.setSystemUiVisibility();
-//            } else {
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     private void initView() {
         mWindowManager = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
@@ -343,6 +330,9 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         mLayoutParams.format = PixelFormat.RGBA_8888;
         mLayoutParams.flags = WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
         mLayoutParams.gravity = Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL;
+//        mLayoutParams.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+//                View.STATUS_BAR_HIDDEN | View.SYSTEM_UI_FLAG_FULLSCREEN |
+//                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
         mLayoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
         mLayoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
 //        mLayoutParams.height = 541;
@@ -355,6 +345,9 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         mLayoutParams1.format = PixelFormat.RGBA_8888;
         mLayoutParams1.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
         mLayoutParams1.gravity = Gravity.CENTER_HORIZONTAL;
+        mLayoutParams1.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                View.STATUS_BAR_HIDDEN | View.SYSTEM_UI_FLAG_FULLSCREEN |
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
         mLayoutParams1.width = 450;
         mLayoutParams1.height = 140;
         mLayoutParams1.y = -170;
