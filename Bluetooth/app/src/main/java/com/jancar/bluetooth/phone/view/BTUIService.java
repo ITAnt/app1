@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -33,8 +32,6 @@ import com.jancar.state.JacState;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import static android.security.keystore.SoterUtil.TAG;
 
 /**
  * @anthor Tzq
@@ -514,35 +511,23 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_ALERTING:
                 //正在呼叫中
                 mCallPhoneType = CALLHISTROY_TYPE_OUTGOING;
-                tvCommunType.setText(R.string.str_phone_outgoing);
-                ivVoice.setEnabled(false);
-                ivKeyPad.setEnabled(false);
-                ivVehicle.setEnabled(false);
+                outShowView();
                 if (calltype != mCallType) {
                     mCallType = calltype;
                 } else {
                     mCallType = calltype;
                 }
-                tvHangUp.setText(R.string.calling_hangup);
-                tvVoice.setText(R.string.dial_show_voice);
-                tvKeyPad.setText(R.string.calling_keypad);
                 break;
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_INCOMING:
                 mCallPhoneType = CALLHISTROY_TYPE_MISSED;
-                tvCommunType.setText(R.string.str_phone_missed);
-                tvHangUp.setText(R.string.calling_hangup);
-                tvComming.setText(R.string.str_phone_missed);
-                linearKey.setVisibility(View.INVISIBLE);
-                linearVoice.setVisibility(View.INVISIBLE);
-                linearVehicle.setVisibility(View.GONE);
-                linearAnswer.setVisibility(View.VISIBLE);
+                commingShowView();
                 if (calltype != mCallType) {
                     mCallType = calltype;
                 }
                 break;
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_ACTIVE:
-                isAudioTowardsAG = bluetoothManager.isAudioTowardsAG();
                 Log.e(TAG, "isAudioTowardsAG====" + isAudioTowardsAG);
+                isAudioTowardsAG = bluetoothManager.isAudioTowardsAG();
                 if (isAudioTowardsAG) {
                     mCallScoState = BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT;
                 } else {
@@ -556,14 +541,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                         mCallPhoneType = CALLHISTROY_TYPE_INCOMING;
                     }
                 }
-                linearKey.setVisibility(View.VISIBLE);
-                linearVoice.setVisibility(View.VISIBLE);
-                linearVehicle.setVisibility(View.VISIBLE);
-                linearAnswer.setVisibility(View.GONE);
-                ivHalfAns.setVisibility(View.GONE);
-                ivVoice.setEnabled(true);
-                ivKeyPad.setEnabled(true);
-                ivVehicle.setEnabled(true);
+                activeShowView();
                 if (calltype != mCallType) {
                     mCallType = calltype;
                 }
@@ -578,6 +556,42 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 }
                 CleanNumberAndHideKey();
         }
+    }
+
+    private void outShowView() {
+        tvCommunType.setText(R.string.str_phone_outgoing);
+        linearKey.setVisibility(View.VISIBLE);
+        linearVoice.setVisibility(View.VISIBLE);
+        linearVehicle.setVisibility(View.VISIBLE);
+        linearAnswer.setVisibility(View.GONE);
+        ivVoice.setEnabled(false);
+        ivKeyPad.setEnabled(false);
+        ivVehicle.setEnabled(false);
+        tvHangUp.setText(R.string.calling_hangup);
+        tvVoice.setText(R.string.dial_show_voice);
+        tvKeyPad.setText(R.string.calling_keypad);
+    }
+
+    private void commingShowView() {
+        tvCommunType.setText(R.string.str_phone_missed);
+        tvHangUp.setText(R.string.calling_hangup);
+        tvComming.setText(R.string.str_phone_missed);
+        linearKey.setVisibility(View.INVISIBLE);
+        linearVoice.setVisibility(View.INVISIBLE);
+        linearVehicle.setVisibility(View.GONE);
+        linearAnswer.setVisibility(View.VISIBLE);
+
+    }
+
+    private void activeShowView() {
+        linearKey.setVisibility(View.VISIBLE);
+        linearVoice.setVisibility(View.VISIBLE);
+        linearVehicle.setVisibility(View.VISIBLE);
+        linearAnswer.setVisibility(View.GONE);
+        ivVoice.setEnabled(true);
+        ivKeyPad.setEnabled(true);
+        ivVehicle.setEnabled(true);
+
     }
 
     private void upadateLittileView(int calltype, String callNum) {
@@ -645,8 +659,8 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 }
                 break;
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_ACTIVE:
-                isAudioTowardsAG = bluetoothManager.isAudioTowardsAG();
                 Log.e(TAG, "isAudioTowardsAG==half==" + isAudioTowardsAG);
+                isAudioTowardsAG = bluetoothManager.isAudioTowardsAG();
                 if (isAudioTowardsAG) {
                     mCallScoState = BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT;
                 } else {

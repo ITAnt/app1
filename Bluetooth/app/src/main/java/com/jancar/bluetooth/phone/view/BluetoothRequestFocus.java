@@ -193,13 +193,13 @@ public class BluetoothRequestFocus {
                 case AudioManager.AUDIOFOCUS_LOSS:
                     setCurrentBTStatus(BT_FOCUSE_LOSS);
                     Log.e(TAG, "LOSS===:" + focusChange);
+                    HandPaused = false;
                     if (blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PLAY) {
                         btMusicPause();
-                        HandPaused = false;
-                        if (backCarListener != null) {
-                            Log.e("BluetoothRequestFocus", "onNotifyActivityFinish===");
-                            backCarListener.onNotifyActivityFinish();
-                        }
+                    }
+                    if (backCarListener != null) {
+                        Log.e("BluetoothRequestFocus", "onNotifyActivityFinish===");
+                        backCarListener.onNotifyActivityFinish();
                     }
                     break;
                 case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
@@ -207,7 +207,6 @@ public class BluetoothRequestFocus {
                     Log.e(TAG, "TRANSIENT===:" + focusChange);
                     if (blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PLAY) {
                         btMusicPause();
-//                        HandPaused = false;
                     }
                     break;
                 case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
@@ -217,7 +216,6 @@ public class BluetoothRequestFocus {
                     Log.e("BluetoothRequestFocus", "flag:" + flag);
                     if (flag == 0 && blueManager.getBlueMusicData().getPlay_status() == BluetoothManager.MUSIC_STATE_PLAY) {
                         btMusicPause();
-//                        HandPaused = false;
                     }
                     break;
             }
