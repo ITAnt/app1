@@ -101,7 +101,7 @@
             style="@style/dialog_bit"
             android:id="@+id/submitText"
 
-            android:text="确定"
+            android:text="@string/dialog_connect"
             />
 
     </RelativeLayout>

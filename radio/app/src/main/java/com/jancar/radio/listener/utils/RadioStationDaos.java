@@ -103,6 +103,16 @@ public class RadioStationDaos {
        /* RadioApplication.getDaoInstant().getRadioStationDao().;*/
     }
     /**
+     * 删除数据
+     *
+     *
+     */
+    public static void deleteAll() {
+        RadioApplication.getDaoInstant().getRadioStationDao().deleteAll();
+
+       /* RadioApplication.getDaoInstant().getRadioStationDao().;*/
+    }
+    /**
      * 更新数据
      */
     public static void updateRadioStation(RadioStation shop) {

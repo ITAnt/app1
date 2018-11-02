@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">收音机</string>
-    <string name="txt_channel">%6s</string>
+    <string name="txt_channel">%7s</string>
     <string name="fm1">FM1</string>
     <string name="fm2">FM2</string>
     <string name="fm3">FM3</string>

@@ -92,6 +92,7 @@ import static com.jancar.key.KeyDef.KeyAction.KEY_ACTION_DOWN_LONG;
 import static com.jancar.key.KeyDef.KeyAction.KEY_ACTION_UP;
 import static com.jancar.key.KeyDef.KeyType.KEY_NEXT;
 import static com.jancar.radio.listener.utils.RadioStationDaos.delete;
+import static com.jancar.radio.listener.utils.RadioStationDaos.deleteAll;
 import static com.jancar.radio.listener.utils.RadioStationDaos.deleteRadioStation;
 import static com.jancar.radio.listener.utils.RadioStationDaos.queryFrequency;
 import static com.jancar.radio.listener.utils.ToastUtil.ShowToast;
@@ -198,7 +199,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                     // getPresenter().Change(Band, mFreq, mLocation);
                     Band = msg.arg1;
                     VarietyBand();
-                    SharedPreferences.Editor editors = getSharedPreferences("Radio", MODE_WORLD_WRITEABLE).edit();
+                    SharedPreferences.Editor editors = getSharedPreferences("Radio", MODE_PRIVATE).edit();
                     editors.putInt("Band", msg.arg1);
                     editors.commit();
                     // mRadioManager.setFreq(msg.arg1);
@@ -212,7 +213,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                     Band = msg.arg1;
                     VarietyBand();
                     stTxt.setVisibility(View.VISIBLE);
-                    SharedPreferences.Editor edito = getSharedPreferences("Radio", MODE_WORLD_WRITEABLE).edit();
+                    SharedPreferences.Editor edito = getSharedPreferences("Radio", MODE_PRIVATE).edit();
                     edito.putInt("Band", msg.arg1);
                     edito.commit();
                     bandTxt.setText(mBandAF[msg.arg1]);
@@ -251,8 +252,8 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                     updateNotification(msg.arg1);
                     // getPresenter().Change(msg.arg1, radioStations);
                     mFreq = msg.arg1;
-                    SharedPreferences.Editor editor = getSharedPreferences("Radio", MODE_WORLD_WRITEABLE).edit();
-                    editor.putInt("mFreq" + Band + mLocation, msg.arg1);
+                    SharedPreferences.Editor editor = getSharedPreferences("Radio", MODE_PRIVATE).edit();
+                    editor.putInt("mFreq" + Band, msg.arg1);
                     Log.w("RadioActivity_mFreq", msg.arg1 + "");
                     editor.commit();
 
@@ -317,6 +318,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         super.onRestart();
         Log.w("RadioAcitivity", "onRestart");
     }
+
     private class RadioAudioFocusChange implements AudioManager.OnAudioFocusChangeListener {
         @Override
         public void onAudioFocusChange(int focusChange) {
@@ -327,20 +329,20 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                 if (scheduleds != null) {
                     scheduleds.shutdown();
                 }
-            }else if (focusChange==AUDIOFOCUS_LOSS_TRANSIENT){
-              //  mAudioManager.abandonAudioFocus(mAudioFocusChange);
+            } else if (focusChange == AUDIOFOCUS_LOSS_TRANSIENT) {
+                //  mAudioManager.abandonAudioFocus(mAudioFocusChange);
                 /*mAudioManager.set(mAudioFocusChange);*/
            /*     mRadioManager.close();*/
-               // mRadioManager.scanUp(mFreq);
+                // mRadioManager.scanUp(mFreq);
              /*   mRadioManager.disconnect();
                 mRadioManager = null;*/
           /*      mRadioManager = null;
                 mRadioManager.close();
                 mRadioManager.disconnect();*/
-               // mAudioManager.abandonAudioFocus(mAudioFocusChange);
-            }else if (focusChange==AUDIOFOCUS_GAIN){
-              //  mRadioManager.scanStop();
-               // mRadioManager = new RadioManager(RadioActivity.this, RadioActivity.this, getPresenter().getRadioListener(), getPackageName());
+                // mAudioManager.abandonAudioFocus(mAudioFocusChange);
+            } else if (focusChange == AUDIOFOCUS_GAIN) {
+                //  mRadioManager.scanStop();
+                // mRadioManager = new RadioManager(RadioActivity.this, RadioActivity.this, getPresenter().getRadioListener(), getPackageName());
             }
         }
     }
@@ -447,31 +449,36 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
     @Override
     protected void onStart() {
         super.onStart();
+
         Log.w("RadioAcitivity", "onStart");
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
         Boolean first_run = sharedPreferences.getBoolean("Firsts", true);
-        if (manager.getRadioLocal() == RadioCacheUtil.getInstance().getLocation()) {
-            mLocation = RadioCacheUtil.getInstance().getLocation();
-        } else {
-            mLocation = manager.getRadioLocal();
-            RadioCacheUtil.getInstance().setLocation(mLocation);
-        }
-
-        SharedPreferences read = getSharedPreferences("Radio", MODE_WORLD_READABLE);
+        SharedPreferences read = getSharedPreferences("Radio", MODE_PRIVATE);
         Band = read.getInt("Band", 0);
-        //步骤2：获取文件中的值
-        //    swapBandImg.setTag();
-        bandTxt.setText(mBandAF[Band]);
-
-        mFMFreqSeekBar.setOnSeekBarChangeListener(getPresenter());
-        VarietyBand();
         if (Band >= 3) {
             stTxt.setVisibility(View.GONE);
         } else {
             stTxt.setVisibility(View.VISIBLE);
         }
+        if (manager.getRadioLocal() == RadioCacheUtil.getInstance().getLocation()) {
+            mLocation = RadioCacheUtil.getInstance().getLocation();
+        } else {
+            mLocation = manager.getRadioLocal();
+            deleteAll();
+            RadioCacheUtil.getInstance().setLocation(mLocation);
+            mFreq = RadioWrapper.getFreqStart(mBand, mLocation);
+            mRadioManager.setLocation(mLocation);
+            SharedPreferences.Editor editor = getSharedPreferences("Radio", MODE_PRIVATE).edit();
+            boolean a = editor.putInt("mFreq" + Band, mFreq).commit();
+            SharedPreferences sharedPrefere = getActivity().getSharedPreferences("FirstRun", 0);
+            sharedPrefere.edit().putBoolean("Firsts", true).apply();
+            first_run = true;
+            isSetting = true;
+        }
+        bandTxt.setText(mBandAF[Band]);
+        mFMFreqSeekBar.setOnSeekBarChangeListener(getPresenter());
+        VarietyBand();
         getPresenter().initText(Band, mLocation, first_run);
-
         initReceiver();
     }
 
@@ -601,8 +608,8 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                 mTextView.setTag("1");
                 mTextView.setTextColor(Color.parseColor("#ffffff"));
             }
-            SharedPreferences read = getSharedPreferences("Radio", MODE_WORLD_READABLE);
-            mFreq = read.getInt("mFreq" + Band + mLocation, RadioWrapper.getFreqStart(this.mBand, this.mLocation));
+            SharedPreferences read = getSharedPreferences("Radio", MODE_PRIVATE);
+            mFreq = read.getInt("mFreq" + Band, RadioWrapper.getFreqStart(this.mBand, this.mLocation));
         } else {
             init(radioStations);
         }
@@ -653,7 +660,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
 
         }
         if (!icFreq) {
-            SharedPreferences read = getSharedPreferences("Radio", MODE_WORLD_READABLE);
+            SharedPreferences read = getSharedPreferences("Radio", MODE_PRIVATE);
             Band = read.getInt("Band", 0);
             if (Band >= 3) {
                 mBand = 0;
@@ -661,15 +668,13 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                 mBand = 1;
             }
             init();
-            init();
-
-            Log.w("mfreqq", "mFreq" + Band + mLocation + "_____" + mFreq);
+            Log.w("mfreqq", "mFreq" + Band + "_____" + mFreq);
         }
     }
 
     public void init() {
-        SharedPreferences read = getSharedPreferences("Radio", MODE_WORLD_READABLE);
-        mFreq = read.getInt("mFreq" + Band + mLocation, RadioWrapper.getFreqStart(this.mBand, this.mLocation));
+        SharedPreferences read = getSharedPreferences("Radio", MODE_PRIVATE);
+        mFreq = read.getInt("mFreq" + Band, RadioWrapper.getFreqStart(this.mBand, this.mLocation));
         if (mFreq < RadioWrapper.getFreqStart(this.mBand, this.mLocation)) {
             mFreq = RadioWrapper.getFreqStart(this.mBand, this.mLocation);
         }
@@ -695,7 +700,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
 
     @Override
     public void requestRadioFocus() {
-        Log.w("Radio","requestRadioFocus");
+        Log.w("Radio", "requestRadioFocus");
       /*  if (isFocus) {
 
         } else {
@@ -813,6 +818,15 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                 }
                 break;
             case R.id.img_search:
+                if (mBand == 0) {
+                    Band = 3;
+                } else {
+                    Band = 0;
+                }
+                SharedPreferences.Editor edito = getSharedPreferences("Radio", MODE_PRIVATE).edit();
+                edito.putInt("Band", Band);
+                edito.commit();
+                bandTxt.setText(mBandAF[Band]);
                 getPresenter().select(Band, mLocation, first_run);
                 SharedPreferences sharedPreferenc = getActivity().getSharedPreferences("FirstRun", 0);
                 sharedPreferenc.edit().putBoolean("Firsts", false).commit();
@@ -966,7 +980,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                 setBand();
                 VarietyBand();
                 Log.w("RadioActivity", mBand + "");
-                SharedPreferences.Editor edito = getSharedPreferences("Radio", MODE_WORLD_WRITEABLE).edit();
+                SharedPreferences.Editor edito = getSharedPreferences("Radio", MODE_PRIVATE).edit();
                 edito.putInt("Band", Band);
                 edito.commit();
                 Message mMessage = new Message();
@@ -1018,7 +1032,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                             if (mBand == 1) {
                                 Band++;
                                 if (Band < 3) {
-                                    SharedPreferences.Editor edito = getSharedPreferences("Radio", MODE_WORLD_WRITEABLE).edit();
+                                    SharedPreferences.Editor edito = getSharedPreferences("Radio", MODE_PRIVATE).edit();
                                     edito.putInt("Band", Band);
                                     edito.commit();
                                     VarietyBand();
@@ -1034,7 +1048,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                                 } else {
 
                                     Band = 2;
-                                    SharedPreferences.Editor edito = getSharedPreferences("Radio", MODE_WORLD_WRITEABLE).edit();
+                                    SharedPreferences.Editor edito = getSharedPreferences("Radio", MODE_PRIVATE).edit();
                                     edito.putInt("Band", Band);
                                     edito.commit();
                                     for (TextView m : list) {
@@ -1054,7 +1068,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                                 Log.w("pdsaf______", pd + "");
                                 Log.w("pdsaf______", Band + "");
                                 if (Band < 5) {
-                                    SharedPreferences.Editor edito = getSharedPreferences("Radio", MODE_WORLD_WRITEABLE).edit();
+                                    SharedPreferences.Editor edito = getSharedPreferences("Radio", MODE_PRIVATE).edit();
                                     edito.putInt("Band", Band);
                                     edito.commit();
                                     VarietyBand();
@@ -1069,7 +1083,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                                     list.get(radioStations.get(0).getPosition()).setTextColor(Color.parseColor("#FF0B49E7"));
                                 } else {
                                     Band = 4;
-                                    SharedPreferences.Editor edito = getSharedPreferences("Radio", MODE_WORLD_WRITEABLE).edit();
+                                    SharedPreferences.Editor edito = getSharedPreferences("Radio", MODE_PRIVATE).edit();
                                     edito.putInt("Band", Band);
                                     edito.commit();
                                     for (TextView m : list) {
@@ -1249,6 +1263,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         }
     }
 
+    @SuppressLint("LongLogTag")
     private void addToScanAllResultList(int ifreq, int isignal) {
         final RadioStation radioStation = new RadioStation();
         radioStation.setMBand(this.mBand);
@@ -1256,19 +1271,38 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         radioStation.setLocation(mLocation);
         radioStation.setKind(isignal);
         radioStation.setRdsname(RadioWrapper.getFreqString(ifreq, mBand, mLocation));
-
-/*
-    */
-        if (!this.mScanResultList.contains(radioStation)) {
+        //  radioStation.setPosition(mScanResultList.size()+1 / 6);
+        if (!mScanResultList.contains(radioStation)) {
+            Log.w("RadioActivity_RadioStations", ifreq + "---" + isignal);
             this.mScanResultList.add(radioStation);
         }
-        //   mScanResultList.add(radioStation);
+    }
+
+    private boolean Judge(int ifreq) {
+        for (RadioStation mRadioStation : mScanResultList) {
+            if (mRadioStation.getMFreq() == ifreq) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static List removeDuplicate(ArrayList<RadioStation> list) {
+        for (int i = 0; i < list.size() - 1; i++) {
+            for (int j = list.size() - 1; j > i; j--) {
+                if (list.get(j).getMFreq() == (list.get(i).getMFreq())) {
+                    list.remove(j);
+                }
+            }
+        }
+        return list;
     }
 
     public void onScanEnd(final boolean bsave) {
         s();
         if (bsave) {
             if (this.mScanResultList != null && this.mScanResultList.size() > 0) {
+                 removeDuplicate(mScanResultList);
               /*  if (mScanResultList.size())*/
                 if (mBand == 1) {
                     for (int i = mScanResultList.size() - 1; i < 18; i++) {
@@ -1313,13 +1347,13 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                 delete(mBand, mLocation);
                 radioStations = getPresenter().queryFrequency(Band, mLocation);
                 init(radioStations);
-                ShowToast(this,getString(R.string.search_no_result));
-              //  Toast.makeText(this, R.string.search_no_result, Toast.LENGTH_SHORT).show();
+                ShowToast(this, getString(R.string.search_no_result));
+                //  Toast.makeText(this, R.string.search_no_result, Toast.LENGTH_SHORT).show();
             }
         } else {
             if (isTinTai) {
-                SharedPreferences.Editor editor = getSharedPreferences("Radio", MODE_WORLD_WRITEABLE).edit();
-                editor.putInt("mFreq" + Band + mLocation, mRadioManager.getFreq());
+                SharedPreferences.Editor editor = getSharedPreferences("Radio", MODE_PRIVATE).edit();
+                editor.putInt("mFreq" + Band, mRadioManager.getFreq());
                 Log.w("RadioActivity_mFreq", mRadioManager.getFreq() + "");
                 editor.commit();
                 mFreq = mRadioManager.getFreq();
@@ -1391,8 +1425,8 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         //   unregisterReceiver(getPresenter().getmReceiver());
         resetFreqStart();
         closeManager();
-        SharedPreferences.Editor editor = getSharedPreferences("Radio", MODE_WORLD_WRITEABLE).edit();
-        editor.putInt("mFreq" + Band + mLocation, mFreq);
+        SharedPreferences.Editor editor = getSharedPreferences("Radio", MODE_PRIVATE).edit();
+        editor.putInt("mFreq" + Band, mFreq);
         editor.commit();
         //getPresenter().Change(radioStations);
         //  showNotification(false);
@@ -1935,9 +1969,9 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             if (this.mRadioNotification != null) {
                 this.mRadioNotification.show();
                 if (this.mRadioManager == null || this.mRadioManager.getScanAction() == 0) {
-                    SharedPreferences read = getSharedPreferences("Radio", MODE_WORLD_READABLE);
+                    SharedPreferences read = getSharedPreferences("Radio", MODE_PRIVATE);
 
-                    int mFreq = read.getInt("mFreq" + Band + mLocation, RadioWrapper.getFreqStart(this.mBand, this.mLocation));
+                    int mFreq = read.getInt("mFreq" + Band, RadioWrapper.getFreqStart(this.mBand, this.mLocation));
                     this.updateNotification(mFreq);
                     return;
                 }
