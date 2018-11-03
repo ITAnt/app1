@@ -75,7 +75,7 @@ public class RecordsAdapter extends BaseAdapter {
         viewHolder.tvPhone.setText(bookData.getPhoneNumber());
         String phoneName = bookData.getPhoneName();
         if (TextUtils.isEmpty(phoneName)) {
-            viewHolder.tvName.setText(R.string.str_phone_name);
+            viewHolder.tvName.setText(R.string.str_phone_unkonow);
         } else {
             viewHolder.tvName.setText(phoneName);
         }

@@ -771,7 +771,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
             case R.id.iv_comm_message_hangup:
                 if (mCallType == BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_INCOMING) {
                     bluetoothManager.rejectCall();
-                    saveCallLog();
+//                    saveCallLog();
                 } else {
                     bluetoothManager.terminateCall();
                 }
@@ -836,7 +836,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
             case R.id.iv_commun_half_hang:
                 if (mCallType == BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_INCOMING) {
                     bluetoothManager.rejectCall();
-                    saveCallLog();
+//                    saveCallLog();
                 } else {
                     bluetoothManager.terminateCall();
                 }

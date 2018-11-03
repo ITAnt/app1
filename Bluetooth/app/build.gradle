@@ -112,7 +112,7 @@ dependencies {
     implementation 'com.github.orhanobut:hawk:1.21'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.android.support:support-v4:23.2.1'
-    implementation files('libs/classes(18).jar')
+    implementation files('libs/frameworks.jar')
 }
 
 //apk前缀名

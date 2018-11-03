@@ -10,8 +10,6 @@ import com.jancar.JancarManager;
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.state.JacState;
 
-import java.util.logging.Handler;
-
 /**
  * @anthor Tzq
  * @time 2018/9/27 15:24
@@ -94,6 +92,7 @@ public class BluetoothRequestFocus {
                 } else {
                     CallState = CallStateAct;
                 }
+                Log.e("BluetoothRequestFocus", "CallState=====" + CallState);
             }
 
             @Override
