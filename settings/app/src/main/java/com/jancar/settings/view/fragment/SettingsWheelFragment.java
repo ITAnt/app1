@@ -89,7 +89,6 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
         start = root.findViewById(R.id.start);
         startLlayout = root.findViewById(R.id.llayout_start);
         startTxt = root.findViewById(R.id.txt_start);
-
         clearLlayout = root.findViewById(R.id.llayout_clear);
         clearTxt = root.findViewById(R.id.txt_clear);
         endLlayout = root.findViewById(R.id.llayout_end);

@@ -231,7 +231,7 @@
     <string name="tab_about_normal">Left right Mirror</string>
     <string name="tab_up_down_left_right_normal">Up and down Mirror</string>
     <string name="dialog_title">Instructions</string>
-    <string name="dialog_default">When reversing the video, the two fingers press the screen for 3 seconds to bring up the translucent reversing video adjustment frame, brightness, chroma, contrast, saturation; the adjustment box disappears after the point adjustment frame is not operated for 3 seconds.</string>
+    <string name="dialog_default">When reversing the video, the two fingers press the screen for 3 seconds to bring up the translucent reversing video adjustment frame, brightness, contrast, saturation; the adjustment box disappears after the point adjustment frame is not operated for 3 seconds.</string>
     <string name="str_settings_wheel_begin">Start</string>
     <string name="str_settings_wheel_reset">Reset</string>
     <string name="str_settings_wheel_finish">Done</string>

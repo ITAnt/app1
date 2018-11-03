@@ -208,6 +208,7 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
         super.onDestroy();
         jancarManager.unregisterJacStateListener(jacState.asBinder());
         jancarManager.unregisterPrompt(promptController.asBinder());
+        Log.e(TAG, "onDestroy");
     }
 
     private void initView() {
@@ -287,19 +288,20 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
         switch (seekBar.getId()) {
             case R.id.brightSeekbar:
                 if (currentType == TYPE_BACKCAR) {
-                    displayController.nativeSetBrightnessAdjIndex(settingManager.getDisplayBackCarBrightness());
+
+                    displayController.nativeSetBrightnessAdjIndex((byte) progress);
                     brightValue.setText(String.valueOf(progress));
                 }
                 break;
             case R.id.chromaSeekbar:
                 if (currentType == TYPE_BACKCAR) {
-                    displayController.nativeSetSatAdjIndex(settingManager.getDisplayBackCarChroma());
+                    displayController.nativeSetSatAdjIndex((byte) progress);
                     chromaValue.setText(String.valueOf(progress));
                 }
                 break;
             case R.id.contrastSeekbar:
                 if (currentType == TYPE_BACKCAR) {
-                    displayController.nativeSetContrastAdjIndex(settingManager.getDisplayBackCarContrast());
+                    displayController.nativeSetContrastAdjIndex((byte) progress);
                     contrastValue.setText(String.valueOf(progress));
                 }
                 break;

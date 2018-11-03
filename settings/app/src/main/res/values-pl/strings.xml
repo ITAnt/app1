@@ -1,14 +1,14 @@
 <resources>
-    <string name="app_name">设置</string>
-    <string name="tab_bluetooth">蓝牙设置</string>
-    <string name="tab_display" >显示设置</string>
-    <string name="tab_sound_effect" >音效设置</string>
-    <string name="tab_time" >时间设置</string>
-    <string name="tab_system">系统设置</string>
-    <string name="tab_wifi">WIFI设置</string>
-    <string name="tab_navigation">导航设置</string>
-    <string name="tab_vehicle">车辆设置</string>
-    <string name="tab_on">关于</string>
+    <string name="app_name">Ustawienie</string>
+    <string name="tab_bluetooth">Bluetooth</string>
+    <string name="tab_display">Wyświetlacz</string>
+    <string name="tab_sound_effect">dźwiękowe</string>
+    <string name="tab_time">Czas</string>
+    <string name="tab_system">System</string>
+    <string name="tab_wifi">WIFI</string>
+    <string name="tab_navigation">Nawigacja</string>
+    <string name="tab_vehicle">Pojazd</string>
+    <string name="tab_on">O</string>
     <string name="tab_cache">储存空间</string>
     <string name="tab_wifi_spot">wifi热点</string>
     <string name="btn_clear_cache">清除缓存</string>
@@ -17,56 +17,56 @@
     <string name="rbtn_chinese">中文（简体）</string>
     <string name="rbtn_chinese_">中文（繁体）</string>
     <string name="rbtn_english">English</string>
-    <string name="title_automatic">自动调节亮度</string>
-    <string name="label_open">开</string>
-    <string name="label_off">关</string>
-    <string name="title_dimming_day">白天亮度调节</string>
-    <string name="title_dimming_night">夜间亮度调节</string>
-    <string name="label_Language_switching">语言切换</string>
-    <string name="label_restore_default">恢复默认设置</string>
-    <string name="dialog_restore_default">确定要恢复默认设置吗？</string>
-    <string name="dialog_connect">确定</string>
+    <string name="title_automatic">Automatyczna regulacja jasności</string>
+    <string name="label_open">na</string>
+    <string name="label_off">Wyłączony</string>
+    <string name="title_dimming_day">Regulacja jasności światła dziennego</string>
+    <string name="title_dimming_night">Nocna regulacja jasności</string>
+    <string name="label_Language_switching">Przełączanie języków</string>
+    <string name="label_restore_default">Przywróć ustawienia domyślne</string>
+    <string name="dialog_restore_default">Czy na pewno chcesz przywrócić ustawienia domyślne?</string>
+    <string name="dialog_connect">Ustal</string>
 
     <!--wifi-->
     <string name="wifi">WIFI</string>
-    <string name="toast_wifi_open">如需查看可用网络，请打开WIFI</string>
+    <string name="toast_wifi_open">Aby wyświetlić dostępne sieci, otwórz WIFI</string>
     <string name="wifi_error">wifi set fail</string>
     <string name="wifi_text_scan">搜索到的AP</string>
     <string name="wifi_text_saved">在范围内已保存的AP</string>
-    <string name="wifi_text_password">请输入密码</string>
-    <string name="wifi_text_show_password">显示密码</string>
+    <string name="wifi_text_password">Wprowadź swoje hasło</string>
+    <string name="wifi_text_show_password">Pokaż hasło</string>
     <string name="wifi_text_name">name</string>
-    <string name="wifi_text_connect">连接</string>
-    <string name="wifi_text_not_enabled">未启用</string>
-    <string name="wifi_text_wifi_saved">已保存</string>
-    <string name="wifi_text_wifi_connected">已连接</string>
-    <string name="wifi_text_forget">忘记</string>
-    <string name="wifi_text_disconnect">断开</string>
-    <string name="wifi_text_modify">修改</string>
-    <string name="wifi_text_cancel">取消</string>
-    <string name="wifi_add_network">添加网络</string>
+    <string name="wifi_text_connect">Połączenie</string>
+    <string name="wifi_text_not_enabled">Nie włączone</string>
+    <string name="wifi_text_wifi_saved">Uratowany</string>
+    <string name="wifi_text_wifi_connected">Połączony</string>
+    <string name="wifi_text_forget">Zapomniałem</string>
+    <string name="wifi_text_disconnect">Odłącz</string>
+    <string name="wifi_text_modify">Zmodyfikuj</string>
+    <string name="wifi_text_cancel">Anuluj</string>
+    <string name="wifi_add_network">Dodaj sieć</string>
     <string name="wifi_text_name_input">请输入SSID</string>
-    <string name="wifi_text_need_password">需要密码</string>
+    <string name="wifi_text_need_password">Wymagaj hasła</string>
     <string name="wifi_text_state_none">  </string>
-    <string name="wifi_text_state_connected">已连接</string>
-    <string name="wifi_text_state_connecting">正在连接</string>
-    <string name="wifi_text_state_disconnected">连接断开</string>
-    <string name="wifi_text_obtain_an_IP_address">获取IP地址</string>
-    <string name="wifi_text_authentication">身份验证</string>
-    <string name="wifi_text_disconnected">已断开</string>
-    <string name="wifi_text_state_disconnecting">正在断开</string>
-    <string name="wifi_text_state_failed">连接失败</string>
-    <string name="wifi_text_state_authenticating">身份认证</string>
-    <string name="wifi_text_state_obtaining_ipaddr">获取地址</string>
-    <string name="wifi_scan">扫描</string>
-    <string name="system">系统</string>
-    <string name="device_info">设备信息</string>
-    <string name="version_info">版本信息</string>
-    <string name="system_info">系统信息</string>
+    <string name="wifi_text_state_connected">Połączony</string>
+    <string name="wifi_text_state_connecting">Łączenie</string>
+    <string name="wifi_text_state_disconnected">Połączenie zostało rozłączone</string>
+    <string name="wifi_text_obtain_an_IP_address">Uzyskaj adres IP</string>
+    <string name="wifi_text_authentication">Uwierzytelnianie</string>
+    <string name="wifi_text_disconnected">Rozłączony</string>
+    <string name="wifi_text_state_disconnecting">Odłączanie</string>
+    <string name="wifi_text_state_failed">Połączenie nieudane</string>
+    <string name="wifi_text_state_authenticating">Uwierzytelnianie tożsamości</string>
+    <string name="wifi_text_state_obtaining_ipaddr">Uzyskaj adres</string>
+    <string name="wifi_scan">Skanuj</string>
+    <string name="system">System</string>
+    <string name="device_info">Informacje o urządzeniu</string>
+    <string name="version_info">Informacje o wersji</string>
+    <string name="system_info">Informacje o systemie</string>
     <!--音效设置-->
-    <string name="label_treble">高音</string>
-    <string name="label_midrange">中音</string>
-    <string name="label_bass">低音</string>
+    <string name="label_treble">Treble</string>
+    <string name="label_midrange">środkowy</string>
+    <string name="label_bass">bas</string>
 
     <string name="str_eq_volume">音量</string>
     <string name="str_tx_dsp_bass">低音</string>
@@ -79,32 +79,32 @@
     <string name="str_honda_dsp_low">次通道</string>
     <string name="str_honda_dsp_mid">混通道</string>
     <!--时间设置-->
-    <string name="label_time">时间</string>
-    <string name="label_date">日期</string>
-    <string name="label_time_system">选择时间制式</string>
-    <string name="label_24_hour_system">24小时制</string>
-    <string name="label_12_hour_system">12小时制</string>
-    <string name="label_adjust">自动调节时钟</string>
-    <string name="label_adjust_off">关闭</string>
-    <string name="label_adjust_open">打开</string>
-    <string name="label_wrong_password">密码错误</string>
-    <string name="label_time_zone">时区设置</string>
+    <string name="label_time">Czas</string>
+    <string name="label_date">Data</string>
+    <string name="label_time_system">Wybierz system czasu</string>
+    <string name="label_24_hour_system">System 24-godzinny</string>
+    <string name="label_12_hour_system">System 12-godzinny</string>
+    <string name="label_adjust">Automatycznie dostosuj zegar</string>
+    <string name="label_adjust_off">Zamknij</string>
+    <string name="label_adjust_open">Otwórz</string>
+    <string name="label_wrong_password">Złe hasło</string>
+    <string name="label_time_zone">Ustawienie strefy czasowej</string>
     <string name="time_12_24">24</string>
-    <string name="dialog_prompt">是否要保存为自定义?</string>
+    <string name="dialog_prompt">Czy chcesz zapisać jako niestandardowy?</string>
 
-    <string name="hour_hint">时</string>
-    <string name="minute_hint">分</string>
-    <string name="year_hint">年</string>
-    <string name="month_hint">月</string>
-    <string name="day_hint">日</string>
-    <string name="tab_sound_mode">EQ模式</string>
-    <string name="tab_reset">复位</string>
-    <string name="tab_am">上午</string>
-    <string name="tab_pm">下午</string>
+    <string name="hour_hint">Czas</string>
+    <string name="minute_hint">Minuta</string>
+    <string name="year_hint">Rok</string>
+    <string name="month_hint">Miesiąc</string>
+    <string name="day_hint">Dzień</string>
+    <string name="tab_sound_mode">Tryb EQ</string>
+    <string name="tab_reset">Zresetuj</string>
+    <string name="tab_am">Rano</string>
+    <string name="tab_pm">Popołudnie</string>
     <string name="date">yyyy-MM-dd</string>
     <string-array name="hour_apm">
-        <item>上午</item>
-        <item>下午</item>
+        <item>Rano</item>
+        <item>Popołudnie</item>
 
     </string-array>
 
@@ -213,24 +213,24 @@
     </string-array>
 
     <!--导航设置-->
-    <string name="tab_software_navigation">导航软件</string>
-    <string name="tab_switch_mixing">导航混音开关</string>
-    <string name="tab_proportion_mixing">导航混音比例</string>
-    <string name="tab_sound_mixing">导航混音</string>
+    <string name="tab_software_navigation">Oprogramowanie nawigacyjne</string>
+    <string name="tab_switch_mixing">Nawigacyjny przełącznik miksera</string>
+    <string name="tab_proportion_mixing">Współrzędne nawigacji</string>
+    <string name="tab_sound_mixing">Miks nawigacyjny</string>
     <!--车辆设置-->
-    <string name="tab_model_selection">车型选择</string>
-    <string name="tab_reversing_mirror">倒车镜像</string>
-    <string name="tab_reverse_display">倒车显示效果调节</string>
-    <string name="tab_key_learning">按键学习</string>
-    <string name="tab_mirror_normal">正常镜像</string>
-    <string name="tab_up_down_normal">上下镜像</string>
-    <string name="tab_about_normal">左右镜像</string>
-    <string name="tab_up_down_left_right_normal">上下左右镜像</string>
-    <string name="dialog_title">操作说明</string>
-    <string name="dialog_default">倒车视频时，两指长按屏幕3秒调出半透明倒车视频调节框，亮度，对比度，饱和度；点调节框外或不操作3秒后调节框消失。</string>
-    <string name="str_settings_wheel_begin">开始</string>
-    <string name="str_settings_wheel_reset">复位</string>
-    <string name="str_settings_wheel_finish">完成</string>
+    <string name="tab_model_selection">Wybór modelu</string>
+    <string name="tab_reversing_mirror">Lusterko wsteczne</string>
+    <string name="tab_reverse_display">Korekta efektu odwróconego wyświetlacza</string>
+    <string name="tab_key_learning">Kluczowe uczenie</string>
+    <string name="tab_mirror_normal">Normalny</string>
+    <string name="tab_up_down_normal">W górę i w dół</string>
+    <string name="tab_about_normal">W lewo i w prawo</string>
+    <string name="tab_up_down_left_right_normal">W górę i w dół</string>
+    <string name="dialog_title">Instrukcja obsługi</string>
+    <string name="dialog_default">Podczas cofania wideo dwa palce naciskają na ekran przez 3 sekundy, aby wyświetlić półprzezroczystą ramkę regulacji cofania, jasność, kontrast, nasycenie, okno regulacji zniknie po tym, gdy ramka regulacji punktu nie zostanie uruchomiona lub po 3 sekundach。</string>
+    <string name="str_settings_wheel_begin">Zacznij</string>
+    <string name="str_settings_wheel_reset">Zresetuj</string>
+    <string name="str_settings_wheel_finish">Uzupełnij</string>
     <string name="str_settings_wheel_type">短按</string>
     <string name="str_settings_wheel_prev">上一个</string>
     <string name="str_settings_wheel_next">下一个</string>
@@ -243,33 +243,33 @@
     <string name="str_settings_wheel_mode">模式</string>
     <string name="str_settings_wheel_power">电源</string>
     <string name="str_settings_wheel_band">波段</string>
-    <string name="str_settings_wheel_navigation">导航</string>
-    <string name="str_settings_wheel_info_tips">点击 [开始] 按钮进行学习</string>
-    <string name="str_settings_wheel_title">点击开始后,先点击界面按钮,再点击对应的方控按钮,全部学习完点击结束</string>
-    <string name="str_settings_wheel_enter_learning">已进入学习状态</string>
-    <string name="str_settings_wheel_touch_key">请按方控按键</string>
-    <string name="str_settings_wheel_exit_learning">已退出学习状态</string>
-    <string name="str_settings_wheel_learn_success">学习成功</string>
-    <string name="str_settings_wheel_learn_error">学习失败</string>
+    <string name="str_settings_wheel_navigation">Nawigacja</string>
+    <string name="str_settings_wheel_info_tips">Kliknij przycisk [Start], aby się uczyć</string>
+    <string name="str_settings_wheel_title">Po kliknięciu przycisku Start kliknij przycisk interfejsu, a następnie kliknij odpowiedni kwadratowy przycisk sterowania, a cała nauka się zakończy.</string>
+    <string name="str_settings_wheel_enter_learning">Wprowadził stan uczenia się</string>
+    <string name="str_settings_wheel_touch_key">Proszę nacisnąć przycisk kontrolera</string>
+    <string name="str_settings_wheel_exit_learning">Opuścił stan nauki</string>
+    <string name="str_settings_wheel_learn_success">Sukces w nauce</string>
+    <string name="str_settings_wheel_learn_error">Utrata nauki</string>
     <!--关于-->
-    <string name="label_system_version_number">系统版本号：</string>
-    <string name="label_MCU_version_number">MCU版本号：</string>
-    <string name="label_CAN_version_number">CAN版本号：</string>
-    <string name="label_identifier">识别码：</string>
-    <string name="label_android_version">安卓版本：</string>
-    <string name="label_kernel_version">内核版本：</string>
-    <string name="label_upgrade_update">升级更新</string>
-    <string name="tab_prohibit_video_while_driving">行车时禁止视频</string>
-    <string name="tab_touch_tone">按键音</string>
-    <string name="tab_system_cleanup">系统清理</string>
-    <string name="tab_factory_setting">工厂设置</string>
-    <string name="tab_reset_system">恢复出厂设置</string>
-    <string name="tab_restart">重新启动</string>
-    <string name="dialog_restore_defaults">确定恢复出厂设置吗？</string>
-    <string name="dialog_tab_restart">确定重新启动吗？</string>
+    <string name="label_system_version_number">Numer wersji systemu：</string>
+    <string name="label_MCU_version_number">Numer wersji MCU：</string>
+    <string name="label_CAN_version_number">Numer wersji CAN：</string>
+    <string name="label_identifier">Kod identyfikacyjny：</string>
+    <string name="label_android_version">Wersja Androida：</string>
+    <string name="label_kernel_version">Wersja jądra：</string>
+    <string name="label_upgrade_update">Aktualizacja aktualizacji</string>
+    <string name="tab_prohibit_video_while_driving">Zakaz wideo podczas jazdy</string>
+    <string name="tab_touch_tone">Dźwięk przycisku</string>
+    <string name="tab_system_cleanup">Oczyszczanie systemu</string>
+    <string name="tab_factory_setting">Ustawienie fabryczne</string>
+    <string name="tab_reset_system">Reset do ustawień fabrycznych</string>
+    <string name="tab_restart">Uruchom ponownie</string>
+    <string name="dialog_restore_defaults">Czy na pewno chcesz przywrócić ustawienia fabryczne？</string>
+    <string name="dialog_tab_restart">Czy na pewno chcesz zrestartować？</string>
     <!--系统设置-->
-    <string name="tab_cleaning_up">清理中.....</string>
-    <string name="tab_clean_up">清理完成</string>
+    <string name="tab_cleaning_up">Czyszczenie.....</string>
+    <string name="tab_clean_up">Oczyść</string>
     <string name="dialog_1">1</string>
     <string name="dialog_2">2</string>
     <string name="dialog_3">3</string>
@@ -280,52 +280,59 @@
     <string name="dialog_8">8</string>
     <string name="dialog_9">9</string>
     <string name="dialog_0">0</string>
-    <string name="dialog_restore">确定恢复出厂设置吗？</string>
-    <string name="device_restart">%1$d s后重新启动</string>
-    <string name="device_restarts">5s后重新启动</string>
-    <string name="str_scanning">扫描</string>
+    <string name="dialog_restore"> Czy na pewno chcesz przywrócić ustawienia fabryczne? </string>
+    <string name="device_restart">Uruchom ponownie po s %1$d </string>
+    <string name="device_restarts">Zrestartuj po 5s</string>
+    <string name="str_scanning">Skanuj</string>
     <string name="str_sound_7">15</string>
     <string name="str_sound_negative_7">-15</string>
 
     <!--蓝牙设置-->
-    <string name="tv_setting_name">本机蓝牙</string>
-    <string name="tv_setting_bluetooth">蓝牙</string>
-    <string name="tv_setting_close">关闭</string>
-    <string name="tv_setting_check">开启检测</string>
-    <string name="tv_setting_check_des">已关闭，只允许配对设备检测</string>
-    <string name="tv_setting_check_">已开启，只允许配对设备检测</string>
-    <string name="tv_setting_pair">已配对设备</string>
-    <string name="tv_setting_del_all">删除全部</string>
-    <string name="tv_setting_search_ing">正在搜索设备...</string>
-    <string name="tv_setting_start_search">开始搜索</string>
-    <string name="tv_setting_available">可用设备</string>
-    <string name="tv_setting_update_name">名称不能为空</string>
+    <string name="tv_setting_name">Natywny Bluetooth</string>
+    <string name="tv_setting_bluetooth">Bluetooth</string>
+    <string name="tv_setting_close">Zamknij</string>
+    <string name="tv_setting_check">Włącz wykrywanie</string>
+    <string name="tv_setting_check_des">Zamknięte, dozwolone jest tylko wykrywanie sparowanych urządzeń</string>
+    <string name="tv_setting_check_">Włączone, dozwolone jest tylko wykrywanie sparowanych urządzeń</string>
+    <string name="tv_setting_pair">Sparowane urządzenie</string>
+    <string name="tv_setting_del_all">Usuń wszystko</string>
+    <string name="tv_setting_search_ing">Wyszukiwanie urządzeń...</string>
+    <string name="tv_setting_start_search">Rozpocznij wyszukiwanie</string>
+    <string name="tv_setting_available">Dostępny sprzęt</string>
+    <string name="tv_setting_update_name">Nazwa nie może być pusta</string>
 
     <!-- 悬浮按钮-->
-    <string name="tv_power">电 源</string>
-    <string name="tv_home">主屏幕</string>
-    <string name="tv_vioce_add">音量加</string>
-    <string name="tv_vioce_dec">音量减</string>
-    <string name="tv_back">返 回</string>
+    <string name="tv_power">Źródło zasilania</string>
+    <string name="tv_home">Ekran główny</string>
+    <string name="tv_vioce_add">Objętość plus</string>
+    <string name="tv_vioce_dec">Zmniejszenie objętości</string>
+    <string name="tv_back">Wróć</string>
+    <!-- =====================-->
 
-    <string name="txt_standard">标准</string>
-    <string name="txt_popular">流行</string>
-    <string name="txt_ock">摇滚</string>
-    <string name="txt_jazz">爵士</string>
-    <string name="txt_classical">古典</string>
-    <string name="txt_customize">自定义</string>
-    <string name="tv_open">打开</string>
-    <string name="tv_closed">关闭</string>
-    <string name="Start">开始</string>
-    <string name="clear">清除</string>
-    <string name="end">结束</string>
-    <string name="shorts">短</string>
-    <string name="Long">长</string>
-    <string name="label_Waiting">等响</string>
-    <string name="tab_suspension_driving">悬浮按钮开关</string>
-    <string name="tab_suspension_Setting">悬浮按钮设置</string>
-    <string name="password">密码不能少于8位</string>
-    <string name="tab_android_system">安卓设置</string>
+    <string name="txt_standard">Normalny</string>
+    <string name="txt_popular">POP</string>
+    <string name="txt_ock">ROCK</string>
+    <string name="txt_jazz">jazz</string>
+    <string name="txt_classical">CLASSIC</string>
+    <string name="txt_customize">zwyczaj</string>
+    <string name="tv_open">Wł.</string>
+    <string name="tv_closed">Zamknij</string>
+    <string name="Start">OK</string>
+    <string name="clear">Wyczyść</string>
+    <string name="end">Zakończ</string>
+    <string name="shorts"> short </string>
+        
+    <string name="Long"> long </string>
+        
+    <string name="label_Waiting"> etc. </string>
+        
+    <string name="tab_suspension_driving"> Przełącznik przycisku Hover </string>
+        
+    <string name="tab_suspension_Setting"> Ustawienia przycisku Hover </string>
+        
+    <string name="password"> Hasło nie może być mniejsze niż 8 bitów </string>
+        
+    <string name="tab_android_system"> Ustawienia Androida </string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

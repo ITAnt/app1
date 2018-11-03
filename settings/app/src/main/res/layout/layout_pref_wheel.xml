@@ -55,7 +55,7 @@
                 android:layout_gravity="center"
                 android:text="@string/Start"
                 android:textColor="@color/white"
-                android:textSize="@dimen/px35" />
+                android:textSize="@dimen/px28" />
         </FrameLayout>
 
         <FrameLayout
@@ -91,7 +91,7 @@
                 android:layout_gravity="center"
                 android:text="@string/clear"
                 android:textColor="@color/white"
-                android:textSize="@dimen/px35" />
+                android:textSize="@dimen/px28" />
         </FrameLayout>
 
         <FrameLayout
@@ -126,7 +126,7 @@
                 android:layout_gravity="center"
                 android:text="@string/end"
                 android:textColor="@color/white"
-                android:textSize="@dimen/px35" />
+                android:textSize="@dimen/px28" />
         </FrameLayout>
         <FrameLayout
             android:layout_width="wrap_content"
@@ -161,7 +161,7 @@
                 android:layout_gravity="center"
                 android:text="@string/shorts"
                 android:textColor="@color/white"
-                android:textSize="@dimen/px35" />
+                android:textSize="@dimen/px28" />
         </FrameLayout>
 
 

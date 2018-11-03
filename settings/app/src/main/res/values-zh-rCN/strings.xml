@@ -230,7 +230,7 @@
     <string name="tab_about_normal">左右镜像</string>
     <string name="tab_up_down_left_right_normal">上下左右镜像</string>
     <string name="dialog_title">操作说明</string>
-    <string name="dialog_default">倒车视频时，两指长按屏幕3秒调出半透明倒车视频调节框，亮度，色度，对比度，饱和度；点调节框外或不操作3秒后调节框消失。</string>
+    <string name="dialog_default">倒车视频时，两指长按屏幕3秒调出半透明倒车视频调节框，亮度，对比度，饱和度；点调节框外或不操作3秒后调节框消失。</string>
     <string name="str_settings_wheel_begin">开始</string>
     <string name="str_settings_wheel_reset">复位</string>
     <string name="str_settings_wheel_finish">完成</string>
