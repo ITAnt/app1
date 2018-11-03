@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
+    android:gravity="left"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -37,9 +38,9 @@
                 android:gravity="center_vertical|end"
                 android:paddingEnd="@dimen/px10"
                 android:paddingLeft="@dimen/px15"
+                android:paddingStart="@dimen/px5"
                 android:singleLine="true"
-                tools:text="1999999999999999999999999999999"
-                android:paddingStart="@dimen/px5"/>
+                tools:text="1999999999999999999999999999999" />
         </RelativeLayout>
 
 

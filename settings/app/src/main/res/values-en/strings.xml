@@ -31,7 +31,7 @@
     <string name="Start">Start</string>
     <string name="date">yyyy-MM-dd</string>
     <!--悬浮按钮-->
-    <string name="tv_power">power supply</string>
+    <string name="tv_power">Guan Bing</string>
     <string name="tv_home">Home screen</string>
     <string name="tv_vioce_add">Volume plus</string>
     <string name="tv_vioce_dec">Volume reduction</string>

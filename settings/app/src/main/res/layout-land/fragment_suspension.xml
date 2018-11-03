@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000"
@@ -16,7 +15,7 @@
             style="@style/txt_normal_px22"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/tab_suspension_driving" />
+            android:text="悬浮开关" />
 
         <com.jancar.settings.widget.SwitchButton
             android:id="@+id/iv_float_switch"

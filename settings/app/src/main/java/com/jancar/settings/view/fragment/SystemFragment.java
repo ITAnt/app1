@@ -188,8 +188,8 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                 }
                 break;
             case R.id.rlayout_system_cleanup:
-              //  systemCleanupRlayout.setEnabled(false);
-                if (CleanupDialog==null){
+                //  systemCleanupRlayout.setEnabled(false);
+                if (CleanupDialog == null) {
                     showCleanupDialog();
                 }
                 break;
@@ -215,8 +215,8 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                 break;
             case R.id.rlayout_system:
                 Intent intent = new Intent();
-               // intent.setAction("com.android.settings");
-                intent.setClassName("com.android.settings","com.android.settings.Settings");
+                // intent.setAction("com.android.settings");
+                intent.setClassName("com.android.settings", "com.android.settings.Settings");
                 startActivity(intent);
                 break;
         }
@@ -268,6 +268,8 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                         BluetoothSettingManager manager = BluetoothSettingManager.getBluetoothSettingManager(getContext());
                         manager.openBluetooth();
                         //manager.searchPairedList();
+                        videoSwitch.setCheckedImmediately(true);
+                        touchToneSwitch.setCheckedImmediately(false);
                         settingManager.resetDeafaultSettings();
                       /*  displayScrollView.setVisibility(View.VISIBLE);
                         languageList.setVisibility(View.GONE);*/
@@ -458,10 +460,12 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         setDialogParam(dialog, 393, 393);
         factorySettingRlayout.setEnabled(true);
     }
-    Dialog CleanupDialog=null ;
+
+    Dialog CleanupDialog = null;
+
     private void showCleanupDialog() {
 
-        CleanupDialog=    new Dialog(getContext(), R.style.record_voice_dialogs);
+        CleanupDialog = new Dialog(getContext(), R.style.record_voice_dialogs);
         CleanupDialog.setContentView(R.layout.display_dialog_cleanup);
         CleanupDialog.setOnCancelListener(this);
         final CircleProgressView mCircleProgressView = (CircleProgressView) CleanupDialog.findViewById(R.id.circle_progress_view);
@@ -485,9 +489,9 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                         mCircleProgressView.setProgress(100);
                         scheduleTxt.setText(100 + "%");
                         CleanupDialog.dismiss();
-                        ToastUtil.ShowToast(getContext(),getContext(). getString(R.string.tab_clean_up));
-                        CleanupDialog=null;
-                      //  Toast.makeText(getContext(), R.string.tab_clean_up, Toast.LENGTH_SHORT).show();
+                        ToastUtil.ShowToast(getContext(), getContext().getString(R.string.tab_clean_up));
+                        CleanupDialog = null;
+                        //  Toast.makeText(getContext(), R.string.tab_clean_up, Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
                         CleanupDialog.dismiss();
@@ -565,21 +569,20 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
 
     @Override
     public void notifyRefreshUI() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
-        isDefault = sharedPreferences.getBoolean("DisplayFragmetn", false);
-        sharedPreferences.edit().putBoolean("DisplayFragmetn", false).commit();
-        videoSwitch.setCheckedImmediately(settingManager.getDrivingStopVedio());
-        touchToneSwitch.setCheckedImmediately(settingManager.getIsNeedkeySound());
-        Settings.Secure.setLocationProviderEnabled(getContext().getContentResolver(), LocationManager.GPS_PROVIDER, false);
-        GPS gps = new GPS();
-        gps.openGPSSettings(getContext(), 3);
-        settingManager.changeSystemLanguage(settingManager.locales[settingManager.getLanguage()], settingManager.getLanguage());
-        //Toast.makeText(getContext(), "123", Toast.LENGTH_SHORT).show();
 
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
+        if (sharedPreferences.getBoolean("DisplayFragmetn", false)) {
+           // SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
+            Settings.Secure.setLocationProviderEnabled(getContext().getContentResolver(), LocationManager.GPS_PROVIDER, false);
+            GPS gps = new GPS();
+            gps.openGPSSettings(getContext(), 3);
+            settingManager.changeSystemLanguage(settingManager.locales[settingManager.getLanguage()], settingManager.getLanguage());
+            sharedPreferences.edit().putBoolean("DisplayFragmetn", false).commit();
+        }
     }
 
     @Override
     public void onCancel(DialogInterface dialogInterface) {
-        CleanupDialog=null;
+        CleanupDialog = null;
     }
 }

@@ -308,8 +308,6 @@
     <string name="tv_vioce_add">Объем плюс</string>
     <string name="tv_vioce_dec">Уменьшение объема</string>
     <string name="tv_back">возвращение</string>
-    <!-- =====================-->
-
     <string name="txt_standard">Средний</string>
     <string name="txt_popular">POP</string>
     <string name="txt_ock">КАМЕНЬ</string>

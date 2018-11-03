@@ -17,14 +17,14 @@
             android:layout_centerVertical="true"
             android:maxLines="1"
             android:minWidth="@dimen/px100"
-            android:paddingLeft="@dimen/px10"
+            android:paddingStart="@dimen/px10"
             tools:text="阿华阿华阿华阿华阿华" />
 
         <ImageView
             android:id="@+id/iv_contact_search_call"
             android:layout_width="@dimen/px45"
             android:layout_height="@dimen/px45"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:src="@drawable/contact_call_selector" />
 

@@ -24,7 +24,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/px30"
             android:layout_marginStart="@dimen/px30"
-            android:layout_toRightOf="@+id/iv_records_call_type"
+            android:layout_toEndOf="@+id/iv_records_call_type"
             android:maxLines="1"
             android:minWidth="@dimen/px100"
             tools:text="阿华阿华阿华阿华" />
@@ -33,7 +33,7 @@
             android:id="@+id/iv_records_call"
             android:layout_width="@dimen/px45"
             android:layout_height="@dimen/px45"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:background="@drawable/contact_call_selector" />
 
@@ -43,8 +43,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/iv_records_call"
-            android:layout_toRightOf="@+id/iv_records_call_name"
+            android:layout_toStartOf="@+id/iv_records_call"
+            android:layout_toEndOf="@+id/iv_records_call_name"
             tools:text="13500000000" />
     </RelativeLayout>
     <!--  android:background="@drawable/lin_bt_dail"-->
