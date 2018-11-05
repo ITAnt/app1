@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.RelativeLayout;
 
 import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
+import com.jancar.bluetooth.phone.entity.BtnNumberEntity;
 import com.jancar.bluetooth.phone.entity.Event;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.view.fragment.ContactFragment;
@@ -38,6 +40,7 @@ import butterknife.OnClick;
 import static com.jancar.bluetooth.phone.util.Constants.BT_CONNECT_IS_NONE;
 
 public class MainActivity extends AppCompatActivity implements BTConnectStatusListener, View.OnClickListener {
+    private static final String TAG = "MainActivity";
     public static final int TAB_DIAL_MANAGER = 1;
     public static final int TAB_CONTACT_MANAGER = 2;
     public static final int TAB_RECORD_MANAGER = 3;
@@ -55,14 +58,32 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
     BluetoothManager bluetoothManager;
     private ConnectDialog connectDialog;
     boolean isConnect;
+    private String tabKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("MainActivity", "savedInstanceState====" + savedInstanceState);
         setContentView(R.layout.activity_main);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        handleIntent(getIntent());
         initComponent();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        Log.e(TAG, "onNewIntent===");
+        handleIntent(intent);
+        go2Fragment(MainActivity.indexTab);
+
+    }
+
+    private void handleIntent(Intent intent) {
+        tabKey = intent.getStringExtra("page");
+        Log.e(TAG, "handleIntent===" + tabKey);
+        if (!TextUtils.isEmpty(tabKey) && tabKey.equals("btdial")) {
+            indexTab = TAB_DIAL_MANAGER;
+            EventBus.getDefault().post(new BtnNumberEntity(true));
+        }
     }
 
     @Override
@@ -102,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
 
     /**
      * 事件响应方法
-     * 接收消息
+     * 蓝牙连接上后消失提示框
      *
      * @param event
      */
@@ -114,12 +135,6 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
         }
     }
 
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        Log.e("MainActivity", "onNewIntent===");
-        go2Fragment(MainActivity.indexTab);
-    }
 
     private void showDialog() {
         connectDialog.setCanelOnClickListener(new View.OnClickListener() {

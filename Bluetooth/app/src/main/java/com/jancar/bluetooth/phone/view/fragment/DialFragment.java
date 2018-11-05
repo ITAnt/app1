@@ -27,6 +27,7 @@ import com.jancar.bluetooth.phone.MainActivity;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.adapter.DialNumberAdapter;
 import com.jancar.bluetooth.phone.contract.DialContract;
+import com.jancar.bluetooth.phone.entity.BtnNumberEntity;
 import com.jancar.bluetooth.phone.entity.Event;
 import com.jancar.bluetooth.phone.presenter.DialPresenter;
 import com.jancar.bluetooth.phone.util.Constants;
@@ -36,6 +37,8 @@ import com.jancar.bluetooth.phone.util.ToastUtil;
 import com.ui.mvp.view.support.BaseFragment;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +52,7 @@ import static com.jancar.bluetooth.phone.util.Constants.BT_CONNECT_IS_NONE;
  * 拨号键盘界面
  */
 public class DialFragment extends BaseFragment<DialContract.Presenter, DialContract.View> implements DialContract.View, BTPhonebookListener, BTConnectStatusListener, View.OnClickListener, BTCallLogListener {
+    private static final String TAG = "DialFragment";
     private View mRootView;
     private Activity mActivity;
     TextView tvInput;
@@ -123,7 +127,14 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e(TAG, "onCreate==");
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -194,15 +205,18 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.e(TAG, "onActivityCreated==");
         init();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        Log.e(TAG, "onResume==");
         bluetoothManager.registerBTPhonebookListener(this);
         bluetoothManager.setBTConnectStatusListener(this);
         bluetoothManager.registerBTCallLogListener(this);
+
         if (!hidden) {
             getBTCallLog();
             isConneView();
@@ -219,25 +233,28 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     @Override
     public void onPause() {
         super.onPause();
-        mStrKeyNum = null;
-        tvInput.setText(mStrKeyNum);
+        Log.e(TAG, "onPause==");
+//        mStrKeyNum = null;
+//        tvInput.setText(mStrKeyNum);
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        Log.e(TAG, "onStop==");
         mStrKeyNum = null;
         tvInput.setText(mStrKeyNum);
         adapter.setStrKeyNum("");
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.e(TAG, "onDestroy==");
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
         }
-//        bluetoothManager.unRegisterBTPhonebookListener();
         bluetoothManager.unRegisterBTCallLogListener();
         bluetoothManager.setBTConnectStatusListener(null);
     }
@@ -264,7 +281,6 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
             }
         } else {
             if (bluetoothManager != null) {
-//                bluetoothManager.unRegisterBTPhonebookListener();
                 bluetoothManager.unRegisterBTCallLogListener();
                 bluetoothManager.setBTConnectStatusListener(null);
             }
@@ -514,21 +530,7 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
                 getStrKeyNum("#");
                 break;
             case R.id.item_dial_number_call:
-                if (getManager().isConnect()) {
-                    if (!TextUtils.isEmpty(mStrKeyNum)) {
-                        Log.e("DialFragment", "number_call===");
-                        bluetoothManager.hfpCall(mStrKeyNum);
-                        cleanCallNumber();
-                    } else {
-                        Log.e("DialFragment", "number_call===Empty==");
-//                        ToastUtil.ShowToast( mActivity.getString(R.string.tv_call_number_empty));
-                        mStrKeyNum = FirstLog;
-                        tvInput.setText(mStrKeyNum);
-                    }
-                } else {
-                    Log.e("DialFragment", "isConnect()===false==");
-//                    ToastUtil.ShowToast(mActivity.getString(R.string.tv_bt_connect_is_none));
-                }
+                CallNumber();
                 break;
             case R.id.dial_iv_del_number:
                 if (mStrKeyNum != null) {
@@ -538,6 +540,22 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
                 break;
         }
 
+    }
+
+    private void CallNumber() {
+        if (getManager().isConnect()) {
+            if (!TextUtils.isEmpty(mStrKeyNum)) {
+                Log.e("DialFragment", "number_call===");
+                bluetoothManager.hfpCall(mStrKeyNum);
+                cleanCallNumber();
+            } else {
+                Log.e("DialFragment", "number_call===Empty==");
+                mStrKeyNum = FirstLog;
+                tvInput.setText(mStrKeyNum);
+            }
+        } else {
+            Log.e("DialFragment", "isConnect()===false==");
+        }
     }
 
     @Override
@@ -575,5 +593,19 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     @Override
     public void onNotifyDownloadCallLogsFinish() {
 
+    }
+
+    /**
+     * 事件响应方法
+     * 接收消息
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventBtnNum(BtnNumberEntity event) {
+        if (event.isBtnKey()) {
+            Log.e(TAG, "onEvent===" + mStrKeyNum);
+            CallNumber();
+        }
     }
 }

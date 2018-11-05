@@ -83,6 +83,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                             bluetoothManager.next();
                             break;
                         case KEY_PAUSE:
+                            Log.e("MusicActivity", "KEY_PAUSE===");
                             bluetoothManager.pause();
                             break;
                         case KEY_PLAY:
@@ -329,8 +330,9 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                 circleImageView.setAnimatePlaying(isPlay);
                 switch (bluetoothRequestFocus.getCurrentBTStatus()) {
                     case BluetoothRequestFocus.BT_INIT:
-                        Log.e("MusicActivity", "BT_INIT===");
+                        Log.e("MusicActivity", "BT_INIT===" + "isPlay==" + isPlay);
                         if (bluetoothRequestFocus.isBTConnect()) {
+                            Log.e("MusicActivity", "BT_INIT===Play====");
                             bluetoothRequestFocus.btMusicPlay();
                             bluetoothRequestFocus.setCurrentBTStatus(BluetoothRequestFocus.BT_IDL);
                         }
