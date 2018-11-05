@@ -304,15 +304,22 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                     startActivity(intent);
                     Log.w("wssss", "asfadfa");
                     break;
+                case 12:
+                    SharedPreferences.Editor s = getSharedPreferences("Radio", MODE_PRIVATE).edit();
+                    s.putInt("Band", msg.arg1);
+                    s.commit();
+                    bandTxt.setText(mBandAF[msg.arg1]);
+                    RadioActivity.this.getPresenter().initText(msg.arg1, mLocation, false);
+                    break;
             }
         }
     };
     private RadioAudioFocusChange mAudioFocusChange;
     ScheduledExecutorService scheduled = null;
     ScheduledExecutorService scheduleds = null;
-    Runnable runnable = null;
+    Thread runnable = null;
     Runnable runnables = null;
-
+    Boolean isST;
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -384,15 +391,8 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         s();
 
         intentFilter = new IntentFilter();
-
         intentFilter.addAction("android.intent.action.NEW_OUTGOING_CALL");
         intentFilter.addAction(Intent.ACTION_CALL);
-       /* intentFilter.addAction(Intent.ACTION_TIME_TICK);//每分钟变化
-        intentFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED);//设置了系统时区
-        intentFilter.addAction(Intent.ACTION_TIME_CHANGED);//设置了系统时间
-        intentFilter.addAction(AUTO_TIME);*/
-
-        // getActivity().registerReceiver(timeChangeReceiver, intentFilter);
     }
 
     public void initStatusBar() {
@@ -1105,7 +1105,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
 
                 }
             };
-            runnable = new Runnable() {
+            runnable = new Thread() {
                 @Override
                 public void run() {
                     time--;
@@ -1115,6 +1115,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                     m.sendMessage(msgs);
                 }
             };
+            runnable.setName("OuYang");
             time = 1;
             if (scheduled != null) {
                 if (scheduled.isShutdown()) {
@@ -1891,6 +1892,20 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             }
             if (d > 5) {
                 d = 0;
+                Band++;
+                if (mBand == 0) {
+                    if (Band>4){
+                        Band=3;
+                    }
+                }else {
+                    if (Band>2){
+                        Band=0;
+                    }
+                }
+                Message mMessage = new Message();
+                mMessage.what = 12;
+                mMessage.arg1 = Band;
+                handler.sendMessage(mMessage);
             }
             setMyFavoriteItem(d);
         }
@@ -1916,17 +1931,22 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             }
             if (d < 0) {
                 d = 5;
+                Band--;
+                if (mBand == 0) {
+                    if (Band<3){
+                        Band=4;
+                    }
+                }else {
+                    if (Band<0){
+                        Band=2;
+                    }
+                }
+                Message mMessage = new Message();
+                mMessage.what = 12;
+                mMessage.arg1 = Band;
+                handler.sendMessage(mMessage);
             }
             setMyFavoriteItem(d);
-          /*  for (int i = 0; i < this.radioStations.size(); ++i) {
-                if (this.radioStations.get(i).getMFreq() > this.mFreq) {
-                    this.setMyFavoriteItem(i);
-                    return;
-                }
-                if (i == -1 + this.radioStations.size()) {
-                    this.setMyFavoriteItem(0);
-                }
-            }*/
         }
     }
 
@@ -1939,8 +1959,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         if (this.mRadioManager != null) {
             this.mRadioManager.setFreq(this.mFreq);
         }
-  /*      this.updateRDS();
-        this.updateUI();*/
+
     }
 
     protected void showNotification(final boolean bshow) {

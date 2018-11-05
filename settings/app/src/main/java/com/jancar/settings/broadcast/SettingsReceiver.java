@@ -17,7 +17,7 @@ public class SettingsReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        String action = intent.getAction();
+        String action = intent .getAction();
         System.out.println("收到广播了");
          Log.e(TAG, "action==" + action);
 
@@ -27,6 +27,9 @@ public class SettingsReceiver extends BroadcastReceiver {
             Intent service = new Intent();
             service.setClassName("com.jancar.settingss", "com.jancar.settings.service.SettingsUIService");
             context.startService(service);
+            Intent serviced = new Intent();
+            serviced.setClassName("com.jancar.settingss", "com.jancar.settings.MyService");
+            context.startService(serviced);
             boolean isOpen = Hawk.get(Contacts.ISOPEN_OVERLAY, false);
             if (isOpen) {
                 Intent services = new Intent();

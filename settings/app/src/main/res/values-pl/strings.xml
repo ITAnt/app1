@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Ustawienie</string>
     <string name="tab_bluetooth">Bluetooth</string>
-    <string name="tab_display">Wyświetlacz</string>
-    <string name="tab_sound_effect">dźwiękowe</string>
+    <string name="tab_display">Wyświetl</string>
+    <string name="tab_sound_effect">Tone</string>
     <string name="tab_time">Czas</string>
     <string name="tab_system">System</string>
     <string name="tab_wifi">WIFI</string>
@@ -65,7 +65,7 @@
     <string name="system_info">Informacje o systemie</string>
     <!--音效设置-->
     <string name="label_treble">Treble</string>
-    <string name="label_midrange">środkowy</string>
+    <string name="label_midrange">Średni</string>
     <string name="label_bass">bas</string>
 
     <string name="str_eq_volume">音量</string>
@@ -426,91 +426,91 @@
         <item>Pacific/Tongatapu</item>
     </string-array>
     <string-array name="timezone_name">
-        <item>马朱罗</item>
-        <item>中途岛</item>
-        <item>夏威夷</item>
-        <item>阿拉斯加州</item>
-        <item>洛杉矶</item>
-        <item>蒂华纳</item>
-        <item>亚利桑那</item>
-        <item>奇瓦瓦</item>
-        <item>丹佛</item>
-        <item>哥斯达黎加</item>
-        <item>芝加哥</item>
-        <item>墨西哥城</item>
-        <item>里贾纳</item>
-        <item>波哥大</item>
-        <item>纽约</item>
-        <item>巴巴多斯</item>
-        <item>加拿大</item>
-        <item>马瑙斯</item>                   
+        <item>Majuro</item>
+        <item>Wyspa Midway</item>
+        <item>Hawaje</item>
+        <item>Alaska</item>
+        <item>Los Angeles</item>
+        <item>Tijuana</item>
+        <item>Arizona</item>
+        <item>Chihuahua</item>
+        <item>Denver</item>
+        <item>Kostaryka</item>
+        <item>Chicago</item>
+        <item>Mexico City</item>
+        <item>Regina</item>
+        <item>Bogota</item>
+        <item>Nowy Jork</item>
+        <item>Barbados</item>
+        <item>Kanada</item>
+        <item>Manaus</item>                   
          
-        <item>圣地亚哥</item>
-        <item>纽芬兰</item>
-        <item>巴西利亚</item>
-        <item>布宜诺斯艾利斯</item>
-        <item>格陵兰</item>
-        <item>蒙得维的亚</item>
-        <item>南乔治亚</item>
-        <item>亚速尔群岛</item>
-        <item>佛得角群岛</item>             
-        <item>卡萨布兰卡</item> 
-        <item>伦敦</item>
-        <item>阿姆斯特丹</item>
-        <item>贝尔格莱德</item>
-        <item>委内瑞拉</item>
-        <item>布鲁塞尔</item>
-        <item>萨拉热窝</item>
-        <item>温得和克</item>
-        <item>布拉扎维</item>
-        <item>约旦安曼</item>             
-        <item>伊斯坦布尔</item>
-        <item>贝鲁特</item>
-        <item>开罗</item>
-        <item>赫尔辛基</item>
-        <item>耶路撒冷</item>
-        <item>明斯克</item>
-        <item>哈拉雷</item>
-        <item>巴格达</item>
-        <item>莫斯科</item>
-        <item>科威特</item>             
-        <item>内罗毕</item>                              
+        <item>San Diego</item>
+        <item>Nowa Fundlandia</item>
+        <item>Brasilia</item>
+        <item>Buenos Aires</item>
+        <item>Grenlandia</item>
+        <item>Montevideo</item>
+        <item>Georgia Południowa</item>
+        <item>Azory</item>
+        <item>Wyspy Zielonego Przylądka</item>             
+        <item>Casablanca</item> 
+        <item>Londyn</item>
+        <item>Amsterdam</item>
+        <item>Belgrad</item>
+        <item>Wenezuela</item>
+        <item>Bruksela</item>
+        <item>Sarajewo</item>
+        <item>Windhoek</item>
+        <item>Brazza</item>
+        <item>Amman</item>             
+        <item>Stambuł</item>
+        <item>Bejrut</item>
+        <item>Kair</item>
+        <item>Helsinki</item>
+        <item>Jerozolima</item>
+        <item>Mińsk</item>
+        <item>Harare</item>
+        <item>Bagdad</item>
+        <item>Moskwa</item>
+        <item>Kuwejt</item>             
+        <item>Nairobi</item>                              
            
-        <item>德黑兰</item>
-        <item>巴库</item>
-        <item>第比利斯</item>
-        <item>埃里温</item>
-        <item>迪拜</item>
-        <item>喀布尔</item>
-        <item>伊斯兰堡</item>
-        <item>乌拉尔</item>
-        <item>叶卡捷琳堡</item>             
-        <item>加尔各答</item>                           
-        <item>斯里兰卡</item>
-        <item>加德满都</item>
-        <item>阿斯塔纳</item>
-        <item>仰光</item>
-        <item>克拉斯诺亚尔斯克 </item>
-        <item>曼谷</item>
-        <item>中国标准时间</item>
-        <item>香港</item>
-        <item>伊尔库次克</item>             
-        <item>吉隆坡</item>           
-        <item>珀斯</item>
-        <item>台北</item>
-        <item>汉城</item>
-        <item>东京</item>
-        <item>雅库茨克</item>
-        <item>阿德莱德</item>
-        <item>达尔文</item>
-        <item>布里斯班</item>
-        <item>霍巴特</item>             
-        <item>悉尼，堪培拉</item>
-        <item>符拉迪沃斯托克</item>
-        <item>关岛</item>
-        <item>马加丹</item>
-        <item>奥克兰</item>
-        <item>斐济</item>
-        <item>东加塔布</item>
+        <item>Teheran</item>
+        <item>Baku</item>
+        <item>Tbilisi</item>
+        <item>Erywań</item>
+        <item>Dubaj</item>
+        <item>Kabul</item>
+        <item>Islamabad</item>
+        <item>Ural</item>
+        <item>Jekaterynburg</item>             
+        <item>Kalkuta</item>                           
+        <item>Sri Lanka</item>
+        <item>Kathmandu</item>
+        <item>Astana</item>
+        <item>Yangon</item>
+        <item>Krasnojarsk </item>
+        <item>Bangkok</item>
+        <item>Chiny</item>
+        <item>Hongkong</item>
+        <item>Irkuck</item>             
+        <item>Kuala Lumpur</item>           
+        <item>Perth</item>
+        <item>Tajpej</item>
+        <item>Seul</item>
+        <item>Tokio</item>
+        <item>Jakuck</item>
+        <item>Adelaide</item>
+        <item>Darwin</item>
+        <item>Brisbane</item>
+        <item>Hobart</item>             
+        <item>Sydney</item>
+        <item>Władywostok</item>
+        <item>Guam</item>
+        <item>Magadan</item>
+        <item>Auckland</item>
+        <item>Fidżi</item>
+        <item>East gatab</item>
     </string-array>
 </resources>
