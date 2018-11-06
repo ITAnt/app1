@@ -44,6 +44,7 @@
 
 
         <ListView
+            android:background="@color/bg_llayout"
             android:scrollbars="none"
             android:fadeScrollbars="false"
             android:visibility="gone"

@@ -91,6 +91,7 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
         }
     };
 
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -109,40 +110,12 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
         jancarManager.registerJacStateListener(jacState.asBinder());
         jancarManager.registerPrompt(promptController.asBinder());
         Log.e(TAG, "onCreate end");
-        // getApplicationContext(
-     /* Intent intent=getApplication().*/
-     /*  String s =settingManager.getNaviInfo().trim();
-        if (s != null&&!"".equals(s)) {
-            String[] String =s.split("\\|");
-            if (String.length>0){
-                String PackageName =String[0];
-                String ClassName = String[1];
-                if (PackageName != null && ClassName != null) {
-                    jancarManager.registerPage(Contacts.GPS, PackageName, ClassName, false, false);
-                    Log.w("SettingsUIService", PackageName);
-                    Log.w("SettingsUIService", ClassName);
-                }
-            }
-        }*/
         Settings.Secure.setLocationProviderEnabled(getApplicationContext().getContentResolver(), LocationManager.GPS_PROVIDER, false);
         GPS gps = new GPS();
         gps.openGPSSettings(getApplicationContext(), 3);
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "onStartCommand = " + intent);
-        if (intent != null) {
-            String PackageName = intent.getStringExtra(PACKAGE_NAME);
-            String ClassName = intent.getStringExtra(CLASS_NAME);
-            if (PackageName != null && ClassName != null) {
-                jancarManager.registerPage(Contacts.GPS, PackageName, ClassName, false, false);
-                Log.w("SettingsUIService", PackageName);
-                Log.w("SettingsUIService", ClassName);
-            }
-        }
-        return START_REDELIVER_INTENT;
-    }
+
 
     JacState jacState = new JacState() {
         @Override

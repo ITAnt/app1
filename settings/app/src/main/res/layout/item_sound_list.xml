@@ -3,13 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/layout_height"
     android:background="@color/bg_llayout">
+
     <LinearLayout
-        android:background="@color/bg_sound_rlayout_n"
         android:id="@+id/rlayout_main"
-        android:gravity="center"
-        android:layout_marginBottom="0.5dp"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_heights">
+        android:layout_height="@dimen/layout_heights"
+        android:layout_marginBottom="0.5dp"
+        android:background="@color/bg_sound_rlayout_n"
+        android:gravity="center">
 
         <TextView
             android:id="@+id/txt_title"
@@ -19,5 +20,7 @@
             android:layout_toRightOf="@id/img_icon"
             android:text="@string/label_date" />
     </LinearLayout>
+
+
 
 </RelativeLayout>

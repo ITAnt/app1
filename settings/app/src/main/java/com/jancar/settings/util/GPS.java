@@ -25,42 +25,38 @@ public class GPS {
     private Context context;
     private boolean isTest;
 
-    @SuppressLint("HandlerLeak")
+  @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             ContentResolver cv = context.getContentResolver();
             int autoTime = 0;
+            int autoTimes = 0;
             try {
-                autoTime = Settings.Global.getInt(context.getContentResolver(), AUTO_TIME_GPS);
+                autoTime = Settings.Global.getInt(context.getContentResolver(), AUTO_TIME);
+                autoTimes = Settings.Global.getInt(context.getContentResolver(), AUTO_TIME_GPS);
             } catch (Settings.SettingNotFoundException e) {
                 e.printStackTrace();
-            }
-            if (autoTime == 0) {
-                try {
-                    autoTime = Settings.Global.getInt(context.getContentResolver(), AUTO_TIME);
-                } catch (Settings.SettingNotFoundException e) {
-                    e.printStackTrace();
-                }
+                Log.w("GPS","AUTO_TIME-----"+e);
             }
             switch (msg.what) {
                 case 1:
                     if (!isTest){
                         Log.w("AUTO_TIME",""+autoTime);
-                        if (autoTime != 0) {
-                            Settings.Global.putInt(cv,
-                                    AUTO_TIME, 1); //1：设置为On； 0：设置为Off
+                        if (autoTime != 0||autoTimes!=0) {
+                            if (autoTime!=1){
+                                Settings.Global.putInt(cv,
+                                        AUTO_TIME, 1); //1：设置为On； 0：设置为Off
+                            }
                         }
                         isTest=false;
                     }
 
                     break;
                 case 2:
-                    if (autoTime != 0) {
-                        Settings.Global.putInt(cv,
-                                AUTO_TIME_GPS, 1); //1：设置为On； 0：设置为Off
-                    }
+                    Settings.Global.putInt(cv,
+                            AUTO_TIME_GPS, 1); //1：设置为On； 0：设置为Off
                     break;
             }
         }
@@ -104,34 +100,32 @@ public class GPS {
                         GpsSatellite s = iters.next();
                         count++;
                     }
-                    setAutoTime(context, false, 1);
                     ContentResolver cv = context.getContentResolver();
                     int autoTime = 0;
+                    int autoTimes = 0;
                     try {
-                        autoTime = Settings.Global.getInt(context.getContentResolver(), AUTO_TIME_GPS);
+                        autoTime = Settings.Global.getInt(context.getContentResolver(), AUTO_TIME);
+                        autoTimes = Settings.Global.getInt(context.getContentResolver(), AUTO_TIME_GPS);
                     } catch (Settings.SettingNotFoundException e) {
                         e.printStackTrace();
+                        Log.w("GPS","AUTO_TIME-----"+e);
                     }
-                    if (autoTime == 0) {
-                        try {
-                            autoTime = Settings.Global.getInt(context.getContentResolver(), AUTO_TIME);
-                        } catch (Settings.SettingNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    Log.w("GPS","AUTO_TIME-----"+autoTime);
+                    Log.w("GPS","AUTO_TIME_GPS-----"+autoTimes);
                     if (count >= 3) {
-
-
-                        if (autoTime != 0) {
-                            Settings.Global.putInt(cv,
-                                    AUTO_TIME_GPS, 1); //1：设置为On； 0：设置为Off
-                            releaseGps();
+                        if (autoTime != 0||autoTimes!=0) {
+                            if (autoTimes!=1){
+                                Settings.Global.putInt(cv,
+                                        AUTO_TIME_GPS, 1); //1：设置为On； 0：设置为Off
+                            }
                         }
-
-                    } else {
-                        if (autoTime != 0) {
-                            Settings.Global.putInt(cv,
-                                    AUTO_TIME, 1); //1：设置为On； 0：设置为Off
+                        releaseGps();
+                    }else {
+                        if (autoTime != 0||autoTimes!=0) {
+                            if (autoTime!=1){
+                                Settings.Global.putInt(cv,
+                                        AUTO_TIME, 1); //1：设置为On； 0：设置为Off
+                            }
                         }
                     }
                     Log.i("ygl", "搜索到：" + count + "颗卫星");

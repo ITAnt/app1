@@ -20,18 +20,16 @@ public class SettingsReceiver extends BroadcastReceiver {
         Log.e(TAG, "action==" + action);
 
         if (action.equals(BOOT_COMPLETE)) {
-            Log.e(TAG, "");
-            Log.w(TAG, "sdf");
-            Intent service = new Intent();
-            service.setClassName("com.jancar.settingss", "com.jancar.settings.service.SettingsUIService");
-            context.startService(service);
+
+            Intent serviced = new Intent();
+            serviced.setClassName("com.jancar.settingss", "com.jancar.settings.MyService");
+            context.startService(serviced);
 //            boolean isOpen = Hawk.get(Contacts.ISOPEN_OVERLAY, false);
             boolean isOpen = SPUtil.getBoolean(context, Contacts.ISOPEN_OVERLAY, false);
             if (isOpen) {
                 Intent services = new Intent();
                 services.setClassName("com.jancar.settingss", "com.jancar.settings.suspension.OverlayMenuService");
                 context.startService(services);
-                // context.startService(new Intent(context, OverlayMenuService.class));
             }
             Log.w(TAG, "sdf" + isOpen);
         }

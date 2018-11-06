@@ -286,6 +286,10 @@ public class RadioRepository implements RadioModel {
         for (int i = 0; i < mScanResultList.size(); i++) {
             if (mBand == 1) {
                 if (i <= 5) {
+                    if (i==0){
+                        mScanResultList.get(i).setSelect(true);
+                    }
+
                     mScanResultList.get(i).setPosition(i);
                     mScanResultList.get(i).setFrequency(0);
 
@@ -298,6 +302,9 @@ public class RadioRepository implements RadioModel {
                 }
             } else {
                 if (i <= 5) {
+                    if (i==0){
+                        mScanResultList.get(i).setSelect(true);
+                    }
                     mScanResultList.get(i).setPosition(i);
                     mScanResultList.get(i).setFrequency(3);
                 } else if (i > 5 && i <= 11) {
