@@ -5,28 +5,27 @@ import android.app.Application;
 
 import com.jancar.bluetooth.lib.BluetoothSettingManager;
 import com.jancar.settings.lib.SettingManager;
-import com.orhanobut.hawk.Hawk;
-import com.orhanobut.hawk.HawkBuilder;
-import com.orhanobut.hawk.LogLevel;
 
 /**
  * Created by ouyan on 2018/9/25.
  */
 
-public class SettingsApplication extends Application{
+public class SettingsApplication extends Application {
 
     @Override
     public void onCreate() {
         super.onCreate();
         SettingManager.getSettingManager(this);
         BluetoothSettingManager.getBluetoothSettingManager(this);
-        Hawk.init(this)
-                .setEncryptionMethod(HawkBuilder.EncryptionMethod.MEDIUM)
-                .setStorage(HawkBuilder.newSqliteStorage(this))
-                .setLogLevel(LogLevel.FULL)
-                .build();
+//        Hawk.init(this)
+//                .setEncryptionMethod(HawkBuilder.EncryptionMethod.MEDIUM)
+//                .setStorage(HawkBuilder.newSqliteStorage(this))
+//                .setLogLevel(LogLevel.FULL)
+//                .build();
     }
-  private Activity activity;
+
+    private Activity activity;
+
     @Override
     public void onTerminate() {
         super.onTerminate();

@@ -18,7 +18,6 @@ import android.widget.ImageView;
 
 import com.jancar.JancarServer;
 import com.jancar.key.KeyDef;
-import com.jancar.prompt.PromptController;
 import com.jancar.settings.R;
 import com.jancar.settings.suspension.entry.OpenedEntry;
 import com.jancar.settings.suspension.entry.UpdateEntry;
@@ -26,8 +25,8 @@ import com.jancar.settings.suspension.utils.Contacts;
 import com.jancar.settings.suspension.widget.ChildButton;
 import com.jancar.settings.suspension.widget.FloatingButton;
 import com.jancar.settings.suspension.widget.MagneticMenu;
+import com.jancar.settings.util.SPUtil;
 import com.jancar.state.JacState;
-import com.orhanobut.hawk.Hawk;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -238,11 +237,16 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
     }
 
     private void initImgRes() {
-        tcTitle1 = Hawk.get(Contacts.ICON_POS_0, getResources().getString(R.string.tv_power));
-        tcTitle2 = Hawk.get(Contacts.ICON_POS_1, getResources().getString(R.string.tv_home));
-        tcTitle3 = Hawk.get(Contacts.ICON_POS_2, getResources().getString(R.string.tv_vioce_add));
-        tcTitle4 = Hawk.get(Contacts.ICON_POS_3, getResources().getString(R.string.tv_vioce_dec));
-        tcTitle5 = Hawk.get(Contacts.ICON_POS_4, getResources().getString(R.string.tv_back));
+//        tcTitle1 = Hawk.get(Contacts.ICON_POS_0, getResources().getString(R.string.tv_power));
+//        tcTitle2 = Hawk.get(Contacts.ICON_POS_1, getResources().getString(R.string.tv_home));
+//        tcTitle3 = Hawk.get(Contacts.ICON_POS_2, getResources().getString(R.string.tv_vioce_add));
+//        tcTitle4 = Hawk.get(Contacts.ICON_POS_3, getResources().getString(R.string.tv_vioce_dec));
+//        tcTitle5 = Hawk.get(Contacts.ICON_POS_4, getResources().getString(R.string.tv_back));
+        tcTitle1 = SPUtil.getString(this, Contacts.ICON_POS_0, getResources().getString(R.string.tv_power));
+        tcTitle2 = SPUtil.getString(this, Contacts.ICON_POS_1, getResources().getString(R.string.tv_home));
+        tcTitle3 = SPUtil.getString(this, Contacts.ICON_POS_2, getResources().getString(R.string.tv_vioce_add));
+        tcTitle4 = SPUtil.getString(this, Contacts.ICON_POS_3, getResources().getString(R.string.tv_vioce_dec));
+        tcTitle5 = SPUtil.getString(this, Contacts.ICON_POS_4, getResources().getString(R.string.tv_back));
         setImgResource(tcTitle1, tcIcon1);
         setImgResource(tcTitle2, tcIcon2);
         setImgResource(tcTitle3, tcIcon3);

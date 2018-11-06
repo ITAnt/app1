@@ -1,14 +1,12 @@
 package com.jancar.settings.broadcast;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.jancar.settings.suspension.OverlayMenuService;
 import com.jancar.settings.suspension.utils.Contacts;
-import com.orhanobut.hawk.Hawk;
+import com.jancar.settings.util.SPUtil;
 
 public class SettingsReceiver extends BroadcastReceiver {
     private String TAG = SettingsReceiver.class.getSimpleName();
@@ -19,7 +17,7 @@ public class SettingsReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
         System.out.println("收到广播了");
-         Log.e(TAG, "action==" + action);
+        Log.e(TAG, "action==" + action);
 
         if (action.equals(BOOT_COMPLETE)) {
             Log.e(TAG, "");
@@ -27,7 +25,8 @@ public class SettingsReceiver extends BroadcastReceiver {
             Intent service = new Intent();
             service.setClassName("com.jancar.settingss", "com.jancar.settings.service.SettingsUIService");
             context.startService(service);
-            boolean isOpen = Hawk.get(Contacts.ISOPEN_OVERLAY, false);
+//            boolean isOpen = Hawk.get(Contacts.ISOPEN_OVERLAY, false);
+            boolean isOpen = SPUtil.getBoolean(context, Contacts.ISOPEN_OVERLAY, false);
             if (isOpen) {
                 Intent services = new Intent();
                 services.setClassName("com.jancar.settingss", "com.jancar.settings.suspension.OverlayMenuService");

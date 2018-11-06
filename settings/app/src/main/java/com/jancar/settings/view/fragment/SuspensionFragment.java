@@ -24,8 +24,8 @@ import com.jancar.settings.suspension.adapter.FloatAdapter;
 import com.jancar.settings.suspension.entry.FloatEntry;
 import com.jancar.settings.suspension.entry.UpdateEntry;
 import com.jancar.settings.suspension.utils.Contacts;
+import com.jancar.settings.util.SPUtil;
 import com.jancar.settings.widget.SwitchButton;
-import com.orhanobut.hawk.Hawk;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -91,13 +91,21 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
     public void onResume() {
         super.onResume();
         Log.e("SuspensionFragment", "onResume===");
-        pos_title_0 = Hawk.get(Contacts.ICON_POS_0, getResources().getString(R.string.tv_power));
-        pos_title_1 = Hawk.get(Contacts.ICON_POS_1, getResources().getString(R.string.tv_home));
-        pos_title_2 = Hawk.get(Contacts.ICON_POS_2, getResources().getString(R.string.tv_vioce_add));
-        pos_title_3 = Hawk.get(Contacts.ICON_POS_3, getResources().getString(R.string.tv_vioce_dec));
-        pos_title_4 = Hawk.get(Contacts.ICON_POS_4, getResources().getString(R.string.tv_back));
-        selectPos = Hawk.get(Contacts.SELECT_POS, 0);
-        indexIcon = Hawk.get(Contacts.TAB_POS, ICON_POWER);
+//        pos_title_0 = Hawk.get(Contacts.ICON_POS_0, getResources().getString(R.string.tv_power));
+//        pos_title_1 = Hawk.get(Contacts.ICON_POS_1, getResources().getString(R.string.tv_home));
+//        pos_title_2 = Hawk.get(Contacts.ICON_POS_2, getResources().getString(R.string.tv_vioce_add));
+//        pos_title_3 = Hawk.get(Contacts.ICON_POS_3, getResources().getString(R.string.tv_vioce_dec));
+//        pos_title_4 = Hawk.get(Contacts.ICON_POS_4, getResources().getString(R.string.tv_back));
+//        selectPos = Hawk.get(Contacts.SELECT_POS, 0);
+//        indexIcon = Hawk.get(Contacts.TAB_POS, ICON_POWER);
+
+        pos_title_0 = SPUtil.getString(activity, Contacts.ICON_POS_0, getResources().getString(R.string.tv_power));
+        pos_title_1 = SPUtil.getString(activity, Contacts.ICON_POS_1, getResources().getString(R.string.tv_home));
+        pos_title_2 = SPUtil.getString(activity, Contacts.ICON_POS_2, getResources().getString(R.string.tv_vioce_add));
+        pos_title_3 = SPUtil.getString(activity, Contacts.ICON_POS_3, getResources().getString(R.string.tv_vioce_dec));
+        pos_title_4 = SPUtil.getString(activity, Contacts.ICON_POS_4, getResources().getString(R.string.tv_back));
+        selectPos = SPUtil.getInt(activity, Contacts.SELECT_POS, 0);
+        indexIcon = SPUtil.getInt(activity, Contacts.TAB_POS, ICON_POWER);
         setImageRes(pos_title_0, ivPower);
         setImageRes(pos_title_1, ivHome);
         setImageRes(pos_title_2, ivAdd);
@@ -121,15 +129,11 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
     }
 
     public void keepValue() {
-//        Hawk.put(Contacts.ICON_POS_0, pos_title_0);
-//        Hawk.put(Contacts.ICON_POS_1, pos_title_1);
-//        Hawk.put(Contacts.ICON_POS_2, pos_title_2);
-//        Hawk.put(Contacts.ICON_POS_3, pos_title_3);
-//        Hawk.put(Contacts.ICON_POS_4, pos_title_4);
-        Hawk.put(Contacts.SELECT_POS, selectPos);
-        Hawk.put(Contacts.TAB_POS, indexIcon);
-//        EventBus.getDefault().post(new UpdateEntry(true));
 
+//        Hawk.put(Contacts.SELECT_POS, selectPos);
+//        Hawk.put(Contacts.TAB_POS, indexIcon);
+        SPUtil.putInt(activity, Contacts.SELECT_POS, selectPos);
+        SPUtil.putInt(activity, Contacts.TAB_POS, indexIcon);
     }
 
     @Override
@@ -183,7 +187,8 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
             ivOnSus.setOnClickListener(this);
             ivOnSus.setThumbDrawableRes(R.drawable.switch_custom_thumb_selector);
             ivOnSus.setBackDrawableRes(R.drawable.switch_custom_track_selector);
-            isOpen = Hawk.get(Contacts.ISOPEN_OVERLAY, false);
+//            isOpen = Hawk.get(Contacts.ISOPEN_OVERLAY, false);
+            isOpen = SPUtil.getBoolean(activity, Contacts.ISOPEN_OVERLAY, false);
             ivOnSus.setCheckedImmediately(isOpen);
             if (isOpen) {
                 activity.startService(new Intent(activity, OverlayMenuService.class));
@@ -206,6 +211,7 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
                     }
                 }
             });
+
         }
     }
 
@@ -241,7 +247,8 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
     }
 
     private void saveAndUpdate(String key, String value) {
-        Hawk.put(key, value);
+//        Hawk.put(key, value);
+        SPUtil.putString(activity, key, value);
         EventBus.getDefault().post(new UpdateEntry(true));
     }
 
@@ -328,7 +335,8 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
                 break;
             case R.id.iv_float_switch:
                 isOpen = !isOpen;
-                Hawk.put(Contacts.ISOPEN_OVERLAY, isOpen);
+//                Hawk.put(Contacts.ISOPEN_OVERLAY, isOpen);
+                SPUtil.putBoolean(activity, Contacts.ISOPEN_OVERLAY, isOpen);
                 if (isOpen) {
                     activity.startService(new Intent(activity, OverlayMenuService.class));
                 } else {
