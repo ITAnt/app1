@@ -458,7 +458,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
         Log.e("ContactFragment", "DownloadContactsList:" + list.size());
         this.bookDataList = new ArrayList<>(list);
         handler.removeMessages(Constants.CONTACT_UPDATA_REFRESH);
-        handler.sendEmptyMessageDelayed(Constants.CONTACT_UPDATA_REFRESH, 100);
+        handler.sendEmptyMessageDelayed(Constants.CONTACT_UPDATA_REFRESH, 50);
 
     }
 

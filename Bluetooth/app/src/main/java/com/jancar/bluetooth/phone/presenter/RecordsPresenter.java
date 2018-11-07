@@ -37,7 +37,7 @@ public class RecordsPresenter extends BaseModelPresenter<RecordsContract.View, R
         boolean isDomnLoading = true;
         int downState = getUi().getManager().getContactsDownState();
         int callhistroyState = getUi().getManager().getContCallhistroyState();
-        if (downState == Constants.PHONEBOOK_STATE_FINSH || downState == Constants.PHONEBOOK_STATE_ERR || callhistroyState == Constants.PHONEBOOK_STATE_FINSH) {
+        if (downState == Constants.PHONEBOOK_STATE_FINSH || downState == Constants.PHONEBOOK_STATE_ERR || downState == Constants.PHONEBOOK_STATE_STOP || callhistroyState == Constants.PHONEBOOK_STATE_FINSH) {
             isDomnLoading = false;
         }
 

@@ -204,12 +204,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
     private void synShow() {
 //        isSynRecord = getPresenter().isSynCallRecord();
         if (isDownLoading()) {
-            linearSyn.setVisibility(View.VISIBLE);
-            tvSynRecord.setText(R.string.tv_syning_record);
-            ivSynRecord.setVisibility(View.GONE);
-            ivSynError.setVisibility(View.GONE);
-            ivSynIng.show();
-            listView.setVisibility(View.GONE);
+            handler.sendEmptyMessage(Constants.CONTACT_CALL_LOGS_START);
         } else {
             linearSyn.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
@@ -294,7 +289,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
         Log.d("RecordsFragment", "list.size(rr):" + list.size());
         this.callDataList = new ArrayList<>(list);
         handler.removeMessages(Constants.CONTACT_CALL_LOGS);
-        handler.sendEmptyMessageDelayed(Constants.CONTACT_CALL_LOGS, 10);
+        handler.sendEmptyMessageDelayed(Constants.CONTACT_CALL_LOGS, 50);
     }
 
     @Override
@@ -342,15 +337,6 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
                     }
                     break;
                 case Constants.CONTACT_CALL_LOGS:
-//                    if (callDataList.size() > 0 && callDataList != null) {
-//                        linearSyn.setVisibility(View.GONE);
-//                        listView.setVisibility(View.VISIBLE);
-//                        adapter.setBTPhoneBooks(callDataList);
-//                    } else {
-//                        showText();
-//                        tvSynRecord.setText(R.string.tv_record_log);
-//                        listView.setVisibility(View.GONE);
-//                    }
                     adapter.setBTPhoneBooks(callDataList);
 
                     break;
@@ -366,15 +352,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
                     listView.setVisibility(View.VISIBLE);
                     break;
                 case Constants.CONTACT_CALL_LOGS_COUNT:
-//                    int obj1 = (int) msg.obj;
-//                    if (obj1 == 0) {
-//                        showText();
-//                        tvSynRecord.setText(R.string.tv_record_log);
-//                        listView.setVisibility(View.GONE);
-//                    } else {
-//                        linearSyn.setVisibility(View.GONE);
-//                        listView.setVisibility(View.VISIBLE);
-//                    }
+
                     break;
             }
         }

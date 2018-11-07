@@ -545,16 +545,17 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     private void CallNumber() {
         if (getManager().isConnect()) {
             if (!TextUtils.isEmpty(mStrKeyNum)) {
-                Log.e("DialFragment", "number_call===");
                 bluetoothManager.hfpCall(mStrKeyNum);
                 cleanCallNumber();
             } else {
-                Log.e("DialFragment", "number_call===Empty==");
-                mStrKeyNum = FirstLog;
-                tvInput.setText(mStrKeyNum);
+                if (!isDownLoading()) {
+                    mStrKeyNum = FirstLog;
+                    tvInput.setText(mStrKeyNum);
+                } else {
+                    //正在下载
+                }
             }
         } else {
-            Log.e("DialFragment", "isConnect()===false==");
         }
     }
 
