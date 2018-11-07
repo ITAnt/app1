@@ -522,7 +522,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                     if (!isDownLoding()) {
                         showDialog();
                     } else {
-                        ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_syning_contact));
+                        ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_tip_down));
                     }
 
                 } else {

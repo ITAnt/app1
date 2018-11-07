@@ -1,11 +1,11 @@
 <resources>
     <!--意大利语-->
     <string name="app_name">Telefono Bluetooth</string>
-    <string name="calling_hangup">Riattacca</string>
+    <string name="calling_hangup">Riaggancia</string>
     <string name="calling_keypad">tastiera</string>
     <string name="calling_vehicle">auto</string>
     <string name="calling_phone">Telefono cellulare</string>
-    <string name="dial_show_voice">muto</string>
+    <string name="dial_show_voice">Volume Mute</string>
     <string name="str_phone_unkonow">Numero sconosciuto</string>
     <string name="str_phone_mobile">mobile</string>
     <string name="str_phone_unicom">collegamento</string>
@@ -26,30 +26,31 @@
     <string name="tv_setting_search_ing">Ricerca di dispositivi...</string>
     <string name="tv_setting_start_search">Inizia la ricerca</string>
     <string name="tv_setting_available">Attrezzature disponibili</string>
-    <string name="tv_bt_connect_is_none">Non connesso</string>
+    <string name="tv_bt_connect_is_none">non collegata</string>
     <string name="tv_bt_connect_is_close">chiuso</string>
     <string name="tv_dial_contact">Sincronizzare prima i contatti！</string>
     <string name="tv_contact_empty">I dati di contatto sono vuoti！</string>
-    <string name="tv_syning_contact">Sincronizzazione dei contatti...</string>
+    <string name="tv_syning_contact">Il download della rubrica ora in corso ...</string>
     <string name="tv_syn_record">Sincronizza cronologia chiamate！</string>
     <string name="tv_record_empty">I dati di contatto sono vuoti！</string>
-    <string name="tv_syning_record">Sincronizzazione...</string>
+    <string name="tv_syning_record">Il download delle chiamate ora in corso ...</string>
     <string name="tv_record_log">La cronologia delle chiamate è vuota！</string>
     <string name="tv_record_error">Sincronizza errore cronologia delle chiamate！</string>
     <string name="tv_call_number_empty">Il numero è vuoto</string>
     <string name="str_phone_name">sconosciuto</string>
-    <string name="tv_main_keypad">Tastierino</string>
-    <string name="tv_mian_contact">contatto</string>
-    <string name="tv_main_records">record</string>
+    <string name="tv_main_keypad">tastiera</string>
+    <string name="tv_mian_contact">Contatto</string>
+    <string name="tv_main_records">Registro chiamate</string>
     <string name="tv_mian_mange">attrezzatura</string>
-    <string name="tv_contact_search">ricerca</string>
+    <string name="tv_contact_search">Ricerca</string>
     <string name="tv_bluet_music">Musica Bluetooth</string>
     <string name="tv_dial_no_contact">Nessun contatto</string>
-    <string name="tv_yes">yes</string>
-    <string name="tv_no">no</string>
+    <string name="tv_yes">SÌ</string>
+    <string name="tv_no">NO</string>
     <string name="tv_title_tip">Non connesso, devo connettermi a Bluetooth?</string>
     <string name="tv_syn_contact">Hai bisogno di sincronizzare i tuoi contatti?</string>
-    <string name="tv_confirm">determinare</string>
-    <string name="tv_cancel">annullato</string>
+    <string name="tv_confirm">OK</string>
+    <string name="tv_cancel">Annulla</string>
     <string name="tv_equiment_bluetooth">Impostazioni Bluetooth</string>
+    <string name="tv_tip_down">Scaricare...</string>
 </resources>
