@@ -1,0 +1,45 @@
+<resources>
+    <!--乌克兰语-->
+    <string name="app_name">Телефон Bluetooth</string>
+    <string name="calling_hangup">Розігнати</string>
+    <string name="calling_keypad">Клавіатура</string>
+    <string name="calling_vehicle">Автомобіль</string>
+    <string name="calling_phone">Мобільний телефон</string>
+    <string name="dial_show_voice">Вимкнути звук</string>
+    <string name="str_phone_unkonow">Невідома кількість</string>
+    <string name="str_phone_mobile">Мобільний</string>
+    <string name="str_phone_unicom">Unicom</string>
+    <string name="str_phone_telecom">Телекомунікації</string>
+    <string name="str_phone_outgoing">У розмові...</string>
+    <string name="str_phone_missed">Вхідний дзвінок</string>
+    <string name="tv_equipment_other">Інше обладнання</string>
+    <string name="tv_equipment_conn">Навіть</string>
+    <string name="tv_equipment_disconn">Зламаний</string>
+    <string name="tv_equipment_myequip">Мій пристрій</string>
+    <string name="tv_bt_connect_is_none">Не підключено</string>
+    <string name="tv_bt_connect_is_close">Закрито</string>
+    <string name="tv_dial_contact">Будь ласка, спочатку синхронізуйте контакти！</string>
+    <string name="tv_contact_empty">Контактні дані порожні！</string>
+    <string name="tv_syning_contact">Синхронізація контактів...</string>
+    <string name="tv_syn_record">Будь ласка, синхронізувати історію викликів！</string>
+    <string name="tv_record_empty">Контактні дані порожні！</string>
+    <string name="tv_syning_record">Синхронізація історії викликів...</string>
+    <string name="tv_record_log">Історія викликів порожня！</string>
+    <string name="tv_record_error">Помилка історії синхронізації викликів！</string>
+    <string name="tv_call_number_empty">Номер не може бути порожнім</string>
+    <string name="str_phone_name">Невідомий</string>
+    <string name="tv_main_keypad">Набір клавіатури</string>
+    <string name="tv_mian_contact">Зв'язатися</string>
+    <string name="tv_main_records">Історія викликів</string>
+    <string name="tv_mian_mange">Обладнання</string>
+    <string name="tv_contact_search">Пошук</string>
+    <string name="tv_bluet_music">Музика Bluetooth</string>
+    <string name="tv_dial_no_contact">Немає контакту</string>
+    <string name="tv_yes">Так</string>
+    <string name="tv_no">Ні</string>
+    <string name="tv_title_tip">Не підключено, потрібно підключитися до Bluetooth？</string>
+    <string name="tv_syn_contact">Вам потрібно синхронізувати свої контакти? ？</string>
+    <string name="tv_confirm">Визначте</string>
+    <string name="tv_cancel">Скасувати</string>
+    <string name="tv_equiment_bluetooth">Налаштування Bluetooth</string>
+</resources>

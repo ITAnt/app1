@@ -226,6 +226,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         tvAlbum = (MarqueeTextView) findViewById(R.id.tv_music_album);
         tvArtist = (MarqueeTextView) findViewById(R.id.tv_music_artist);
         circleImageView = (CircleImageView) findViewById(R.id.iv_music_rotating);
+        circleImageView.setImageResource(R.drawable.iv_music_rotating);
         findViewById(R.id.iv_music_pre).setOnClickListener(this);
         findViewById(R.id.iv_music_next).setOnClickListener(this);
         findViewById(R.id.iv_music_play).setOnClickListener(this);

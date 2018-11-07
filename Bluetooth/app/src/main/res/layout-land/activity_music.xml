@@ -90,17 +90,17 @@
             android:layout_marginStart="@dimen/px140">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/music_disc_bg" />
+                android:layout_width="@dimen/px251"
+                android:layout_height="@dimen/px251"
+                android:src="@drawable/music_disc_bg" />
 
             <com.jancar.bluetooth.phone.widget.CircleImageView
                 android:id="@+id/iv_music_rotating"
-                android:layout_width="@dimen/px143"
-                android:layout_height="@dimen/px143"
-                android:layout_marginTop="@dimen/px53"
-                android:layout_marginStart="@dimen/px53"
-                android:background="@drawable/iv_music_rotating" />
+                android:layout_width="@dimen/px154"
+                android:layout_height="@dimen/px154"
+                android:layout_marginTop="@dimen/px47"
+                android:layout_marginStart="@dimen/px48"
+                android:src="@drawable/iv_music_rotating" />
         </FrameLayout>
 
         <LinearLayout
