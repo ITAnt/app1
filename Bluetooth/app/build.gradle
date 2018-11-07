@@ -77,7 +77,10 @@ android {
             outputFileName = fileName;
         }
     }
-
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 
 // 用于aar库
     repositories {
