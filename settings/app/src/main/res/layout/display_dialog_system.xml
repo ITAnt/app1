@@ -16,8 +16,8 @@
     <EditText
         android:focusable="false"
         android:layout_marginTop="7px"
-        android:layout_marginLeft="4px"
-        android:layout_marginRight="4px"
+        android:layout_marginStart="4px"
+        android:layout_marginEnd="4px"
         android:layout_marginBottom="9px"
         android:background="@drawable/bg_dialog_edts"
         android:id="@+id/edit_password"
@@ -34,25 +34,25 @@
         style="@style/style_txt_dialog"
         android:text="@string/dialog_1"
         android:layout_marginTop="9px"
-        android:layout_marginLeft="16px"
+        android:layout_marginStart="16px"
         android:layout_below="@+id/edit_password"
         />
     <TextView
         android:id="@+id/txt_dialog_2"
         style="@style/style_txt_dialog"
-        android:layout_toRightOf="@+id/txt_dialog_1"
+        android:layout_toEndOf="@+id/txt_dialog_1"
         android:text="@string/dialog_2"
         android:layout_marginTop="9px"
-        android:layout_marginLeft="22px"
+        android:layout_marginStart="22px"
         android:layout_below="@+id/edit_password"
      />
     <TextView
         android:id="@+id/txt_dialog_3"
         style="@style/style_txt_dialog"
-        android:layout_toRightOf="@+id/txt_dialog_2"
+        android:layout_toEndOf="@+id/txt_dialog_2"
         android:text="@string/dialog_3"
         android:layout_marginTop="9px"
-        android:layout_marginLeft="22px"
+        android:layout_marginStart="22px"
         android:layout_below="@+id/edit_password"
    />
 
@@ -61,25 +61,25 @@
         style="@style/style_txt_dialog"
         android:text="@string/dialog_4"
         android:layout_marginTop="15px"
-        android:layout_marginLeft="16px"
+        android:layout_marginStart="16px"
         android:layout_below="@+id/txt_dialog_1"
      />
     <TextView
         android:id="@+id/txt_dialog_5"
         style="@style/style_txt_dialog"
-        android:layout_toRightOf="@+id/txt_dialog_4"
+        android:layout_toEndOf="@+id/txt_dialog_4"
         android:text="@string/dialog_5"
         android:layout_marginTop="15px"
-        android:layout_marginLeft="22px"
+        android:layout_marginStart="22px"
         android:layout_below="@+id/txt_dialog_2"
  />
     <TextView
         android:id="@+id/txt_dialog_6"
         style="@style/style_txt_dialog"
-        android:layout_toRightOf="@+id/txt_dialog_5"
+        android:layout_toEndOf="@+id/txt_dialog_5"
         android:text="@string/dialog_6"
         android:layout_marginTop="15px"
-        android:layout_marginLeft="22px"
+        android:layout_marginStart="22px"
         android:layout_below="@+id/txt_dialog_3"
      />
 
@@ -89,25 +89,25 @@
         style="@style/style_txt_dialog"
         android:text="@string/dialog_7"
         android:layout_marginTop="15px"
-        android:layout_marginLeft="16px"
+        android:layout_marginStart="16px"
         android:layout_below="@+id/txt_dialog_4"
      />
     <TextView
         android:id="@+id/txt_dialog_8"
         style="@style/style_txt_dialog"
-        android:layout_toRightOf="@+id/txt_dialog_4"
+        android:layout_toEndOf="@+id/txt_dialog_4"
         android:text="@string/dialog_8"
         android:layout_marginTop="15px"
-        android:layout_marginLeft="22px"
+        android:layout_marginStart="22px"
         android:layout_below="@+id/txt_dialog_5"
       />
     <TextView
         android:id="@+id/txt_dialog_9"
         style="@style/style_txt_dialog"
-        android:layout_toRightOf="@+id/txt_dialog_5"
+        android:layout_toEndOf="@+id/txt_dialog_5"
         android:text="@string/dialog_9"
         android:layout_marginTop="15px"
-        android:layout_marginLeft="22px"
+        android:layout_marginStart="22px"
         android:layout_below="@+id/txt_dialog_6"
  />
 
@@ -117,25 +117,25 @@
         style="@style/style_txt_dialog"
         android:text="@string/dialog_connect"
         android:layout_marginTop="15px"
-        android:layout_marginLeft="16px"
+        android:layout_marginStart="16px"
         android:layout_below="@+id/txt_dialog_7"
  />
     <TextView
         android:id="@+id/txt_dialog_0"
         style="@style/style_txt_dialog"
-        android:layout_toRightOf="@+id/txt_dialog_4"
+        android:layout_toEndOf="@+id/txt_dialog_determine"
         android:text="@string/dialog_0"
         android:layout_marginTop="15px"
-        android:layout_marginLeft="22px"
+        android:layout_marginStart="22px"
         android:layout_below="@+id/txt_dialog_8"
    />
     <TextView
         android:id="@+id/txt_dialog_cancel"
         style="@style/style_txt_dialog"
-        android:layout_toRightOf="@+id/txt_dialog_5"
+        android:layout_toEndOf="@+id/txt_dialog_0"
         android:text="@string/wifi_text_cancel"
         android:layout_marginTop="15px"
-        android:layout_marginLeft="22px"
+        android:layout_marginStart="22px"
         android:layout_below="@+id/txt_dialog_9"
         />
 </RelativeLayout>

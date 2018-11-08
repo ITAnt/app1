@@ -96,6 +96,11 @@
                 <action android:name="com.qucii.sendreset" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".broadcast.ResetReceiver">
+            <intent-filter>
+                <action android:name="com.jancar.action.reset.default.settings" />
+            </intent-filter>
+        </receiver>
         <receiver
             android:name=".broadcast.SettingsReceiver"
             android:exported="true">

@@ -556,13 +556,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
         mBgThread = new HandlerThread(TAG);
         mBgThread.start();
         scanTxt.setTextColor(Color.parseColor("#484949"));
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
-        Boolean first_run = sharedPreferences.getBoolean("First", true);
-        if (first_run) {
-            sharedPreferences.edit().putBoolean("First", false).commit();
-            mSwitch.setChecked(true);
-         //   Toast.makeText(this, "第一次", Toast.LENGTH_LONG).show();
-        }
+
 
     }
 

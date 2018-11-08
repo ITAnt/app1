@@ -24,20 +24,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/px60"
+                    android:layout_marginStart="@dimen/px60"
                     android:paddingTop="@dimen/px10"
                     android:text="@string/tv_setting_name" />
 
                 <TextView
+
                     android:id="@+id/tv_setting_edit_name"
                     style="@style/txt_normal_px22"
-                    android:layout_width="550px"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/px40"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/px40"
                     android:drawablePadding="@dimen/px10"
-                    android:drawableRight="@drawable/balance_btn_right_state"
+                    android:drawableEnd="@drawable/balance_btn_right_state"
                     android:gravity="end|center_vertical"
                     android:paddingTop="@dimen/px10"
                     android:singleLine="true"
@@ -59,8 +59,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/px60"
+                    android:layout_marginStart="@dimen/px60"
                     android:gravity="center_vertical"
+                    android:layout_alignParentStart="true"
                     android:orientation="vertical">
 
                     <TextView
@@ -83,9 +84,9 @@
                     android:id="@+id/iv_setting_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/px40" />
+                    android:layout_marginEnd="@dimen/px40" />
             </RelativeLayout>
 
             <View
@@ -106,10 +107,11 @@
                     android:layout_height="@dimen/px77">
 
                     <LinearLayout
+                        android:layout_alignParentStart="true"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/px60"
+                        android:layout_marginStart="@dimen/px60"
                         android:gravity="center_vertical"
                         android:orientation="vertical">
 
@@ -134,9 +136,9 @@
                         android:id="@+id/iv_setting_check_switch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/px40" />
+                        android:layout_marginEnd="@dimen/px40" />
 
                 </RelativeLayout>
 
@@ -157,18 +159,20 @@
                     <TextView
                         android:id="@+id/tv_paired"
                         style="@style/txt_normal_px22"
+                        android:layout_alignParentStart="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/px60"
                         android:text="@string/tv_setting_pair" />
 
                     <TextView
+
                         android:id="@+id/tv_del_all"
                         style="@style/txt_normal_tip_px22"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginRight="@dimen/px60"
+                        android:layout_marginEnd="@dimen/px60"
                         android:text="@string/tv_setting_del_all" />
                 </RelativeLayout>
 
@@ -186,7 +190,7 @@
                     style="@style/txt_normal_px22"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/px60"
+                    android:layout_marginStart="@dimen/px60"
                     android:layout_marginTop="@dimen/px20"
                     android:text="@string/tv_setting_available" />
 

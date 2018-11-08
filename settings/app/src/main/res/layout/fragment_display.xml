@@ -29,8 +29,8 @@
                     style="@style/txt_px22"
                     android:text="0"
                     android:layout_width="@dimen/px60"
-                    android:gravity="center_vertical|right"
-                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical|end"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     />
 
@@ -68,9 +68,9 @@
                     style="@style/txt_px22"
                     android:text="0"
                     android:layout_width="@dimen/px60"
-                    android:gravity="center_vertical|right"
+                    android:gravity="center_vertical|end"
                     android:id="@+id/txt_dimming_night_value"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true" />
 
 
@@ -83,7 +83,6 @@
                     android:layout_toStartOf="@+id/txt_dimming_night_value" />
 
             </RelativeLayout>
-            -->
 
             <TextView
                 android:id="@+id/txt_dimming_night_line"
@@ -97,6 +96,7 @@
                 android:layout_below="@+id/txt_dimming_night_line">
 
                 <ImageView
+                    android:layout_alignParentEnd="true"
                     android:id="@+id/img_language_arrow"
                     style="@style/style_img"
                     android:src="@drawable/balance_btn_right_state" />
@@ -104,9 +104,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_toLeftOf="@id/img_language_arrow"
-                    android:gravity="center|left"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center|start"
                     android:orientation="vertical">
 
                     <TextView

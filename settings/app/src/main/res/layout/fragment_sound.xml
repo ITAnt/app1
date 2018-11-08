@@ -9,7 +9,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/px52"
+        android:layout_marginStart="@dimen/px52"
         android:layout_weight="1">
 
         <LinearLayout
@@ -28,6 +28,7 @@
                     android:layout_width="@dimen/px70"
                     android:id="@+id/txt_treble_sound_title"
                     style="@style/style_txt"
+                    android:layout_alignParentStart="true"
                     android:text="@string/label_treble" />
 
                 <SeekBar
@@ -36,24 +37,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/px46"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/txt_treble_sound_title" />
+                    android:layout_toEndOf="@+id/txt_treble_sound_title" />
 
 
                 <TextView
                     android:id="@+id/txt_treble_sound_value_p"
                     style="@style/style_txt"
                     android:layout_below="@+id/txt_treble_sound_title"
-                    android:layout_marginLeft="@dimen/sound_txt_margin_Left"
+                    android:layout_marginStart="@dimen/sound_txt_margin_Left"
                     android:layout_marginTop="@dimen/sound_txt_margin_top"
-                    android:layout_toRightOf="@+id/txt_treble_sound_title"
+                    android:layout_toEndOf="@+id/txt_treble_sound_title"
                     android:text="@string/str_sound_negative_7" />
 
                 <TextView
                     android:id="@+id/txt_treble_sound_value_n"
                     style="@style/style_txt"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_below="@+id/txt_treble_sound_title"
-                    android:layout_marginRight="@dimen/sound_txt_margin_right"
+                    android:layout_marginEnd="@dimen/sound_txt_margin_right"
                     android:layout_marginTop="@dimen/sound_txt_margin_top"
                     android:text="@string/str_sound_7" />
 
@@ -77,6 +78,7 @@
                 android:layout_weight="1">
 
                 <TextView
+                    android:layout_alignParentStart="true"
                     android:layout_width="@dimen/px70"
                     android:id="@+id/txt_midrange_sound_title"
                     style="@style/style_txt"
@@ -88,25 +90,25 @@
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
                     android:layout_height="@dimen/px46"
-                    android:layout_toRightOf="@+id/txt_midrange_sound_title" />
+                    android:layout_toEndOf="@+id/txt_midrange_sound_title" />
 
 
                 <TextView
                     android:id="@+id/txt_midrange_sound_value_p"
                     style="@style/style_txt"
                     android:layout_below="@+id/txt_midrange_sound_title"
-                    android:layout_marginLeft="@dimen/sound_txt_margin_Left"
+                    android:layout_marginStart="@dimen/sound_txt_margin_Left"
                     android:layout_marginTop="@dimen/sound_txt_margin_top"
-                    android:layout_toRightOf="@+id/txt_midrange_sound_title"
+                    android:layout_toEndOf="@+id/txt_midrange_sound_title"
                     android:src="@drawable/balance_btn_right_state"
                     android:text="@string/str_sound_negative_7" />
 
                 <TextView
                     android:id="@+id/txt_midrange_sound_value_n"
                     style="@style/style_txt"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_below="@+id/txt_midrange_sound_title"
-                    android:layout_marginRight="@dimen/sound_txt_margin_right"
+                    android:layout_marginEnd="@dimen/sound_txt_margin_right"
                     android:layout_marginTop="@dimen/sound_txt_margin_top"
                     android:src="@drawable/balance_btn_right_state"
                     android:text="@string/str_sound_7" />
@@ -130,6 +132,7 @@
                 android:layout_weight="1">
 
                 <TextView
+                    android:layout_alignParentStart="true"
                     android:layout_width="@dimen/px70"
                     android:id="@+id/txt_bass_sound_title"
                     style="@style/style_txt"
@@ -142,25 +145,25 @@
                     style="@style/style_seekbar"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/txt_bass_sound_title" />
+                    android:layout_toEndOf="@+id/txt_bass_sound_title" />
 
 
                 <TextView
                     android:id="@+id/txt_bass_sound_value_p"
                     style="@style/style_txt"
                     android:layout_below="@+id/txt_bass_sound_title"
-                    android:layout_marginLeft="@dimen/sound_txt_margin_Left"
+                    android:layout_marginEnd="@dimen/sound_txt_margin_Left"
                     android:layout_marginTop="@dimen/sound_txt_margin_top"
-                    android:layout_toRightOf="@+id/txt_bass_sound_title"
+                    android:layout_toEndOf="@+id/txt_bass_sound_title"
                     android:src="@drawable/balance_btn_right_state"
                     android:text="@string/str_sound_negative_7" />
 
                 <TextView
                     android:id="@+id/txt_bass_sound_value_n"
                     style="@style/style_txt"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_below="@+id/txt_bass_sound_title"
-                    android:layout_marginRight="@dimen/sound_txt_margin_right"
+                    android:layout_toEndOf="@dimen/sound_txt_margin_right"
                     android:layout_marginTop="@dimen/sound_txt_margin_top"
                     android:src="@drawable/balance_btn_right_state"
                     android:text="@string/str_sound_7" />
@@ -184,6 +187,7 @@
                 android:layout_weight="1">
 
                 <TextView
+                    android:layout_alignParentStart="true"
                     android:layout_width="@dimen/px70"
                     android:id="@+id/txt_waiting_sound_title"
                     style="@style/style_txt"
@@ -196,7 +200,7 @@
                     style="@style/style_seekbar"
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/txt_waiting_sound_title" />
+                    android:layout_toEndOf="@+id/txt_waiting_sound_title" />
 
 
                 <TextView
@@ -204,9 +208,9 @@
                     style="@style/style_txt"
                     android:text="-15"
                     android:layout_below="@+id/txt_waiting_sound_title"
-                    android:layout_marginLeft="@dimen/sound_txt_margin_Left"
+                    android:layout_marginStart="@dimen/sound_txt_margin_Left"
                     android:layout_marginTop="@dimen/sound_txt_margin_top"
-                    android:layout_toRightOf="@+id/txt_waiting_sound_title"
+                    android:layout_toEndOf="@+id/txt_waiting_sound_title"
                     android:src="@drawable/balance_btn_right_state"
                     />
 
@@ -215,9 +219,9 @@
 
                     android:text="0"
                     style="@style/style_txt"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_below="@+id/txt_waiting_sound_title"
-                    android:layout_marginRight="@dimen/sound_txt_margin_right"
+                    android:layout_marginEnd="@dimen/sound_txt_margin_right"
                     android:layout_marginTop="@dimen/sound_txt_margin_top"
                     android:src="@drawable/balance_btn_right_state"
                     />

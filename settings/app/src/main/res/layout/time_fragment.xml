@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -83,9 +84,9 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_toLeftOf="@id/img_time_system_arrow"
-                    android:gravity="center|left"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/img_time_system_arrow"
+                    android:gravity="center|start"
                     android:orientation="vertical">
 
                     <TextView
@@ -118,15 +119,17 @@
                     android:id="@+id/rbtn_24_hour_system"
                     style="@style/style_rbtn"
                     android:button="@drawable/check_selector"
-                    android:paddingLeft="@dimen/px10"
-                    android:text="@string/label_24_hour_system" />
+                    android:paddingStart="@dimen/px10"
+                    android:text="@string/label_24_hour_system"
+                    tools:ignore="RtlSymmetry" />
 
                 <RadioButton
                     android:id="@+id/rbtn_12_hour_system"
                     style="@style/style_rbtn"
                     android:button="@drawable/check_selector"
-                    android:paddingLeft="@dimen/px10"
-                    android:text="@string/label_12_hour_system" />
+                    android:paddingStart="@dimen/px10"
+                    android:text="@string/label_12_hour_system"
+                    tools:ignore="RtlSymmetry" />
             </RadioGroup>
 
             <TextView
@@ -143,16 +146,16 @@
                 <com.jancar.settings.widget.SwitchButton
                     android:id="@+id/switch_adjust"
                     style="@style/style_switch"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                 />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_toLeftOf="@id/switch_adjust"
-                    android:gravity="center|left"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/switch_adjust"
+                    android:gravity="center|start"
                     android:orientation="vertical">
 
                     <TextView
@@ -194,7 +197,7 @@
                 <TextView
                     android:id="@+id/txt_time_zone"
                     style="@style/style_txt"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_toStartOf="@+id/img_time_zone_arrow" />
 
             </RelativeLayout>

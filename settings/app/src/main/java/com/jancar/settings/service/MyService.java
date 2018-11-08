@@ -50,4 +50,11 @@ public class MyService extends Service {
         }
         return START_REDELIVER_INTENT;
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+      //  jancarManager.u(promptController.asBinder());
+        Log.e(TAG, "onDestroy");
+    }
 }

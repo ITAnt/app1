@@ -53,15 +53,15 @@
                     android:id="@+id/switch_mixing"
                     style="@style/style_switch"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                      />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_toLeftOf="@id/switch_adjust"
-                    android:gravity="center|left"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/switch_adjust"
+                    android:gravity="center|start"
                     android:orientation="vertical">
 
                     <TextView
@@ -105,7 +105,7 @@
                 <TextView
                     android:id="@+id/txt_p_mixing_navigation"
                     style="@style/style_txt"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_toStartOf="@+id/img_p_mixing_navigation_arrow" />
 
             </RelativeLayout>
@@ -134,9 +134,9 @@
                     android:layout_width="60px"
                     android:id="@+id/txt_dsound_mixing_value"
                     style="@style/style_txt"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:gravity="center|right"
+                    android:gravity="center|end"
                     android:src="@drawable/balance_btn_right_state" />
 
 
