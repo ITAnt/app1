@@ -43,7 +43,7 @@
     <string name="tv_main_records">Call History</string>
     <string name="tv_mian_mange">felszerelés</string>
     <string name="tv_contact_search">Keresés</string>
-    <string name="tv_bluet_music">Bluetooth zene</string>
+    <string name="tv_bluet_music">BtMusic</string>
     <string name="tv_dial_no_contact">Nincs kapcsolat</string>
     <string name="tv_yes">IGEN</string>
     <string name="tv_no">NEM</string>

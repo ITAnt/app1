@@ -43,7 +43,7 @@
     <string name="tv_main_records">Historique des appels</string>
     <string name="tv_mian_mange">Gestion de l équipement</string>
     <string name="tv_contact_search">Rechercher</string>
-    <string name="tv_bluet_music">Musique Bluetooth</string>
+    <string name="tv_bluet_music">BtMusic</string>
     <string name="tv_dial_no_contact">Pas de contact</string>
     <string name="tv_yes">OUI</string>
     <string name="tv_no">NON</string>
