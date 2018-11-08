@@ -641,6 +641,9 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_ALERTING:
                 //正在呼叫中
                 Log.e(TAG, "halfoutView===");
+                if (mCallType == BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_ACTIVE) {
+                    return;
+                }
                 mCallPhoneType = CALLHISTROY_TYPE_OUTGOING;
                 tvHalfComing.setText(R.string.str_phone_outgoing);
                 ivHalfAns.setVisibility(View.GONE);
