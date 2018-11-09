@@ -15,22 +15,25 @@ import com.squareup.leakcanary.RefWatcher;
 
 public class SettingsApplication extends Application {
     private RefWatcher refWatcher;
-    public static RefWatcher getRefWatcher(Context context) {
-        SettingsApplication application = (SettingsApplication) context.getApplicationContext();
-        return application.refWatcher;
-    }
+
     private RefWatcher setupLeakCanary() {
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return RefWatcher.DISABLED;
         }
         return LeakCanary.install(this);
     }
+
+    public static RefWatcher getRefWatcher(Context context) {
+        SettingsApplication leakApplication = (SettingsApplication) context.getApplicationContext();
+        return leakApplication.refWatcher;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         SettingManager.getSettingManager(this);
         BluetoothSettingManager.getBluetoothSettingManager(this);
-        refWatcher= setupLeakCanary();
+        refWatcher = setupLeakCanary();
 //        Hawk.init(this)
 //                .setEncryptionMethod(HawkBuilder.EncryptionMethod.MEDIUM)
 //                .setStorage(HawkBuilder.newSqliteStorage(this))
