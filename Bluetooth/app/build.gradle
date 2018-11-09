@@ -116,6 +116,14 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.android.support:support-v4:23.2.1'
     implementation files('libs/frameworks.jar')
+    //ANR
+    compile 'com.github.moduth:blockcanary-ui:1.2.0'
+    // this way you only enable BlockCanary in debug package
+    // debugCompile 'com.github.moduth:blockcanary-ui:1.2.0'
+    // releaseCompile 'com.github.moduth:blockcanary-no-op:1.2.0'
+    //Leakcanary
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 }
 
 //apk前缀名
