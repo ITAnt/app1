@@ -19,12 +19,18 @@ public class SettingsApplication extends Application {
         SettingsApplication application = (SettingsApplication) context.getApplicationContext();
         return application.refWatcher;
     }
+    private RefWatcher setupLeakCanary() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return RefWatcher.DISABLED;
+        }
+        return LeakCanary.install(this);
+    }
     @Override
     public void onCreate() {
         super.onCreate();
         SettingManager.getSettingManager(this);
         BluetoothSettingManager.getBluetoothSettingManager(this);
-        refWatcher= LeakCanary.install(this);
+        refWatcher= setupLeakCanary();
 //        Hawk.init(this)
 //                .setEncryptionMethod(HawkBuilder.EncryptionMethod.MEDIUM)
 //                .setStorage(HawkBuilder.newSqliteStorage(this))
