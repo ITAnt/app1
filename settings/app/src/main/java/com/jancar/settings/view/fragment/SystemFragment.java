@@ -234,52 +234,13 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
             public void onClick(View view) {
                 switch (view.getId()) {
                     case R.id.btn_connect_btn:
-                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
-                        sharedPreferences.edit().putBoolean("DisplayFragmetn", true).commit();
-                        //     dropLanguage.setLaguageVisibility(View.GONE);
-                       /* SettingManager.getSettingManager(getContext()).setAutoBrightness(true);
-                        if (!settingManager.getTailState()) {
-                            settingManager.setBrightness(100, false);
-                        }
-                        settingManager.setDayBrightness(100, true);
-                        if (settingManager.getTailState()) {
-                            settingManager.setBrightness(100, false);
-                        }
-                        settingManager.setNightBrightness(100, true);
-*/
-                        AudioEffectManager mAudioEffectManager;
-                        mAudioEffectManager = new AudioEffectManager(getContext(), SystemFragment.this, getActivity().getPackageName());
-                        mAudioEffectManager.setAudioEffectTreble(0, true);
-                        mAudioEffectManager.setAudioEffectMiddle(0, true);
-                        mAudioEffectManager.setAudioEffectBass(0, true);
-                        mAudioEffectManager.setAudioEffectLoudness(0, true);
-                        SharedPreferences.Editor editor = getActivity().getSharedPreferences("EQ", MODE_WORLD_WRITEABLE).edit();
-                        editor.putFloat("x", 0.9633102f);
-                        editor.putFloat("y", 0.8699093f);
-                        editor.putInt("ValueTTxt", 0);
-                        editor.putInt("ValueMTxt", 0);
-                        editor.putInt("ValueBTxt", 0);
-                        editor.putInt("Types", 0);
-                        editor.apply();
-                        mAudioEffectManager.setAudioEffectLoudness(0, true);
-                        mAudioEffectManager.setBalanceSpeakerValue(AudioEffectParam.getBalanceFadeCombine(0, 0), true);
-                        WifiManager wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                        wifiManager.setWifiEnabled(true);
-                        BluetoothSettingManager manager = BluetoothSettingManager.getBluetoothSettingManager(getContext());
-                        manager.openBluetooth();
-                        //manager.searchPairedList();
                         videoSwitch.setCheckedImmediately(true);
                         touchToneSwitch.setCheckedImmediately(false);
-                        settingManager.resetDeafaultSettings();
-                      /*  displayScrollView.setVisibility(View.VISIBLE);
-                        languageList.setVisibility(View.GONE);*/
+                        Reset();
+                        Intent intent = new Intent();
+                        intent.setAction("com.jancar.action.reset.default.settings");
+                        getActivity().sendBroadcast(intent);
                         dialog.dismiss();
-                        // settingManager.changeSystemLanguage(settingManager.locales[0], 0);
-                        //((MainActivity) getActivity()).finish();
-                      /*  Intent intent = new Intent(getContext(), MainActivity.class);
-                        intent.putExtra("position", 2);
-                        startActivity(intent);
-                       */
                         break;
                     case R.id.btn_cancel:
                         dialog.dismiss();
@@ -293,7 +254,19 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         dialog.show();
         setDialogParam(dialog, 500, 316);
     }
-
+    public void Reset(){
+        SharedPreferences.Editor editor =getContext().getSharedPreferences("EQ", MODE_WORLD_WRITEABLE).edit();
+        editor.putFloat("x", 0.9633102f);
+        editor.putFloat("y", 0.8699093f);
+        editor.putInt("ValueTTxt", 0);
+        editor.putInt("ValueMTxt", 0);
+        editor.putInt("ValueBTxt", 0);
+        editor.putInt("Types", 0);
+        editor.apply();
+        SharedPreferences sharedPreferences =getContext().getSharedPreferences("FirstRun", 0);
+        sharedPreferences.edit().putBoolean("DisplayFragmetn", true).commit();
+        sharedPreferences.edit().putBoolean("First", true).commit();
+    }
     private void showRestartDialogs() {
         final Dialog dialog = new Dialog(getContext(), R.style.record_voice_dialog);
         dialog.setContentView(R.layout.dialog_reset);

@@ -164,7 +164,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
     public static final int PAGE_AM = 2;
     List<RadioStation> radioStations;
     List<TextView> list = new ArrayList<>();
-    List<RuleView> RuleView = new ArrayList<>();
+    List<RuleView> RuleView ;
     int mBandAF[] = new int[]{R.string.fm1, R.string.fm2, R.string.fm3, R.string.am1, R.string.am2, R.string.am3};
     //protected RadioNotification mRadioNotification;
     public static final int FM_FREQ_CRITICAL = 10000;
@@ -178,7 +178,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
     public boolean isSwitchs = false;
     protected RadioNotification mRadioNotification;
     int tiems = 5;
-    Map<String, Integer> stringIntegerMap = new HashMap<>();
+    Map<String, Integer> stringIntegerMap ;
     boolean isSwitc = false;
 
     GlobaldataManager manager;
@@ -320,6 +320,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
     Thread runnable = null;
     Runnable runnables = null;
     Boolean isST;
+
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -374,25 +375,27 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             }
         }
     }
-
-    IntentFilter intentFilter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radio);
         initStatusBar();
+        stringIntegerMap= new HashMap<>();
         unbinder = ButterKnife.bind(this);
         mAudioFocusChange = new RadioAudioFocusChange();
         manager = new GlobaldataManager(getApplicationContext(), null, 0);
         mRadioManager = new RadioManager((Context) this, this, getPresenter().getRadioListener(), getPackageName());
+        SharedPreferences read = getSharedPreferences("Radio", MODE_PRIVATE);
+        Band = read.getInt("Band", 0);
+        if (Band >= 3) {
+            stTxt.setVisibility(View.GONE);
+        } else {
+            stTxt.setVisibility(View.VISIBLE);
+        }
         initData();
         onDoIntent(getIntent(), false);
-        s();
 
-        intentFilter = new IntentFilter();
-        intentFilter.addAction("android.intent.action.NEW_OUTGOING_CALL");
-        intentFilter.addAction(Intent.ACTION_CALL);
+        bandTxt.setText(mBandAF[Band]);
     }
 
     public void initStatusBar() {
@@ -427,6 +430,8 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
 
     @SuppressLint("WrongConstant")
     private void initData() {
+        RuleView = new ArrayList<>();
+        Log.w("RadioAcitivity", "onCreate");
         mJancarManager = (JancarServer) getSystemService("jancar_manager");
         mJancarManager.requestKeyFocus(keyFocusListener);
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -443,26 +448,16 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         RuleView.add(gv_1_four);
         EventBus.getDefault().register(this);//订阅
 
+
     }
 
 
     @Override
     protected void onStart() {
         super.onStart();
-
         Log.w("RadioAcitivity", "onStart");
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
-        Boolean first_run = sharedPreferences.getBoolean("Firsts", true);
-        SharedPreferences read = getSharedPreferences("Radio", MODE_PRIVATE);
-        Band = read.getInt("Band", 0);
-        if (Band >= 3) {
-            stTxt.setVisibility(View.GONE);
-        } else {
-            stTxt.setVisibility(View.VISIBLE);
-        }
-        if (manager.getRadioLocal() == RadioCacheUtil.getInstance().getLocation()) {
-            mLocation = RadioCacheUtil.getInstance().getLocation();
-        } else {
+
+        if (manager.getRadioLocal() != RadioCacheUtil.getInstance().getLocation()) {
             mLocation = manager.getRadioLocal();
             deleteAll();
             RadioCacheUtil.getInstance().setLocation(mLocation);
@@ -472,14 +467,14 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             boolean a = editor.putInt("mFreq" + Band, mFreq).commit();
             SharedPreferences sharedPrefere = getActivity().getSharedPreferences("FirstRun", 0);
             sharedPrefere.edit().putBoolean("Firsts", true).apply();
-            first_run = true;
             isSetting = true;
+            bandTxt.setText(mBandAF[Band]);
+            mFMFreqSeekBar.setOnSeekBarChangeListener(getPresenter());
+            VarietyBand();
+            getPresenter().initText(Band, mLocation, true);
+            initReceiver();
         }
-        bandTxt.setText(mBandAF[Band]);
-        mFMFreqSeekBar.setOnSeekBarChangeListener(getPresenter());
-        VarietyBand();
-        getPresenter().initText(Band, mLocation, first_run);
-        initReceiver();
+
     }
 
 
@@ -567,29 +562,6 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
     int times = 10;
 
     public void s() {
-
-    /*    runnables = new Runnable() {
-            @Override
-            public void run() {
-                Boolean b = mRadioManager.getStereo();
-                Message mMessage = new Message();
-                mMessage.what = 8;
-                mMessage.obj = b;
-                handler.sendMessage(mMessage);
-            }
-        };
-        if (scheduled != null) {
-            if (scheduleds.isShutdown()) {
-                scheduleds = new ScheduledThreadPoolExecutor(1);
-                scheduleds.scheduleAtFixedRate(runnables, 0, 1, TimeUnit.SECONDS);
-            } else {
-                scheduleds.shutdown();
-            }
-        } else {
-            scheduleds = new ScheduledThreadPoolExecutor(1);
-            scheduleds.scheduleAtFixedRate(runnables, 0, 1, TimeUnit.SECONDS);
-        }*/
-        //初始化一个线程池大小为 1 的 ScheduledExecutorService
 
 
     }
@@ -1303,7 +1275,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         s();
         if (bsave) {
             if (this.mScanResultList != null && this.mScanResultList.size() > 0) {
-                 removeDuplicate(mScanResultList);
+                removeDuplicate(mScanResultList);
               /*  if (mScanResultList.size())*/
                 if (mBand == 1) {
                     for (int i = mScanResultList.size() - 1; i < 18; i++) {
@@ -1416,6 +1388,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        Log.w("RadioAcitivity", "onDestroy");
         EventBus.getDefault().unregister(this);
         Logcat.d("mRadioManager = " + this.mRadioManager);
         mAudioManager.abandonAudioFocus(mAudioFocusChange);
@@ -1423,12 +1396,23 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         if (scheduleds != null) {
             scheduleds.shutdown();
         }
+        manager=null;
+        //EventBus.getDefault().unregister(getParent());//订阅
+       // getPresenter().getRadioListener()=null;
         //   unregisterReceiver(getPresenter().getmReceiver());
         resetFreqStart();
         closeManager();
         SharedPreferences.Editor editor = getSharedPreferences("Radio", MODE_PRIVATE).edit();
         editor.putInt("mFreq" + Band, mFreq);
         editor.commit();
+        radioStations.clear();
+        list.clear();
+        RuleView.clear();
+        stringIntegerMap.clear();
+        radioStations = null;
+        list = null;
+        RuleView = null;
+        stringIntegerMap=null;
         //getPresenter().Change(radioStations);
         //  showNotification(false);
         ;
@@ -1894,12 +1878,12 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                 d = 0;
                 Band++;
                 if (mBand == 0) {
-                    if (Band>4){
-                        Band=3;
+                    if (Band > 4) {
+                        Band = 3;
                     }
-                }else {
-                    if (Band>2){
-                        Band=0;
+                } else {
+                    if (Band > 2) {
+                        Band = 0;
                     }
                 }
                 Message mMessage = new Message();
@@ -1933,12 +1917,12 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                 d = 5;
                 Band--;
                 if (mBand == 0) {
-                    if (Band<3){
-                        Band=4;
+                    if (Band < 3) {
+                        Band = 4;
                     }
-                }else {
-                    if (Band<0){
-                        Band=2;
+                } else {
+                    if (Band < 0) {
+                        Band = 2;
                     }
                 }
                 Message mMessage = new Message();

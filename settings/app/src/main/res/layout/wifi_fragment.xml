@@ -10,21 +10,20 @@
     <!--android:background="@drawable/atcbackground">-->
     <RelativeLayout
         android:id="@+id/switchBar"
-        style="@style/layout_default_"
-   >
+        style="@style/layout_default_">
 
         <com.jancar.settings.widget.SwitchButton
             android:id="@+id/switchB"
             style="@style/style_switch"
             android:layout_width="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/switch_adjust"
+            android:layout_alignParentStart="true"
             android:gravity="center|left"
             android:orientation="vertical">
 
@@ -36,19 +35,15 @@
             <TextView
                 android:id="@+id/txt_wifi_summary"
                 style="@style/style_summary_txt"
-                android:text="@string/label_adjust_off"
-          />
+                android:text="@string/label_adjust_off" />
         </LinearLayout>
     </RelativeLayout>
 
-    <TextView
-        style="@style/style_line_txt"
-       />
+    <TextView style="@style/style_line_txt" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
 
         <LinearLayout
@@ -56,43 +51,45 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/txt_scan"
                 style="@style/txt_btn_normal_wifi"
                 android:text="@string/str_scanning" />
+
             <ListView
-                android:visibility="gone"
-                android:divider="@null"
                 android:id="@+id/scan_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:divider="@null"
+                android:visibility="gone">
 
             </ListView>
         </LinearLayout>
 
         <LinearLayout
-            android:clickable="true"
             android:id="@+id/fragment_loading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clickable="true"
             android:gravity="center"
             android:visibility="gone"
 
-           >
-            <com.jancar.settings.widget.AVLoadingIndicatorView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/wifi_refresh_image"
-                app:indicatorColor="#fff"
-                style="@style/AVLoadingIndicatorView.Large"
-                />
+            >
 
-           <!-- <ImageView
+            <com.jancar.settings.widget.AVLoadingIndicatorView
                 android:id="@+id/wifi_refresh_image"
+                style="@style/AVLoadingIndicatorView.Large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:src="@drawable/loading_animation" />-->
+                app:indicatorColor="#fff" />
+
+            <!-- <ImageView
+                 android:id="@+id/wifi_refresh_image"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentBottom="true"
+                 android:src="@drawable/loading_animation" />-->
         </LinearLayout>
 
 

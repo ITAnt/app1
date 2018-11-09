@@ -30,13 +30,13 @@
             android:id="@+id/btn_connect_btn"
 
             style="@style/dialog_bit"
-            android:layout_marginRight="30dp"
+            android:layout_marginEnd="30dp"
             android:text="@string/dialog_connect" />
 
         <Button
             android:id="@+id/btn_cancel"
             style="@style/dialog_bit"
-            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
 
             android:text="@string/wifi_text_cancel"
             android:textColor="@color/text_txt" />

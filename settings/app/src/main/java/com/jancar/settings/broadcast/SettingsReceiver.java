@@ -3,6 +3,8 @@ package com.jancar.settings.broadcast;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.wifi.WifiManager;
 import android.util.Log;
 
 import com.jancar.settings.suspension.utils.Contacts;
@@ -30,6 +32,13 @@ public class SettingsReceiver extends BroadcastReceiver {
                 Intent services = new Intent();
                 services.setClassName("com.jancar.settingss", "com.jancar.settings.suspension.OverlayMenuService");
                 context.startService(services);
+            }
+            SharedPreferences sharedPreferences = context.getSharedPreferences("FirstRun", 0);
+            Boolean first_run = sharedPreferences.getBoolean("First", true);
+            if (first_run) {
+                WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+                wifiManager.setWifiEnabled(true);
+                sharedPreferences.edit().putBoolean("First", false).commit();
             }
             Log.w(TAG, "sdf" + isOpen);
         }

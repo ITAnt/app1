@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -64,7 +65,7 @@
                 <TextView
                     android:id="@+id/txt_reversing_mirror"
                     style="@style/style_txt"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_toStartOf="@+id/img_reversing_mirror_arrow" />
 
             </RelativeLayout>
@@ -79,7 +80,7 @@
                 style="@style/style_rlayout"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_reversing_mirror_line"
-                android:layout_marginLeft="0dp"
+                android:layout_marginStart="0dp"
                 android:padding="0dp"
                 android:visibility="gone">
 
@@ -92,9 +93,10 @@
                         android:id="@+id/rbtn_mirror_normal_system"
                         style="@style/style_rbtns"
                         android:button="@drawable/check_selector"
-                        android:paddingLeft="@dimen/px10"
+                        android:paddingStart="@dimen/px10"
                         android:layout_width="0px"
-                        android:text="@string/tab_mirror_normal" />
+                        android:text="@string/tab_mirror_normal"
+                        tools:ignore="RtlSymmetry" />
 
                     <RadioButton
                         android:id="@+id/rbtn_about_normal_system"
@@ -102,9 +104,9 @@
                         android:layout_weight="1"
                         android:layout_width="0px"
                         android:button="@drawable/check_selector"
-                        android:paddingLeft="@dimen/px10"
+                        android:paddingStart="@dimen/px10"
                         android:text="@string/tab_about_normal"
-                         />
+                        tools:ignore="RtlSymmetry" />
                 </LinearLayout>
 
                 <TextView
@@ -123,19 +125,20 @@
                         android:id="@+id/rbtn_mirror_up_down_system"
                         style="@style/style_rbtns"
                         android:button="@drawable/check_selector"
-                        android:paddingLeft="@dimen/px10"
+                        android:paddingStart="@dimen/px10"
                         android:layout_width="0px"
                         android:text="@string/tab_up_down_normal"
-                        />
+                        tools:ignore="RtlSymmetry" />
 
                     <RadioButton
                         android:id="@+id/rbtn_tab_up_down_left_right_system"
                         style="@style/style_rbtns"
                         android:layout_weight="1"
                         android:button="@drawable/check_selector"
-                        android:paddingLeft="@dimen/px10"
+                        android:paddingStart="@dimen/px10"
                         android:layout_width="0px"
-                        android:text="@string/tab_up_down_left_right_normal" />
+                        android:text="@string/tab_up_down_left_right_normal"
+                        tools:ignore="RtlSymmetry" />
                 </LinearLayout>
 
                 <TextView
@@ -164,7 +167,7 @@
                 <TextView
                     android:id="@+id/txt_reverse_display"
                     style="@style/style_txt"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_toStartOf="@+id/img_reverse_display_arrow" />
 
             </RelativeLayout>
@@ -194,7 +197,7 @@
                 <TextView
                     android:id="@+id/txt_key_learning"
                     style="@style/style_txt"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_toStartOf="@+id/img_key_learning_arrow" />
 
             </RelativeLayout>

@@ -11,6 +11,7 @@
     </style>
     <!--textview默认设置-->
     <style name="txt_default">
+        <item name="android:textDirection">locale</item>
         <item name="android:gravity">center_vertical|left</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -23,6 +24,7 @@
     <!--textview提示语默认设置-->
     <style name="txt_default_tip">
         <item name="android:gravity">center_vertical|left</item>
+        <item name="android:textDirection">locale</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColorHint">@color/tipColor</item>
@@ -259,7 +261,7 @@
     <style name="style_img">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_alignParentEnd">true</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:src">@mipmap/balance_right_s</item>
         <item name="android:paddingLeft">8dp</item>
@@ -307,9 +309,9 @@
     <style name="llayout_item_title">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:paddingLeft">@dimen/px28</item>
-        <item name="android:paddingRight">@dimen/px18</item>
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:paddingStart">@dimen/px28</item>
+        <item name="android:paddingEnd">@dimen/px18</item>
         <item name="android:orientation">vertical</item>
         <item name="android:layout_margin">5dp</item>
     </style>
@@ -317,7 +319,7 @@
     <style name="llayout_spinner_right">
         <item name="android:layout_width">@dimen/px152</item>
         <item name="android:layout_height">@dimen/px59</item>
-        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_alignParentEnd">true</item>
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:background">@drawable/cbb_bg_n</item>
         <item name="android:gravity">center</item>
