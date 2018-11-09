@@ -339,7 +339,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
         super.onDestroy();
         mBgThread.quit();
         mWifiController.setInstance();
-        getActivity().unregisterReceiver(mReceiver);
+        getContext().unregisterReceiver(mReceiver);
         mWifiEnabler.pause();
     }
 
@@ -508,7 +508,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
         filter.addAction(WifiManager.RSSI_CHANGED_ACTION);
         filter.addAction(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION);
         mReceiver = new WifiReceiver();
-        getActivity().registerReceiver(mReceiver, filter);
+        getContext().registerReceiver(mReceiver, filter);
     }
 
     private Switch.OnCheckedChangeListener mSwitchListener = new Switch.OnCheckedChangeListener() {
@@ -545,7 +545,7 @@ public class WifiFragment extends BaseFragments<WifiPresenter> implements WifiCo
     public void initData(@Nullable Bundle savedInstanceState) {
 /*        mLoading.setImageResource(R.drawable.loading_animation);
         animationDrawable = (AnimationDrawable) mLoading.getDrawable();*/
-        //handleWifiStateChangeds(getActivity().getIntent().getIntExtra(WifiManager.EXTRA_WIFI_STATE, WifiManager.WIFI_STATE_UNKNOWN));
+        //handleWifiStateChangeds(getContext().getIntent().getIntExtra(WifiManager.EXTRA_WIFI_STATE, WifiManager.WIFI_STATE_UNKNOWN));
         registerWifiReceiver();
         mWifiController = WifiController.getInstance(this.getContext());
         mWifiEnabler = new WifiEnabler(this.getContext(), mSwitch);

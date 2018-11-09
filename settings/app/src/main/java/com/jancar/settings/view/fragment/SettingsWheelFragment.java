@@ -109,7 +109,7 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
     }
 
     private void initController() {
-        wheelKeyLearnController = new WheelKeyLearnController(this.getActivity());
+        wheelKeyLearnController = new WheelKeyLearnController(this.getContext());
         wheelKeyLearnController.setWheelKeyListener(this);
     }
 
@@ -261,7 +261,7 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
 //        keyValue.setKeyValue(WheelKey.KEY_LEARNING_DVR);
 //        keyValues.add(keyValue);//dvr key
 
-        keyAapter = new KeyAapter(keyValues, this.getActivity());
+        keyAapter = new KeyAapter(keyValues, this.getContext());
         keyAapter.setKeyValues(keyValues);
         keyLearn.setAdapter(keyAapter);
     }
@@ -326,7 +326,7 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
 
     private void toastTextShow(int id) {
         try {
-            Toast.makeText(this.getActivity(), getResources().getString(id), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getContext(), getResources().getString(id), Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -400,7 +400,7 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
                 }
                 Intent intent = new Intent();
                 intent.setClass(this.getContext(), SettingsService.class);
-                this.getActivity().startService(intent);
+                this.getContext().startService(intent);
                 break;
         }
     }

@@ -117,7 +117,7 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
         @Override
         public void handleMessage(Message msg) {
 
-            ((MainActivity) getActivity()).mHadler = null;
+            ((MainActivity) getContext()).mHadler = null;
             if (timeZoneList != null) {
                 timeZoneList.setVisibility(View.GONE);
                 rLayoutTimeInterface.setVisibility(View.VISIBLE);
@@ -212,7 +212,7 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
         intentFilter.addAction(Intent.ACTION_TIME_CHANGED);//设置了系统时间
         intentFilter.addAction(AUTO_TIME);
         timeChangeReceiver = new TimeChangeReceiver();
-        getActivity().registerReceiver(timeChangeReceiver, intentFilter);
+        getContext().registerReceiver(timeChangeReceiver, intentFilter);
         timeZoneTxt.setText(TimeZone.getDefault().getDisplayName(true, TimeZone.SHORT) + " " + mPresenter.getTimeZone(TimeZone.getDefault().getID(), nameList));
         timeZoneList.setOnItemClickListener(this);
 
@@ -227,13 +227,13 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
     public void initHourSystem() {
         int autoTime = 0;
         try {
-            autoTime = Settings.Global.getInt(getActivity().getContentResolver(), AUTO_TIME_GPS);
+            autoTime = Settings.Global.getInt(getContext().getContentResolver(), AUTO_TIME_GPS);
         } catch (Settings.SettingNotFoundException e) {
             e.printStackTrace();
         }
         if (autoTime==0){
             try {
-                autoTime = Settings.Global.getInt(getActivity().getContentResolver(), AUTO_TIME);
+                autoTime = Settings.Global.getInt(getContext().getContentResolver(), AUTO_TIME);
             } catch (Settings.SettingNotFoundException e) {
                 e.printStackTrace();
             }
@@ -277,14 +277,14 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
             case R.id.rbtn_24_hour_system:
                 set24Hour(getContext(), "24");
                 timeChanged.putExtra("android.intent.extra.TIME_PREF_24_HOUR_FORMAT", true);
-                getActivity().sendBroadcast(timeChanged);
+                getContext().sendBroadcast(timeChanged);
                 updateTimeAndDateDisplay(getContext());
                 timeSystemSummaryTxt.setText(R.string.label_24_hour_system);
                 break;
             case R.id.rbtn_12_hour_system:
                 set24Hour(getContext(), "12");
                 timeChanged.putExtra("android.intent.extra.TIME_PREF_24_HOUR_FORMAT", true);
-                getActivity().sendBroadcast(timeChanged);
+                getContext().sendBroadcast(timeChanged);
                 updateTimeAndDateDisplay(getContext());
                 timeSystemSummaryTxt.setText(R.string.label_12_hour_system);
                 //
@@ -339,7 +339,7 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
                 break;
             case R.id.fragment_time_zone:
                 if (rLayoutTimeInterface.getVisibility() == View.VISIBLE) {
-                    ((MainActivity) getActivity()).mHadler = mHadler;
+                    ((MainActivity) getContext()).mHadler = mHadler;
 
                     timeZoneList.setVisibility(View.VISIBLE);
                     rLayoutTimeInterface.setVisibility(View.GONE);
@@ -359,7 +359,7 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
                     });
 
                 } else {
-                    ((MainActivity) getActivity()).mHadler = null;
+                    ((MainActivity) getContext()).mHadler = null;
                     timeZoneList.setVisibility(View.GONE);
                     rLayoutTimeInterface.setVisibility(View.VISIBLE);
                 }
@@ -412,7 +412,7 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (!timeZoneAdapter.getID().equals( nameList.get(position).getId())){
-            setChinaTimeZone(getActivity(), nameList.get(position).getId());
+            setChinaTimeZone(getContext(), nameList.get(position).getId());
         }else {
             timeZoneList.setVisibility(View.GONE);
             rLayoutTimeInterface.setVisibility(View.VISIBLE);
@@ -453,7 +453,7 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
         if (outState == null) {
             outState = new Bundle();
         }
-        ((MainActivity) getActivity()).anInt = 1;
+        ((MainActivity) getContext()).anInt = 1;
 
         //   outState.putString("DisplayFragment", "否");
 
@@ -467,9 +467,9 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
         mDummyDate.set(now.get(Calendar.YEAR), 11, 31, 13, 0, 0);
         java.util.Date dummyDate = mDummyDate.getTime();
 /*        mDatePref.setSummary(DateFormat.getLongDateFormat(context).format(now.getTime()));
-        mTimePref.setSummary(DateFormat.getTimeFormat(getActivity()).format(now.getTime()));
+        mTimePref.setSummary(DateFormat.getTimeFormat(getContext()).format(now.getTime()));
         mTimeZone.setSummary(ZoneGetter.getTimeZoneOffsetAndName(now.getTimeZone(), now.getTime()));
-        mTime24Pref.setSummary(DateFormat.getTimeFormat(getActivity()).format(dummyDate));*/
+        mTime24Pref.setSummary(DateFormat.getTimeFormat(getContext()).format(dummyDate));*/
     }
 
     @Override
@@ -501,10 +501,10 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ((MainActivity) getActivity()).mHadler = null;
+        ((MainActivity) getContext()).mHadler = null;
         timeZoneList.setVisibility(View.GONE);
         rLayoutTimeInterface.setVisibility(View.VISIBLE);
-        getActivity().unregisterReceiver(timeChangeReceiver);
+        getContext().unregisterReceiver(timeChangeReceiver);
 
     }
 
@@ -518,7 +518,7 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
         c.set(Calendar.MINUTE, minute);
         long when = c.getTimeInMillis();
         if (when / 1000 < Integer.MAX_VALUE) {
-            ((AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE)).setTime(when);
+            ((AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE)).setTime(when);
         }
 
     }

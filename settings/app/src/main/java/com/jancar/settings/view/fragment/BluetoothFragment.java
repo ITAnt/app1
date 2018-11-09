@@ -304,7 +304,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
 
     private void showDialog() {
         if (settingDialog == null) {
-            settingDialog = new SettingDialog(getActivity(), R.style.AlertDialogCustom);
+            settingDialog = new SettingDialog(getContext(), R.style.AlertDialogCustom);
         }
         String s = bluetoothManager.getBTName();
         settingDialog.setEditText(s);

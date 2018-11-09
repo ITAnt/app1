@@ -122,7 +122,8 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     // compile project(path: ':lib')
     compile 'com.google.zxing:core:3.3.0'
-
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
     implementation files('libs/classes.jar')
     implementation files('libs/common.jar')
     compileOnly files('libs/wheelkey.jar')

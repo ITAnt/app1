@@ -96,7 +96,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         @Override
         public void handleMessage(Message msg) {
 
-            ((MainActivity) getActivity()).mHadler = null;
+            ((MainActivity) getContext()).mHadler = null;
             if (systemRlayout != null) {
                 suspensionLlayout.setVisibility(View.GONE);
                 systemRlayout.setVisibility(View.VISIBLE);
@@ -147,7 +147,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        settingManager = SettingManager.getSettingManager(this.getActivity());
+        settingManager = SettingManager.getSettingManager(this.getContext());
         touchToneSwitch.setThumbDrawableRes(R.drawable.switch_custom_thumb_selector);
         touchToneSwitch.setBackDrawableRes(R.drawable.switch_custom_track_selector);
         videoSwitch.setThumbDrawableRes(R.drawable.switch_custom_thumb_selector);
@@ -180,9 +180,9 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                 if (suspensionLlayout.getVisibility() == View.GONE) {
                     suspensionLlayout.setVisibility(View.VISIBLE);
                     systemRlayout.setVisibility(View.GONE);
-                    ((MainActivity) getActivity()).mHadler = mHadler;
+                    ((MainActivity) getContext()).mHadler = mHadler;
                 } else {
-                    ((MainActivity) getActivity()).mHadler = null;
+                    ((MainActivity) getContext()).mHadler = null;
                     suspensionLlayout.setVisibility(View.GONE);
                     systemRlayout.setVisibility(View.VISIBLE);
                 }
@@ -239,7 +239,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                         Reset();
                         Intent intent = new Intent();
                         intent.setAction("com.jancar.action.reset.default.settings");
-                        getActivity().sendBroadcast(intent);
+                        getContext().sendBroadcast(intent);
                         dialog.dismiss();
                         break;
                     case R.id.btn_cancel:
@@ -365,7 +365,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                         settingManager.resetDeafaultSettings();
                         Intent intent = new Intent();
                         intent.setAction("com.qucii.sendreset");
-                        getActivity().sendBroadcast(intent);
+                        getContext().sendBroadcast(intent);
                         dialog.dismiss();
                         break;
                     case R.id.btn_cancel:
@@ -479,7 +479,11 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         setDialogParam(CleanupDialog, 324, 324);
         //systemCleanupRlayout.setEnabled(true);
     }
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        settingManager.setListener(null);
+    }
     public void cleanSystemCache(final Handler handler) {
         AppCleanEngine mAppCleanEngine = new AppCleanEngine(getContext());
         ArrayList<String> appList = mAppCleanEngine.scanAppList();
@@ -543,9 +547,9 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
     @Override
     public void notifyRefreshUI() {
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("FirstRun", 0);
         if (sharedPreferences.getBoolean("DisplayFragmetn", false)) {
-           // SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
+           // SharedPreferences sharedPreferences = getContext().getSharedPreferences("FirstRun", 0);
             Settings.Secure.setLocationProviderEnabled(getContext().getContentResolver(), LocationManager.GPS_PROVIDER, false);
             GPS gps = new GPS();
             gps.openGPSSettings(getContext(), 3);

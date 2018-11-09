@@ -22,19 +22,23 @@ import static android.content.Context.MODE_WORLD_WRITEABLE;
 public class ResetReceiver extends BroadcastReceiver implements AudioEffectManager.AudioListener {
     @Override
     public void onReceive(Context context, Intent intent) {
-        WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        wifiManager.setWifiEnabled(true);
-        Log.w("ResetReceiver","true");
-        AudioEffectManager mAudioEffectManager;
-        mAudioEffectManager = new AudioEffectManager(context, this, context.getPackageName());
-        mAudioEffectManager.setAudioEffectTreble(0, true);
-        mAudioEffectManager.setAudioEffectMiddle(0, true);
-        mAudioEffectManager.setAudioEffectBass(0, true);
-        mAudioEffectManager.setAudioEffectLoudness(0, true);
-        mAudioEffectManager.setAudioEffectLoudness(0, true);
-        mAudioEffectManager.setBalanceSpeakerValue(AudioEffectParam.getBalanceFadeCombine(0, 0), true);
-        BluetoothSettingManager manager = BluetoothSettingManager.getBluetoothSettingManager(context);
-        manager.openBluetooth();
+        String action = intent.getAction();
+        if(action.equals("com.jancar.action.reset.default.settings")){
+            WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            wifiManager.setWifiEnabled(true);
+            Log.w("ResetReceiver","true");
+            AudioEffectManager mAudioEffectManager;
+            mAudioEffectManager = new AudioEffectManager(context, this, context.getPackageName());
+            mAudioEffectManager.setAudioEffectTreble(0, true);
+            mAudioEffectManager.setAudioEffectMiddle(0, true);
+            mAudioEffectManager.setAudioEffectBass(0, true);
+            mAudioEffectManager.setAudioEffectLoudness(0, true);
+            mAudioEffectManager.setAudioEffectLoudness(0, true);
+            mAudioEffectManager.setBalanceSpeakerValue(AudioEffectParam.getBalanceFadeCombine(0, 0), true);
+            BluetoothSettingManager manager = BluetoothSettingManager.getBluetoothSettingManager(context);
+            manager.openBluetooth();
+        }
+
     }
 
 
