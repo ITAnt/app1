@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">蓝牙音乐</string>
-    <string name="tv_yes">是</string>
-    <string name="tv_no">否</string>
-    <string name="tv_title_tip">蓝牙未连接，是否需要连接蓝牙 ？</string>
-    <string name="tv_bt_connect_is_close">蓝牙已关闭</string>
-</resources>

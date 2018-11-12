@@ -1,1 +1,1 @@
-include ':app', ':suspension', ':music'
+include ':app','suspension'

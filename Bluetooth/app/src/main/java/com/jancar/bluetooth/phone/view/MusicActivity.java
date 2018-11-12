@@ -311,7 +311,8 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
 
 
     private void updatePlaybackStatus(byte play_status, int song_len, int song_pos) {
-        Log.d(TAG, "updatePlaybackStatus===" + play_status);
+        Log.e(TAG, "updatePlaybackStatus===" + play_status);
+        int btStatus = bluetoothRequestFocus.getCurrentBTStatus();
         switch (play_status) {
             case BluetoothManager.MUSIC_STATE_PLAY:
                 isPlay = true;
@@ -322,14 +323,27 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                     Log.e(TAG, "BTPlay===");
                     bluetoothRequestFocus.setBTPlayStatus(true);
                 }
+                Log.e(TAG, "play===btStatus===" + btStatus);
+                switch (btStatus) {
+                    case BluetoothRequestFocus.BT_INIT:
+                    case BluetoothRequestFocus.BT_FOCUSE_GAIN:
+                    case BluetoothRequestFocus.BT_FOCUSE_LOSS:
+                    case BluetoothRequestFocus.BT_FOCUSE_LOSS_TRANSIENT:
+                    case BluetoothRequestFocus.BT_FOCUSE_TRANSIENT_CAN_DUCK:
+                        break;
+                    default:
+                        bluetoothRequestFocus.setCurrentBTStatus(BluetoothRequestFocus.BT_NONE);
+                        BluetoothRequestFocus.HandPaused = false;
+                        break;
+                }
                 break;
             case BluetoothManager.MUSIC_STATE_PAUSE:
             case BluetoothManager.MUSIC_STATE_STOP:
-                Log.e(TAG, "MUSIC_STATE_PAUSE===");
                 isPlay = false;
                 ivPlay.setImageResource(R.drawable.music_play_selector);
                 circleImageView.setAnimatePlaying(isPlay);
-                switch (bluetoothRequestFocus.getCurrentBTStatus()) {
+                Log.e(TAG, "pause===btStatus===" + btStatus);
+                switch (btStatus) {
                     case BluetoothRequestFocus.BT_INIT:
                         if (bluetoothRequestFocus.isBTConnect()) {
                             Log.e(TAG, "Play====BT_INIT=====");
@@ -360,7 +374,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                         break;
                     case BluetoothRequestFocus.BT_NONE:
                         Log.e(TAG, "BT_NONE===");
-
+                        BluetoothRequestFocus.HandPaused = true;
                         break;
                 }
                 break;
