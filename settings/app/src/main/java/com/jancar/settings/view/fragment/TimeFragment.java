@@ -113,7 +113,6 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
     private TimeZoneListAdapter timeZoneAdapter;
     private List<TimeZoneEntity> nameList;
     private Calendar mDummyDate;
-    @SuppressLint("HandlerLeak")
     Handler mHadler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -132,9 +131,24 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+            Intent timeChanged = new Intent(Intent.ACTION_TIME_CHANGED);
+            switch (msg.what){
+                case 0:
 
+                    timeChanged.putExtra("android.intent.extra.TIME_PREF_24_HOUR_FORMAT", true);
+                    getContext().sendBroadcast(timeChanged);
+                    updateTimeAndDateDisplay(getContext());
+                    break;
+                case 1:
+
+                    timeChanged.putExtra("android.intent.extra.TIME_PREF_24_HOUR_FORMAT", true);
+                    getContext().sendBroadcast(timeChanged);
+                    updateTimeAndDateDisplay(getContext());
+                    break;
+            }
         }
     };
+
     private IntentFilter intentFilter;
 
     private TimeChangeReceiver timeChangeReceiver;
@@ -285,37 +299,29 @@ public class TimeFragment extends BaseFragments<TimePresenter> implements TimeCo
                 break;
             case R.id.rbtn_24_hour_system:
                 set24Hour(getContext(), "24");
-                Thread   threads=  new Thread(){
+                Thread s=  new Thread(){
                     @Override
                     public void run() {
                         super.run();
-                        Intent timeChanged = new Intent(Intent.ACTION_TIME_CHANGED);
-                        timeChanged.putExtra("android.intent.extra.TIME_PREF_24_HOUR_FORMAT", true);
-                        getContext().sendBroadcast(timeChanged);
-                        updateTimeAndDateDisplay(getContext());
+                        mHadlers.sendEmptyMessageDelayed(0,500);
                     }
                 };
-                threads.setName("OuYang");
-                threads.start();
+                s.setName("ouyang");
+                s.start();
                 timeSystemSummaryTxt.setText(R.string.label_24_hour_system);
                 break;
             case R.id.rbtn_12_hour_system:
                 set24Hour(getContext(), "12");
-
-                Thread thread=  new Thread(){
+                Thread d=   new Thread(){
                     @Override
                     public void run() {
                         super.run();
-                        Intent timeChanged = new Intent(Intent.ACTION_TIME_CHANGED);
-                        timeChanged.putExtra("android.intent.extra.TIME_PREF_24_HOUR_FORMAT", true);
-                        getContext().sendBroadcast(timeChanged);
-                        updateTimeAndDateDisplay(getContext());
+                        mHadlers.sendEmptyMessageDelayed(0,500);
                     }
                 };
-                thread.setName("OuYang");
-                thread.start();
+              d.setName("ouyang");
+              d.start();
                 timeSystemSummaryTxt.setText(R.string.label_12_hour_system);
-                //
                 break;
             case R.id.fragment_time_system:
                 if (systemRadio.getVisibility() == View.GONE) {

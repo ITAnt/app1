@@ -31,9 +31,10 @@ public class SettingsApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        refWatcher = setupLeakCanary();
         SettingManager.getSettingManager(this);
         BluetoothSettingManager.getBluetoothSettingManager(this);
-        refWatcher = setupLeakCanary();
+
 //        Hawk.init(this)
 //                .setEncryptionMethod(HawkBuilder.EncryptionMethod.MEDIUM)
 //                .setStorage(HawkBuilder.newSqliteStorage(this))

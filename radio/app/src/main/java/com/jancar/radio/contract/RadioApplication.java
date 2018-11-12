@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.jancar.radio.greendao.DaoMaster;
 import com.jancar.radio.greendao.DaoSession;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
 public class RadioApplication extends Application {
     public static boolean InitDone;
@@ -16,7 +18,7 @@ public class RadioApplication extends Application {
     public static boolean isThereRDSByDisplay;
     private static RadioApplication pThis;
     private static DaoSession daoSession;
-
+    private RefWatcher refWatcher;
     static {
         RadioApplication.PlayState = 0;
         RadioApplication.RadioIsRun = false;
@@ -34,10 +36,16 @@ public class RadioApplication extends Application {
     
     public void onCreate() {
         super.onCreate();
+        refWatcher = setupLeakCanary();
         RadioApplication.pThis = this;
         setupDatabase();
     }
-
+    private RefWatcher setupLeakCanary() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return RefWatcher.DISABLED;
+        }
+        return LeakCanary.install(this);
+    }
     private void setupDatabase() {
         //创建数据库shop.db
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "shop.db", null);
