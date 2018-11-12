@@ -7,7 +7,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px78">
+        android:layout_height="@dimen/px78"
+        android:paddingEnd="@dimen/px40"
+        android:paddingStart="@dimen/px50">
 
         <ImageView
             android:id="@+id/iv_records_call_type"
@@ -25,6 +27,7 @@
             android:layout_marginEnd="@dimen/px30"
             android:layout_marginStart="@dimen/px30"
             android:layout_toEndOf="@+id/iv_records_call_type"
+            android:gravity="start|center_vertical"
             android:maxLines="1"
             android:minWidth="@dimen/px100"
             tools:text="阿华阿华阿华阿华" />
@@ -43,15 +46,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/iv_records_call"
             android:layout_toEndOf="@+id/iv_records_call_name"
+            android:layout_toStartOf="@+id/iv_records_call"
+            android:gravity="start|center_vertical"
             tools:text="13500000000" />
     </RelativeLayout>
     <!--  android:background="@drawable/lin_bt_dail"-->
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/px1"
+        android:layout_marginStart="@dimen/px50"
+        android:layout_marginEnd="@dimen/px50"
         android:background="@color/lin_bt_dail" />
-
 
 </LinearLayout>

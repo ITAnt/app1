@@ -20,7 +20,7 @@
         android:id="@+id/iv_contact_call"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/px10"
         android:background="@drawable/contact_call_selector" />
@@ -32,9 +32,10 @@
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/px40"
-        android:layout_toLeftOf="@id/iv_contact_call"
-        android:layout_toRightOf="@id/tv_contact_name"
+        android:layout_toStartOf="@id/iv_contact_call"
+        android:layout_toEndOf="@id/tv_contact_name"
         android:maxLines="1"
+        android:gravity="start|center_vertical"
         tools:text="13500000000" />
 
 

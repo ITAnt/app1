@@ -12,7 +12,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:gravity="center_vertical"
-        android:paddingLeft="@dimen/px40">
+        android:paddingStart="@dimen/px40">
 
         <ImageView
             android:id="@+id/iv_contanct_synchronous"
@@ -28,9 +28,10 @@
             style="@style/txt_normal_px22"
             android:layout_width="match_parent"
             android:layout_height="@dimen/px65"
-            android:layout_toLeftOf="@+id/iv_contanct_synchronous"
+            android:layout_toStartOf="@+id/iv_contanct_synchronous"
             android:background="@drawable/edit_search_bg"
             android:drawableStart="@drawable/iv_contact_search_icon"
+            android:gravity="start|center_vertical"
             android:hint="@string/tv_contact_search"
             android:maxLines="1"
             android:paddingStart="@dimen/px15"
@@ -68,7 +69,7 @@
             android:layout_height="500px"
             android:layout_marginEnd="@dimen/px10"
             android:layout_marginStart="@dimen/px45"
-            android:layout_toLeftOf="@+id/item_sidebar"
+            android:layout_toStartOf="@+id/item_sidebar"
             android:scrollbars="none"
             tools:listitem="@layout/item_contact_search_list" />
     </RelativeLayout>

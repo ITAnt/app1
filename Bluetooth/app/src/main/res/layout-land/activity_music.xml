@@ -51,7 +51,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/px10"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layoutDirection="ltr">
 
             <ImageView
                 android:id="@+id/iv_music_pre"
@@ -98,8 +99,8 @@
                 android:id="@+id/iv_music_rotating"
                 android:layout_width="@dimen/px154"
                 android:layout_height="@dimen/px154"
-                android:layout_marginTop="@dimen/px47"
                 android:layout_marginStart="@dimen/px48"
+                android:layout_marginTop="@dimen/px47"
                 android:src="@drawable/iv_music_rotating" />
         </FrameLayout>
 

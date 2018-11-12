@@ -10,20 +10,20 @@
     <TextView
         android:id="@+id/catalog"
         style="@style/txt_normal_px22"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/px40"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:layout_weight="1.0"
+        android:layout_marginStart="@dimen/px10"
         android:background="@null"
+        android:gravity="center"
         android:paddingBottom="@dimen/px15"
         android:paddingTop="@dimen/px20"
-        android:text="A"
-        android:layout_marginStart="@dimen/px10"/>
+        android:text="A" />
 
     <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/px1"-->
-        <!--android:background="@drawable/lin_bt_dail" />-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/px1"-->
+    <!--android:background="@drawable/lin_bt_dail" />-->
 
     <FrameLayout
         android:id="@+id/content_framelayout"

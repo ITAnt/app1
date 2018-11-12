@@ -52,8 +52,6 @@
         android:layout_height="match_parent"
         android:divider="#00000000"
         android:dividerHeight="@dimen/px5"
-        android:paddingEnd="@dimen/px40"
-        android:paddingLeft="@dimen/px50"
         android:scrollbars="none"
         tools:listitem="@layout/item_records_list" />
 
