@@ -6,6 +6,8 @@ import android.support.multidex.MultiDex;
 import android.util.Log;
 import android.view.ViewConfiguration;
 
+import com.github.moduth.blockcanary.BlockCanary;
+import com.github.moduth.blockcanary.BlockCanaryContext;
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.phone.util.FlyLog;
 import com.orhanobut.hawk.Hawk;
@@ -60,7 +62,7 @@ public class BluetoothApplication extends Application {
                 .setStorage(HawkBuilder.newSqliteStorage(this))
                 .setLogLevel(LogLevel.FULL)
                 .build();
-//        BlockCanary.install(this, new BlockCanaryContext()).start();
+        BlockCanary.install(this, new BlockCanaryContext()).start();
         refWatcher = setupLeakCanary();
     }
 
