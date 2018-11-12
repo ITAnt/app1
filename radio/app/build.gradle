@@ -89,7 +89,8 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compileOnly files('libs/mvp.jar')
-
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     compile 'org.greenrobot:eventbus:3.0.0'
     implementation 'org.greenrobot:greendao:3.2.2'
     // add library

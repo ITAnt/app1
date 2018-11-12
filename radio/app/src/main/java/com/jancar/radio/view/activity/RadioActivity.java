@@ -447,7 +447,21 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         RuleView.add(gv_1_three);
         RuleView.add(gv_1_four);
         EventBus.getDefault().register(this);//订阅
-
+        mLocation=   RadioCacheUtil.getInstance().getLocation();
+        if (manager.getRadioLocal() == RadioCacheUtil.getInstance().getLocation()) {
+            mFreq = RadioWrapper.getFreqStart(mBand, mLocation);
+            mRadioManager.setLocation(mLocation);
+            SharedPreferences.Editor editor = getSharedPreferences("Radio", MODE_PRIVATE).edit();
+            boolean a = editor.putInt("mFreq" + Band, mFreq).commit();
+            SharedPreferences sharedPrefere = getActivity().getSharedPreferences("FirstRun", 0);
+            sharedPrefere.edit().putBoolean("Firsts", true).apply();
+            isSetting=  sharedPrefere.getBoolean("Firsts",true);
+            bandTxt.setText(mBandAF[Band]);
+            mFMFreqSeekBar.setOnSeekBarChangeListener(getPresenter());
+            VarietyBand();
+            getPresenter().initText(Band, mLocation, isSetting);
+            initReceiver();
+        }
 
     }
 
