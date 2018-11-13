@@ -19,17 +19,8 @@ public class RadioApplication extends Application {
     private static RadioApplication pThis;
     private static DaoSession daoSession;
     private RefWatcher refWatcher;
-    static {
-        RadioApplication.PlayState = 0;
-        RadioApplication.RadioIsRun = false;
-        RadioApplication.isRadioBeforeTA = false;
-        RadioApplication.isThereRDSByDisplay = true;
-        RadioApplication.InitDone = true;
-        RadioApplication.RDSIsON = false;
-        RadioApplication.ThemeType = 1;
-        RadioApplication.pThis = null;
-    }
-    
+
+
     public static RadioApplication getApplication() {
         return RadioApplication.pThis;
     }
