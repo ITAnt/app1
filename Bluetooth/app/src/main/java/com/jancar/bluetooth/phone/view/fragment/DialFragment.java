@@ -1,7 +1,6 @@
 package com.jancar.bluetooth.phone.view.fragment;
 
 import android.app.Activity;
-import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,7 +22,6 @@ import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.Listener.BTPhonebookListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.lib.BluetoothPhoneBookData;
-import com.jancar.bluetooth.phone.MainActivity;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.adapter.DialNumberAdapter;
 import com.jancar.bluetooth.phone.contract.DialContract;
@@ -33,7 +31,6 @@ import com.jancar.bluetooth.phone.presenter.DialPresenter;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.NumberFormatUtil;
 import com.jancar.bluetooth.phone.util.ThreadUtils;
-import com.jancar.bluetooth.phone.util.ToastUtil;
 import com.ui.mvp.view.support.BaseFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -113,6 +110,10 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
                     for (int i = 0; i < callLogsList.size(); i++) {
                         FirstLog = callLogsList.get(0).getPhoneNumber();
                     }
+                    break;
+                case Constants.DIAL_CONTACT_FINISH:
+                    tvSynContact.setVisibility(View.GONE);
+                    listView.setVisibility(View.VISIBLE);
                     break;
             }
         }
@@ -234,8 +235,6 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     public void onPause() {
         super.onPause();
         Log.e(TAG, "onPause==");
-//        mStrKeyNum = null;
-//        tvInput.setText(mStrKeyNum);
     }
 
     @Override
@@ -469,16 +468,18 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
 
     @Override
     public void onNotifyDownloadContactsStop() {
-
+        handler.sendEmptyMessage(Constants.DIAL_CONTACT_FINISH);
     }
 
     @Override
     public void onNotifyDownloadContactsError() {
-
+        handler.sendEmptyMessage(Constants.DIAL_CONTACT_FINISH);
     }
 
     @Override
     public void onNotifyDownloadContactsFinish() {
+        Log.d(TAG, "onNotifyDownloadContactsFinish==");
+        handler.sendEmptyMessage(Constants.DIAL_CONTACT_FINISH);
 
     }
 

@@ -120,6 +120,9 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
         }
         super.onDestroy();
         Log.e(TAG, "onDestroy===");
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
     }
 
     /**

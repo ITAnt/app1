@@ -117,7 +117,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
     private boolean isShowPhone = false;
     private int visibility;
     private View saveView;
-    public static RegisterMediaSession registerMediaSession;
+    //    public static RegisterMediaSession registerMediaSession;
     public static BluetoothRequestFocus bluetoothRequestFocus;
     private boolean isAudioTowardsAG;
 
@@ -143,7 +143,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         findView();
         bluetoothManager = BluetoothManager.getBluetoothManagerInstance(this.getApplicationContext());
         bluetoothRequestFocus = BluetoothRequestFocus.getBluetoothRequestFocusStance(this.getApplicationContext());
-        registerMediaSession = new RegisterMediaSession(this.getApplicationContext(), bluetoothManager);
+//        registerMediaSession = new RegisterMediaSession(this.getApplicationContext(), bluetoothManager);
         JacState jacState = new JacState() {
             @Override
             public void OnCallEx(eCallState eState, String number) {
@@ -169,7 +169,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         public void show(boolean bMaximize, HashMap<String, Object> map) {
             super.show(bMaximize, map);
             isFull = bMaximize;
-            Log.e(TAG, "show====" + isFull);
+            Log.e(TAG, "show====" + isFull + "==updataView==" + mCallType);
             showView();
             updataView(mCallType, mCallNumber);
         }
@@ -199,6 +199,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                     saveView = haifView;
                     updataHalfScoState(mCallScoState);
                 }
+                Log.e(TAG, "update==updataView==" + mCallType);
                 updataView(mCallType, mCallNumber);
             }
         }
@@ -224,6 +225,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                     BluetoothPhoneBookData phoneBookData = (BluetoothPhoneBookData) msg.obj;
                     int callState = phoneBookData.getPhoneType();
                     String phoneNumber = phoneBookData.getPhoneNumber();
+                    Log.e(TAG, "phone_ui==" + callState);
                     updataView(callState, phoneNumber);
                     break;
                 case MSG_UPDATA_CALL_TIME:
@@ -266,10 +268,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
     };
 
     private void updataScoState(int scoState) {
-//        if (scoState == mCallScoState) {
-//            return;
-//        }
-        Log.e(TAG, "updataScoState:" + scoState);
+        Log.e(TAG, "updataScoState==" + scoState);
         mCallScoState = scoState;
         if (BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT == mCallScoState) {
             Log.e(TAG, "updataScoState==show==phone");
@@ -285,9 +284,6 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
 
     private void updataHalfScoState(int scoState) {
         Log.e(TAG, "updataHalfScoState===" + scoState);
-//        if (scoState == mCallScoState) {
-//            return;
-//        }
         mCallScoState = scoState;
         if (BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT == mCallScoState) {
             //车机状态
@@ -325,13 +321,8 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         mLayoutParams.format = PixelFormat.RGBA_8888;
         mLayoutParams.flags = WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
         mLayoutParams.gravity = Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL;
-//        mLayoutParams.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-//                View.STATUS_BAR_HIDDEN | View.SYSTEM_UI_FLAG_FULLSCREEN |
-//                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
         mLayoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
         mLayoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
-//        mLayoutParams.height = 541;
-//        mLayoutParams.y = 59;
         phoneView = LayoutInflater.from(this).inflate(R.layout.activity_communicate, null);
 
         // 小屏
@@ -391,7 +382,6 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         ivHalfAns = haifView.findViewById(R.id.iv_commun_half_answer);          //接听来电
         ivHalfCar = haifView.findViewById(R.id.iv_commun_half_phone);           //车载手机切换
         ivHalfHang = haifView.findViewById(R.id.iv_commun_half_hang);           //挂断
-        ivHalfCar.setEnabled(false);
         ivHalfAns.setOnClickListener(this);
         ivHalfCar.setOnClickListener(this);
         ivHalfHang.setOnClickListener(this);
@@ -506,7 +496,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         switch (calltype) {
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_DIALING:
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_ALERTING:
-                Log.d(TAG, "calltype==big==" + calltype);
+                Log.e(TAG, "calltype==full==" + mCallType);
                 if (mCallType == BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_ACTIVE) {
                     return;
                 }
@@ -550,7 +540,6 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 break;
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_TERMINATED:
                 Log.e("BTUIService", "BLUETOOTH_PHONE_CALL_STATE_TERMINATED===");
-//                saveCallLog();
                 stopTimer();
                 if (isShowPhone) {
                     jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_HIDE);
@@ -643,7 +632,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_DIALING:
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_ALERTING:
                 //正在呼叫中
-                Log.e(TAG, "halfoutView===");
+                Log.e(TAG, "halfoutView===" + mCallType);
                 if (mCallType == BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_ACTIVE) {
                     return;
                 }
@@ -692,10 +681,8 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 break;
             case BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_TERMINATED:
                 Log.e(TAG, "CALL_STATE_TERMINATED==Half==");
-//                saveCallLog();
                 stopTimer();
                 mHandler.sendEmptyMessage(MSG_BLUETOOTH_DESTROY_VIEW);
-                //destroyView();
         }
     }
 
@@ -771,7 +758,6 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         if (!isShowKey) {
             linearInputKey.setVisibility(View.GONE);
         }
-
     }
 
     @Override
@@ -851,7 +837,6 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 if (isShowPhone) {
                     jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_HIDE);
                 }
-//                destroyView();
                 break;
             case R.id.item_dial_show_1:
                 getStrKeyNum("1");
