@@ -46,8 +46,8 @@ import java.util.List;
  * 通话记录界面
  */
 public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, RecordsContract.View> implements RecordsContract.View, BTCallLogListener, BTConnectStatusListener, View.OnClickListener {
+    private static final String TAG = "RecordsFragment";
     protected Activity mActivity;
-
     View mRootView;
     ListView listView;
     LinearLayout linearSyn;
@@ -113,10 +113,10 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        Log.e("RecordsFragment", "onHiddenChanged");
+        Log.e(TAG, "onHiddenChanged===");
         this.hidden = hidden;
         if (!hidden) {
-            FlyLog.e("RecordsFragment", "onHidden");
+            FlyLog.e(TAG, "onHidden===");
             getBTCallLog();
             isConneView();
             adapter.setNormalPosition();
@@ -188,7 +188,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                    Log.e("RecordsFragment", "position====" + position);
+                    Log.e(TAG, "position====" + position);
                     String phoneNumber = callDataList.get(position).getPhoneNumber();
                     adapter.setSelectPosition(position);
                     if (position == selectPos) {
@@ -286,7 +286,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
 
     @Override
     public void onNotifyDownloadCallLogsList(final List<BluetoothPhoneBookData> list) {
-        Log.d("RecordsFragment", "list.size(rr):" + list.size());
+        Log.d(TAG, "onNotifyDownloadCallLogsList==" + list.size());
         this.callDataList = new ArrayList<>(list);
         handler.removeMessages(Constants.CONTACT_CALL_LOGS);
         handler.sendEmptyMessageDelayed(Constants.CONTACT_CALL_LOGS, 50);

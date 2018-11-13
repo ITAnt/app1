@@ -35,8 +35,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import butterknife.OnClick;
-
 import static com.jancar.bluetooth.phone.util.Constants.BT_CONNECT_IS_NONE;
 
 public class MainActivity extends AppCompatActivity implements BTConnectStatusListener, View.OnClickListener {
@@ -89,14 +87,14 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
     @Override
     protected void onStart() {
         super.onStart();
-        Log.e("MainActivity", "onStart===");
+        Log.e(TAG, "onStart===");
         EventBus.getDefault().register(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e("MainActivity", "onResume===");
+        Log.e(TAG, "onResume===");
         bluetoothManager.setBTConnectStatusListener(this);
         isConnect = bluetoothManager.isConnect();
         if (!isConnect) {
@@ -111,14 +109,17 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
     @Override
     protected void onStop() {
         super.onStop();
-        Log.e("MainActivity", "onStop===");
+        Log.e(TAG, "onStop===");
         EventBus.getDefault().unregister(this);
     }
 
     @Override
     protected void onDestroy() {
+        if (connectDialog != null && connectDialog.isShowing()) {
+            connectDialog.dismiss();
+        }
         super.onDestroy();
-        Log.e("MainActivity", "onDestroy===");
+        Log.e(TAG, "onDestroy===");
     }
 
     /**
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(Event event) {
-        Log.e("MainActivity", "onEvent===");
+        Log.e(TAG, "onEvent===");
         if (event.isConnect() && connectDialog.isShowing()) {
             connectDialog.dismiss();
         }
@@ -281,14 +282,14 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
 //        super.onRestoreInstanceState(savedInstanceState);
-        Log.e("MainActivity", "onRestoreInstanceState====");
+        Log.e(TAG, "onRestoreInstanceState====");
     }
 
     @SuppressLint("MissingSuperCall")
     @Override
     protected void onSaveInstanceState(Bundle outState) {
 //        super.onSaveInstanceState(outState);
-        Log.e("MainActivity", "onSaveInstanceState===");
+        Log.e(TAG, "onSaveInstanceState===");
     }
 
 
@@ -356,8 +357,8 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
                     if (obj == BT_CONNECT_IS_NONE) {
 
                     } else if (obj == Constants.BT_CONNECT_IS_CONNECTED) {
-                        Log.e("MainActivity", "BT_CONNECT_IS_CONNECTED===Main");
-                        if (connectDialog.isShowing()) {
+                        Log.e(TAG, "BT_CONNECT_IS_CONNECTED===Main");
+                        if (connectDialog != null && connectDialog.isShowing()) {
                             connectDialog.dismiss();
                         }
 

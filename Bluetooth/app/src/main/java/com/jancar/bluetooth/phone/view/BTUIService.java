@@ -208,6 +208,9 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (mHandler != null) {
+            mHandler.removeCallbacksAndMessages(null);
+        }
     }
 
     @SuppressLint("HandlerLeak")

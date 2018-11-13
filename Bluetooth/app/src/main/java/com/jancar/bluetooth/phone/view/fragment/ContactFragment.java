@@ -56,7 +56,7 @@ import java.util.List;
  */
 public class ContactFragment extends BaseFragment<ContactContract.Presenter, ContactContract.View> implements ContactContract.View, TextWatcher, BTPhonebookListener, BTConnectStatusListener, OnClickListener {
 
-
+    private static final String TAG = "ContactFragment";
     View mRootView;
     ListView listView;
     EditText editSearch;
@@ -346,7 +346,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     }
 
     private void isConneView() {
-        FlyLog.d("Conatact", "isConneView");
+        FlyLog.d(TAG, "isConneView===");
         if (isBluConn()) {
             SynContactView();
         } else {
@@ -455,7 +455,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
 
     @Override
     public void onNotifyDownloadContactsList(final List<BluetoothPhoneBookData> list) {
-        Log.e("ContactFragment", "DownloadContactsList:" + list.size());
+        Log.e(TAG, "DownloadContactsList===" + list.size());
         this.bookDataList = new ArrayList<>(list);
         handler.removeMessages(Constants.CONTACT_UPDATA_REFRESH);
         handler.sendEmptyMessageDelayed(Constants.CONTACT_UPDATA_REFRESH, 50);
@@ -464,7 +464,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
 
     @Override
     public void onNotifySeachContactsList(List<BluetoothPhoneBookData> list, final int i) {
-        Log.e("ContactFragment", "SeachContactsList:" + list);
+        Log.e(TAG, "SeachContactsList==" + list);
         if (i == ContactFragmentType) {
             this.bookSearchList = new ArrayList<>(list);
             handler.removeMessages(Constants.CONTACT_SEARCH_REFRESH);
@@ -473,7 +473,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     }
 
     private void ShowSynText() {
-        FlyLog.d("Contact", "ShowSynText");
+        FlyLog.e(TAG, "ShowSynText===");
         linerSyn.setVisibility(View.VISIBLE);
         ivSynContact.setVisibility(View.GONE);
 //        ivSynIng.setVisibility(View.GONE);
@@ -482,6 +482,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
 
     @Override
     public void onNotifyDownloadContactsStart() {
+        Log.e(TAG, "onNotifyDownloadContactsStart==");
         handler.sendEmptyMessage(Constants.CONTACT_SEARCH_START);
 
     }
@@ -500,6 +501,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
 
     @Override
     public void onNotifyDownloadContactsFinish() {
+        Log.e(TAG, "onNotifyDownloadContactsFinish===");
 //        handler.sendEmptyMessage(Constants.CONTACT_SEARCH_END);
         handler.removeMessages(Constants.CONTACT_SEARCH_END);
         handler.sendEmptyMessageDelayed(Constants.CONTACT_SEARCH_END, 100);
@@ -530,6 +532,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                 }
                 break;
             case R.id.iv_syn_contact:
+                Log.e(TAG, "onClick==contact==");
                 ThreadUtils.execute(new Runnable() {
                     @Override
                     public void run() {

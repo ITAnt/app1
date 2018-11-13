@@ -67,7 +67,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     private ConnectDialog connectDialog;
     private int saveConnect = Constants.BT_CONNECT_IS_NONE;
 
-    JancarManager jancarManager;
+   private JancarManager jancarManager;
     keyFocuser keyFocusListener = new keyFocuser() {
         @Override
         public boolean OnKeyEvent(int key, int state) {
@@ -132,10 +132,12 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         isConnect = bluetoothRequestFocus.isBTConnect();
         isResume = true;
         if (!isConnect) {
-            connectDialog.show();
+            if (connectDialog != null && !connectDialog.isShowing()) {
+                connectDialog.show();
+            }
         } else {
             saveConnect = Constants.BT_CONNECT_IS_CONNECTED;
-            if (connectDialog.isShowing()) {
+            if (connectDialog != null && connectDialog.isShowing()) {
                 connectDialog.dismiss();
             }
         }
@@ -157,6 +159,9 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
 
     @Override
     protected void onDestroy() {
+        if (connectDialog != null && connectDialog.isShowing()) {
+            connectDialog.dismiss();
+        }
         super.onDestroy();
         Log.e(TAG, "onDestroy===");
         BluetoothRequestFocus.HandPaused = false;
