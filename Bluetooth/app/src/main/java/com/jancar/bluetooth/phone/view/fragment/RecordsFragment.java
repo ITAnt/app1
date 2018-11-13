@@ -3,7 +3,6 @@ package com.jancar.bluetooth.phone.view.fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,7 +21,6 @@ import com.jancar.bluetooth.Listener.BTCallLogListener;
 import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.lib.BluetoothPhoneBookData;
-import com.jancar.bluetooth.phone.MainActivity;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.adapter.RecordsAdapter;
 import com.jancar.bluetooth.phone.contract.RecordsContract;
@@ -56,7 +54,6 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
     ImageView ivSynError;
     TextView tvSynRecord;
 
-    private boolean isSynRecord;
     private List<BluetoothPhoneBookData> callDataList;
     private RecordsAdapter adapter;
     private int selectPos = -1;
@@ -202,7 +199,6 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
     }
 
     private void synShow() {
-//        isSynRecord = getPresenter().isSynCallRecord();
         if (isDownLoading()) {
             handler.sendEmptyMessage(Constants.CONTACT_CALL_LOGS_START);
         } else {

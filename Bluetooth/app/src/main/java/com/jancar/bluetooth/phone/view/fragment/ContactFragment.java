@@ -2,7 +2,6 @@ package com.jancar.bluetooth.phone.view.fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,7 +26,6 @@ import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.Listener.BTPhonebookListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.lib.BluetoothPhoneBookData;
-import com.jancar.bluetooth.phone.MainActivity;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.adapter.ContactAdapter;
 import com.jancar.bluetooth.phone.adapter.ContactSearchAdapter;
@@ -74,11 +72,9 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     private ContactSearchAdapter searchAdapter;
     private List<BluetoothPhoneBookData> bookDataList;
     private List<BluetoothPhoneBookData> bookSearchList;
-    private AnimationDrawable animationDrawable;
     private String editInputString;
     private int selectPos = -1;
     private boolean hidden = false;
-    private boolean isSynContact;
     private static int ContactFragmentType = 2;
     BluetoothManager bluetoothManager;
 
@@ -132,20 +128,13 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                     linerSyn.setVisibility(View.VISIBLE);
                     tvSynContact.setText(R.string.tv_syning_contact);
                     ivSynContact.setVisibility(View.GONE);
-//                    ivSynIng.setVisibility(View.VISIBLE);
                     ivSynIng.show();
                     relativeLayout.setVisibility(View.GONE);
-//                    if (!animationDrawable.isRunning()) {
-//                        animationDrawable.start();
-//                    }
                     break;
                 case Constants.CONTACT_SEARCH_END:
                     //结束搜索
                     linerSyn.setVisibility(View.GONE);
                     relativeLayout.setVisibility(View.VISIBLE);
-//                    if (animationDrawable.isRunning()) {
-//                        animationDrawable.stop();
-//                    }
                     break;
                 case Constants.CONTACT_SEARCH_CHANGE:
                     //搜索text改变
@@ -359,7 +348,6 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     }
 
     private void SynContactView() {
-//        isSynContact = getPresenter().isSynContact();
         if (isDownLoding()) {
             linerSyn.setVisibility(View.VISIBLE);
             tvSynContact.setText(R.string.tv_syning_contact);
@@ -476,7 +464,6 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
         FlyLog.e(TAG, "ShowSynText===");
         linerSyn.setVisibility(View.VISIBLE);
         ivSynContact.setVisibility(View.GONE);
-//        ivSynIng.setVisibility(View.GONE);
         ivSynIng.hide();
     }
 
