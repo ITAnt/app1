@@ -83,7 +83,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.w("BluetoothFragment", "onAttach");
+        Log.w(TAG, "onAttach==");
         this.mActivity = (Activity) context;
     }
 
@@ -117,8 +117,14 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
 
     @Override
     public void onDestroy() {
+        if (settingDialog != null && settingDialog.isShowing()) {
+            settingDialog.dismiss();
+        }
         super.onDestroy();
-        Log.w("BluetoothFragment", "onDestroy");
+        Log.w(TAG, "onDestroy==");
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
     }
 
     @Override
@@ -165,7 +171,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        Log.w("BluetoothFragment", "initData");
+        Log.w(TAG, "initData==");
         bluetoothManager = BluetoothSettingManager.getBluetoothSettingManager(mActivity);
         bluetoothManager.registerBTSettingListener(this);
         isBTon = bluetoothManager.isBTOn();
@@ -343,14 +349,14 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
 
     @Override
     public void onNotifyOnUpdateUIPairedList(final List<BluetoothDeviceData> list) {
-        Log.w(TAG, "UIlist.size():" + list.size());
+        Log.w(TAG, "onNotifyOnUpdateUIPairedList==" + list.size());
         this.pairedDataListList = new ArrayList<>(list);
         handler.sendEmptyMessage(BT_SETTING_PAIR);
     }
 
     @Override
     public void onNotifyOnUpdateUIUnpairedList(final List<BluetoothDeviceData> list) {
-        Log.w(TAG, "UNlist.size():" + list.size());
+        Log.w(TAG, "onNotifyOnUpdateUIUnpairedList==" + list.size());
         this.unPairedDataListList = new ArrayList<>(list);
         handler.sendEmptyMessage(BT_SETTING_UNPAIR);
     }
