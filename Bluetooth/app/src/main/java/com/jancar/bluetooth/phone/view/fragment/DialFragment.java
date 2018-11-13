@@ -111,6 +111,10 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
                         FirstLog = callLogsList.get(0).getPhoneNumber();
                     }
                     break;
+                case Constants.DIAL_CONTACT_FINISH:
+                    tvSynContact.setVisibility(View.GONE);
+                    listView.setVisibility(View.VISIBLE);
+                    break;
             }
         }
     };
@@ -464,16 +468,18 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
 
     @Override
     public void onNotifyDownloadContactsStop() {
-
+        handler.sendEmptyMessage(Constants.DIAL_CONTACT_FINISH);
     }
 
     @Override
     public void onNotifyDownloadContactsError() {
-
+        handler.sendEmptyMessage(Constants.DIAL_CONTACT_FINISH);
     }
 
     @Override
     public void onNotifyDownloadContactsFinish() {
+        Log.d(TAG, "onNotifyDownloadContactsFinish==");
+        handler.sendEmptyMessage(Constants.DIAL_CONTACT_FINISH);
 
     }
 

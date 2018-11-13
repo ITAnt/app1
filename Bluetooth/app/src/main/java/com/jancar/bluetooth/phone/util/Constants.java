@@ -39,5 +39,6 @@ public class Constants {
     public final static String MAIN_TAB = "btpb";//
     public final static int GET_BTCONTACTS = 23;//联系人界面获取联系人
     public final static int CONTACT_CALL_LOGS_FIRST = 24;//通话记录第一条数据
+    public final static int DIAL_CONTACT_FINISH = 25;//拨号界面下载同步联系人完成
 
 }
