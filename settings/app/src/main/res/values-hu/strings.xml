@@ -103,7 +103,7 @@
         
     <string name="label_midrange"> alt </string>
         
-    <string name="label_bass"> basszus </string>
+    <string name="label_bass"> Bass </string>
 
     <string name="str_eq_volume">音量</string>
     <string name="str_tx_dsp_bass">低音</string>

@@ -209,7 +209,7 @@ public class RadioPresenter extends BaseModelPresenter<RadioContract.View, Radio
     }
 
 
-    public RadioManager.RadioListener mRadioListener = new RadioManager.RadioListener() {
+    private RadioManager.RadioListener mRadioListener = new RadioManager.RadioListener() {
         @Override
         public void next() {
             EventBus.getDefault().post(new RadioWrapper.EventControl(

@@ -315,7 +315,7 @@ public class RuleView extends View {
             default:
 
         }
-        logD("isWidth=%b, mode=%d, size=%d, realSize=%d", isWidth, mode, size, realSize);
+      //  logD("isWidth=%b, mode=%d, size=%d, realSize=%d", isWidth, mode, size, realSize);
         return realSize;
     }
 
@@ -383,8 +383,8 @@ public class RuleView extends View {
         mCurrentDistance = Math.min(Math.max(mCurrentDistance, 0), mNumberRangeDistance);
         mCurrentNumber = mMinNumber + (int) (mCurrentDistance / gradationGap) * mNumberUnit;
         currentValue = mCurrentNumber / 10f;
-        logD("calculateValue: mCurrentDistance=%f, mCurrentNumber=%d, currentValue=%f",
-                mCurrentDistance, mCurrentNumber, currentValue);
+       // logD("calculateValue: mCurrentDistance=%f, mCurrentNumber=%d, currentValue=%f",
+           //     mCurrentDistance, mCurrentNumber, currentValue);
         if (mValueChangedListener != null) {
             mValueChangedListener.onValueChanged(currentValue);
         }
@@ -399,8 +399,8 @@ public class RuleView extends View {
         mCurrentNumber = Math.min(Math.max(mCurrentNumber, mMinNumber), mMaxNumber);
         mCurrentDistance = (mCurrentNumber - mMinNumber) / mNumberUnit * gradationGap;
         currentValue = mCurrentNumber / 10f;
-        logD("scrollToGradation: mCurrentDistance=%f, mCurrentNumber=%d, currentValue=%f",
-                mCurrentDistance, mCurrentNumber, currentValue);
+       // logD("scrollToGradation: mCurrentDistance=%f, mCurrentNumber=%d, currentValue=%f",
+       //         mCurrentDistance, mCurrentNumber, currentValue);
         if (mValueChangedListener != null) {
             mValueChangedListener.onValueChanged(currentValue);
         }
@@ -460,10 +460,10 @@ public class RuleView extends View {
         // 当前绘制刻度对应控件左侧的位置
         float distance = mHalfWidth - (mCurrentDistance - (startNum - mMinNumber) / mNumberUnit * gradationGap);
         final int perUnitCount = mNumberUnit * numberPerCount;
-        logD("drawGradation: startNum=%d, rightNum=%d, perUnitCount=%d",
-                startNum, rightMaxNum, perUnitCount);
+     //   logD("drawGradation: startNum=%d, rightNum=%d, perUnitCount=%d",
+         //       startNum, rightMaxNum, perUnitCount);
         while (startNum <= rightMaxNum) {
-            logD("drawGradation: startNum=%d", startNum);
+           // logD("drawGradation: startNum=%d", startNum);
             if ((b ? startNum / 10 : startNum) % numberPerCount == 0) {
                 // 长刻度：刻度宽度为短刻度的2倍
                 mPaints.setStrokeWidth(longLineWidth);
@@ -472,7 +472,7 @@ public class RuleView extends View {
                 // 数值
                 float fNum = startNum / 10f;
                 String text = Float.toString(fNum);
-                logD("drawGradation: text=%s", text);
+               // logD("drawGradation: text=%s", text);
                 if (text.endsWith(".0")) {
                     text = text.substring(0, text.length() - 2);
                 }
@@ -536,12 +536,12 @@ public class RuleView extends View {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, getResources().getDisplayMetrics());
     }
 
-    @SuppressWarnings("all")
+ /*   @SuppressWarnings("all")
     private void logD(String format, Object... args) {
         if (LOG_ENABLE) {
             Log.d("GradationView", String.format("zjun@" + format, args));
         }
-    }
+    }*/
 
     /**
      * 设置新值

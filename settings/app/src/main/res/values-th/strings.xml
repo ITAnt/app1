@@ -66,11 +66,11 @@
         
     <string name="wifi_text_name"> ชื่อ </string>
         
-    <string name="wifi_text_connect"> การเชื่อมต่อ </string>
+    <string name="wifi_text_connect"> แม้ </string>
         
     <string name="wifi_text_forget"> ลืม </string>
         
-    <string name="wifi_text_disconnect"> ตัดการเชื่อมต่อ </string>
+    <string name="wifi_text_disconnect"> ปลด </string>
         
     <string name="wifi_text_modify"> ปรับเปลี่ยน </string>
         
@@ -108,11 +108,11 @@
         
     <string name="system_info"> ข้อมูลระบบ </string>
     <!--音效设置-->
-    <string name="label_treble"> เสียงแหลม </string>
+    <string name="label_treble"> สูง </string>
         
     <string name="label_midrange"> Alto </string>
         
-    <string name="label_bass"> เสียงเบส </string>
+    <string name="label_bass"> ต่ำ </string>
 
     <string name="str_eq_volume">音量</string>
     <string name="str_tx_dsp_bass">低音</string>

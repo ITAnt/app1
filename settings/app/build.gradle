@@ -125,7 +125,7 @@ dependencies {
     //Leakcanary
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-    implementation files('libs/classes.jar')
+    compileOnly files('libs/classes.jar')
     implementation files('libs/common.jar')
     compileOnly files('libs/wheelkey.jar')
 //    compile 'com.github.orhanobut:hawk:1.21'

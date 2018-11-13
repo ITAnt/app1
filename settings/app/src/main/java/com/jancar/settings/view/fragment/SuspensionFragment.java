@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.jancar.settings.R;
 import com.jancar.settings.listener.Contract.SuspensionContractImpl;
@@ -32,6 +33,8 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.jancar.settings.util.Tool.isRtl;
+
 /**
  * Created by ouyan on 2018/10/20.
  */
@@ -48,7 +51,7 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
     private boolean isOpen;
     private List<FloatEntry> entryList = new ArrayList<>();
     private FloatAdapter adapter;
-
+    private RelativeLayout mRelativeLayout;
     public static final int ICON_POWER = 0;
     public static final int ICON_HOME = 1;
     public static final int ICON_VOICE_ADD = 2;
@@ -99,6 +102,11 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
 //        selectPos = Hawk.get(Contacts.SELECT_POS, 0);
 //        indexIcon = Hawk.get(Contacts.TAB_POS, ICON_POWER);
 
+        if (isRtl()) {
+            mRelativeLayout.setBackgroundResource(R.drawable.iv_sus_bg_right);
+        } else {
+            mRelativeLayout.setBackgroundResource(R.drawable.iv_sus_bg_left);
+        }
         pos_title_0 = SPUtil.getString(activity, Contacts.ICON_POS_0, getResources().getString(R.string.tv_power));
         pos_title_1 = SPUtil.getString(activity, Contacts.ICON_POS_1, getResources().getString(R.string.tv_home));
         pos_title_2 = SPUtil.getString(activity, Contacts.ICON_POS_2, getResources().getString(R.string.tv_vioce_add));
@@ -173,6 +181,7 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
         Log.e("SuspensionFragment", "initView===");
         if (view != null) {
             ivPower = view.findViewById(R.id.iv_power);
+            mRelativeLayout = view.findViewById(R.id.RelativeLayout);
             ivHome = view.findViewById(R.id.iv_home);
             ivAdd = view.findViewById(R.id.iv_add);
             ivDec = view.findViewById(R.id.iv_dec);

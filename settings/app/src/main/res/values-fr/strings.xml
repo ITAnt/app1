@@ -6,9 +6,9 @@
     <string name="tab_time">Le temps</string>
     <string name="tab_system">Système</string>
     <string name="tab_wifi">WIFI</string>
-    <string name="tab_navigation">De navigation</string>
+    <string name="tab_navigation">navigation</string>
     <string name="tab_vehicle">Véhicule</string>
-    <string name="tab_on">À propos de</string>
+    <string name="tab_on">propos</string>
     <string name="tab_cache">储存空间</string>
     <string name="tab_wifi_spot">wifi热点</string>
     <string name="btn_clear_cache">清除缓存</string>
@@ -67,7 +67,7 @@
     <string name="system_info"> Informations système </string>
     <!--音效设置-->
     <string name="label_treble"> treble </string>
-    <string name="label_midrange"> 中音 </string>
+    <string name="label_midrange"> milieu </string>
     <string name="label_bass"> basse </string>
 
     <string name="str_eq_volume">音量</string>
@@ -330,7 +330,7 @@
         
     <string name="label_wrong_password"> Erreur de mot de passe </string>
         
-    <string name="dialog_restore_defaults"> Êtes-vous sûr de restaurer les paramètres d'usine? </string>
+    <string name="dialog_restore_defaults"> Êtes-vous sûr de restaurer les paramètres d\'usine? </string>
         
     <string name="clear"> clear </string>
         

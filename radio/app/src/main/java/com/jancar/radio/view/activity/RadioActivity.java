@@ -278,14 +278,6 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                     } else {
                         stTxt.setTextColor(Color.parseColor("#ffffff"));
                     }
-                  /*  tiems--;
-                    if (tiems <= 0) {
-                        tiems = 5;
-                        if (scheduleds != null) {
-                            scheduleds.shutdown();
-                        }
-                    }*/
-
                     Log.w("Stereo", ((Boolean) msg.obj) + "");
                     break;
                 case 9:
@@ -311,6 +303,21 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                     bandTxt.setText(mBandAF[msg.arg1]);
                     RadioActivity.this.getPresenter().initText(msg.arg1, mLocation, false);
                     break;
+                case 30:
+                    FrameLayout.LayoutParams layoutParam = (FrameLayout.LayoutParams) mFMFreqSeekBar.getLayoutParams();
+                    layoutParam.setMargins(11, 0, 28, 30);
+                    mFMFreqSeekBar.setLayoutParams(layoutParam);
+                    break;
+                case 31:
+                    FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) mFMFreqSeekBar.getLayoutParams();
+                    layoutParams.setMargins(26, 0, 33, 30);
+                    mFMFreqSeekBar.setLayoutParams(layoutParams);
+                    break;
+                case 32:
+                    FrameLayout.LayoutParams layout = (FrameLayout.LayoutParams) mFMFreqSeekBar.getLayoutParams();
+                    layout.setMargins(26, 0, 30, 30);
+                    mFMFreqSeekBar.setLayoutParams(layout);
+                    break;
             }
         }
     };
@@ -333,7 +340,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             Logcat.d("onAudioFocusChange, focusChange = " + focusChange);
             if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
                 mAudioManager.abandonAudioFocus(mAudioFocusChange);
-                mJancarManager.abandonKeyFocus(keyFocusListener);
+                mJancarManager.abandonKeyFocus(keyFocusListener.asBinder());
                 if (scheduleds != null) {
                     scheduleds.shutdown();
                 }
@@ -384,7 +391,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         unbinder = ButterKnife.bind(this);
         mAudioFocusChange = new RadioAudioFocusChange();
         manager = new GlobaldataManager(getApplicationContext(), null, 0);
-        mRadioManager = new RadioManager((Context) this, this, getPresenter().getRadioListener(), getPackageName());
+        mRadioManager = new RadioManager( this, this, getPresenter().getRadioListener(), getPackageName());
         SharedPreferences read = getSharedPreferences("Radio", MODE_PRIVATE);
         Band = read.getInt("Band", 0);
         if (Band >= 3) {
@@ -406,9 +413,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             int statusBarHeight = getResources().getDimensionPixelSize(resourceId);
             View rectView = new View(this);
 //绘制一个和状态栏一样高的矩形，并添加到视图中
-            LinearLayout.LayoutParams params
-                    = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, statusBarHeight);
-            ;
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, statusBarHeight);
             rectView.setLayoutParams(params);
 //设置状态栏颜色
             rectView.setBackgroundColor(Color.parseColor("#000000"));
@@ -431,9 +436,9 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
     @SuppressLint("WrongConstant")
     private void initData() {
         RuleView = new ArrayList<>();
+        radioStations = new ArrayList<>();
         Log.w("RadioAcitivity", "onCreate");
         mJancarManager = (JancarServer) getSystemService("jancar_manager");
-        mJancarManager.requestKeyFocus(keyFocusListener);
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         mScanResultList = new ArrayList<>();
         list.add(channelListOneTxt);
@@ -528,16 +533,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             }
             // gv_1.setValue(430.2f, 1711.8f, 1166f, 30.6f, 5, false);
             // gv_1.setValue(439.2f, 1693.8f, 1135.4f, 30.6f, 5, false);
-            mFMFreqSeekBar.post(new Runnable() {
-                @Override
-                public void run() {
-                    FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) mFMFreqSeekBar.getLayoutParams();
-                    layoutParams.setMargins(11, 0, 28, 30);
-                    mFMFreqSeekBar.setLayoutParams(layoutParams);
-                }
-            });
-
-
+            handler.sendEmptyMessageDelayed(30, 500);
             // gv_1.setValue(418f, 1812f, 1166f, 34, 5, true);
         } else {
             unitTxt.setText(R.string.unit_mhz);
@@ -546,24 +542,11 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             switch (mLocation) {
                 case 2:
                 case 3:
-                    mFMFreqSeekBar.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) mFMFreqSeekBar.getLayoutParams();
-                            layoutParams.setMargins(26, 0, 33, 30);
-                            mFMFreqSeekBar.setLayoutParams(layoutParams);
-                        }
-                    });
+
+                    handler.sendEmptyMessageDelayed(31, 500);
                     break;
                 default:
-                    mFMFreqSeekBar.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) mFMFreqSeekBar.getLayoutParams();
-                            layoutParams.setMargins(26, 0, 30, 30);
-                            mFMFreqSeekBar.setLayoutParams(layoutParams);
-                        }
-                    });
+                    handler.sendEmptyMessageDelayed(32, 500);
                     break;
             }
             this.mBand = 1;
@@ -587,6 +570,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             scheduleds=null;
         }*/
 
+        this.radioStations.clear();
         this.radioStations = radioStations;
         if (radioStations.size() <= 0) {
             for (TextView mTextView : list) {
@@ -693,13 +677,13 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             isFocus = true;
         }*/
         mAudioManager.requestAudioFocus(mAudioFocusChange, AudioManager.STREAM_MUSIC, AUDIOFOCUS_GAIN);
-        mJancarManager.requestKeyFocus(keyFocusListener);
+        mJancarManager.requestKeyFocus(keyFocusListener.asBinder());
     }
 
     @Override
     public void abandonRadioFocus() {
         mAudioManager.abandonAudioFocus(mAudioFocusChange);
-        mJancarManager.abandonKeyFocus(keyFocusListener);
+        mJancarManager.abandonKeyFocus(keyFocusListener.asBinder());
         if (scheduleds != null) {
             scheduleds.shutdown();
 
@@ -1406,7 +1390,8 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         EventBus.getDefault().unregister(this);
         Logcat.d("mRadioManager = " + this.mRadioManager);
         mAudioManager.abandonAudioFocus(mAudioFocusChange);
-        mJancarManager.abandonKeyFocus(keyFocusListener);
+        mJancarManager.abandonKeyFocus(keyFocusListener.asBinder());
+      //  mJancarManager=null;
         if (scheduleds != null) {
             scheduleds.shutdown();
         }
