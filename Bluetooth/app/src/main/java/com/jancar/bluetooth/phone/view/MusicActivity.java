@@ -67,7 +67,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     private ConnectDialog connectDialog;
     private int saveConnect = Constants.BT_CONNECT_IS_NONE;
 
-   private JancarManager jancarManager;
+    private JancarManager jancarManager;
     keyFocuser keyFocusListener = new keyFocuser() {
         @Override
         public boolean OnKeyEvent(int key, int state) {
@@ -132,9 +132,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         isConnect = bluetoothRequestFocus.isBTConnect();
         isResume = true;
         if (!isConnect) {
-            if (connectDialog != null && !connectDialog.isShowing()) {
-                connectDialog.show();
-            }
+            showDialog();
         } else {
             saveConnect = Constants.BT_CONNECT_IS_CONNECTED;
             if (connectDialog != null && connectDialog.isShowing()) {
@@ -173,7 +171,11 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
 
     private void initView() {
         bluetoothManager = BluetoothManager.getBluetoothManagerInstance(this);
-        bluetoothManager.registerBTMusicListener(this);
+//        bluetoothManager.registerBTMusicListener(this);
+        findView();
+    }
+
+    private void showDialog() {
         if (connectDialog == null) {
             connectDialog = new ConnectDialog(this, R.style.AlertDialogCustom);
             connectDialog.setCanelOnClickListener(new View.OnClickListener() {
@@ -193,8 +195,10 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
             });
             connectDialog.setCanceledOnTouchOutside(false);
             connectDialog.setCancelable(false);
+
+            connectDialog.show();
         }
-        findView();
+
     }
 
     private void registerListener() {
@@ -546,7 +550,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                     //蓝牙状态
                     byte obj = (byte) msg.obj;
                     if (obj == Constants.BT_CONNECT_IS_CONNECTED) {
-                        if (connectDialog.isShowing()) {
+                        if (connectDialog != null && connectDialog.isShowing()) {
                             connectDialog.dismiss();
                         }
                         if (isResume) {
@@ -595,12 +599,10 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
             bluetoothManager.registerBTMusicListener(this);
             isConnect = bluetoothRequestFocus.isBTConnect();
             if (!isConnect) {
-                if (!connectDialog.isShowing()) {
-                    connectDialog.show();
-                }
+                showDialog();
             } else {
                 saveConnect = Constants.BT_CONNECT_IS_CONNECTED;
-                if (connectDialog.isShowing()) {
+                if (connectDialog != null && connectDialog.isShowing()) {
                     connectDialog.dismiss();
                 }
                 Log.e(TAG, "onNotifyBackCarStop.CallState===" + BluetoothRequestFocus.CallState);

@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
         if (!isConnect) {
             showDialog();
         } else {
-            if (connectDialog.isShowing()) {
+            if (connectDialog != null && connectDialog.isShowing()) {
                 connectDialog.dismiss();
             }
         }
@@ -252,7 +252,6 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
         }
         fragmentTransaction.commitAllowingStateLoss();
     }
-
 
     private void changeTabBg(int indexTab) {
         dialRelayout.setSelected(false);
