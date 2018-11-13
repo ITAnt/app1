@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 
-import com.jancar.contract.WheelKey;
+import com.jancar.model.WheelKey;
 import com.jancar.settings.R;
 import com.jancar.settings.contract.KeyValue;
 

@@ -26,6 +26,10 @@ public class SettingsReceiver extends BroadcastReceiver {
             Intent serviced = new Intent();
             serviced.setClassName("com.jancar.settingss", "com.jancar.settings.MyService");
             context.startService(serviced);
+            Log.w(TAG,"serviced");
+            Intent service = new Intent();
+            service.setClassName("com.jancar.settingss", "com.jancar.settings.service.SettingsUIService");
+            context.startService(service);
 //            boolean isOpen = Hawk.get(Contacts.ISOPEN_OVERLAY, false);
             boolean isOpen = SPUtil.getBoolean(context, Contacts.ISOPEN_OVERLAY, false);
             if (isOpen) {
