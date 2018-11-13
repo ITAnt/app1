@@ -556,7 +556,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                         if (isResume) {
                             Log.e(TAG, "Constants.BT_CONNECT_IS_CONNECTED===");
                             try {
-                                Thread.sleep(1500);
+                                Thread.sleep(1000);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
