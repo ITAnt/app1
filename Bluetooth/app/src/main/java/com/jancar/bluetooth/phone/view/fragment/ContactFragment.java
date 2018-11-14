@@ -511,11 +511,11 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                     if (!isDownLoding()) {
                         showDialog();
                     } else {
-                        ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_tip_down));
+                        ToastUtil.ShowTipText(mActivity, mActivity.getString(R.string.tv_tip_down));
                     }
 
                 } else {
-                    ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_bt_connect_is_none));
+                    ToastUtil.ShowTipText(mActivity, mActivity.getString(R.string.tv_bt_connect_is_none));
                 }
                 break;
             case R.id.iv_syn_contact:
