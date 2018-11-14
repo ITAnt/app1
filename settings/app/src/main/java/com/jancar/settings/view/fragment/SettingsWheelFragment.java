@@ -21,9 +21,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jancar.contract.WheelKey;
+
+import com.jancar.model.WheelKey;
 import com.jancar.model.WheelKeyLearnController;
-import com.jancar.service.SettingsService;
+
 import com.jancar.settings.adapter.KeyAapter;
 
 import java.util.ArrayList;
@@ -398,9 +399,9 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
                     endLlayout.setBackgroundColor(Color.parseColor("#242529"));
                     endTxt.setTextColor(Color.parseColor("#FFFFFF"));
                 }
-                Intent intent = new Intent();
+               /* Intent intent = new Intent();
                 intent.setClass(this.getContext(), SettingsService.class);
-                this.getContext().startService(intent);
+                this.getContext().startService(intent);*/
                 break;
         }
     }

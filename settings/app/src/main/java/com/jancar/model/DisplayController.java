@@ -4,7 +4,7 @@ import android.util.Log;
 
 public class DisplayController {
     static {
-        System.loadLibrary("jancar");
+        System.loadLibrary("JanCar");
     }
     private final static String TAG = "DisplayController";
 

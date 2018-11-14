@@ -1,6 +1,7 @@
 package com.jancar.radio.listener.utils;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jancar.radio.R;
+
+import java.util.Locale;
 
 /**
  * Created by ouyan on 2018/10/25.
@@ -24,5 +27,8 @@ public class ToastUtil {
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.show();
 
+    }
+    public static boolean isRtl() {
+        return TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == View.LAYOUT_DIRECTION_RTL;
     }
 }

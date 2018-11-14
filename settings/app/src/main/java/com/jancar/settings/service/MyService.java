@@ -9,8 +9,7 @@ import android.provider.Settings;
 import android.util.Log;
 
 import com.jancar.JancarManager;
-import com.jancar.model.DisplayController;
-import com.jancar.settings.lib.SettingManager;
+
 import com.jancar.settings.suspension.utils.Contacts;
 import com.jancar.settings.util.GPS;
 

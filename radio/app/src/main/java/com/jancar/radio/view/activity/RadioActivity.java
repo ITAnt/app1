@@ -38,6 +38,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -96,6 +97,7 @@ import static com.jancar.radio.listener.utils.RadioStationDaos.deleteAll;
 import static com.jancar.radio.listener.utils.RadioStationDaos.deleteRadioStation;
 import static com.jancar.radio.listener.utils.RadioStationDaos.queryFrequency;
 import static com.jancar.radio.listener.utils.ToastUtil.ShowToast;
+import static com.jancar.radio.listener.utils.ToastUtil.isRtl;
 
 import android.content.Context;
 import android.telephony.PhoneStateListener;
@@ -149,6 +151,10 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
     TextView stTxt;
     @BindView(R.id.img_original)
     ImageView originalImg;
+    @BindView(R.id.RelativeLayout_left)
+    RelativeLayout FrameLayout_left;
+    @BindView(R.id.RelativeLayout_right)
+    RelativeLayout FrameLayout_right;
     int Band;
     protected RadioManager mRadioManager;
     AudioManager mAudioManager = null;
@@ -195,8 +201,6 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                     break;
                 case 1:
                     isSetting = true;
-                  /*  */
-                    // getPresenter().Change(Band, mFreq, mLocation);
                     Band = msg.arg1;
                     VarietyBand();
                     SharedPreferences.Editor editors = getSharedPreferences("Radio", MODE_PRIVATE).edit();
@@ -243,12 +247,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                         }
                     }
 
-                   /* boolean b = mRadioManager.getStereo();
-                    if (b) {
-                        stTxt.setTextColor(Color.parseColor("#FF0B49E7"));
-                    } else {
-                        stTxt.setTextColor(Color.parseColor("#ffffff"));
-                    }*/
+
                     updateNotification(msg.arg1);
                     // getPresenter().Change(msg.arg1, radioStations);
                     mFreq = msg.arg1;
@@ -401,8 +400,14 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         }
         initData();
         onDoIntent(getIntent(), false);
-
         bandTxt.setText(mBandAF[Band]);
+        if (isRtl()){
+            FrameLayout_left.setBackgroundResource(R.mipmap.bg_radio_list_right);
+            FrameLayout_right.setBackgroundResource(R.mipmap.bg_radio_list_left);
+        }else {
+            FrameLayout_left.setBackgroundResource(R.mipmap.bg_radio_list_left);
+            FrameLayout_right.setBackgroundResource(R.mipmap.bg_radio_list_right);
+        }
     }
 
     public void initStatusBar() {
@@ -1321,6 +1326,19 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                 ShowToast(this, getString(R.string.search_no_result));
                 //  Toast.makeText(this, R.string.search_no_result, Toast.LENGTH_SHORT).show();
             }
+            if (mBand==0){
+                SharedPreferences.Editor editor = getSharedPreferences("Radio", MODE_PRIVATE).edit();
+                editor.putInt("mFreq" + 3, 0);
+                editor.putInt("mFreq" + 4, 0);
+                editor.commit();
+            }else {
+                SharedPreferences.Editor editor = getSharedPreferences("Radio", MODE_PRIVATE).edit();
+                editor.putInt("mFreq" + 0, 0);
+                editor.putInt("mFreq" + 1, 0);
+                editor.putInt("mFreq" + 2, 0);
+                editor.commit();
+            }
+
         } else {
             if (isTinTai) {
                 SharedPreferences.Editor editor = getSharedPreferences("Radio", MODE_PRIVATE).edit();
