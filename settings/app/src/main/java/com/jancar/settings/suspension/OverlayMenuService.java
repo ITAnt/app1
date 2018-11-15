@@ -16,10 +16,11 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.jancar.JancarServer;
+import com.jancar.JancarManager;
 import com.jancar.key.KeyDef;
 import com.jancar.settings.R;
 import com.jancar.settings.suspension.entry.OpenedEntry;
+import com.jancar.settings.suspension.entry.ShowAndHideEntry;
 import com.jancar.settings.suspension.entry.UpdateEntry;
 import com.jancar.settings.suspension.utils.Contacts;
 import com.jancar.settings.suspension.widget.ChildButton;
@@ -44,7 +45,7 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
     private FloatingButton mainCenterButton;
 
     private MagneticMenu topCenterMenu;
-    JancarServer jancarManager = null;
+    JancarManager jancarManager;
 
     ImageView tcIcon1;
     ImageView tcIcon2;
@@ -91,11 +92,36 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
         return mBinder;
     }
 
+    JacState jacState = new JacState() {
+        @Override
+        public void OnPhone(boolean bState) {
+            super.OnPhone(bState);
+            Log.e("OverlayMenuService", "OnPhone===");
+            if (bState) {
+                mainCenterButton.setVisibility(View.GONE);
+            } else {
+                mainCenterButton.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        public void OnBackCar(boolean bState) {
+            super.OnBackCar(bState);
+            Log.e("OverlayMenuService", "OnBackCar===");
+            if (bState) {
+                mainCenterButton.setVisibility(View.GONE);
+            } else {
+                mainCenterButton.setVisibility(View.VISIBLE);
+            }
+        }
+    };
+
     @SuppressLint({"ClickableViewAccessibility", "WrongConstant"})
     @Override
     public void onCreate() {
         super.onCreate();
-        jancarManager = (JancarServer) getSystemService("jancar_manager");
+        jancarManager = (JancarManager) getSystemService("jancar_manager");
+        jancarManager.registerJacStateListener(jacState.asBinder());
         EventBus.getDefault().register(this);
         int mainActionButtonSize = getResources().getDimensionPixelSize(R.dimen.main_action_button_size);
         int mainActionButtonMargin = getResources().getDimensionPixelOffset(R.dimen.main_action_button_margin);
@@ -209,39 +235,11 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
             }
         });
 
-        JacState jacState = new JacState() {
-            @Override
-            public void OnPhone(boolean bState) {
-                super.OnPhone(bState);
-                Log.e("OverlayMenuService", "OnPhone===");
-                if (bState) {
-                    mainCenterButton.setVisibility(View.GONE);
-                } else {
-                    mainCenterButton.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void OnBackCar(boolean bState) {
-                super.OnBackCar(bState);
-                Log.e("OverlayMenuService", "OnBackCar===");
-                if (bState) {
-                    mainCenterButton.setVisibility(View.GONE);
-                } else {
-                    mainCenterButton.setVisibility(View.VISIBLE);
-                }
-            }
-        };
-        jancarManager.registerJacStateListener(jacState.asBinder());
 
     }
 
+
     private void initImgRes() {
-//        tcTitle1 = Hawk.get(Contacts.ICON_POS_0, getResources().getString(R.string.tv_power));
-//        tcTitle2 = Hawk.get(Contacts.ICON_POS_1, getResources().getString(R.string.tv_home));
-//        tcTitle3 = Hawk.get(Contacts.ICON_POS_2, getResources().getString(R.string.tv_vioce_add));
-//        tcTitle4 = Hawk.get(Contacts.ICON_POS_3, getResources().getString(R.string.tv_vioce_dec));
-//        tcTitle5 = Hawk.get(Contacts.ICON_POS_4, getResources().getString(R.string.tv_back));
         tcTitle1 = SPUtil.getString(this, Contacts.ICON_POS_0, getResources().getString(R.string.tv_power));
         tcTitle2 = SPUtil.getString(this, Contacts.ICON_POS_1, getResources().getString(R.string.tv_home));
         tcTitle3 = SPUtil.getString(this, Contacts.ICON_POS_2, getResources().getString(R.string.tv_vioce_add));
@@ -376,6 +374,12 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
         if (mainCenterButton != null) mainCenterButton.detach();
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+            handler = null;
+        }
+        Log.e("OverlayMenuService", "onDestroy===" + jancarManager);
+        jancarManager.unregisterJacStateListener(jacState.asBinder());
     }
 
     private void closeMenu() {
@@ -410,5 +414,21 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
         } else {
             handler.removeMessages(MENU_CLOSE);
         }
+    }
+
+    /**
+     * 事件响应方法
+     * 接收消息
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onShowOrHideEvent(ShowAndHideEntry event) {
+        if (event.isShow()) {
+            mainCenterButton.setVisibility(View.VISIBLE);
+        } else {
+            mainCenterButton.setVisibility(View.GONE);
+        }
+
     }
 }
