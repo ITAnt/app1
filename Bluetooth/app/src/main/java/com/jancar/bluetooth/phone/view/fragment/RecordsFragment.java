@@ -151,6 +151,12 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
         }
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mActivity = null;
+    }
+
     private void findView(View mRootView) {
         listView = mRootView.findViewById(R.id.records_recycler_list);
         linearSyn = mRootView.findViewById(R.id.linear_syn_records);
@@ -179,7 +185,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
             if (callDataList == null) {
                 callDataList = new ArrayList<>();
             }
-            adapter = new RecordsAdapter(getActivity());
+            adapter = new RecordsAdapter(mActivity);
             listView.setAdapter(adapter);
             listView.setOverScrollMode(View.OVER_SCROLL_NEVER);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -237,7 +243,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
 
     @Override
     public Context getUIContext() {
-        return getActivity();
+        return mActivity;
     }
 
     @Override

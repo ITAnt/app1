@@ -109,6 +109,12 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        mActivity = null;
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         if (handler != null) {

@@ -248,6 +248,12 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        mActivity = null;
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         Log.e(TAG, "onDestroy==");
@@ -313,7 +319,7 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
             if (bookDataList == null) {
                 bookDataList = new ArrayList<>();
             }
-            adapter = new DialNumberAdapter(getActivity());
+            adapter = new DialNumberAdapter(mActivity);
             listView.setAdapter(adapter);
             listView.setOverScrollMode(View.OVER_SCROLL_NEVER);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
