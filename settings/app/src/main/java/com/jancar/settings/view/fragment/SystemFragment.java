@@ -92,6 +92,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
     private RelativeLayout systemRlayouts;
     private LinearLayout suspensionLlayout;
     SuspensionFragment mSuspensionFragment;
+    @SuppressLint("HandlerLeak")
     Handler mHadler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -168,7 +169,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         systemRlayouts.setOnClickListener(this);
         mSuspensionFragment = newInstance(false);
         getFragmentManager().beginTransaction()
-                .add(R.id.llayout_suspension, mSuspensionFragment)
+                .replace(R.id.llayout_suspension, mSuspensionFragment)
                 .commit();
     }
 
@@ -254,8 +255,9 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         dialog.show();
         setDialogParam(dialog, 500, 316);
     }
-    public void Reset(){
-        SharedPreferences.Editor editor =getContext().getSharedPreferences("EQ", MODE_WORLD_WRITEABLE).edit();
+
+    public void Reset() {
+        SharedPreferences.Editor editor = getContext().getSharedPreferences("EQ", MODE_WORLD_WRITEABLE).edit();
         editor.putFloat("x", 0.9633102f);
         editor.putFloat("y", 0.8699093f);
         editor.putInt("ValueTTxt", 0);
@@ -263,10 +265,11 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         editor.putInt("ValueBTxt", 0);
         editor.putInt("Types", 0);
         editor.apply();
-        SharedPreferences sharedPreferences =getContext().getSharedPreferences("FirstRun", 0);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("FirstRun", 0);
         sharedPreferences.edit().putBoolean("DisplayFragmetn", true).commit();
         sharedPreferences.edit().putBoolean("First", true).commit();
     }
+
     private void showRestartDialogs() {
         final Dialog dialog = new Dialog(getContext(), R.style.record_voice_dialog);
         dialog.setContentView(R.layout.dialog_reset);
@@ -436,6 +439,14 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
 
     Dialog CleanupDialog = null;
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.w("onDestroy","onDestroy");
+        settingManager.setListener(null);
+        mHadler=null;
+    }
+
     private void showCleanupDialog() {
 
         CleanupDialog = new Dialog(getContext(), R.style.record_voice_dialogs);
@@ -479,11 +490,13 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         setDialogParam(CleanupDialog, 324, 324);
         //systemCleanupRlayout.setEnabled(true);
     }
+
     @Override
     public void onPause() {
         super.onPause();
         settingManager.setListener(null);
     }
+
     public void cleanSystemCache(final Handler handler) {
         AppCleanEngine mAppCleanEngine = new AppCleanEngine(getContext());
         ArrayList<String> appList = mAppCleanEngine.scanAppList();
@@ -546,16 +559,18 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
 
     @Override
     public void notifyRefreshUI() {
-
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("FirstRun", 0);
-        if (sharedPreferences.getBoolean("DisplayFragmetn", false)) {
-           // SharedPreferences sharedPreferences = getContext().getSharedPreferences("FirstRun", 0);
-            Settings.Secure.setLocationProviderEnabled(getContext().getContentResolver(), LocationManager.GPS_PROVIDER, false);
-            GPS gps = new GPS();
-            gps.openGPSSettings(getContext(), 3);
-            settingManager.changeSystemLanguage(settingManager.locales[settingManager.getLanguage()], settingManager.getLanguage());
-            sharedPreferences.edit().putBoolean("DisplayFragmetn", false).commit();
+        if (getContext() != null) {
+            SharedPreferences sharedPreferences = getContext().getSharedPreferences("FirstRun", 0);
+            if (sharedPreferences.getBoolean("DisplayFragmetn", false)) {
+                // SharedPreferences sharedPreferences = getContext().getSharedPreferences("FirstRun", 0);
+                Settings.Secure.setLocationProviderEnabled(getContext().getContentResolver(), LocationManager.GPS_PROVIDER, false);
+             /*   GPS gps = new GPS();
+                gps.openGPSSettings(getContext(), 3);*/
+                settingManager.changeSystemLanguage(settingManager.locales[settingManager.getLanguage()], settingManager.getLanguage());
+                sharedPreferences.edit().putBoolean("DisplayFragmetn", false).commit();
+            }
         }
+
     }
 
     @Override

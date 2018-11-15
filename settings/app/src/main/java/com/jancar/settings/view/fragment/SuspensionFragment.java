@@ -94,19 +94,6 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
     public void onResume() {
         super.onResume();
         Log.e("SuspensionFragment", "onResume===");
-//        pos_title_0 = Hawk.get(Contacts.ICON_POS_0, getResources().getString(R.string.tv_power));
-//        pos_title_1 = Hawk.get(Contacts.ICON_POS_1, getResources().getString(R.string.tv_home));
-//        pos_title_2 = Hawk.get(Contacts.ICON_POS_2, getResources().getString(R.string.tv_vioce_add));
-//        pos_title_3 = Hawk.get(Contacts.ICON_POS_3, getResources().getString(R.string.tv_vioce_dec));
-//        pos_title_4 = Hawk.get(Contacts.ICON_POS_4, getResources().getString(R.string.tv_back));
-//        selectPos = Hawk.get(Contacts.SELECT_POS, 0);
-//        indexIcon = Hawk.get(Contacts.TAB_POS, ICON_POWER);
-
-        if (isRtl()) {
-            mRelativeLayout.setBackgroundResource(R.drawable.iv_sus_bg_right);
-        } else {
-            mRelativeLayout.setBackgroundResource(R.drawable.iv_sus_bg_left);
-        }
         pos_title_0 = SPUtil.getString(activity, Contacts.ICON_POS_0, getResources().getString(R.string.tv_power));
         pos_title_1 = SPUtil.getString(activity, Contacts.ICON_POS_1, getResources().getString(R.string.tv_home));
         pos_title_2 = SPUtil.getString(activity, Contacts.ICON_POS_2, getResources().getString(R.string.tv_vioce_add));

@@ -42,20 +42,11 @@ public class SettingsApplication extends Application {
 //                .build();
     }
 
-    private Activity activity;
 
     @Override
     public void onTerminate() {
         super.onTerminate();
         SettingManager.releaseSettingManager();
         BluetoothSettingManager.getBluetoothSettingManager(this).release();
-    }
-
-    public Activity getActivity() {
-        return activity;
-    }
-
-    public void setActivity(Activity activity) {
-        this.activity = activity;
     }
 }

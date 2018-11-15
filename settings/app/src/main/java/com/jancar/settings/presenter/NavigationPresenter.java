@@ -61,6 +61,7 @@ public class NavigationPresenter extends BasePresenter<NavigationContractImpl.Mo
                 System.out.println("=================" + attrs + "=================");
                 System.out.println("=================" +attsrs+ "=================");
             }
+
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }

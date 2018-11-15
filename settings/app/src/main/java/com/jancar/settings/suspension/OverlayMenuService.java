@@ -58,6 +58,7 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
     private String tcTitle5;
     private int Flag = 0;
 
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -91,6 +92,30 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
         return mBinder;
     }
 
+    JacState jacState = new JacState() {
+        @Override
+        public void OnPhone(boolean bState) {
+            super.OnPhone(bState);
+            Log.e("OverlayMenuService", "OnPhone===");
+            if (bState) {
+                mainCenterButton.setVisibility(View.GONE);
+            } else {
+                mainCenterButton.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        public void OnBackCar(boolean bState) {
+            super.OnBackCar(bState);
+            Log.e("OverlayMenuService", "OnBackCar===");
+            if (bState) {
+                mainCenterButton.setVisibility(View.GONE);
+            } else {
+                mainCenterButton.setVisibility(View.VISIBLE);
+            }
+        }
+    };
+
     @SuppressLint({"ClickableViewAccessibility", "WrongConstant"})
     @Override
     public void onCreate() {
@@ -121,7 +146,7 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
 //        mainParam.width = mainActionButtonSize;
 //        mainParam.height = mainActionButtonSize;
 
-        mainCenterButton = new FloatingButton.Builder(this)
+        mainCenterButton = new FloatingButton.Builder(this.getApplicationContext())
                 .setSystemOverlay(true)
                 .setContentView(fabIconStar, fabIconStarParams)
                 .setBackgroundDrawable(translateBackground)
@@ -209,29 +234,6 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
             }
         });
 
-        JacState jacState = new JacState() {
-            @Override
-            public void OnPhone(boolean bState) {
-                super.OnPhone(bState);
-                Log.e("OverlayMenuService", "OnPhone===");
-                if (bState) {
-                    mainCenterButton.setVisibility(View.GONE);
-                } else {
-                    mainCenterButton.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void OnBackCar(boolean bState) {
-                super.OnBackCar(bState);
-                Log.e("OverlayMenuService", "OnBackCar===");
-                if (bState) {
-                    mainCenterButton.setVisibility(View.GONE);
-                } else {
-                    mainCenterButton.setVisibility(View.VISIBLE);
-                }
-            }
-        };
         jancarManager.registerJacStateListener(jacState.asBinder());
 
     }
@@ -376,6 +378,11 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
         if (mainCenterButton != null) mainCenterButton.detach();
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        jancarManager.unregisterJacStateListener(jacState.asBinder());
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+            handler = null;
+        }
     }
 
     private void closeMenu() {

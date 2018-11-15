@@ -35,6 +35,7 @@ public class MyService extends Service {
         jancarManager = (JancarManager) getSystemService(JancarManager.JAC_SERVICE);
 
     }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand = " + intent);
@@ -53,7 +54,9 @@ public class MyService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-      //  jancarManager.u(promptController.asBinder());
+        jancarManager=null;
+
+        //  jancarManager.u(promptController.asBinder());
         Log.e(TAG, "onDestroy");
     }
 }
