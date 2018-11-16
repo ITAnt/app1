@@ -1,6 +1,7 @@
 package com.jancar.settings.view.fragment;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -69,6 +70,7 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
     private int selectPos;
     private Activity activity;
     private static final int OVERLAY_CLICK = 5;
+    private static final String OVERLAY_SERVICE_NAME = "com.jancar.settings.suspension.OverlayMenuService";
     private boolean isClicked = true;
 
     public static SuspensionFragment newInstance(boolean b) {
@@ -366,7 +368,14 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
                     SPUtil.putBoolean(activity, Contacts.ISOPEN_OVERLAY, isOpen);
                     if (isOpen) {
 //                    activity.startService(new Intent(activity, OverlayMenuService.class));
-                        EventBus.getDefault().post(new ShowAndHideEntry(true));
+                        if (isServiceRunning(OVERLAY_SERVICE_NAME, activity)) {
+                            EventBus.getDefault().post(new ShowAndHideEntry(true));
+                        } else {
+                            Log.e("SuspensionFragment", "isServiceRunning==");
+                            Intent services = new Intent();
+                            services.setClassName("com.jancar.settingss", "com.jancar.settings.suspension.OverlayMenuService");
+                            activity.startService(services);
+                        }
                     } else {
 //                    activity.stopService(new Intent(activity, OverlayMenuService.class));
                         EventBus.getDefault().post(new ShowAndHideEntry(false));
@@ -387,5 +396,23 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
                 adapter.setSelectPostion(selectPos);
             }
         }
+    }
+
+    /**
+     * 判断服务是否处于运行状态.
+     *
+     * @param servicename
+     * @param context
+     * @return
+     */
+    public static boolean isServiceRunning(String servicename, Context context) {
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningServiceInfo> infos = am.getRunningServices(100);
+        for (ActivityManager.RunningServiceInfo info : infos) {
+            if (servicename.equals(info.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -33,14 +33,16 @@ public class SettingsReceiver extends BroadcastReceiver {
             Intent service = new Intent();
             service.setClassName("com.jancar.settingss", "com.jancar.settings.service.SettingsUIService");
             context.startService(service);
-//            boolean isOpen = Hawk.get(Contacts.ISOPEN_OVERLAY, false);
+            //================悬浮按钮服务 start
             boolean isOpen = SPUtil.getBoolean(context, Contacts.ISOPEN_OVERLAY, false);
+            Log.e(TAG, "isOpen==" + isOpen);
             if (isOpen) {
-//                Intent services = new Intent();
-//                services.setClassName("com.jancar.settingss", "com.jancar.settings.suspension.OverlayMenuService");
-//                context.startService(services);
-                EventBus.getDefault().post(new ShowAndHideEntry(true));
+                Log.e(TAG, "services==");
+                Intent services = new Intent();
+                services.setClassName("com.jancar.settingss", "com.jancar.settings.suspension.OverlayMenuService");
+                context.startService(services);
             }
+            //================悬浮按钮服务 end
             SharedPreferences sharedPreferences = context.getSharedPreferences("FirstRun", 0);
             Boolean first_run = sharedPreferences.getBoolean("First", true);
             if (first_run) {

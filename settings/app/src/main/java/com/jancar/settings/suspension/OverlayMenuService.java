@@ -121,6 +121,7 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.e("OverlayMenuService", "onCreate===");
         jancarManager = (JancarManager) getSystemService("jancar_manager");
         jancarManager.registerJacStateListener(jacState.asBinder());
         EventBus.getDefault().register(this);
@@ -427,6 +428,7 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onShowOrHideEvent(ShowAndHideEntry event) {
+        Log.e("OverlayMenuService", "event.isShow():" + event.isShow());
         if (event.isShow()) {
             mainCenterButton.setVisibility(View.VISIBLE);
         } else {
