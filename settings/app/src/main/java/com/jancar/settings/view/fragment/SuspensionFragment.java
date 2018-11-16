@@ -95,15 +95,14 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
     public void onResume() {
         super.onResume();
         Log.e("SuspensionFragment", "onResume===");
-<<<<<<< HEAD
-=======
+
 
         if (isRtl()) {
             mRelativeLayout.setBackgroundResource(R.drawable.iv_sus_bg_right);
         } else {
             mRelativeLayout.setBackgroundResource(R.drawable.iv_sus_bg_left);
         }
->>>>>>> ceba8658baf3808bbdf493c659fffe1c7eae5342
+
         pos_title_0 = SPUtil.getString(activity, Contacts.ICON_POS_0, getResources().getString(R.string.tv_power));
         pos_title_1 = SPUtil.getString(activity, Contacts.ICON_POS_1, getResources().getString(R.string.tv_home));
         pos_title_2 = SPUtil.getString(activity, Contacts.ICON_POS_2, getResources().getString(R.string.tv_vioce_add));
