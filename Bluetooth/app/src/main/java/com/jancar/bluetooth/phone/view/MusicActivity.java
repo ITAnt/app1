@@ -502,7 +502,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     @Override
     public void onClick(View view) {
         if (!bluetoothRequestFocus.isBTConnect()) {
-            ToastUtil.ShowToast(MusicActivity.this, getString(R.string.tv_bt_connect_is_close));
+            ToastUtil.ShowTipText(MusicActivity.this, getString(R.string.tv_bt_connect_is_close));
             return;
         }
         switch (view.getId()) {

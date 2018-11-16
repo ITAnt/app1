@@ -109,6 +109,12 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        mActivity = null;
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         if (handler != null) {
@@ -209,7 +215,7 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
             String historyAddress = getManager().getHistoryConnectDeviceAddress();
             getManager().connectDevice(historyAddress);
         } else {
-            ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_bt_connect_is_close));
+            ToastUtil.ShowTipText(mActivity, mActivity.getString(R.string.tv_bt_connect_is_close));
         }
     }
 

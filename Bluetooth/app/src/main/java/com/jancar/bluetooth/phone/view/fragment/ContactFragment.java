@@ -200,6 +200,12 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        mActivity = null;
+    }
+
+    @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         this.hidden = hidden;
@@ -280,10 +286,10 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
             bookSearchList = new ArrayList<>();
         }
         if (adapter == null) {
-            adapter = new ContactAdapter(getActivity(), bookDataList, R.layout.item_contact_list);
+            adapter = new ContactAdapter(mActivity, bookDataList, R.layout.item_contact_list);
         }
         if (searchAdapter == null) {
-            searchAdapter = new ContactSearchAdapter(getActivity());
+            searchAdapter = new ContactSearchAdapter(mActivity);
         }
         if (TextUtils.isEmpty(editInputString)) {
             listView.setAdapter(adapter);
@@ -412,7 +418,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
 
     private void showDialog() {
         if (contactDialog == null) {
-            contactDialog = new ContactDialog(getActivity(), R.style.AlertDialogCustom);
+            contactDialog = new ContactDialog(mActivity, R.style.AlertDialogCustom);
         }
         contactDialog.setCanelOnClickListener(new OnClickListener() {
             @Override
@@ -511,11 +517,11 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                     if (!isDownLoding()) {
                         showDialog();
                     } else {
-                        ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_tip_down));
+                        ToastUtil.ShowTipText(mActivity, mActivity.getString(R.string.tv_tip_down));
                     }
 
                 } else {
-                    ToastUtil.ShowToast(mActivity, mActivity.getString(R.string.tv_bt_connect_is_none));
+                    ToastUtil.ShowTipText(mActivity, mActivity.getString(R.string.tv_bt_connect_is_none));
                 }
                 break;
             case R.id.iv_syn_contact:

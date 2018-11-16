@@ -23,6 +23,7 @@ import com.jancar.settings.presenter.SuspensionPresenter;
 import com.jancar.settings.suspension.OverlayMenuService;
 import com.jancar.settings.suspension.adapter.FloatAdapter;
 import com.jancar.settings.suspension.entry.FloatEntry;
+import com.jancar.settings.suspension.entry.ShowAndHideEntry;
 import com.jancar.settings.suspension.entry.UpdateEntry;
 import com.jancar.settings.suspension.utils.Contacts;
 import com.jancar.settings.util.SPUtil;
@@ -94,6 +95,15 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
     public void onResume() {
         super.onResume();
         Log.e("SuspensionFragment", "onResume===");
+<<<<<<< HEAD
+=======
+
+        if (isRtl()) {
+            mRelativeLayout.setBackgroundResource(R.drawable.iv_sus_bg_right);
+        } else {
+            mRelativeLayout.setBackgroundResource(R.drawable.iv_sus_bg_left);
+        }
+>>>>>>> ceba8658baf3808bbdf493c659fffe1c7eae5342
         pos_title_0 = SPUtil.getString(activity, Contacts.ICON_POS_0, getResources().getString(R.string.tv_power));
         pos_title_1 = SPUtil.getString(activity, Contacts.ICON_POS_1, getResources().getString(R.string.tv_home));
         pos_title_2 = SPUtil.getString(activity, Contacts.ICON_POS_2, getResources().getString(R.string.tv_vioce_add));
@@ -125,8 +135,6 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
 
     public void keepValue() {
 
-//        Hawk.put(Contacts.SELECT_POS, selectPos);
-//        Hawk.put(Contacts.TAB_POS, indexIcon);
         SPUtil.putInt(activity, Contacts.SELECT_POS, selectPos);
         SPUtil.putInt(activity, Contacts.TAB_POS, indexIcon);
     }
@@ -135,6 +143,12 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
     public void onDestroy() {
         super.onDestroy();
         Log.e("SuspensionFragment", "onDestroy===");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        activity = null;
     }
 
     private void changeIconBg(int indexIcon) {
@@ -334,9 +348,11 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
 //                Hawk.put(Contacts.ISOPEN_OVERLAY, isOpen);
                 SPUtil.putBoolean(activity, Contacts.ISOPEN_OVERLAY, isOpen);
                 if (isOpen) {
-                    activity.startService(new Intent(activity, OverlayMenuService.class));
+//                    activity.startService(new Intent(activity, OverlayMenuService.class));
+                    EventBus.getDefault().post(new ShowAndHideEntry(true));
                 } else {
-                    activity.stopService(new Intent(activity, OverlayMenuService.class));
+//                    activity.stopService(new Intent(activity, OverlayMenuService.class));
+                    EventBus.getDefault().post(new ShowAndHideEntry(false));
                 }
                 break;
         }
