@@ -7,8 +7,11 @@ import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 
+import com.jancar.settings.suspension.entry.ShowAndHideEntry;
 import com.jancar.settings.suspension.utils.Contacts;
 import com.jancar.settings.util.SPUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class SettingsReceiver extends BroadcastReceiver {
     private String TAG = SettingsReceiver.class.getSimpleName();
@@ -26,16 +29,17 @@ public class SettingsReceiver extends BroadcastReceiver {
             Intent serviced = new Intent();
             serviced.setClassName("com.jancar.settingss", "com.jancar.settings.MyService");
             context.startService(serviced);
-            Log.w(TAG,"serviced");
+            Log.w(TAG, "serviced");
             Intent service = new Intent();
             service.setClassName("com.jancar.settingss", "com.jancar.settings.service.SettingsUIService");
             context.startService(service);
 //            boolean isOpen = Hawk.get(Contacts.ISOPEN_OVERLAY, false);
             boolean isOpen = SPUtil.getBoolean(context, Contacts.ISOPEN_OVERLAY, false);
             if (isOpen) {
-                Intent services = new Intent();
-                services.setClassName("com.jancar.settingss", "com.jancar.settings.suspension.OverlayMenuService");
-                context.startService(services);
+//                Intent services = new Intent();
+//                services.setClassName("com.jancar.settingss", "com.jancar.settings.suspension.OverlayMenuService");
+//                context.startService(services);
+                EventBus.getDefault().post(new ShowAndHideEntry(true));
             }
             SharedPreferences sharedPreferences = context.getSharedPreferences("FirstRun", 0);
             Boolean first_run = sharedPreferences.getBoolean("First", true);
