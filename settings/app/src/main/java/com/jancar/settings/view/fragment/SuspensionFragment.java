@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -66,6 +68,8 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
     private String pos_title_4;
     private int selectPos;
     private Activity activity;
+    private static final int OVERLAY_CLICK = 5;
+    private boolean isClicked = true;
 
     public static SuspensionFragment newInstance(boolean b) {
         SuspensionFragment frag = new SuspensionFragment();
@@ -73,6 +77,19 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
         frag.setArguments(bundle);   //设置参数
         return frag;
     }
+
+    private Handler mHamdler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case OVERLAY_CLICK:
+                    isClicked = true;
+                    ivOnSus.setEnabled(true);
+                    break;
+            }
+        }
+    };
 
     @Override
     public void onAttach(Context context) {
@@ -343,16 +360,22 @@ public class SuspensionFragment extends BaseFragmentsd<SuspensionPresenter> impl
                 indexIcon = ICON_BACK;
                 break;
             case R.id.iv_float_switch:
-                isOpen = !isOpen;
+                if (isClicked) {
+                    isOpen = !isOpen;
 //                Hawk.put(Contacts.ISOPEN_OVERLAY, isOpen);
-                SPUtil.putBoolean(activity, Contacts.ISOPEN_OVERLAY, isOpen);
-                if (isOpen) {
+                    SPUtil.putBoolean(activity, Contacts.ISOPEN_OVERLAY, isOpen);
+                    if (isOpen) {
 //                    activity.startService(new Intent(activity, OverlayMenuService.class));
-                    EventBus.getDefault().post(new ShowAndHideEntry(true));
-                } else {
+                        EventBus.getDefault().post(new ShowAndHideEntry(true));
+                    } else {
 //                    activity.stopService(new Intent(activity, OverlayMenuService.class));
-                    EventBus.getDefault().post(new ShowAndHideEntry(false));
+                        EventBus.getDefault().post(new ShowAndHideEntry(false));
+                    }
+                    isClicked = false;
+                    ivOnSus.setEnabled(false);
+                    mHamdler.sendEmptyMessageDelayed(OVERLAY_CLICK, 1500);
                 }
+
                 break;
         }
     }
