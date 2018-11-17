@@ -120,7 +120,7 @@ public class BluetoothRequestFocus {
 
     public static BluetoothRequestFocus getBluetoothRequestFocusStance(Context context) {
         if (bluetoothRequestFocus == null) {
-            bluetoothRequestFocus = new BluetoothRequestFocus(context);
+            bluetoothRequestFocus = new BluetoothRequestFocus(context.getApplicationContext());
         }
         return bluetoothRequestFocus;
     }

@@ -115,7 +115,7 @@ dependencies {
     implementation 'com.github.orhanobut:hawk:1.21'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.android.support:support-v4:23.2.1'
-    implementation files('libs/frameworks.jar')
+    //    implementation files('libs/frameworks.jar')
     //ANR
     // 仅在debug包启用BlockCanary进行卡顿监控和提示的话，可以这么用
     debugCompile 'com.github.markzhai:blockcanary-android:1.5.0'
@@ -126,8 +126,8 @@ dependencies {
     //Leakcanary
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-
-//    implementation 'com.yanzhenjie:permission:2.0.0-rc12'
+    //    implementation 'com.yanzhenjie:permission:2.0.0-rc12'
+    implementation files('libs/classes(19).jar')
 }
 
 //apk前缀名

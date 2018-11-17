@@ -41,9 +41,9 @@ import static com.jancar.key.KeyDef.KeyAction.KEY_ACTION_UP;
 public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicContract.View> implements MusicContract.View, View.OnClickListener, BTMusicListener, BTConnectStatusListener, BluetoothRequestFocus.BackCarListener {
 
     private static final String TAG = "MusicActivity";
-    private final int MSG_INIT_OK = 0;
-    private final int MSG_UI_REFRESH_ID3_INFO = 1;
-    private final int MSG_UI_REFRESH_PLAY_STATE = 2;
+    private static final int MSG_INIT_OK = 0;
+    private static final int MSG_UI_REFRESH_ID3_INFO = 1;
+    private static final int MSG_UI_REFRESH_PLAY_STATE = 2;
     public static final byte CMD_UPDATE_PLAY_STATUS = (byte) 0x01;
     public static final byte CMD_UPDATE_PLAY_POSITION = (byte) 0x02;
     private BluetoothManager bluetoothManager;
@@ -131,6 +131,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         super.onResume();
         Log.e(TAG, "onResume===");
         registerListener();
+        BluetoothRequestFocus.HandPaused = false;
         isConnect = bluetoothRequestFocus.isBTConnect();
         isResume = true;
         if (!isConnect) {
@@ -509,6 +510,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         }
         switch (view.getId()) {
             case R.id.iv_music_pre:
+
                 bluetoothRequestFocus.btMusicPre();
                 break;
             case R.id.iv_music_next:
