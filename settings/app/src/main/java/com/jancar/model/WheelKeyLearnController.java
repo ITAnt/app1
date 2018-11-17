@@ -271,9 +271,16 @@ public class WheelKeyLearnController {
     }
 
     public void release(){
+
         mcuClient.UnRegister(WheelKey.CMD_LEARN_STATUS_CONTRL_REQUEST);
         mcuClient.UnRegister(WheelKey.CMD_LEARN_STATUS_RESPONE);
         mcuClient.UnRegister(WheelKey.CMD_LEARN_STATUS_SCAN_RESPONE);
         mcuClient.DeInit(context);
+        mcuClient.setMcuDataListener(null);
+       // wheelKeyListener=null;
+    }
+    public void  onDestroy(){
+        release();
+        context=null;
     }
 }

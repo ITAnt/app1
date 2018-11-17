@@ -85,7 +85,13 @@ public class KeyAapter extends BaseAdapter {
         return view;
     }
 
+    public void onDestroy() {
+        mContext=null;
+    }
+
     class ViewHolder {
         ImageView keyImage;
+
+
     }
 }

@@ -28,6 +28,10 @@ public class LanguageListAdapter extends BaseAdapter {
         this.mContext=mContext;
         this.nameList=nameList;
     }
+    public void Destroy(){
+        mContext=null;
+        nameList=null;
+    }
     @Override
     public int getCount() {
         return nameList.size();

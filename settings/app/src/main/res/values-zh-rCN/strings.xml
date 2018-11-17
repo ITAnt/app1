@@ -328,6 +328,7 @@
     <string name="tab_suspension_driving">悬浮按钮开关</string>
     <string name="password">密码不能少于8位</string>
     <string name="tab_android_system">安卓设置</string>
+    <string name="nonull" />
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

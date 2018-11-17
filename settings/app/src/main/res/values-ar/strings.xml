@@ -328,6 +328,7 @@
     <string name="tab_suspension_driving">زر زر عائم</string>
     <string name="password">لا يمكن أن تكون كلمة المرور أقل من 8 أرقام</string>
     <string name="tab_android_system">إعدادات Android</string>
+    <string name="nonull" >夜间亮度不能超过白天亮度</string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

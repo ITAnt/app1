@@ -1,5 +1,6 @@
 package com.jancar.settings.view.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.nfc.Tag;
@@ -60,6 +61,7 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
     private final static int BUTTON_LEARNED_STATUS = 1;
     private final static int MSG_REFRESH_ADAPTER = 0;
     private final static int MSG_SHOW_DIALOG = 1;
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -280,6 +282,7 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
         msg.sendToTarget();
     }
 
+
     @Override
     public void onExitLearn() {
         Message msg = mHandler.obtainMessage();
@@ -418,6 +421,19 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
         wheelKeyLearnController.sendKeyValueToMcu(short_clickStatus, kValue);
         keyValue.setKeyLearningStatus((byte) BUTTON_SELECT_STATUS);
         keyAapter.setKeyValues(keyValues);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        wheelKeyLearnController.release();
+        wheelKeyLearnController=null;
+        mHandler=null;
+        keyAapter.onDestroy();
+        keyValues.clear();;
+        keyValues=null;
+
+        Log.w("settingsWheelfragment","onDestroy");
     }
 
     private void clearStatus() {

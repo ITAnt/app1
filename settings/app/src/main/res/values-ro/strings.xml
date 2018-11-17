@@ -446,6 +446,7 @@
     <string name="password"> Parola nu poate fi mai mică de 8 biți </string>
         
     <string name="tab_android_system"> Setări Android </string>
+    <string name="nonull" />
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

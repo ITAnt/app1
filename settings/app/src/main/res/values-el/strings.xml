@@ -325,6 +325,7 @@
     <string name="tab_suspension_Setting">Ρυθμιζόμενες ρυθμίσεις κουμπιού</string>
     <string name="password">Ο κωδικός πρόσβασης δεν μπορεί να είναι μικρότερος από 8 ψηφία</string>
     <string name="tab_android_system">Ρυθμίσεις Android</string>
+    <string name="nonull" />
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

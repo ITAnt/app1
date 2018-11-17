@@ -471,6 +471,7 @@
     <string name="password"> Das Kennwort darf nicht kleiner als 8 Bit sein </string>
         
     <string name="tab_android_system"> Android-Einstellungen </string>
+    <string name="nonull" />
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

@@ -83,6 +83,8 @@ public class WifiEnabler {
     public void pause() {
         mContext.unregisterReceiver(mReceiver);
         mScanHandler.removeCallbacksAndMessages(null);
+        mContext=null;
+        mScanHandler=null;
     }
 
     private void handleWifiStateChanged(int state) {

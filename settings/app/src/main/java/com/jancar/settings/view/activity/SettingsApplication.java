@@ -46,7 +46,8 @@ public class SettingsApplication extends Application {
     @Override
     public void onTerminate() {
         super.onTerminate();
-        SettingManager.releaseSettingManager();
+        SettingManager.getSettingManager(this).releaseSettingManager();
+      //  SettingManager.releaseSettingManager();
         BluetoothSettingManager.getBluetoothSettingManager(this).release();
     }
 }

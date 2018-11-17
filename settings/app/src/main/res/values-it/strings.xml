@@ -468,6 +468,7 @@
     <string name="password"> A jelszó nem lehet kevesebb, mint 8 bit </string>
         
     <string name="tab_android_system"> Android beállítások </string>
+    <string name="nonull" />
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>
