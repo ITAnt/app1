@@ -36,6 +36,7 @@ import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.FlyLog;
 import com.jancar.bluetooth.phone.util.ThreadUtils;
 import com.jancar.bluetooth.phone.util.ToastUtil;
+import com.jancar.bluetooth.phone.view.MusicActivity;
 import com.jancar.bluetooth.phone.widget.AVLoadingIndicatorView;
 import com.jancar.bluetooth.phone.widget.ContactDialog;
 import com.jancar.bluetooth.widget.SideBar;
@@ -519,11 +520,11 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                     if (!isDownLoding()) {
                         showDialog();
                     } else {
-                        ToastUtil.ShowTipText(mActivity, mActivity.getString(R.string.tv_tip_down));
+                        ((MusicActivity)mActivity).mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_tip_down));
                     }
 
                 } else {
-                    ToastUtil.ShowTipText(mActivity, mActivity.getString(R.string.tv_bt_connect_is_none));
+                    ((MusicActivity)mActivity).mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_bt_connect_is_none));
                 }
                 break;
             case R.id.iv_syn_contact:

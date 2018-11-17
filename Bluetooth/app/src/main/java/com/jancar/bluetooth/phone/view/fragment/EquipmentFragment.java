@@ -25,6 +25,7 @@ import com.jancar.bluetooth.phone.entity.Event;
 import com.jancar.bluetooth.phone.presenter.EquipmentPresenter;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.ToastUtil;
+import com.jancar.bluetooth.phone.view.MusicActivity;
 import com.ui.mvp.view.support.BaseFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -222,11 +223,11 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
                 }
             } catch (Exception e) {
                 Log.e(TAG, "Exception===" + e.getMessage());
-                ToastUtil.ShowTipText(mActivity, mActivity.getString(R.string.tv_equiment_history_adress));
+                ((MusicActivity)mActivity).mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_equiment_history_adress));
             }
 
         } else {
-            ToastUtil.ShowTipText(mActivity, mActivity.getString(R.string.tv_bt_connect_is_close));
+            ((MusicActivity)mActivity).mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_bt_connect_is_close));
         }
     }
 

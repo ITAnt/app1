@@ -68,6 +68,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     private int saveConnect = Constants.BT_CONNECT_IS_NONE;
 
     private JancarManager jancarManager;
+    public ToastUtil mToast;
     keyFocuser keyFocusListener = new keyFocuser() {
         @Override
         public boolean OnKeyEvent(int key, int state) {
@@ -113,6 +114,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         super.onCreate(savedInstanceState);
         Log.e(TAG, "onCreate===");
         setContentView(R.layout.activity_music);
+        mToast = new ToastUtil(this);
         initView();
         jancarManager = (JancarManager) getSystemService(JancarManager.JAC_SERVICE);
     }
@@ -502,7 +504,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     @Override
     public void onClick(View view) {
         if (!bluetoothRequestFocus.isBTConnect()) {
-            ToastUtil.ShowTipText(MusicActivity.this, getString(R.string.tv_bt_connect_is_close));
+            mToast.ShowTipText(MusicActivity.this, getString(R.string.tv_bt_connect_is_close));
             return;
         }
         switch (view.getId()) {
