@@ -96,7 +96,7 @@ public class ContactSearchAdapter extends BaseAdapter {
         return convertView;
     }
 
-    class ViewHolder {
+    static class ViewHolder {
         TextView tvPhone;
         TextView tvName;
         ImageView imageView;

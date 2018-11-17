@@ -94,7 +94,7 @@ public class SettingAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    class ViewHolder {
+   static class ViewHolder {
         TextView tvName;
         ImageView ivDel;
 

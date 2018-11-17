@@ -12,9 +12,9 @@ import android.util.Log;
  */
 public class EasyLinkReceiver extends BroadcastReceiver {
     private static final String TAG = "EasyLinkReceiver";
-    private final String EASY_GET_FOUS = "net.easyconn.a2dp.acquire";
-    private final String EASY_LOSS_FOUS = "net.easyconn.a2dp.release";
-    private final String BOOT_COMPLETE = "android.intent.action.BOOT_COMPLETED";
+    private static final String EASY_GET_FOUS = "net.easyconn.a2dp.acquire";
+    private static final String EASY_LOSS_FOUS = "net.easyconn.a2dp.release";
+    private static final String BOOT_COMPLETE = "android.intent.action.BOOT_COMPLETED";
 
     @Override
     public void onReceive(Context context, Intent intent) {
