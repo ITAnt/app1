@@ -325,13 +325,15 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                    String phoneNumber = bookDataList.get(position).getPhoneNumber();
-                    if (phoneNumber.equals(mStrKeyNum)) {
-                        bluetoothManager.hfpCall(phoneNumber);
-                    } else {
-                        mStrKeyNum = phoneNumber;
-                        tvInput.setText(NumberFormatUtil.getNumber(mStrKeyNum));
-                        adapter.setStrKeyNum(mStrKeyNum);
+                    if (bookDataList != null && bookDataList.size() > 0) {
+                        String phoneNumber = bookDataList.get(position).getPhoneNumber();
+                        if (phoneNumber.equals(mStrKeyNum)) {
+                            bluetoothManager.hfpCall(phoneNumber);
+                        } else {
+                            mStrKeyNum = phoneNumber;
+                            tvInput.setText(NumberFormatUtil.getNumber(mStrKeyNum));
+                            adapter.setStrKeyNum(mStrKeyNum);
+                        }
                     }
                 }
             });

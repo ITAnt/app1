@@ -42,4 +42,5 @@
     <string name="tv_cancel">Abbrechen</string>
     <string name="tv_equiment_bluetooth">Bluetooth-Einstellungen</string>
     <string name="tv_tip_down">Herunterladen ...</string>
+    <string name="tv_equiment_history_adress">Die adresse Von bluetooth ist ungültig</string>
 </resources>

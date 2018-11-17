@@ -53,4 +53,5 @@
     <string name="tv_cancel">Annulla</string>
     <string name="tv_equiment_bluetooth">Impostazioni Bluetooth</string>
     <string name="tv_tip_down">Scaricare...</string>
+    <string name="tv_equiment_history_adress">L'indirizzo Bluetooth non è valido</string>
 </resources>

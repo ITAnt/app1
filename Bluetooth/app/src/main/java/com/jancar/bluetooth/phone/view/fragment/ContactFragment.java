@@ -314,12 +314,14 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                String phoneNumber = bookDataList.get(position).getPhoneNumber();
-                searchAdapter.setSelectPosition(position);
-                if (selectPos == position) {
-                    bluetoothManager.hfpCall(phoneNumber);
+                if (bookSearchList != null && bookSearchList.size() > 0) {
+                    String phoneNumber = bookSearchList.get(position).getPhoneNumber();
+                    searchAdapter.setSelectPosition(position);
+                    if (selectPos == position) {
+                        bluetoothManager.hfpCall(phoneNumber);
+                    }
+                    selectPos = position;
                 }
-                selectPos = position;
             }
         });
         editSearch.addTextChangedListener(this);

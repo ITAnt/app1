@@ -53,4 +53,5 @@
     <string name="tv_cancel">İptal</string>
     <string name="tv_equiment_bluetooth">Bluetooth ayarları</string>
     <string name="tv_tip_down">Indirme...</string>
+    <string name="tv_equiment_history_adress">Bluetooth adresi geçersiz</string>
 </resources>

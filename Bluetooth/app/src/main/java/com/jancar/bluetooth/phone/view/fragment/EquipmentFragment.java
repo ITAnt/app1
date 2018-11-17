@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +41,7 @@ import butterknife.Unbinder;
  * 设备管理
  */
 public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter, EquipmentContract.View> implements EquipmentContract.View, BTConnectStatusListener {
+    private static final String TAG = "EquipmentFragment";
     Unbinder unbinder;
     View mRootView;
     @BindView(R.id.tv_equipment_setting_name)
@@ -212,8 +215,16 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
     private void getConnect() {
         boolean btOn = getManager().isBTOn();
         if (btOn) {
-            String historyAddress = getManager().getHistoryConnectDeviceAddress();
-            getManager().connectDevice(historyAddress);
+            try {
+                String historyAddress = getManager().getHistoryConnectDeviceAddress();
+                if (!TextUtils.isEmpty(historyAddress)) {
+                    getManager().connectDevice(historyAddress);
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Exception===" + e.getMessage());
+                ToastUtil.ShowTipText(mActivity, mActivity.getString(R.string.tv_equiment_history_adress));
+            }
+
         } else {
             ToastUtil.ShowTipText(mActivity, mActivity.getString(R.string.tv_bt_connect_is_close));
         }
