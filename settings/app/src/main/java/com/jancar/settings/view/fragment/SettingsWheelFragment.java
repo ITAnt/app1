@@ -114,6 +114,7 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
     private void initController() {
         wheelKeyLearnController = new WheelKeyLearnController(this.getContext());
         wheelKeyLearnController.setWheelKeyListener(this);
+        wheelKeyLearnController.scanLearnStatus();
     }
 
     /**

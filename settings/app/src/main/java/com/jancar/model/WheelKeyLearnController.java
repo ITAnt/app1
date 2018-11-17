@@ -269,7 +269,20 @@ public class WheelKeyLearnController {
         mcuClient.Send2Mcu(WheelKey.CMD_LEARN_STATUS_CONTRL_REQUEST, datas, (byte) len);
         Log.e(TAG, "Send2Mcu " + XUtils.Byte2Hex(WheelKey.CMD_LEARN_STATUS_CONTRL_REQUEST) + "data==" + XUtils.ByteArrToHex(datas));
     }
-
+    /**
+     * 预览学习按键状态
+     */
+    public void scanLearnStatus() {
+        if (mcuClient == null) {
+            Log.e(TAG, "mcuClient===" + mcuClient);
+            return;
+        }
+        byte datas[];
+        datas = new byte[]{WheelKey.CMD_SCAN_LEARN_ACTION, 0x00, 0x00};
+        int len = datas.length;
+        mcuClient.Send2Mcu(WheelKey.CMD_LEARN_STATUS_CONTRL_REQUEST, datas, (byte) len);
+        Log.e(TAG, "Send2Mcu " + XUtils.Byte2Hex(WheelKey.CMD_LEARN_STATUS_CONTRL_REQUEST) + "data==" + XUtils.ByteArrToHex(datas));
+    }
     public void release(){
 
         mcuClient.UnRegister(WheelKey.CMD_LEARN_STATUS_CONTRL_REQUEST);

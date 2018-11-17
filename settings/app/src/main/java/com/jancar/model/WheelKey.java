@@ -56,6 +56,7 @@ public class WheelKey {
     public static final byte CMD_LEARN_STATUS_RESPONE = (byte)0x12;//学习状态应答
     public static final byte CMD_LEARN_STATUS_SCAN_RESPONE = (byte)0x13;//按键学习状态预览
     public static final byte CMD_LEARN_KEY_CONTRY_RESPONE = (byte)0x20;//按键控制
+
     /**
      * 命令按键学习控制subcommand
      */
@@ -64,6 +65,7 @@ public class WheelKey {
     public static final byte CMD_START_LEARN_ACTION = (byte)0x02;//开始学习
     public static final byte CMD_EXIT_LEARN_ACTION = (byte)0x03;//退出学习
     public static final byte CMD_LEARNING_ACTION = (byte)0x10;//学习
+    public static final byte CMD_SCAN_LEARN_ACTION = (byte)0x04;//预览学习状态
     public static final byte CMD_LEARNING_QUERY_ACTION = (byte)0x14;//查询学习状态
     /**
      * 按键状态
