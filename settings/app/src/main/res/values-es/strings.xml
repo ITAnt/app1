@@ -473,7 +473,7 @@
     <string name="password"> La contraseña no sea inferior a 8 </string>
         
     <string name="tab_android_system"> Andrews Set </string>
-    <string name="nonull" />
+    <string name="nonull" >El brillo nocturno no puede exceder el brillo diurno</string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

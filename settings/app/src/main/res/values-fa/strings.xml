@@ -328,7 +328,7 @@
     <string name="tab_suspension_driving">دکمه شناور سوئیچ</string>
     <string name="password">رمز عبور نمی تواند کمتر از 8 رقم باشد</string>
     <string name="tab_android_system">تنظیمات Android</string>
-    <string name="nonull" />
+    <string name="nonull">روشنایی شبانه نمی تواند روشنایی روزانه را افزایش دهد</string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

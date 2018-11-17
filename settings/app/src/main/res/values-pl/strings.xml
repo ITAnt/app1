@@ -331,7 +331,7 @@
     <string name="password"> Hasło nie może być mniejsze niż 8 bitów </string>
         
     <string name="tab_android_system"> Ustawienia Androida </string>
-    <string name="nonull" />
+    <string name="nonull" >Jasność w nocy nie może przekraczać jasności w ciągu dnia</string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

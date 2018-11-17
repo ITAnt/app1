@@ -328,7 +328,7 @@
         <string name = "tab_suspension_driving"> Кнопка перемикання курсору </string>
         <string name = "password"> Пароль не може бути менше 8 біт </string>
         <string name = "tab_android_system"> Параметри Android </string>
-    <string name="nonull" />
+    <string name="nonull" >Нічна яскравість не може перевищувати яскравості вдень</string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

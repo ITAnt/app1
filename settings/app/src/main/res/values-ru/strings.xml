@@ -326,7 +326,7 @@
     <string name="tab_suspension_Setting">Настройки плавающей кнопки</string>
     <string name="password">Пароль не может быть менее 8 цифр.</string>
     <string name="tab_android_system">Настройки Android</string>
-    <string name="nonull" />
+    <string name="nonull">Ночная яркость не может превышать дневную яркость</string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

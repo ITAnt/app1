@@ -293,10 +293,16 @@ public class RadioRepository implements RadioModel {
                     mScanResultList.get(i).setPosition(i);
                     mScanResultList.get(i).setFrequency(0);
 
-                } else if (i > 5 && i <= 11) {
+                } else if (i <= 11) {
+                    if (i==6){
+                        mScanResultList.get(i).setSelect(true);
+                    }
                     mScanResultList.get(i).setPosition(i - 6);
                     mScanResultList.get(i).setFrequency(1);
-                } else if (i > 11 && i <= 17) {
+                } else if (i <= 17) {
+                    if (i==12){
+                        mScanResultList.get(i).setSelect(true);
+                    }
                     mScanResultList.get(i).setPosition(i - 12);
                     mScanResultList.get(i).setFrequency(2);
                 }
@@ -307,10 +313,16 @@ public class RadioRepository implements RadioModel {
                     }
                     mScanResultList.get(i).setPosition(i);
                     mScanResultList.get(i).setFrequency(3);
-                } else if (i > 5 && i <= 11) {
+                } else if (i <= 11) {
+                    if (i==6){
+                        mScanResultList.get(i).setSelect(true);
+                    }
                     mScanResultList.get(i).setPosition(i - 6);
                     mScanResultList.get(i).setFrequency(4);
-                } else if (i > 11 && i <= 17) {
+                } else if (i <= 17) {
+                    if (i==12){
+                        mScanResultList.get(i).setSelect(true);
+                    }
                     mScanResultList.get(i).setPosition(i - 12);
                     mScanResultList.get(i).setFrequency(5);
                 }
