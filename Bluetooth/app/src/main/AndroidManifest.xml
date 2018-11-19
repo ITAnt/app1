@@ -48,7 +48,7 @@
             android:name=".view.MusicActivity"
             android:icon="@mipmap/ic_music"
             android:label="@string/tv_bluet_music"
-            android:launchMode="singleTask"
+            android:launchMode="singleInstance"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

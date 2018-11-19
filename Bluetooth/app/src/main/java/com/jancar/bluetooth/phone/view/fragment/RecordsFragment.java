@@ -149,6 +149,7 @@ public class RecordsFragment extends BaseFragment<RecordsContract.Presenter, Rec
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
         }
+        bluetoothManager.setBTConnectStatusListener(null);
     }
 
     @Override

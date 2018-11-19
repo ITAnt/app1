@@ -130,6 +130,7 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        bluetoothManager.setBTConnectStatusListener(null);
     }
 
     private Handler handler = new Handler() {
