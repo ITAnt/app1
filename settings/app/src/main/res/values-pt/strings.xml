@@ -326,7 +326,7 @@
         <string name = "tab_suspension_driving"> Comutador do botão suspenso </string>
         <string name = "password"> A senha não pode ser menor que 8 bits </string>
         <string name = "tab_android_system"> Configurações do Android </string>
-    <string name="nonull" />
+    <string name="nonull" >O brilho noturno não pode exceder o brilho diurno</string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

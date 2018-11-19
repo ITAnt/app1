@@ -450,7 +450,7 @@
     <string name="password"> รหัสผ่านต้องไม่น้อยกว่า 8 บิต </string>
         
     <string name="tab_android_system"> การตั้งค่า Android </string>
-    <string name="nonull" />
+    <string name="nonull" >ความสว่างตอนกลางคืนไม่ควรเกินความสว่างในเวลากลางวัน</string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

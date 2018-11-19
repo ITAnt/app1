@@ -8,8 +8,8 @@
     <string name="am2">AM2</string>
     <string name="am3">AM3</string>
     <string name="search_no_result">暂未搜索到电台.</string>
-    <string name="unit_khz" >KHz</string>
-    <string name="unit_mhz" >MHz</string>
+    <string name="unit_khz">KHz</string>
+    <string name="unit_mhz">MHz</string>
     <string name="ST">ST</string>
-    <string name="radio_scaning" >正在扫描电台列表</string>
+    <string name="radio_scaning">正在扫描电台列表</string>
 </resources>

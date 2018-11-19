@@ -199,7 +199,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                 showSettingDialog();
                 break;
             case R.id.rlayout_reset:
-                showResetDialog();
+               showResetDialog();
                 break;
             case R.id.rlayout_restore_default:
                 showRestoreDefaultDialog();

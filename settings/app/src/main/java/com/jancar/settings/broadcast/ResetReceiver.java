@@ -37,6 +37,7 @@ public class ResetReceiver extends BroadcastReceiver implements AudioEffectManag
             mAudioEffectManager.setBalanceSpeakerValue(AudioEffectParam.getBalanceFadeCombine(0, 0), true);
             BluetoothSettingManager manager = BluetoothSettingManager.getBluetoothSettingManager(context);
             manager.openBluetooth();
+            mAudioEffectManager.close();
         }
 
     }

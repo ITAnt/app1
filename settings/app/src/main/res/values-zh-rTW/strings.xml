@@ -326,7 +326,7 @@
     <string name="tab_suspension_driving">懸浮按鈕開關</string>
     <string name="password">密碼不能少於8位</string>
     <string name="tab_android_system">安卓設置</string>
-    <string name="nonull"></string>
+    <string name="nonull" >夜間亮度不能超過白天亮度</string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

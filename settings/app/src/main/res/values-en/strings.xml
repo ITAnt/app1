@@ -325,7 +325,7 @@
     <string name="tab_suspension_driving">Floating button switch</string>
     <string name="password">Password cannot be less than 8 digits</string>
     <string name="tab_android_system">Android settings</string>
-    <string name="nonull" />
+    <string name="nonull" >Nighttime brightness cannot exceed daytime brightness</string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

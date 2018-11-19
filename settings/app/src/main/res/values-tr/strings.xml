@@ -473,7 +473,7 @@
     <string name="password"> Şifre, 8 bitten az olamaz </string>
         
     <string name="tab_android_system"> Android ayarları </string>
-    <string name="nonull" />
+    <string name="nonull">Gece parlaklığı gündüz parlaklığını aşamaz</string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

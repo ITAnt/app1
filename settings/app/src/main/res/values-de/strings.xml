@@ -14,6 +14,7 @@
     <string name="btn_clear_cache">清除缓存</string>
     <string name="btn_clear_data">清除数据</string>
     <string name="Start">Start</string>
+    <string name="nonull" >Die Helligkeit bei Nacht kann die Helligkeit bei Tag nicht überschreiten</string>
     <!--显示设置-->
     <string name="rbtn_chinese">中文（简体）</string>
     <string name="rbtn_chinese_">中文（繁体）</string>
@@ -471,7 +472,7 @@
     <string name="password"> Das Kennwort darf nicht kleiner als 8 Bit sein </string>
         
     <string name="tab_android_system"> Android-Einstellungen </string>
-    <string name="nonull" />
+
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>
