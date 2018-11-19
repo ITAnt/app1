@@ -262,6 +262,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
         }
+        bluetoothManager.setBTConnectStatusListener(null);
 //        bluetoothManager.unRegisterBTPhonebookListener();
     }
 
@@ -520,11 +521,11 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                     if (!isDownLoding()) {
                         showDialog();
                     } else {
-                        ((MusicActivity)mActivity).mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_tip_down));
+                        ((MusicActivity) mActivity).mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_tip_down));
                     }
 
                 } else {
-                    ((MusicActivity)mActivity).mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_bt_connect_is_none));
+                    ((MusicActivity) mActivity).mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_bt_connect_is_none));
                 }
                 break;
             case R.id.iv_syn_contact:

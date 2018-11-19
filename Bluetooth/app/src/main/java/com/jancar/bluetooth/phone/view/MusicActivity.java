@@ -169,6 +169,8 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         bluetoothRequestFocus.setBackCarListener(null);
         bluetoothRequestFocus.releaseAudioFocus();
 //        registerMediaSession.releaseMediaButton();
+        bluetoothManager.unRegisterBTMusicListener();
+        bluetoothManager.setBTConnectStatusListener(null);
         jancarManager.abandonKeyFocus(keyFocusListener.asBinder());
     }
 
@@ -630,5 +632,11 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     public void onNotifyActivityFinish() {
         Log.e(TAG, "onNotifyActivityFinish===");
         this.finish();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        Log.e(TAG, "onLowMemory===");
     }
 }
