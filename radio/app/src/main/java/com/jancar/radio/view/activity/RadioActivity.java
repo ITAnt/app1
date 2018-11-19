@@ -187,7 +187,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
     int tiems = 5;
     Map<String, Integer> stringIntegerMap ;
     boolean isSwitc = false;
-
+    private static final String PROPERTY_GIS_COMPENNSATE = "persist.jancar.GisCompensate";
     GlobaldataManager manager;
     @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
@@ -690,18 +690,17 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
     @Override
     public void requestRadioFocus() {
         Log.w("Radio", "requestRadioFocus");
-        SystemProperties.set(PROPERTY_GIS_COMPENNSATE, "1");
 
         mAudioManager.requestAudioFocus(mAudioFocusChange, AudioManager.STREAM_MUSIC, AUDIOFOCUS_GAIN);
         mJancarManager.requestKeyFocus(keyFocusListener);
+        SystemProperties.set(PROPERTY_GIS_COMPENNSATE, "1");
     }
-    private static final String PROPERTY_GIS_COMPENNSATE = "persist.jancar.GisCompensate";
+
     @Override
     public void abandonRadioFocus() {
         mAudioManager.abandonAudioFocus(mAudioFocusChange);
         mJancarManager.abandonKeyFocus(keyFocusListener);
         SystemProperties.set(PROPERTY_GIS_COMPENNSATE, "0");
-
         if (scheduleds != null) {
             scheduleds.shutdown();
 
@@ -1371,7 +1370,6 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         Logcat.d("mRadioManager = " + this.mRadioManager);
         mAudioManager.abandonAudioFocus(mAudioFocusChange);
         mJancarManager.abandonKeyFocus(keyFocusListener);
-      //  mJancarManager=null;
         if (scheduleds != null) {
             scheduleds.shutdown();
         }

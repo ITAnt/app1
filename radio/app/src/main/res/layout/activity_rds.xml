@@ -1,9 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.jancar.radio.view.activity.RdsActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5px"
+        android:layout_marginBottom="5px"
+        android:gravity="center"
+        android:orientation="horizontal"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/px15"
+            android:layout_marginEnd="@dimen/px15"
+            android:text="@string/Ta" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/px15"
+            android:layout_marginEnd="@dimen/px15"
+            android:text="@string/AF" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/px15"
+            android:layout_marginEnd="@dimen/px15"
+            android:text="@string/TP" />
+
+        <TextView
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/px15"
+            android:layout_marginEnd="@dimen/px15"
+            android:text="@string/EON" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/px15"
+            android:layout_marginEnd="@dimen/px15"
+            android:text="@string/REG" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/px50"
+        android:layout_marginEnd="@dimen/px50"
+        android:padding="@dimen/px20">
+
+        <TextView
+            android:id="@+id/txt_frequency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/px60"
+            android:layout_marginRight="10px"
+            android:text="89.00"
+            android:textSize="@dimen/px70" />
+
+        <TextView
+            android:id="@+id/txt_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10px"
+            android:layout_marginTop="20px"
+            android:layout_toEndOf="@id/txt_frequency"
+            android:text="MHz"
+            android:textSize="@dimen/px50" />
+
+        <TextView
+            android:id="@+id/txt_ps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/px60"
+            android:layout_marginBottom="5px"
+            android:layout_toEndOf="@id/txt_unit"
+            android:text="PS:" />
+
+        <TextView
+            android:id="@+id/txt_rt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_ps"
+            android:layout_marginStart="@dimen/px60"
+            android:layout_marginTop="5px"
+            android:layout_toEndOf="@id/txt_unit"
+            android:text="RT:" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/px60"
+            android:text="PTY:NO PTY" />
+    </RelativeLayout>
+
+    <GridView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </GridView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60px"
+        android:orientation="horizontal">
+
+        <TextView
+            android:gravity="center"
+            android:text="TA"
+            android:layout_weight="1"
+            android:layout_width="60px"
+            android:layout_height="30px" />
+        <TextView
+            android:gravity="center"
+            android:text="AF"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="30px" />
+        <TextView
+            android:text="AF"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="30px" />
+        <TextView
+            android:text="AF"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="30px" />
+    </LinearLayout>
+</LinearLayout>
