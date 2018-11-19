@@ -1,3 +1,0 @@
-# Referenced at E:\work\AC8227L-AP1\Bluetooth\music\build\intermediates\manifests\full\debug\AndroidManifest.xml:11
--keep class com.jancar.bluetooth.music.MusicApplication { <init>(...); }
-

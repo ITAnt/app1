@@ -31,7 +31,7 @@ public class EasyLinkReceiver extends BroadcastReceiver {
             }
         } else if (action.equals(EASY_LOSS_FOUS)) {
             //BluetoothManager.getBluetoothManagerInstance(context).setPlayerState(false);
-            bluetoothRequestFocus.releaseAudioFocus();
+//            bluetoothRequestFocus.releaseAudioFocus();
         } else if (action.equals(BOOT_COMPLETE)) {
             Intent service = new Intent();
             service.setClassName("com.jancar.bluetooth.phone", "com.jancar.bluetooth.phone.view.BTUIService");
