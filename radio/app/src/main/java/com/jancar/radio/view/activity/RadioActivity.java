@@ -535,7 +535,6 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             mRuleView.setVisibility(View.GONE);
         }
         if (Band >= 3) {
-
             this.mBand = 0;
             unitTxt.setText(R.string.unit_khz);
             switch (mLocation) {
@@ -691,19 +690,18 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
     @Override
     public void requestRadioFocus() {
         Log.w("Radio", "requestRadioFocus");
-      /*  if (isFocus) {
+        SystemProperties.set(PROPERTY_GIS_COMPENNSATE, "1");
 
-        } else {
-            isFocus = true;
-        }*/
         mAudioManager.requestAudioFocus(mAudioFocusChange, AudioManager.STREAM_MUSIC, AUDIOFOCUS_GAIN);
         mJancarManager.requestKeyFocus(keyFocusListener);
     }
-
+    private static final String PROPERTY_GIS_COMPENNSATE = "persist.jancar.GisCompensate";
     @Override
     public void abandonRadioFocus() {
         mAudioManager.abandonAudioFocus(mAudioFocusChange);
         mJancarManager.abandonKeyFocus(keyFocusListener);
+        SystemProperties.set(PROPERTY_GIS_COMPENNSATE, "0");
+
         if (scheduleds != null) {
             scheduleds.shutdown();
 
@@ -1385,6 +1383,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         SharedPreferences.Editor editor = getSharedPreferences("Radio", MODE_PRIVATE).edit();
         editor.putInt("mFreq" + Band, mFreq);
         editor.commit();
+        SystemProperties.set(PROPERTY_GIS_COMPENNSATE, "0");
         radioStations.clear();
         list.clear();
         RuleView.clear();
