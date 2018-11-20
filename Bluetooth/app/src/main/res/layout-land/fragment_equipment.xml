@@ -123,6 +123,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/equiment_setting_btn_selector"
             android:gravity="center"
+            android:paddingEnd="@dimen/px10"
+            android:paddingStart="@dimen/px10"
             android:singleLine="true"
             android:text="@string/tv_equiment_bluetooth" />
     </LinearLayout>
