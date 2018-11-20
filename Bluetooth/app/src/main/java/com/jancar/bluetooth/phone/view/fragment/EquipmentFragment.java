@@ -25,15 +25,9 @@ import com.jancar.bluetooth.phone.entity.Event;
 import com.jancar.bluetooth.phone.presenter.EquipmentPresenter;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.ToastUtil;
-import com.jancar.bluetooth.phone.view.MusicActivity;
 import com.ui.mvp.view.support.BaseFragment;
 
 import org.greenrobot.eventbus.EventBus;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 
 /**
@@ -41,24 +35,20 @@ import butterknife.Unbinder;
  * @date 2018-8-21 16:37:48
  * 设备管理
  */
-public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter, EquipmentContract.View> implements EquipmentContract.View, BTConnectStatusListener {
+public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter, EquipmentContract.View> implements EquipmentContract.View, BTConnectStatusListener, View.OnClickListener {
     private static final String TAG = "EquipmentFragment";
-    Unbinder unbinder;
     View mRootView;
-    @BindView(R.id.tv_equipment_setting_name)
     TextView tvselfName;
-    @BindView(R.id.tv_equipment_setting_conne_name)
     TextView tvConnName;
-    @BindView(R.id.iv_equipment_connet)
     ImageView ivConnet;
-    @BindView(R.id.btn_equipment_conn)
     Button btnConn;
-    @BindView(R.id.btn_equipment_close)
     Button btnClose;
+    Button btnSetting;
     private Activity mActivity;
     private boolean isConnet;
     private boolean hidden = false;
     BluetoothManager bluetoothManager;
+    private ToastUtil mToast;
 
 
     @Override
@@ -85,8 +75,21 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
         } else {
             mRootView = inflater.inflate(R.layout.fragment_equipment, container, false);
         }
-        unbinder = ButterKnife.bind(this, mRootView);
+        findView(mRootView);
         return mRootView;
+    }
+
+    private void findView(View mRootView) {
+        tvselfName = mRootView.findViewById(R.id.tv_equipment_setting_name);
+        tvConnName = mRootView.findViewById(R.id.tv_equipment_setting_conne_name);
+        ivConnet = mRootView.findViewById(R.id.iv_equipment_connet);
+        btnConn = mRootView.findViewById(R.id.btn_equipment_conn);
+        btnClose = mRootView.findViewById(R.id.btn_equipment_close);
+        btnSetting = mRootView.findViewById(R.id.btn_equipment_setting);
+        btnClose.setOnClickListener(this);
+        btnConn.setOnClickListener(this);
+        btnSetting.setOnClickListener(this);
+
     }
 
     @Override
@@ -120,6 +123,9 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
 
     @Override
     public void onDestroyView() {
+        if (mToast != null) {
+            mToast.Cancel();
+        }
         super.onDestroyView();
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
@@ -129,7 +135,6 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unbinder.unbind();
         bluetoothManager.setBTConnectStatusListener(null);
     }
 
@@ -176,6 +181,7 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
     }
 
     private void initView() {
+        mToast = new ToastUtil(mActivity);
         bluetoothManager = BluetoothManager.getBluetoothManagerInstance(getUIContext());
         ConnShowView();
         tvselfName.setText(getPresenter().getSelfName());
@@ -184,7 +190,6 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
 
     private void ConnShowView() {
         isConnet = getManager().isConnect();
-//        Toast.makeText(mActivity, "isConnet:" + isConnet, Toast.LENGTH_SHORT).show();
         if (isConnet) {
             ivConnet.setImageResource(R.drawable.iv_equipment_connet);
             btnConn.setVisibility(View.GONE);
@@ -197,22 +202,6 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
     }
 
 
-    @OnClick({R.id.btn_equipment_close, R.id.btn_equipment_setting, R.id.btn_equipment_conn})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_equipment_close:
-                //断开蓝牙连接
-                getPresenter().disConnectDevice();
-                break;
-            case R.id.btn_equipment_setting:
-                go2Setting();
-                break;
-            case R.id.btn_equipment_conn:
-                getConnect();
-                break;
-        }
-    }
-
     //连接蓝牙
     private void getConnect() {
         boolean btOn = getManager().isBTOn();
@@ -224,11 +213,11 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
                 }
             } catch (Exception e) {
                 Log.e(TAG, "Exception===" + e.getMessage());
-                ((MusicActivity)mActivity).mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_equiment_history_adress));
+                mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_equiment_history_adress));
             }
 
         } else {
-            ((MusicActivity)mActivity).mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_bt_connect_is_close));
+            mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_bt_connect_is_close));
         }
     }
 
@@ -256,6 +245,9 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
             tvConnName.setText(getPresenter().getConnetName());
         } else {
             getManager().setBTConnectStatusListener(null);
+            if (mToast != null) {
+                mToast.Cancel();
+            }
         }
     }
 
@@ -275,5 +267,22 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
         message.what = Constants.CONTACT_BT_CONNECT;
         message.obj = b;
         handler.sendMessage(message);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_equipment_close:
+                //断开蓝牙连接
+                getPresenter().disConnectDevice();
+                break;
+            case R.id.btn_equipment_setting:
+                go2Setting();
+                break;
+            case R.id.btn_equipment_conn:
+                getConnect();
+                break;
+        }
+
     }
 }

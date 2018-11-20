@@ -78,6 +78,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     private boolean hidden = false;
     private static int ContactFragmentType = 2;
     BluetoothManager bluetoothManager;
+    public ToastUtil mToast;
 
 
     private Handler handler = new Handler() {
@@ -220,7 +221,9 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                 bluetoothManager.setBTConnectStatusListener(null);
 //                bluetoothManager.unRegisterBTPhonebookListener();
             }
-
+            if (mToast != null) {
+                mToast.Cancel();
+            }
         }
     }
 
@@ -252,6 +255,9 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
 
     @Override
     public void onDestroyView() {
+        if (mToast != null) {
+            mToast.Cancel();
+        }
         super.onDestroyView();
 
     }
@@ -278,6 +284,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     }
 
     private void initView() {
+        mToast = new ToastUtil(mActivity);
         bluetoothManager = BluetoothManager.getBluetoothManagerInstance(getUIContext());
         editSearch.setCursorVisible(false);
         editInputString = editSearch.getText().toString().trim();
@@ -521,11 +528,11 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
                     if (!isDownLoding()) {
                         showDialog();
                     } else {
-                        ((MusicActivity) mActivity).mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_tip_down));
+                        mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_tip_down));
                     }
 
                 } else {
-                    ((MusicActivity) mActivity).mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_bt_connect_is_none));
+                    mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_bt_connect_is_none));
                 }
                 break;
             case R.id.iv_syn_contact:
