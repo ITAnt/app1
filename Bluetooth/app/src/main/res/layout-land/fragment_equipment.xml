@@ -21,8 +21,8 @@
             android:id="@+id/iv_equipment_connet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/px80"
             android:layout_marginEnd="@dimen/px80"
+            android:layout_marginStart="@dimen/px80"
             android:src="@drawable/iv_equipment_connet" />
 
 
@@ -50,8 +50,8 @@
                 style="@style/txt_normal_px22"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tv_equipment_myequip"
-                android:paddingEnd="@dimen/px30"/>
+                android:paddingEnd="@dimen/px30"
+                android:text="@string/tv_equipment_myequip" />
 
             <TextView
                 android:id="@+id/tv_equipment_setting_name"
@@ -59,9 +59,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/px24"
-                tools:text="BT Call"
                 android:maxLines="1"
-                android:paddingEnd="@dimen/px30"/>
+                android:paddingEnd="@dimen/px30"
+                tools:text="BT Call" />
         </LinearLayout>
 
         <Button
@@ -69,23 +69,23 @@
             style="@style/txt_normal_px22"
             android:layout_width="@dimen/px80"
             android:layout_height="@dimen/px80"
-            android:layout_marginStart="@dimen/px60"
             android:layout_marginEnd="@dimen/px60"
+            android:layout_marginStart="@dimen/px60"
             android:background="@drawable/iv_equipment_red"
             android:gravity="center"
             android:text="@string/tv_equipment_disconn"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btn_equipment_conn"
             style="@style/txt_normal_px22"
             android:layout_width="@dimen/px80"
             android:layout_height="@dimen/px80"
+            android:layout_marginEnd="@dimen/px60"
+            android:layout_marginStart="@dimen/px60"
             android:background="@drawable/iv_equiment_green"
             android:gravity="center"
-            android:text="@string/tv_equipment_conn"
-            android:layout_marginStart="@dimen/px60"
-            android:layout_marginEnd="@dimen/px60"/>
+            android:text="@string/tv_equipment_conn" />
 
         <LinearLayout
             android:layout_width="@dimen/px200"
@@ -123,6 +123,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/equiment_setting_btn_selector"
             android:gravity="center"
+            android:singleLine="true"
             android:text="@string/tv_equiment_bluetooth" />
     </LinearLayout>
 
