@@ -377,34 +377,34 @@
         
     <string name="str_settings_wheel_learn_error"> Lernfehler </string>
     <!--关于-->
-    <string name="label_system_version_number">系统版本号：</string>
+    <string name = "label_system_version_number"> Systemversionsnummer: </string>
         
-    <string name="label_MCU_version_number"> MCU版本号：</string>
+         <string name = "label_MCU_version_number"> MCU-Versionsnummer: </string>
         
-    <string name="label_CAN_version_number"> CAN版本号：</string>
+         <string name = "label_CAN_version_number"> CAN-Versionsnummer: </string>
         
-    <string name="label_identifier">识别码：</string>
+    <string name = "label_identifier"> Bezeichner: </string>
         
-    <string name="label_android_version">安卓版本：</string>
+         <string name = "label_android_version"> Android-Version: </string>
         
-    <string name="label_kernel_version">内核版本：</string>
+         <string name = "label_kernel_version"> Kernelversion: </string>
         
-    <string name="label_upgrade_update">升级更新</string>
+         <string name = "label_upgrade_update"> Aktualisierungsupdate </string>
         
-    <string name="tab_prohibit_video_while_driving">行车时禁止视频</string>
+         <string name = "tab_prohibit_video_while_driving"> Video während der Fahrt deaktivieren </string>
         
-    <string name="tab_touch_tone">按键音</string>
+         <string name = "tab_touch_tone"> Tastenton </string>
         
-    <string name="tab_system_cleanup">系统清理</string>
+         <string name = "tab_system_cleanup"> Systembereinigung </string>
         
-    <string name="tab_factory_setting">工厂设置</string>
+         <string name = "tab_factory_setting"> Werkseinstellungen </string>
         
-    <string name="tab_reset_system">恢复出厂设置</string>
+         <string name = "tab_reset_system"> Werkseinstellungen wiederherstellen </string>
         
-    <string name="tab_restart">重新启动</string>
+         <string name = "tab_restart"> Neustart </string>
     <!--系统设置-->
-    <string name="tab_cleaning_up">清理中.....</string>
-    <string name="tab_clean_up">清理完成</string>
+    <string name = "tab_cleaning_up"> aufräumen ..... </string>
+         <string name = "tab_clean_up"> Bereinigung abgeschlossen </string>
     <string name="dialog_1">1</string>
     <string name="dialog_2">2</string>
     <string name="dialog_3">3</string>
