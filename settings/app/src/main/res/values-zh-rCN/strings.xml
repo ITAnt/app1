@@ -329,6 +329,32 @@
     <string name="password">密码不能少于8位</string>
     <string name="tab_android_system">安卓设置</string>
     <string name="nonull" >夜间亮度不能超过白天亮度</string>
+    <string name="key_name_power">休眠</string>
+    <string name="key_name_search">搜索</string>
+    <string name="key_name_mode">模式</string>
+    <string name="key_name_increase_volum">音量+</string>
+    <string name="key_name_decrease_volum">音量-</string>
+    <string name="key_name_pre">上一曲</string>
+    <string name="key_name_next">下一曲</string>
+    <string name="key_name_settings">设置</string>
+    <string name="key_name_home">主页</string>
+    <string name="key_name_menu">应用</string>
+    <string name="key_name_back">返回</string>
+    <string name="key_name_gps">导航</string>
+    <string name="key_name_music">音乐</string>
+    <string name="key_name_vedio">视频</string>
+    <string name="key_name_hold">接听</string>
+    <string name="key_name_hungup">挂断</string>
+    <string name="key_name_fm">Fm</string>
+    <string name="key_name_am">Am</string>
+    <string name="key_name_aux">Aux</string>
+    <string name="key_name_mute">静音</string>
+    <string name="key_name_btmusic">蓝牙音乐</string>
+    <string name="key_name_start">开始</string>
+    <string name="key_name_clear">清除</string>
+    <string name="key_name_end">结束</string>
+    <string name="key_name_short">短按</string>
+    <string name="key_name_long">长按</string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

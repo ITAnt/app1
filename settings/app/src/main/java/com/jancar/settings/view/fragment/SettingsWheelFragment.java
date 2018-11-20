@@ -43,18 +43,11 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
     private ArrayList<KeyValue> keyValues = new ArrayList<>();
     private KeyAapter keyAapter;
     private GridView keyLearn;
-    private ImageView start, clear, end;
+    private ImageView start,clear,  end;
     private ImageButton shortLong;
-    private LinearLayout startLlayout;
-    private TextView startTxt;
-    private LinearLayout clearLlayout;
-    private TextView clearTxt;
 
-    private LinearLayout shortLongLlayout;
-    private TextView shortLongTxt;
+    private TextView startName,clearName,endName,shortLongName;
 
-    private LinearLayout endLlayout;
-    private TextView endTxt;
     private WheelKeyLearnController wheelKeyLearnController;
     private final static int BUTTON_NORMAL_STATUS = 0;
     private final static int BUTTON_SELECT_STATUS = 2;
@@ -89,22 +82,21 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
 
     private void findView(View root) {
         keyLearn = root.findViewById(R.id.keyLearn);
-        start = root.findViewById(R.id.start);
-        startLlayout = root.findViewById(R.id.llayout_start);
-        startTxt = root.findViewById(R.id.txt_start);
-        clearLlayout = root.findViewById(R.id.llayout_clear);
-        clearTxt = root.findViewById(R.id.txt_clear);
-        endLlayout = root.findViewById(R.id.llayout_end);
-        endTxt = root.findViewById(R.id.txt_end);
-        clear = root.findViewById(R.id.clear);
-        end = root.findViewById(R.id.end);
-        shortLong = root.findViewById(R.id.shortLong);
-        shortLongLlayout = root.findViewById(R.id.llayout_shortLong);
-        shortLongTxt = root.findViewById(R.id.txt_shortLong);
+        start = (ImageView)root.findViewById(R.id.start);
+        clear = (ImageButton) root.findViewById(R.id.clear);
+        end = (ImageView)root.findViewById(R.id.end);
+        shortLong = (ImageButton)root.findViewById(R.id.shortLong);
+        startName = root.findViewById(R.id.startName);
+        endName = root.findViewById(R.id.endName);
+        clearName = root.findViewById(R.id.clearName);
+        shortLongName = root.findViewById(R.id.shortLongName);
+        startName.setText(R.string.key_name_start);
+        endName.setText(R.string.key_name_end);
+        clearName.setText(R.string.key_name_clear);
+        shortLongName.setText(R.string.key_name_short);
         start.setOnClickListener(this);
         clear.setOnClickListener(this);
-        clear.setOnTouchListener(this);
-        shortLong.setOnTouchListener(this);
+
         end.setOnClickListener(this);
         shortLong.setOnClickListener(this);
 
@@ -122,45 +114,52 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
      */
     private void initDatas() {
         KeyValue keyValue = new KeyValue();
-        keyValue.setBackground(R.drawable.btn_power_key);
+        //keyValue.setBackground(R.drawable.btn_power_key);
         keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
         keyValue.setKeyValue(WheelKey.KEY_LEARNING_POWER);
+        keyValue.setName(getString(R.string.key_name_power));
         keyValues.add(keyValue);//power key
 
         keyValue = new KeyValue();
-        keyValue.setBackground(R.drawable.btn_search_key);
+        //keyValue.setBackground(R.drawable.btn_search_key);
         keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
         keyValue.setKeyValue(WheelKey.KEY_LEARNING_AS);
+        keyValue.setName(getString(R.string.key_name_search));
         keyValues.add(keyValue);//search key
 
         keyValue = new KeyValue();
-        keyValue.setBackground(R.drawable.btn_mode_key);
+        //keyValue.setBackground(R.drawable.btn_mode_key);
         keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
         keyValue.setKeyValue(WheelKey.KEY_LEARNING_MODE);
+        keyValue.setName(getString(R.string.key_name_mode));
         keyValues.add(keyValue);//mode key
 
         keyValue = new KeyValue();
-        keyValue.setBackground(R.drawable.btn_volume_decrease_key);
+        //keyValue.setBackground(R.drawable.btn_volume_decrease_key);
         keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
         keyValue.setKeyValue(WheelKey.KEY_LEARNING_VOL_DECREASE);
+        keyValue.setName(getString(R.string.key_name_decrease_volum));
         keyValues.add(keyValue);//volume decrease key
 
         keyValue = new KeyValue();
-        keyValue.setBackground(R.drawable.btn_volume_increase_key);
+        //keyValue.setBackground(R.drawable.btn_volume_increase_key);
         keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
         keyValue.setKeyValue(WheelKey.KEY_LEARNING_VOL_INCREASE);
+        keyValue.setName(getString(R.string.key_name_increase_volum));
         keyValues.add(keyValue);//volume increase key
 
         keyValue = new KeyValue();
-        keyValue.setBackground(R.drawable.btn_pre_key);
+        //keyValue.setBackground(R.drawable.btn_pre_key);
         keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
         keyValue.setKeyValue(WheelKey.KEY_LEARNING_PRE);
+        keyValue.setName(getString(R.string.key_name_pre));
         keyValues.add(keyValue);//pre key
 
         keyValue = new KeyValue();
-        keyValue.setBackground(R.drawable.btn_next_key);
+        //keyValue.setBackground(R.drawable.btn_next_key);
         keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
         keyValue.setKeyValue(WheelKey.KEY_LEARNING_NEXT);
+        keyValue.setName(getString(R.string.key_name_next));
         keyValues.add(keyValue);//next key
 
 //        keyValue = new KeyValue();
@@ -170,63 +169,73 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
 //        keyValues.add(keyValue);//speech key
 
         keyValue = new KeyValue();
-        keyValue.setBackground(R.drawable.btn_settings_key);
+        //keyValue.setBackground(R.drawable.btn_settings_key);
         keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
         keyValue.setKeyValue(WheelKey.KEY_LEARNING_SETTING);
+        keyValue.setName(getString(R.string.key_name_settings));
         keyValues.add(keyValue);//setting key
 
         keyValue = new KeyValue();
-        keyValue.setBackground(R.drawable.btn_home_key);
+        //keyValue.setBackground(R.drawable.btn_home_key);
         keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
         keyValue.setKeyValue(WheelKey.KEY_LEARNING_HOME);
+        keyValue.setName(getString(R.string.key_name_home));
         keyValues.add(keyValue);//home key
 
         keyValue = new KeyValue();
-        keyValue.setBackground(R.drawable.btn_menu_key);
+        //keyValue.setBackground(R.drawable.btn_menu_key);
         keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
         keyValue.setKeyValue(WheelKey.KEY_LEARNING_MENU);
+        keyValue.setName(getString(R.string.key_name_menu));
         keyValues.add(keyValue);//menu key
 
         keyValue = new KeyValue();
-        keyValue.setBackground(R.drawable.btn_back_key);
+        //keyValue.setBackground(R.drawable.btn_back_key);
         keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
         keyValue.setKeyValue(WheelKey.KEY_LEARNING_BACK);
+        keyValue.setName(getString(R.string.key_name_back));
         keyValues.add(keyValue);//back key
 
         keyValue = new KeyValue();
-        keyValue.setBackground(R.drawable.btn_gps_key);
+        //keyValue.setBackground(R.drawable.btn_gps_key);
         keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
         keyValue.setKeyValue(WheelKey.KEY_LEARNING_GPS);
+        keyValue.setName(getString(R.string.key_name_gps));
         keyValues.add(keyValue);//gps key
 
         keyValue = new KeyValue();
-        keyValue.setBackground(R.drawable.btn_music_key);
+        //keyValue.setBackground(R.drawable.btn_music_key);
         keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
         keyValue.setKeyValue(WheelKey.KEY_LEARNING_MP3);
+        keyValue.setName(getString(R.string.key_name_music));
         keyValues.add(keyValue);//music key
 
         keyValue = new KeyValue();
-        keyValue.setBackground(R.drawable.btn_video_key);
+        //keyValue.setBackground(R.drawable.btn_video_key);
         keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
         keyValue.setKeyValue(WheelKey.KEY_LEARNING_MP5);
+        keyValue.setName(getString(R.string.key_name_vedio));
         keyValues.add(keyValue);//video key
 
         keyValue = new KeyValue();
-        keyValue.setBackground(R.drawable.btn_hold_key);
+        //keyValue.setBackground(R.drawable.btn_hold_key);
         keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
         keyValue.setKeyValue(WheelKey.KEY_LEARNING_ANSWER);
+        keyValue.setName(getString(R.string.key_name_hold));
         keyValues.add(keyValue);//hold key
 
         keyValue = new KeyValue();
-        keyValue.setBackground(R.drawable.btn_hangup_key);
+        //keyValue.setBackground(R.drawable.btn_hangup_key);
         keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
         keyValue.setKeyValue(WheelKey.KEY_LEARNING_HANGUP);
+        keyValue.setName(getString(R.string.key_name_hungup));
         keyValues.add(keyValue);//hangup key
 
         keyValue = new KeyValue();
-        keyValue.setBackground(R.drawable.btn_fm_key);
+        //keyValue.setBackground(R.drawable.btn_fm_key);
         keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
         keyValue.setKeyValue(WheelKey.KEY_LEARNING_FM);
+        keyValue.setName(getString(R.string.key_name_fm));
         keyValues.add(keyValue);//fm key
 
 //        keyValue = new KeyValue();
@@ -236,27 +245,31 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
 //        keyValues.add(keyValue);//ok key
 
         keyValue = new KeyValue();
-        keyValue.setBackground(R.drawable.btn_am_key);
+        //keyValue.setBackground(R.drawable.btn_am_key);
         keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
         keyValue.setKeyValue(WheelKey.KEY_LEARNING_AM);
+        keyValue.setName(getString(R.string.key_name_am));
         keyValues.add(keyValue);//am key
 
         keyValue = new KeyValue();
-        keyValue.setBackground(R.drawable.btn_aux_key);
+        //keyValue.setBackground(R.drawable.btn_aux_key);
         keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
         keyValue.setKeyValue(WheelKey.KEY_LEARNING_AUX);
+        keyValue.setName(getString(R.string.key_name_aux));
         keyValues.add(keyValue);//aux key
 
         keyValue = new KeyValue();
-        keyValue.setBackground(R.drawable.btn_mute_key);
+        //keyValue.setBackground(R.drawable.btn_mute_key);
         keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
         keyValue.setKeyValue(WheelKey.KEY_LEARNING_MUTE);
+        keyValue.setName(getString(R.string.key_name_mute));
         keyValues.add(keyValue);//mute key
 
         keyValue = new KeyValue();
-        keyValue.setBackground(R.drawable.btn_btmusic_key);
+        //keyValue.setBackground(R.drawable.btn_btmusic_key);
         keyValue.setKeyLearningStatus(WheelKey.CMD_UNLEARNED_SPONSE);
         keyValue.setKeyValue(WheelKey.KEY_LEARNING_BTMUSIC);
+        keyValue.setName(getString(R.string.key_name_btmusic));
         keyValues.add(keyValue);//btmusic key
 
 //        keyValue = new KeyValue();
@@ -265,7 +278,7 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
 //        keyValue.setKeyValue(WheelKey.KEY_LEARNING_DVR);
 //        keyValues.add(keyValue);//dvr key
 
-        keyAapter = new KeyAapter(keyValues, this.getContext());
+        keyAapter = new KeyAapter(keyValues, this.getActivity());
         keyAapter.setKeyValues(keyValues);
         keyLearn.setAdapter(keyAapter);
     }
@@ -273,6 +286,7 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        wheelKeyLearnController.release();
     }
 
     @Override
@@ -356,14 +370,12 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
                 wheelKeyLearnController.clearLearn();
                 break;
             case R.id.shortLong:
-                if (short_clickStatus == WheelKey.CMD_CLICK_KEY_ACTION) {
+                if(short_clickStatus== WheelKey.CMD_CLICK_KEY_ACTION){
                     short_clickStatus = WheelKey.CMD_LONG_CLCIK_KEY_ACTION;
-                    shortLong.setImageResource(R.drawable.btn_long);
-                    shortLongTxt.setText(R.string.Long);
-                } else {
+                    shortLongName.setText(R.string.key_name_long);
+                }else{
                     short_clickStatus = WheelKey.CMD_CLICK_KEY_ACTION;
-                    shortLongTxt.setText(R.string.shorts);
-                    shortLong.setImageResource(R.drawable.btn_short);
+                    shortLongName.setText(R.string.key_name_short);
                 }
                 break;
         }
@@ -375,16 +387,7 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
                 start_clickStatus = clickStatus;
                 start.setImageLevel(clickStatus);
                 start.setClickable(buttonAble);
-                if (clickStatus == 0) {
-                    startLlayout.setBackgroundColor(Color.parseColor("#1B1A1A"));
-                    startTxt.setTextColor(Color.parseColor("#FFFFFF"));
-                } else if (clickStatus == 1) {
-                    startLlayout.setBackgroundColor(Color.parseColor("#414244"));
-                    startTxt.setTextColor(Color.parseColor("#949494"));
-                } else {
-                    startLlayout.setBackgroundColor(Color.parseColor("#242529"));
-                    startTxt.setTextColor(Color.parseColor("#FFFFFF"));
-                }
+
 
                 break;
             case R.id.clear:
@@ -393,16 +396,7 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
                 end_clickStatus = clickStatus;
                 end.setImageLevel(clickStatus);
                 end.setClickable(buttonAble);
-                if (clickStatus == 0) {
-                    endLlayout.setBackgroundColor(Color.parseColor("#1B1A1A"));
-                    endTxt.setTextColor(Color.parseColor("#FFFFFF"));
-                } else if (clickStatus == 1) {
-                    endLlayout.setBackgroundColor(Color.parseColor("#414244"));
-                    endTxt.setTextColor(Color.parseColor("#949494"));
-                } else {
-                    endLlayout.setBackgroundColor(Color.parseColor("#242529"));
-                    endTxt.setTextColor(Color.parseColor("#FFFFFF"));
-                }
+
                /* Intent intent = new Intent();
                 intent.setClass(this.getContext(), SettingsService.class);
                 this.getContext().startService(intent);*/
@@ -424,18 +418,6 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
         keyAapter.setKeyValues(keyValues);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        wheelKeyLearnController.release();
-        wheelKeyLearnController=null;
-        mHandler=null;
-        keyAapter.onDestroy();
-        keyValues.clear();;
-        keyValues=null;
-
-        Log.w("settingsWheelfragment","onDestroy");
-    }
 
     private void clearStatus() {
         for (KeyValue keyValue :
@@ -447,29 +429,7 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
     }
 
     @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        switch (view.getId()){
-            case R.id.clear:
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        clearLlayout.setBackgroundResource(R.drawable.shape_gradient);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        clearLlayout.setBackgroundColor(Color.parseColor("#1E1D1D"));
-                        break;
-                }
-                break;
-            case R.id.shortLong:
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        shortLongLlayout.setBackgroundResource(R.drawable.shape_gradient);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        shortLongLlayout.setBackgroundColor(Color.parseColor("#1E1D1D"));
-                        break;
-                }
-                break;
-        }
+    public boolean onTouch(View v, MotionEvent event) {
         return false;
     }
 }

@@ -329,7 +329,32 @@
     <string name="tab_suspension_Setting"> Ustawienia przycisku Hover </string>
         
     <string name="password"> Hasło nie może być mniejsze niż 8 bitów </string>
-        
+        <string name="key_name_power">Power</string>
+    <string name="key_name_search">Search</string>
+    <string name="key_name_mode">Mode</string>
+    <string name="key_name_increase_volum">Volum+</string>
+    <string name="key_name_decrease_volum">Volum-</string>
+    <string name="key_name_pre">Pre</string>
+    <string name="key_name_next">Next</string>
+    <string name="key_name_settings">Settings</string>
+    <string name="key_name_home">Home</string>
+    <string name="key_name_menu">App</string>
+    <string name="key_name_back">Back</string>
+    <string name="key_name_gps">Navi</string>
+    <string name="key_name_music">Music</string>
+    <string name="key_name_vedio">Vedio</string>
+    <string name="key_name_hold">Hold</string>
+    <string name="key_name_hungup">HungUp</string>
+    <string name="key_name_fm">Fm</string>
+    <string name="key_name_am">Am</string>
+    <string name="key_name_aux">Aux</string>
+    <string name="key_name_mute">Mute</string>
+    <string name="key_name_btmusic">BTMusic</string>
+    <string name="key_name_start">Start</string>
+    <string name="key_name_clear">Clear</string>
+    <string name="key_name_end">End</string>
+    <string name="key_name_short">Short</string>
+    <string name="key_name_long">Long</string>
     <string name="tab_android_system"> Ustawienia Androida </string>
     <string name="nonull" >Jasność w nocy nie może przekraczać jasności w ciągu dnia</string>
     <string-array name="timezone_id">

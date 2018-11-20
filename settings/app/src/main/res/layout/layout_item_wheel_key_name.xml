@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center">
+    android:orientation="horizontal">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/keyImage"
-            android:src="@drawable/btn_power_key"
-            android:scaleType="centerCrop"
-            android:gravity="center">
+            android:layout_gravity="center"
+            android:src="@drawable/btn_none_key"
+            android:scaleType="centerCrop">
         </ImageView>
-</LinearLayout>
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/big_text_size"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"
+            android:id="@+id/name"/>
+</FrameLayout>
