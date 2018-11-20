@@ -351,7 +351,10 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
         }
 
     }
+ public void s(){
 
+     wheelKeyLearnController.endLearn();
+ }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
