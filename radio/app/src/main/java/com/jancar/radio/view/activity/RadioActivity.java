@@ -406,13 +406,13 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         initData();
         onDoIntent(getIntent(), false);
         bandTxt.setText(mBandAF[Band]);
-        if (isRtl()){
+  /*      if (isRtl()){
             FrameLayout_left.setBackgroundResource(R.mipmap.bg_radio_list_right);
             FrameLayout_right.setBackgroundResource(R.mipmap.bg_radio_list_left);
         }else {
             FrameLayout_left.setBackgroundResource(R.mipmap.bg_radio_list_left);
             FrameLayout_right.setBackgroundResource(R.mipmap.bg_radio_list_right);
-        }
+        }*/
     }
 
     public void initStatusBar() {
