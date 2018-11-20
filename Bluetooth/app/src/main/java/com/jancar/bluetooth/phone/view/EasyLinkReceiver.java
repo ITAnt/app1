@@ -21,7 +21,14 @@ public class EasyLinkReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         BluetoothRequestFocus bluetoothRequestFocus = BluetoothRequestFocus.getBluetoothRequestFocusStance(context);
         Log.e(TAG, "action==" + action);
-        if (action.equals(EASY_GET_FOUS)) {
+        if (action.equals(BOOT_COMPLETE)) {
+            Intent service = new Intent();
+            service.setClassName("com.jancar.bluetooth.phone", "com.jancar.bluetooth.phone.view.BTUIService");
+            context.startService(service);
+        } else if (action.equals(EASY_LOSS_FOUS)) {
+            //BluetoothManager.getBluetoothManagerInstance(context).setPlayerState(false);
+//            bluetoothRequestFocus.releaseAudioFocus();
+        } else if (action.equals(EASY_GET_FOUS)) {
             //BluetoothManager.getBluetoothManagerInstance(context).setPlayerState(true);
             if (!bluetoothRequestFocus.isNeedGainFocus()) {
                 bluetoothRequestFocus.requestAudioFocus();
@@ -29,13 +36,6 @@ public class EasyLinkReceiver extends BroadcastReceiver {
             if (!bluetoothRequestFocus.isBTConnect()) {
 //                Toast.makeText(context, "连接蓝牙之后才能在车机上听到声音", Toast.LENGTH_SHORT).show();
             }
-        } else if (action.equals(EASY_LOSS_FOUS)) {
-            //BluetoothManager.getBluetoothManagerInstance(context).setPlayerState(false);
-//            bluetoothRequestFocus.releaseAudioFocus();
-        } else if (action.equals(BOOT_COMPLETE)) {
-            Intent service = new Intent();
-            service.setClassName("com.jancar.bluetooth.phone", "com.jancar.bluetooth.phone.view.BTUIService");
-            context.startService(service);
         }
     }
 }

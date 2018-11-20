@@ -61,13 +61,18 @@
 
         <receiver android:name=".view.EasyLinkReceiver">
             <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="net.easyconn.a2dp.acquire" />
                 <action android:name="net.easyconn.a2dp.release" />
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
         <service android:name=".view.BTUIService" />
+        <!--<receiver android:name=".broadcast.BootReceiver">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.BOOT_COMPLETED" />-->
+        <!--</intent-filter>-->
+        <!--</receiver>-->
     </application>
 
 </manifest>
