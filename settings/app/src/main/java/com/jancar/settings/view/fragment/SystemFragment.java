@@ -568,6 +568,15 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                 gps.openGPSSettings(getContext(), 3);*/
                 settingManager.changeSystemLanguage(settingManager.locales[settingManager.getLanguage()], settingManager.getLanguage());
                 sharedPreferences.edit().putBoolean("DisplayFragmetn", false).commit();
+                AudioEffectManager mAudioEffectManager;
+                mAudioEffectManager = settingManager.getAudioEffectManager();
+                mAudioEffectManager.setAudioEffectTreble(0, true);
+                mAudioEffectManager.setAudioEffectMiddle(0, true);
+                mAudioEffectManager.setAudioEffectBass(0, true);
+                mAudioEffectManager.setAudioEffectLoudness(0, true);
+                mAudioEffectManager.setAudioEffectLoudness(0, true);
+                mAudioEffectManager.setBalanceSpeakerValue(AudioEffectParam.getBalanceFadeCombine(0, 0), true);
+
             }
         }
 

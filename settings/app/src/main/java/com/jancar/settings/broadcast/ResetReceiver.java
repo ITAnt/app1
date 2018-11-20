@@ -27,17 +27,8 @@ public class ResetReceiver extends BroadcastReceiver implements AudioEffectManag
             WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             wifiManager.setWifiEnabled(true);
             Log.w("ResetReceiver","true");
-            AudioEffectManager mAudioEffectManager;
-            mAudioEffectManager = new AudioEffectManager(context, this, context.getPackageName());
-            mAudioEffectManager.setAudioEffectTreble(0, true);
-            mAudioEffectManager.setAudioEffectMiddle(0, true);
-            mAudioEffectManager.setAudioEffectBass(0, true);
-            mAudioEffectManager.setAudioEffectLoudness(0, true);
-            mAudioEffectManager.setAudioEffectLoudness(0, true);
-            mAudioEffectManager.setBalanceSpeakerValue(AudioEffectParam.getBalanceFadeCombine(0, 0), true);
             BluetoothSettingManager manager = BluetoothSettingManager.getBluetoothSettingManager(context);
             manager.openBluetooth();
-            mAudioEffectManager.close();
         }
 
     }

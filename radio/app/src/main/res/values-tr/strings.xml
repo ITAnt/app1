@@ -12,4 +12,9 @@
     <string name="unit_mhz" >MHz</string>
     <string name="ST">ST</string>
     <string name="radio_scaning" >Tarama istasyonu listesi</string>
+    <string name="Ta">TA</string>
+    <string name="AF">AF</string>
+    <string name="TP">TP</string>
+    <string name="EON">EON</string>
+    <string name="REG">REG</string>
 </resources>
