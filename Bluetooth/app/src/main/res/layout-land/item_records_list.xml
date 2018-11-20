@@ -27,7 +27,6 @@
             android:layout_marginEnd="@dimen/px30"
             android:layout_marginStart="@dimen/px30"
             android:layout_toEndOf="@+id/iv_records_call_type"
-            android:gravity="start|center_vertical"
             android:maxLines="1"
             android:minWidth="@dimen/px100"
             tools:text="阿华阿华阿华阿华" />
