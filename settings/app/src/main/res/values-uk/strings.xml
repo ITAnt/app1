@@ -68,8 +68,8 @@
         <string name = "system_info"> Інформація про систему </string>
     <!--音效设置-->
     <string name = "label_treble"> treble </string>
-         <string name = "label_midrange"> середній </string>
-         <string name = "label_bass"> bass </string>
+         <string name = "label_midrange"> Середній </string>
+         <string name = "label_bass"> бас </string>
 
     <string name="str_eq_volume">音量</string>
     <string name="str_tx_dsp_bass">低音</string>
@@ -98,7 +98,7 @@
          <string name = "year_hint"> рік </string>
          <string name = "month_hint"> month </string>
          <string name = "day_hint"> день </string>
-         <string name = "tab_sound_mode"> режим еквалайзера </string>
+         <string name = "tab_sound_mode"> Режим EQ </string>
          <string name = "tab_reset"> скинути </string>
          <string name = "tab_am"> ранок </string>
          <string name = "tab_pm"> післяобідній час </string>
@@ -308,7 +308,7 @@
         <string name = "txt_ock"> рок </string>
         <string name = "txt_jazz"> Jazz </string>
         <string name = "txt_classical"> класичний </string>
-        <string name = "txt_customize"> користувацький </string>
+        <string name = "txt_customize"> Визначення </string>
         <string name = "wifi_text_not_enabled"> не активовано </string>
         <string name = "wifi_text_wifi_saved"> збережено </string>
         <string name = "wifi_text_wifi_connected"> підключений </string>
@@ -329,6 +329,32 @@
         <string name = "password"> Пароль не може бути менше 8 біт </string>
         <string name = "tab_android_system"> Параметри Android </string>
     <string name="nonull" >Нічна яскравість не може перевищувати яскравості вдень</string>
+    <string name="key_name_power">Power</string>
+    <string name="key_name_search">Search</string>
+    <string name="key_name_mode">Mode</string>
+    <string name="key_name_increase_volum">Volum+</string>
+    <string name="key_name_decrease_volum">Volum-</string>
+    <string name="key_name_pre">Pre</string>
+    <string name="key_name_next">Next</string>
+    <string name="key_name_settings">Settings</string>
+    <string name="key_name_home">Home</string>
+    <string name="key_name_menu">App</string>
+    <string name="key_name_back">Back</string>
+    <string name="key_name_gps">Navi</string>
+    <string name="key_name_music">Music</string>
+    <string name="key_name_vedio">Vedio</string>
+    <string name="key_name_hold">Hold</string>
+    <string name="key_name_hungup">HungUp</string>
+    <string name="key_name_fm">Fm</string>
+    <string name="key_name_am">Am</string>
+    <string name="key_name_aux">Aux</string>
+    <string name="key_name_mute">Mute</string>
+    <string name="key_name_btmusic">BTMusic</string>
+    <string name="key_name_start">Start</string>
+    <string name="key_name_clear">Clear</string>
+    <string name="key_name_end">End</string>
+    <string name="key_name_short">Short</string>
+    <string name="key_name_long">Long</string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>

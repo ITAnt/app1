@@ -1,18 +1,10 @@
 package com.jancar.settings.contract;
 
-import android.support.annotation.DrawableRes;
 
-
-import com.jancar.settings.R;
-
-/**
- * Created by ouyan on 2018/9/11.
- */
-
-public class KeyValue  {
-    private int background;
-    private byte keyLearningStatus;
-    private byte keyValue;
+public class KeyValue {
+    private String name;//按键名
+    private byte keyValue;//键值
+    private byte keyLearningStatus;//按键学习状态
 
     public int getBackground() {
         return background;
@@ -20,6 +12,24 @@ public class KeyValue  {
 
     public void setBackground(int background) {
         this.background = background;
+    }
+
+    private int background;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public byte getKeyValue() {
+        return keyValue;
+    }
+
+    public void setKeyValue(byte keyValue) {
+        this.keyValue = keyValue;
     }
 
     public byte getKeyLearningStatus() {
@@ -30,11 +40,12 @@ public class KeyValue  {
         this.keyLearningStatus = keyLearningStatus;
     }
 
-    public byte getKeyValue() {
-        return keyValue;
-    }
-
-    public void setKeyValue(byte keyValue) {
-        this.keyValue = keyValue;
+    @Override
+    public String toString() {
+        return "KeyValue{" +
+                "name='" + name + '\'' +
+                ", keyValue=" + keyValue +
+                ", keyLearningStatus=" + keyLearningStatus +
+                '}';
     }
 }

@@ -2,7 +2,7 @@
     <string name="app_name">Einstellung</string>
     <string name="tab_bluetooth">Bluetooth</string>
     <string name="tab_display">Anzeige</string>
-    <string name="tab_sound_effect">Soundeffekt</string>
+    <string name="tab_sound_effect">Ton</string>
     <string name="tab_time">Zeit</string>
     <string name="tab_system">System</string>
     <string name="tab_wifi">WIFI</string>
@@ -20,7 +20,32 @@
     <string name="rbtn_chinese_">中文（繁体）</string>
     <string name="rbtn_english">English</string>
     <string name="title_automatic"> Helligkeit automatisch anpassen </string>
-        
+        <string name="key_name_power">Power</string>
+    <string name="key_name_search">Search</string>
+    <string name="key_name_mode">Mode</string>
+    <string name="key_name_increase_volum">Volum+</string>
+    <string name="key_name_decrease_volum">Volum-</string>
+    <string name="key_name_pre">Pre</string>
+    <string name="key_name_next">Next</string>
+    <string name="key_name_settings">Settings</string>
+    <string name="key_name_home">Home</string>
+    <string name="key_name_menu">App</string>
+    <string name="key_name_back">Back</string>
+    <string name="key_name_gps">Navi</string>
+    <string name="key_name_music">Music</string>
+    <string name="key_name_vedio">Vedio</string>
+    <string name="key_name_hold">Hold</string>
+    <string name="key_name_hungup">HungUp</string>
+    <string name="key_name_fm">Fm</string>
+    <string name="key_name_am">Am</string>
+    <string name="key_name_aux">Aux</string>
+    <string name="key_name_mute">Mute</string>
+    <string name="key_name_btmusic">BTMusic</string>
+    <string name="key_name_start">Start</string>
+    <string name="key_name_clear">Clear</string>
+    <string name="key_name_end">End</string>
+    <string name="key_name_short">Short</string>
+    <string name="key_name_long">Long</string>
     <string name="label_open"> öffnen </string>
         
     <string name="label_off"> aus </string>
@@ -110,7 +135,7 @@
     <!--音效设置-->
     <string name="label_treble"> Höhen </string>
         
-    <string name="label_midrange"> Mitteltöner </string>
+    <string name="label_midrange"> Mittel </string>
         
     <string name="label_bass"> bass </string>
 

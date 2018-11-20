@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
 import com.jancar.model.WheelKey;
@@ -66,13 +67,13 @@ public class KeyAapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             view = LayoutInflater.from(mContext).inflate(R.layout.layout_item_wheel_key_name, null);
             viewHolder.keyImage = view.findViewById(R.id.keyImage);
+            viewHolder.name = view.findViewById(R.id.name);
             view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder)view.getTag();
         }
+        viewHolder.name.setText(keyValue.getName());
         byte keyLearnStatus = keyValue.getKeyLearningStatus();
-        viewHolder.keyImage.setImageResource(keyValue.getBackground());
-        //viewHolder.keyImage.setClickable(true);
         if(keyLearnStatus== WheelKey.CMD_UNLEARNED_SPONSE){
             viewHolder.keyImage.setImageLevel(0);
             // viewHolder.keyImage.setClickable(true);
@@ -92,6 +93,6 @@ public class KeyAapter extends BaseAdapter {
     class ViewHolder {
         ImageView keyImage;
 
-
+       TextView name;
     }
 }

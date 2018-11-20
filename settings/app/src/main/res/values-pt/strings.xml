@@ -6,7 +6,7 @@
     <string name="tab_time">Tempo</string>
     <string name="tab_system">Sistema</string>
     <string name="tab_wifi">WIFI</string>
-    <string name="tab_navigation">Navegação</string>
+    <string name="tab_navigation">Guia</string>
     <string name="tab_vehicle">Veiculo</string>
     <string name="tab_on">Sobre</string>
     <string name="tab_cache">储存空间</string>
@@ -66,8 +66,8 @@
         <string name = "version_info"> informações sobre a versão </string>
         <string name = "system_info"> Informação do Sistema </string>
     <!--音效设置-->
-    <string name = "label_treble"> agudos </string>
-         <string name = "label_midrange"> 中音 </string>
+    <string name = "label_treble"> Alta </string>
+         <string name = "label_midrange"> Médio </string>
          <string name = "label_bass"> baixo </string>
 
     <string name="str_eq_volume">音量</string>
@@ -327,6 +327,32 @@
         <string name = "password"> A senha não pode ser menor que 8 bits </string>
         <string name = "tab_android_system"> Configurações do Android </string>
     <string name="nonull" >O brilho noturno não pode exceder o brilho diurno</string>
+    <string name="key_name_power">Power</string>
+    <string name="key_name_search">Search</string>
+    <string name="key_name_mode">Mode</string>
+    <string name="key_name_increase_volum">Volum+</string>
+    <string name="key_name_decrease_volum">Volum-</string>
+    <string name="key_name_pre">Pre</string>
+    <string name="key_name_next">Next</string>
+    <string name="key_name_settings">Settings</string>
+    <string name="key_name_home">Home</string>
+    <string name="key_name_menu">App</string>
+    <string name="key_name_back">Back</string>
+    <string name="key_name_gps">Navi</string>
+    <string name="key_name_music">Music</string>
+    <string name="key_name_vedio">Vedio</string>
+    <string name="key_name_hold">Hold</string>
+    <string name="key_name_hungup">HungUp</string>
+    <string name="key_name_fm">Fm</string>
+    <string name="key_name_am">Am</string>
+    <string name="key_name_aux">Aux</string>
+    <string name="key_name_mute">Mute</string>
+    <string name="key_name_btmusic">BTMusic</string>
+    <string name="key_name_start">Start</string>
+    <string name="key_name_clear">Clear</string>
+    <string name="key_name_end">End</string>
+    <string name="key_name_short">Short</string>
+    <string name="key_name_long">Long</string>
     <string-array name="timezone_id">
         <item>Pacific/Majuro</item>
         <item>Pacific/Midway</item>
