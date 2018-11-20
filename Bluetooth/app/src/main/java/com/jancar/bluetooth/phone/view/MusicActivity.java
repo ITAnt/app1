@@ -163,6 +163,9 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         if (connectDialog != null && connectDialog.isShowing()) {
             connectDialog.dismiss();
         }
+        if (mToast != null) {
+            mToast.Cancel();
+        }
         super.onDestroy();
         Log.e(TAG, "onDestroy===");
         BluetoothRequestFocus.HandPaused = false;

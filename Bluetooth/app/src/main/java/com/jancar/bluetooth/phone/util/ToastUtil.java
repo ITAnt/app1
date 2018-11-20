@@ -1,12 +1,12 @@
 package com.jancar.bluetooth.phone.util;
 
-        import android.content.Context;
-        import android.view.Gravity;
-        import android.view.View;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.content.Context;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import com.jancar.bluetooth.phone.R;
+import com.jancar.bluetooth.phone.R;
 
 /**
  * @anthor Tzq
@@ -30,6 +30,12 @@ public class ToastUtil {
         msgTv = (TextView) mToast.getView().findViewById(R.id.tv_toast);
         msgTv.setText(tip);
         mToast.show();
+    }
+
+    public void Cancel() {
+        if (mToast != null) {
+            mToast.cancel();
+        }
     }
 
 }
