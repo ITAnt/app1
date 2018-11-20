@@ -11,8 +11,10 @@
         android:id="@+id/tv_toast"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:ellipsize="end"
         android:gravity="center"
-        android:text="蓝牙未连接"
+        android:singleLine="true"
+        android:text="@string/tv_bt_connect_is_none"
         android:textColor="#c2c5c7"
         android:textSize="@dimen/px20" />
 

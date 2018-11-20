@@ -12,7 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/px100"
-        android:text="@string/tv_syn_contact" />
+        android:singleLine="true"
+        android:text="@string/tv_syn_contact"
+        android:paddingStart="@dimen/px15"
+        android:paddingEnd="@dimen/px15"/>
 
     <LinearLayout
         android:layout_width="match_parent"

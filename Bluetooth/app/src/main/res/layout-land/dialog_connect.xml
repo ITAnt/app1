@@ -12,6 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/px100"
+        android:singleLine="true"
+        android:paddingEnd="@dimen/px15"
+        android:paddingStart="@dimen/px15"
         android:text="@string/tv_title_tip" />
 
 
