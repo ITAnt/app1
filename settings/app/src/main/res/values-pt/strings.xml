@@ -6,7 +6,7 @@
     <string name="tab_time">Tempo</string>
     <string name="tab_system">Sistema</string>
     <string name="tab_wifi">WIFI</string>
-    <string name="tab_navigation">Navegação</string>
+    <string name="tab_navigation">Guia</string>
     <string name="tab_vehicle">Veiculo</string>
     <string name="tab_on">Sobre</string>
     <string name="tab_cache">储存空间</string>
@@ -66,8 +66,8 @@
         <string name = "version_info"> informações sobre a versão </string>
         <string name = "system_info"> Informação do Sistema </string>
     <!--音效设置-->
-    <string name = "label_treble"> agudos </string>
-         <string name = "label_midrange"> 中音 </string>
+    <string name = "label_treble"> Alta </string>
+         <string name = "label_midrange"> Médio </string>
          <string name = "label_bass"> baixo </string>
 
     <string name="str_eq_volume">音量</string>

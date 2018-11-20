@@ -68,8 +68,8 @@
         <string name = "system_info"> Інформація про систему </string>
     <!--音效设置-->
     <string name = "label_treble"> treble </string>
-         <string name = "label_midrange"> середній </string>
-         <string name = "label_bass"> bass </string>
+         <string name = "label_midrange"> Середній </string>
+         <string name = "label_bass"> бас </string>
 
     <string name="str_eq_volume">音量</string>
     <string name="str_tx_dsp_bass">低音</string>
@@ -98,7 +98,7 @@
          <string name = "year_hint"> рік </string>
          <string name = "month_hint"> month </string>
          <string name = "day_hint"> день </string>
-         <string name = "tab_sound_mode"> режим еквалайзера </string>
+         <string name = "tab_sound_mode"> Режим EQ </string>
          <string name = "tab_reset"> скинути </string>
          <string name = "tab_am"> ранок </string>
          <string name = "tab_pm"> післяобідній час </string>
@@ -308,7 +308,7 @@
         <string name = "txt_ock"> рок </string>
         <string name = "txt_jazz"> Jazz </string>
         <string name = "txt_classical"> класичний </string>
-        <string name = "txt_customize"> користувацький </string>
+        <string name = "txt_customize"> Визначення </string>
         <string name = "wifi_text_not_enabled"> не активовано </string>
         <string name = "wifi_text_wifi_saved"> збережено </string>
         <string name = "wifi_text_wifi_connected"> підключений </string>

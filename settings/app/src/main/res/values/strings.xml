@@ -321,8 +321,8 @@
     <string name="dialog_restore_defaults">确定恢复出厂设置吗？</string>
     <string name="clear">清除</string>
     <string name="end">结束</string>
-    <string name="shorts">短</string>
-    <string name="Long">长</string>
+    <string name="shorts">短按</string>
+    <string name="Long">长按</string>
     <string name="label_Waiting" >等响</string>
     <string name="dialog_tab_restart">确定重新启动吗？</string>
     <string name="tab_suspension_driving">悬浮按钮开关</string>

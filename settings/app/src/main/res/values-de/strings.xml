@@ -2,7 +2,7 @@
     <string name="app_name">Einstellung</string>
     <string name="tab_bluetooth">Bluetooth</string>
     <string name="tab_display">Anzeige</string>
-    <string name="tab_sound_effect">Soundeffekt</string>
+    <string name="tab_sound_effect">Ton</string>
     <string name="tab_time">Zeit</string>
     <string name="tab_system">System</string>
     <string name="tab_wifi">WIFI</string>
@@ -135,7 +135,7 @@
     <!--音效设置-->
     <string name="label_treble"> Höhen </string>
         
-    <string name="label_midrange"> Mitteltöner </string>
+    <string name="label_midrange"> Mittel </string>
         
     <string name="label_bass"> bass </string>
 

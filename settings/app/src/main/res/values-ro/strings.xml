@@ -105,7 +105,7 @@
     <!--音效设置-->
     <string name="label_treble"> treble </string>
         
-    <string name="label_midrange"> 中音 </string>
+    <string name="label_midrange"> alto </string>
         
     <string name="label_bass"> bass </string>
 
@@ -408,7 +408,7 @@
         
     <string name="txt_classical"> clasic </string>
         
-    <string name="txt_customize"> personalizat </string>
+    <string name="txt_customize"> Definiții </string>
         
     <string name="wifi_text_not_enabled"> nu este activat </string>
         

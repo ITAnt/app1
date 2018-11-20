@@ -90,10 +90,10 @@ public class SettingsWheelFragment extends PreferenceFragment implements WheelKe
         endName = root.findViewById(R.id.endName);
         clearName = root.findViewById(R.id.clearName);
         shortLongName = root.findViewById(R.id.shortLongName);
-        startName.setText(R.string.key_name_start);
-        endName.setText(R.string.key_name_end);
-        clearName.setText(R.string.key_name_clear);
-        shortLongName.setText(R.string.key_name_short);
+        startName.setText(R.string.Start);
+        endName.setText(R.string.clear);
+        clearName.setText(R.string.end);
+        shortLongName.setText(R.string.shorts);
         start.setOnClickListener(this);
         clear.setOnClickListener(this);
 

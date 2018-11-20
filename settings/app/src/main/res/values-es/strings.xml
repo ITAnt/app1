@@ -6,7 +6,7 @@
     <string name="tab_time">Tiempo</string>
     <string name="tab_system">Sistema</string>
     <string name="tab_wifi">WIFI</string>
-    <string name="tab_navigation">Navegación</string>
+    <string name="tab_navigation">Guía</string>
     <string name="tab_vehicle">Vehículo</string>
     <string name="tab_on">Acerca de</string>
     <string name="tab_cache">储存空间</string>
@@ -68,7 +68,7 @@
         
     <string name="wifi_text_name"> name </string>
         
-    <string name="wifi_text_connect"> connection </string>
+    <string name="wifi_text_connect"> Incluso </string>
         
     <string name="wifi_text_forget"> olvidó </string>
         
@@ -110,7 +110,7 @@
         
     <string name="system_info"> Información del sistema </string>
     <!--音效设置-->
-    <string name="label_treble"> agudos </string>
+    <string name="label_treble"> Alta </string>
         
     <string name="label_midrange"> Rango </string>
         
@@ -434,7 +434,7 @@
         
     <string name="txt_classical"> clásica </string>
         
-    <string name="txt_customize"> personalizado </string>
+    <string name="txt_customize"> Definicion </string>
         
     <string name="wifi_text_not_enabled"> no está habilitado </string>
         
@@ -464,7 +464,7 @@
         
     <string name="Long"> longitud </string>
         
-    <string name="label_Waiting"> sonoridad </string>
+    <string name="label_Waiting"> Anillo </string>
         
     <string name="dialog_tab_restart"> OK para reiniciarlo? </string>
         

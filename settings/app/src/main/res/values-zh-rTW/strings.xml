@@ -344,8 +344,8 @@
     <string name="dialog_restore_defaults">確定恢復出廠設置嗎？</string>
     <string name="clear">清除</string>
     <string name="end">結束</string>
-    <string name="shorts">短</string>
-    <string name="Long">長</string>
+    <string name="shorts">短按</string>
+    <string name="Long">長按</string>
     <string name="label_Waiting">等響</string>
     <string name="dialog_tab_restart">確定重新啟動嗎？</string>
     <string name="tab_suspension_driving">懸浮按鈕開關</string>
