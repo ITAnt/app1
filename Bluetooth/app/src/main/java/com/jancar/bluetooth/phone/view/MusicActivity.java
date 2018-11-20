@@ -602,32 +602,32 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     @Override
     public void onNotifyBackCarStop() {
         Log.e(TAG, "onNotifyBackCarStop===");
-        isResume = true;
-        if (isResume) {
-            bluetoothManager.setBTConnectStatusListener(this);
-            bluetoothManager.registerBTMusicListener(this);
-            isConnect = bluetoothRequestFocus.isBTConnect();
-            if (!isConnect) {
-                showDialog();
-            } else {
-                saveConnect = Constants.BT_CONNECT_IS_CONNECTED;
-                if (connectDialog != null && connectDialog.isShowing()) {
-                    connectDialog.dismiss();
-                }
-                Log.e(TAG, "onNotifyBackCarStop.CallState===" + BluetoothRequestFocus.CallState);
-                if (!BluetoothRequestFocus.HandPaused && BluetoothRequestFocus.CallState == 0) {
-                    Log.e(TAG, "Play====BackCarStop=====");
-                    bluetoothRequestFocus.btMusicPlay();
-                }
-                bluetoothRequestFocus.setCurrentBTStatus(BluetoothRequestFocus.BT_IDL);
-            }
-        }
+//        isResume = true;
+//        if (isResume) {
+//            bluetoothManager.setBTConnectStatusListener(this);
+//            bluetoothManager.registerBTMusicListener(this);
+//            isConnect = bluetoothRequestFocus.isBTConnect();
+//            if (!isConnect) {
+//                showDialog();
+//            } else {
+//                saveConnect = Constants.BT_CONNECT_IS_CONNECTED;
+//                if (connectDialog != null && connectDialog.isShowing()) {
+//                    connectDialog.dismiss();
+//                }
+//                Log.e(TAG, "onNotifyBackCarStop.CallState===" + BluetoothRequestFocus.CallState);
+//                if (!BluetoothRequestFocus.HandPaused && BluetoothRequestFocus.CallState == 0) {
+//                    Log.e(TAG, "Play====BackCarStop=====");
+//                    bluetoothRequestFocus.btMusicPlay();
+//                }
+//                bluetoothRequestFocus.setCurrentBTStatus(BluetoothRequestFocus.BT_IDL);
+//            }
+//        }
     }
 
     @Override
     public void onNotifyBackCarStart() {
         Log.e(TAG, "onNotifyBackCarStart=====");
-        isResume = false;
+//        isResume = false;
     }
 
 
