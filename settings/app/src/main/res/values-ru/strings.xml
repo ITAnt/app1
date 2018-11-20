@@ -64,7 +64,7 @@
     <string name="version_info">Информация Версия</string>
     <string name="system_info">Информация о системе</string>
     <!--音效设置-->
-    <string name="label_treble">высокая</string>
+    <string name="label_treble">диск</string>
     <string name="label_midrange">альт</string>
     <string name="label_bass">бас</string>
 
