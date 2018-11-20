@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorPrimary"
     tools:context="com.jancar.radio.view.activity.RdsActivity">
 
     <LinearLayout
@@ -12,11 +13,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5px"
         android:layout_marginBottom="5px"
-        android:gravity="center"
+        android:gravity="right"
+        android:layout_marginEnd="@dimen/px60"
         android:orientation="horizontal"
         tools:ignore="UselessParent">
 
         <TextView
+            android:textSize="@dimen/px28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/px15"
@@ -24,7 +27,7 @@
             android:text="@string/Ta" />
 
         <TextView
-
+            android:textSize="@dimen/px28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/px15"
@@ -32,6 +35,7 @@
             android:text="@string/AF" />
 
         <TextView
+            android:textSize="@dimen/px28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/px15"
@@ -40,13 +44,14 @@
 
         <TextView
             android:layout_width="wrap_content"
-
+            android:textSize="@dimen/px28"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/px15"
             android:layout_marginEnd="@dimen/px15"
             android:text="@string/EON" />
 
         <TextView
+            android:textSize="@dimen/px28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/px15"
@@ -55,13 +60,17 @@
     </LinearLayout>
 
     <RelativeLayout
+
+        android:background="@mipmap/background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100px"
+
         android:layout_marginStart="@dimen/px50"
         android:layout_marginEnd="@dimen/px50"
-        android:padding="@dimen/px20">
+        android:padding="@dimen/px10">
 
         <TextView
+            android:layout_centerVertical="true"
             android:id="@+id/txt_frequency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,17 +80,22 @@
             android:textSize="@dimen/px70" />
 
         <TextView
+
             android:id="@+id/txt_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10px"
-            android:layout_marginTop="20px"
+            android:layout_marginTop="30px"
             android:layout_toEndOf="@id/txt_frequency"
             android:text="MHz"
-            android:textSize="@dimen/px50" />
+            android:textSize="@dimen/px40" />
 
         <TextView
+
+            android:textSize="@dimen/px28"
             android:id="@+id/txt_ps"
+            android:layout_marginTop="1px"
+            android:layout_alignParentTop="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/px60"
@@ -90,24 +104,31 @@
             android:text="PS:" />
 
         <TextView
+            android:layout_marginBottom="1px"
+            android:layout_alignParentBottom="true"
+            android:textSize="@dimen/px28"
             android:id="@+id/txt_rt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_ps"
             android:layout_marginStart="@dimen/px60"
-            android:layout_marginTop="5px"
             android:layout_toEndOf="@id/txt_unit"
             android:text="RT:" />
 
         <TextView
+            android:id="@+id/txt_pty"
+            android:textSize="@dimen/px28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/px60"
-            android:text="PTY:NO PTY" />
+            android:text="PTY: NO PTY" />
     </RelativeLayout>
 
     <GridView
+        android:layout_marginStart="@dimen/px50"
+        android:layout_marginEnd="@dimen/px50"
+        android:numColumns="2"
+        android:id="@+id/gv_rty"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -115,33 +136,58 @@
     </GridView>
 
     <LinearLayout
+        android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="60px"
+        android:layout_height="80px"
         android:orientation="horizontal">
 
         <TextView
+            android:layout_marginRight="1px"
+            android:background="@color/grays"
             android:gravity="center"
             android:text="TA"
+            android:textSize="@dimen/px30"
             android:layout_weight="1"
             android:layout_width="60px"
-            android:layout_height="30px" />
+            android:layout_height="80px" />
         <TextView
+            android:layout_marginLeft="1px"
+            android:layout_marginRight="1px"
+            android:background="@color/grays"
             android:gravity="center"
             android:text="AF"
+            android:textSize="@dimen/px30"
             android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="30px" />
+            android:layout_height="80px" />
         <TextView
-            android:text="AF"
+            android:layout_marginLeft="1px"
+            android:layout_marginRight="1px"
+            android:background="@color/grays"
+            android:text="EON"
+            android:textSize="@dimen/px30"
             android:gravity="center"
             android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="30px" />
+            android:layout_height="80px" />
         <TextView
-            android:text="AF"
+            android:layout_marginLeft="1px"
+            android:layout_marginRight="1px"
+            android:background="@color/grays"
+            android:text="REG"
+            android:textSize="@dimen/px30"
             android:gravity="center"
             android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="30px" />
+            android:layout_height="80px" />
+        <TextView
+            android:layout_marginLeft="1px"
+            android:textSize="@dimen/px30"
+            android:background="@color/grays"
+            android:text="RDS"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="80px" />
     </LinearLayout>
 </LinearLayout>

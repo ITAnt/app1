@@ -7,4 +7,7 @@
     <color name="bg_dialog_btn" >#FF2C2E34</color>
     <color name="white">#ffffffff</color>
     <color name="gray">#ff808080</color>
+    <color name="grays">#282828</color>
+    <color name="rty_background">#2f2f2f</color>
+    <color name="rty_background_n">#1336a3</color>
 </resources>
