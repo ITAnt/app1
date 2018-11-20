@@ -8,4 +8,7 @@
     <dimen name="px30">30px</dimen>
     <dimen name="px70">70px</dimen>
     <dimen name="px50">50px</dimen>
+    <dimen name="px28">28px</dimen>
+    <dimen name="px10">10px</dimen>
+    <dimen name="px40">40px</dimen>
 </resources>

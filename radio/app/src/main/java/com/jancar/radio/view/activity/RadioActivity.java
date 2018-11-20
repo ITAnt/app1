@@ -67,6 +67,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.w3c.dom.Text;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -837,7 +838,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
 
     @OnClick({R.id.txt_channel_list_one, R.id.txt_channel_list_two, R.id.txt_channel_list_three,
             R.id.txt_channel_list_four, R.id.txt_channel_list_fives, R.id.txt_channel_list_six,
-            R.id.btn_left, R.id.btn_right, R.id.img_swap_band, R.id.img_search, R.id.img_st})
+            R.id.btn_left, R.id.btn_right, R.id.img_swap_band, R.id.img_search, R.id.img_st,R.id.img_dnr})
     public void OnCLick(View view) {
     /*    if (isSwitch){
             isSwitch=false;
@@ -860,6 +861,14 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             }
         }
         switch (view.getId()) {
+            case R.id.img_dnr:
+     /*           Intent intent=new Intent(this,RdsActivity.class);
+                intent.putExtra("Freq",mFreq);
+                intent.putExtra("mLocation",mLocation);
+                intent.putExtra("mBand",mBand);
+                intent.putExtra("mBand",mRadioManager.getPSText(mFreq));
+                startActivity(intent);*/
+                break;
             case R.id.img_st:
                 if (mBand == 0) {
                     return;
