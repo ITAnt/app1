@@ -1,5 +1,7 @@
 package com.jancar.bluetooth.phone.presenter;
 
+import android.text.TextUtils;
+
 import com.jancar.bluetooth.phone.contract.EquipmentContract;
 import com.jancar.bluetooth.phone.model.EquipmentModel;
 import com.jancar.bluetooth.phone.model.EquipmentRepository;
@@ -32,6 +34,8 @@ public class EquipmentPresenter extends BaseModelPresenter<EquipmentContract.Vie
     @Override
     public void disConnectDevice() {
         String remoteAddr = getUi().getManager().getRemoteAddr();
-        getUi().getManager().disConnectDevice(remoteAddr);
+        if (!TextUtils.isEmpty(remoteAddr)) {
+            getUi().getManager().disConnectDevice(remoteAddr);
+        }
     }
 }
