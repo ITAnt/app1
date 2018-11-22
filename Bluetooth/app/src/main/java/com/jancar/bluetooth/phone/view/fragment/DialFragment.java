@@ -612,7 +612,7 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
      * @param event
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventBtnNum(BtnNumberEntity event) {
+    public void onBtnNumEvent(BtnNumberEntity event) {
         if (event.isBtnKey()) {
             Log.e(TAG, "onEvent===" + mStrKeyNum);
             CallNumber();
