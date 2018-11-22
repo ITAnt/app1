@@ -34,7 +34,7 @@ public class BluetoothApplication extends Application {
         return leakApplication.refWatcher;
     }
 
-git
+
     @Override
     public void onCreate() {
         super.onCreate();
