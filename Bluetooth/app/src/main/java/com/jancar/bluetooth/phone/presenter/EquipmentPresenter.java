@@ -1,6 +1,7 @@
 package com.jancar.bluetooth.phone.presenter;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.jancar.bluetooth.phone.contract.EquipmentContract;
 import com.jancar.bluetooth.phone.model.EquipmentModel;
@@ -13,6 +14,8 @@ import com.ui.mvp.presenter.BaseModelPresenter;
  * 设备管理P层
  */
 public class EquipmentPresenter extends BaseModelPresenter<EquipmentContract.View, EquipmentModel> implements EquipmentContract.Presenter, EquipmentModel.Callback {
+
+    private static final String TAG = "EquipmentPresenter";
 
     @Override
     public EquipmentModel createModel() {
@@ -34,8 +37,11 @@ public class EquipmentPresenter extends BaseModelPresenter<EquipmentContract.Vie
     @Override
     public void disConnectDevice() {
         String remoteAddr = getUi().getManager().getRemoteAddr();
+        Log.e(TAG, "remoteAddr===" + remoteAddr);
         if (!TextUtils.isEmpty(remoteAddr)) {
             getUi().getManager().disConnectDevice(remoteAddr);
+        } else {
+            Log.e(TAG, "remoteAddr is null===");
         }
     }
 }
