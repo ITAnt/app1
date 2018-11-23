@@ -188,6 +188,9 @@ public class RadioRepository implements RadioModel {
             case 2:
                 mAmreqOne = new int[]{520, 600, 1000, 1400, 1710, 520};
                 break;
+            case 3:
+                mAmreqOne = new int[]{520, 600, 1000, 1400, 1710, 520};
+                break;
             default:
                 mAmreqOne = new int[]{530, 600, 1000, 1400, 1710, 530};
                 break;

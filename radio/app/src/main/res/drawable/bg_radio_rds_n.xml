@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:drawable="@mipmap/btn_radio_rds_h"
+        android:state_checked="true"/>
+    <!-- 按压时 -->
+    <item
+        android:drawable="@mipmap/btn_radio_rds_h"
+        android:state_pressed="true"/>
+    <!-- 默认时 -->
+    <item
+        android:drawable="@mipmap/btn_radio_rds_n"/>
+</selector>
