@@ -6,13 +6,8 @@ import android.support.multidex.MultiDex;
 import android.util.Log;
 import android.view.ViewConfiguration;
 
-import com.github.moduth.blockcanary.BlockCanary;
-import com.github.moduth.blockcanary.BlockCanaryContext;
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.phone.util.FlyLog;
-import com.orhanobut.hawk.Hawk;
-import com.orhanobut.hawk.HawkBuilder;
-import com.orhanobut.hawk.LogLevel;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -57,12 +52,8 @@ public class BluetoothApplication extends Application {
         } catch (Exception e) {
             FlyLog.e(e.toString());
         }
-        Hawk.init(this)
-                .setEncryptionMethod(HawkBuilder.EncryptionMethod.MEDIUM)
-                .setStorage(HawkBuilder.newSqliteStorage(this))
-                .setLogLevel(LogLevel.FULL)
-                .build();
-        BlockCanary.install(this, new BlockCanaryContext()).start();
+
+//        BlockCanary.install(this, new BlockCanaryContext()).start();
         refWatcher = setupLeakCanary();
     }
 
