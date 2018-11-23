@@ -198,7 +198,51 @@
                         android:text="@string/fm1"
                         android:textColor="#fff"
                         android:textSize="35px" />
-
+                    <TextView
+                        android:visibility="gone"
+                        android:layout_marginTop="130px"
+                        android:layout_marginLeft="@dimen/px20"
+                        android:id="@+id/txt_ta"
+                        android:textSize="@dimen/px18"
+                        android:text="@string/Ta"
+                        android:textColor="@color/rty_background_n"
+                        android:layout_toRightOf="@id/txt_band"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:visibility="gone"
+                        android:textColor="@color/rty_background_n"
+                        android:layout_marginTop="130px"
+                        android:layout_marginLeft="@dimen/px20"
+                        android:id="@+id/txt_af"
+                        android:textSize="@dimen/px18"
+                        android:text="@string/AF"
+                        android:layout_toRightOf="@id/txt_ta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:visibility="gone"
+                        android:textColor="@color/rty_background_n"
+                        android:layout_marginTop="130px"
+                        android:layout_marginLeft="@dimen/px20"
+                        android:id="@+id/txt_rt"
+                        android:textSize="@dimen/px18"
+                        android:text="TP"
+                        android:layout_toRightOf="@id/txt_af"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/txt_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/px70"
+                        android:layout_alignStart="@id/txt_channel"
+                        android:layout_below="@+id/txt_channel"
+                        android:layout_marginEnd="55px"
+                        android:layout_marginTop="20dp"
+                        android:text=""
+                        android:textColor="#fff"
+                        android:textSize="@dimen/px18"/>
                 </RelativeLayout>
 
                 <LinearLayout
@@ -230,7 +274,7 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="155px"
             android:layout_marginRight="155px">
 
@@ -323,7 +367,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginRight="16px"
                 android:layout_marginTop="50px"
                 android:background="@mipmap/line"
@@ -332,7 +376,7 @@
             <SeekBar
                 android:id="@+id/FMFreqSeekBar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end|bottom|center"
                 android:layout_marginLeft="17px"
                 android:layout_marginRight="42px"

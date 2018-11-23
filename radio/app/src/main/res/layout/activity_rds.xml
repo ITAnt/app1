@@ -19,6 +19,8 @@
         tools:ignore="UselessParent">
 
         <TextView
+            android:textColor="@color/white"
+            android:id="@+id/ta"
             android:textSize="@dimen/px28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,6 +29,8 @@
             android:text="@string/Ta" />
 
         <TextView
+            android:textColor="@color/white"
+            android:id="@+id/af"
             android:textSize="@dimen/px28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,6 +39,7 @@
             android:text="@string/AF" />
 
         <TextView
+            android:textColor="@color/white"
             android:textSize="@dimen/px28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,6 +48,7 @@
             android:text="@string/TP" />
 
         <TextView
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:textSize="@dimen/px28"
             android:layout_height="wrap_content"
@@ -51,6 +57,7 @@
             android:text="@string/EON" />
 
         <TextView
+            android:textColor="@color/white"
             android:textSize="@dimen/px28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,26 +79,25 @@
         <TextView
             android:layout_centerVertical="true"
             android:id="@+id/txt_frequency"
-            android:layout_width="wrap_content"
+            android:layout_width="230px"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/px60"
-            android:layout_marginRight="10px"
             android:text="89.00"
+            android:textColor="@color/white"
             android:textSize="@dimen/px70" />
 
         <TextView
-
+            android:textColor="@color/white"
             android:id="@+id/txt_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10px"
             android:layout_marginTop="30px"
             android:layout_toEndOf="@id/txt_frequency"
             android:text="MHz"
             android:textSize="@dimen/px40" />
 
         <TextView
-
+            android:textColor="@color/white"
             android:textSize="@dimen/px28"
             android:id="@+id/txt_ps"
             android:layout_marginTop="1px"
@@ -104,6 +110,7 @@
             android:text="PS:" />
 
         <TextView
+            android:textColor="@color/white"
             android:layout_marginBottom="1px"
             android:layout_alignParentBottom="true"
             android:textSize="@dimen/px28"
@@ -115,6 +122,7 @@
             android:text="RT:" />
 
         <TextView
+            android:textColor="@color/white"
             android:id="@+id/txt_pty"
             android:textSize="@dimen/px28"
             android:layout_width="wrap_content"
@@ -142,8 +150,10 @@
         android:orientation="horizontal">
 
         <TextView
+            android:textColor="@color/white"
+            android:id="@+id/txt_ta"
             android:layout_marginRight="1px"
-            android:background="@color/grays"
+            android:background="@drawable/bg_radio"
             android:gravity="center"
             android:text="TA"
             android:textSize="@dimen/px30"
@@ -151,9 +161,11 @@
             android:layout_width="60px"
             android:layout_height="80px" />
         <TextView
+            android:textColor="@color/white"
+            android:id="@+id/txt_af"
             android:layout_marginLeft="1px"
             android:layout_marginRight="1px"
-            android:background="@color/grays"
+            android:background="@drawable/bg_radio"
             android:gravity="center"
             android:text="AF"
             android:textSize="@dimen/px30"
@@ -161,9 +173,11 @@
             android:layout_width="wrap_content"
             android:layout_height="80px" />
         <TextView
+            android:textColor="@color/white"
+            android:id="@+id/txt_eon"
             android:layout_marginLeft="1px"
             android:layout_marginRight="1px"
-            android:background="@color/grays"
+            android:background="@drawable/bg_radio"
             android:text="EON"
             android:textSize="@dimen/px30"
             android:gravity="center"
@@ -171,9 +185,11 @@
             android:layout_width="wrap_content"
             android:layout_height="80px" />
         <TextView
+            android:textColor="@color/white"
+            android:id="@+id/txt_reg"
             android:layout_marginLeft="1px"
             android:layout_marginRight="1px"
-            android:background="@color/grays"
+            android:background="@drawable/bg_radio"
             android:text="REG"
             android:textSize="@dimen/px30"
             android:gravity="center"
@@ -181,9 +197,11 @@
             android:layout_width="wrap_content"
             android:layout_height="80px" />
         <TextView
+            android:textColor="@color/white"
+            android:id="@+id/txt_rds"
             android:layout_marginLeft="1px"
             android:textSize="@dimen/px30"
-            android:background="@color/grays"
+            android:background="@drawable/bg_radio"
             android:text="RDS"
             android:gravity="center"
             android:layout_weight="1"

@@ -99,6 +99,7 @@ import static com.jancar.radio.listener.utils.RadioStationDaos.deleteRadioStatio
 import static com.jancar.radio.listener.utils.RadioStationDaos.queryFrequency;
 import static com.jancar.radio.listener.utils.ToastUtil.ShowToast;
 import static com.jancar.radio.listener.utils.ToastUtil.isRtl;
+import static com.jancar.radio.view.activity.RdsActivity.BROADCAST_RDS;
 
 import android.content.Context;
 import android.telephony.PhoneStateListener;
@@ -111,6 +112,7 @@ import android.util.Log;
  */
 
 public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioContract.View> implements RadioContract.View, RadioManager.ConnectListener {
+    public static final String BROADCAST_ACTION = "RadioActivity.MyBroadcastReceiver";
     @BindView(R.id.txt_channel)
     TextView channelTxt;
     Unbinder unbinder;
@@ -144,12 +146,22 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
     TextView bandTxt;
     @BindView(R.id.btn_left)
     ImageView leftBtn;
+    @BindView(R.id.img_dnr)
+    ImageView img_dnr;
     @BindView(R.id.btn_right)
     ImageView rightBtn;
     @BindView(R.id.txt_unit)
     TextView unitTxt;
     @BindView(R.id.txt_st)
     TextView stTxt;
+    @BindView(R.id.txt_ta)
+    TextView taTxt;
+    @BindView(R.id.txt_af)
+    TextView afTxt;
+    @BindView(R.id.txt_name)
+    TextView txt_name;
+    @BindView(R.id.txt_rt)
+    TextView txt_rt;
     @BindView(R.id.img_original)
     ImageView originalImg;
     @BindView(R.id.RelativeLayout_left)
@@ -167,12 +179,12 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
     protected boolean isTermination;
     protected boolean isTinTai = false;
     protected boolean isMobile;
-    private boolean isChange=false;
+    private boolean isChange = false;
     public static final int PAGE_FM = 1;
     public static final int PAGE_AM = 2;
     List<RadioStation> radioStations;
     List<TextView> list = new ArrayList<>();
-    List<RuleView> RuleView ;
+    List<RuleView> RuleView;
     int mBandAF[] = new int[]{R.string.fm1, R.string.fm2, R.string.fm3, R.string.am1, R.string.am2, R.string.am3};
     //protected RadioNotification mRadioNotification;
     public static final int FM_FREQ_CRITICAL = 10000;
@@ -186,10 +198,13 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
     public boolean isSwitchs = false;
     protected RadioNotification mRadioNotification;
     int tiems = 5;
-    Map<String, Integer> stringIntegerMap ;
+    Map<String, Integer> stringIntegerMap;
     boolean isSwitc = false;
     private static final String PROPERTY_GIS_COMPENNSATE = "persist.jancar.GisCompensate";
     GlobaldataManager manager;
+    MyBroadcastReceiver myBroadcastReceiver;
+    private String mPs;
+    private int mPty;
     @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
         @Override
@@ -224,7 +239,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                     edito.commit();
                     bandTxt.setText(mBandAF[msg.arg1]);
                     getPresenter().initText(msg.arg1, mLocation, first_run);
-                    s();
+
                     break;
                 case 4:
                     if (Band >= 3) {
@@ -235,7 +250,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                     // swapBandImg.setEnabled(true);
                     bandTxt.setText(mBandAF[Band]);
                     getPresenter().initText(Band, mLocation, first_run);
-                   /* s();*/
+                    /* s();*/
                     break;
                 case 5:
                     isSwitch = false;
@@ -253,30 +268,37 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                     updateNotification(msg.arg1);
                     // getPresenter().Change(msg.arg1, radioStations);
                     mFreq = msg.arg1;
-                    boolean a=true;
+                    boolean a = true;
 
                     if (mFreq < RadioWrapper.getFreqStart(mBand, mLocation)) {
                         mFreq = RadioWrapper.getFreqStart(mBand, mLocation);
-                        a=false;
+                        a = false;
                     }
                     if (mFreq > RadioWrapper.getFreqEnd(mBand, mLocation)) {
                         mFreq = RadioWrapper.getFreqStart(mBand, mLocation);
-                        a=false;
+                        a = false;
                     }
-                    if (a){
+                    if (a) {
                         SharedPreferences.Editor editor = getSharedPreferences("Radio", MODE_PRIVATE).edit();
                         editor.putInt("mFreq" + Band, msg.arg1);
                         Log.w("RadioActivity_mFreq", msg.arg1 + "");
                         editor.commit();
-                    }else {
+                    } else {
                         SharedPreferences read = getSharedPreferences("Radio", MODE_PRIVATE);
                         mFreq = read.getInt("mFreq" + Band, RadioWrapper.getFreqStart(mBand, mLocation));
                         mRadioManager.setFreq(mFreq);
                     }
-                    if (isChange){
+                    if (!isChange) {
                         channelTxt.setText(RadioWrapper.getFreqString(mFreq, mBand, mLocation));
-                        isChange=false;
                     }
+                    isChange = false;
+                    Intent intents = new Intent();
+                    intents.setAction(BROADCAST_RDS);
+                    intents.putExtra("Type", 4);
+                    intents.putExtra("ifreq", mFreq);
+                    intents.putExtra("mLocation", mLocation);
+                    intents.putExtra("mBand", mBand);
+                    sendBroadcast(intents);
                     break;
                 case 6:
                     mRadioManager.setFreq(msg.arg1);
@@ -353,7 +375,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             Logcat.d("onAudioFocusChange, focusChange = " + focusChange);
             if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
                 mAudioManager.abandonAudioFocus(mAudioFocusChange);
-                mJancarManager.abandonKeyFocus(keyFocusListener);
+                mJancarManager.abandonKeyFocus(keyFocusListener.asBinder());
                 if (scheduleds != null) {
                     scheduleds.shutdown();
                 }
@@ -386,16 +408,17 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             }
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radio);
         initStatusBar();
-        stringIntegerMap= new HashMap<>();
+        stringIntegerMap = new HashMap<>();
         unbinder = ButterKnife.bind(this);
         mAudioFocusChange = new RadioAudioFocusChange();
         manager = new GlobaldataManager(getApplicationContext(), null, 0);
-        mRadioManager = new RadioManager( this, this, getPresenter().getRadioListener(), getPackageName());
+        mRadioManager = new RadioManager(this, this, getPresenter().getRadioListener(), getPackageName());
         SharedPreferences read = getSharedPreferences("Radio", MODE_PRIVATE);
         Band = read.getInt("Band", 0);
         if (Band >= 3) {
@@ -403,16 +426,13 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         } else {
             stTxt.setVisibility(View.VISIBLE);
         }
+        myBroadcastReceiver = new MyBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(BROADCAST_ACTION);
+        registerReceiver(myBroadcastReceiver, intentFilter);
         initData();
         onDoIntent(getIntent(), false);
         bandTxt.setText(mBandAF[Band]);
-  /*      if (isRtl()){
-            FrameLayout_left.setBackgroundResource(R.mipmap.bg_radio_list_right);
-            FrameLayout_right.setBackgroundResource(R.mipmap.bg_radio_list_left);
-        }else {
-            FrameLayout_left.setBackgroundResource(R.mipmap.bg_radio_list_left);
-            FrameLayout_right.setBackgroundResource(R.mipmap.bg_radio_list_right);
-        }*/
     }
 
     public void initStatusBar() {
@@ -445,6 +465,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
 
     @SuppressLint("WrongConstant")
     private void initData() {
+
         RuleView = new ArrayList<>();
         radioStations = new ArrayList<>();
         Log.w("RadioAcitivity", "onCreate");
@@ -462,12 +483,12 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         RuleView.add(gv_1_three);
         RuleView.add(gv_1_four);
         EventBus.getDefault().register(this);//订阅
-        mLocation=   RadioCacheUtil.getInstance().getLocation();
-        if (manager.getRadioLocal() == RadioCacheUtil.getInstance().getLocation()) {
+        mLocation = RadioCacheUtil.getInstance(getApplicationContext()).getLocation();
+        if (manager.getRadioLocal() == RadioCacheUtil.getInstance(getApplicationContext()).getLocation()) {
             mRadioManager.setLocation(mLocation);
             SharedPreferences sharedPrefere = getActivity().getSharedPreferences("FirstRun", 0);
             sharedPrefere.edit().putBoolean("Firsts", true).apply();
-            isSetting=  sharedPrefere.getBoolean("Firsts",true);
+            isSetting = sharedPrefere.getBoolean("Firsts", true);
             bandTxt.setText(mBandAF[Band]);
             mFMFreqSeekBar.setOnSeekBarChangeListener(getPresenter());
             VarietyBand();
@@ -483,12 +504,8 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         super.onStart();
         Log.w("RadioAcitivity", "onStart");
 
-        if (manager.getRadioLocal() != RadioCacheUtil.getInstance().getLocation()) {
-            if (Band >= 3)  {
-                Band = 3;
-            } else {
-                Band = 0;
-            }
+        if (manager.getRadioLocal() != RadioCacheUtil.getInstance(getApplicationContext()).getLocation()) {
+            Band = 0;
             SharedPreferences.Editor edito = getSharedPreferences("Radio", MODE_PRIVATE).edit();
             edito.putInt("Band", Band);
             edito.commit();
@@ -501,7 +518,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             editor.commit();
             mLocation = manager.getRadioLocal();
             deleteAll();
-            RadioCacheUtil.getInstance().setLocation(mLocation);
+            RadioCacheUtil.getInstance(getApplicationContext()).setLocation(mLocation);
             mFreq = RadioWrapper.getFreqStart(mBand, mLocation);
             mRadioManager.setLocation(mLocation);
             SharedPreferences sharedPrefere = getActivity().getSharedPreferences("FirstRun", 0);
@@ -536,6 +553,12 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             mRuleView.setVisibility(View.GONE);
         }
         if (Band >= 3) {
+            img_dnr.setBackgroundResource(R.mipmap.btn_radio_rds_d);
+            txt_rt.setVisibility(View.GONE);
+            stTxt.setVisibility(View.GONE);
+            taTxt.setVisibility(View.GONE);
+            afTxt.setVisibility(View.GONE);
+            txt_name.setVisibility(View.GONE);
             this.mBand = 0;
             unitTxt.setText(R.string.unit_khz);
             switch (mLocation) {
@@ -555,6 +578,29 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             handler.sendEmptyMessageDelayed(30, 500);
             // gv_1.setValue(418f, 1812f, 1166f, 34, 5, true);
         } else {
+           /* img_dnr.setBackgroundResource(R.drawable.bg_radio_rds_n);
+            stTxt.setVisibility(View.VISIBLE);
+            txt_name.setVisibility(View.VISIBLE);
+            txt_rt.setVisibility(View.VISIBLE);
+            int mTP = RadioCacheUtil.getInstance(getApplicationContext()).getTA();
+            int mTA = RadioCacheUtil.getInstance(getApplicationContext()).getAF();
+            if (mTP == 1) {
+                taTxt.setVisibility(View.VISIBLE);
+            } else {
+                taTxt.setVisibility(View.GONE);
+                //taTxt.setTextColor(Color.parseColor("#ffffff"));
+            }
+            if (mTA == 1) {
+                afTxt.setVisibility(View.VISIBLE);
+            } else {
+                afTxt.setVisibility(View.GONE);
+            }*/
+            img_dnr.setBackgroundResource(R.mipmap.btn_radio_rds_d);
+            txt_rt.setVisibility(View.GONE);
+            stTxt.setVisibility(View.GONE);
+            taTxt.setVisibility(View.GONE);
+            afTxt.setVisibility(View.GONE);
+            txt_name.setVisibility(View.GONE);
             unitTxt.setText(R.string.unit_mhz);
             RuleView.get(3).setVisibility(View.VISIBLE);
             //  gv_1.setValue(84.6f, 109.8f, 97.8f, 0.6f, 5, false, false);
@@ -578,7 +624,14 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
     int times = 10;
 
     public void s() {
-
+        if (scheduleds != null) {
+            scheduleds.shutdown();
+        }
+        if (isShortSearch) {
+            if (scheduled != null) {
+                scheduled.shutdown();
+            }
+        }
 
     }
 
@@ -586,7 +639,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
     public void initText(List<RadioStation> radioStations) {//
       /*  if (scheduleds!=null){
             scheduleds.shutdown();
-            scheduleds=null;
+            scheduleds=null;RdsActivity
         }*/
 
         this.radioStations.clear();
@@ -619,8 +672,10 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         String sAgeFormat = getResources().getString(R.string.txt_channel);
         String sFinalAge = String.format(sAgeFormat, RadioWrapper.getFreqString(mFreq, mBand, mLocation));
         Log.d("sFinalAge", sFinalAge);
-        channelTxt.setText(RadioWrapper.getFreqString(mFreq, mBand, mLocation));
-
+       // channelTxt.setText(RadioWrapper.getFreqString(mFreq, mBand, mLocation));
+        if (isChange) {
+            channelTxt.setText(RadioWrapper.getFreqString(mFreq, mBand, mLocation));
+        }
         if (isSetting) {
             Message mMessage = new Message();
             mMessage.what = 0;
@@ -693,14 +748,14 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         Log.w("Radio", "requestRadioFocus");
 
         mAudioManager.requestAudioFocus(mAudioFocusChange, AudioManager.STREAM_MUSIC, AUDIOFOCUS_GAIN);
-        mJancarManager.requestKeyFocus(keyFocusListener);
+        mJancarManager.requestKeyFocus(keyFocusListener.asBinder());
         SystemProperties.set(PROPERTY_GIS_COMPENNSATE, "1");
     }
 
     @Override
     public void abandonRadioFocus() {
         mAudioManager.abandonAudioFocus(mAudioFocusChange);
-        mJancarManager.abandonKeyFocus(keyFocusListener);
+        mJancarManager.abandonKeyFocus(keyFocusListener.asBinder());
         SystemProperties.set(PROPERTY_GIS_COMPENNSATE, "0");
         if (scheduleds != null) {
             scheduleds.shutdown();
@@ -752,7 +807,6 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                 scheduled.shutdown();
             }
         }
-
         RadioStation mRadioStation = new RadioStation();
         mRadioStation.setRdsname(RadioWrapper.getFreqString(mFreq, mBand, mLocation));
         mRadioStation.setSelect(true);
@@ -836,37 +890,32 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
     int pd = 0;
     int pds = 0;
 
-    @OnClick({R.id.txt_channel_list_one, R.id.txt_channel_list_two, R.id.txt_channel_list_three,
-            R.id.txt_channel_list_four, R.id.txt_channel_list_fives, R.id.txt_channel_list_six,
-            R.id.btn_left, R.id.btn_right, R.id.img_swap_band, R.id.img_search, R.id.img_st,R.id.img_dnr})
-    public void OnCLick(View view) {
-    /*    if (isSwitch){
-            isSwitch=false;
-            mRadioManager.setFreq(mFreq);
-        }*/
-        if (scheduleds != null) {
-            scheduleds.shutdown();
-        }
-
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
-        Boolean first_run = sharedPreferences.getBoolean("Firsts", true);
+    public void scanStop() {
         if (mNeedScanStop) {
             // Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
             mRadioManager.scanStop();
-            //mNeedScanStop = false;
         }
-        if (isShortSearch) {
-            if (scheduled != null) {
-                scheduled.shutdown();
-            }
-        }
+    }
+
+    @OnClick({R.id.txt_channel_list_one, R.id.txt_channel_list_two, R.id.txt_channel_list_three,
+            R.id.txt_channel_list_four, R.id.txt_channel_list_fives, R.id.txt_channel_list_six,
+            R.id.btn_left, R.id.btn_right, R.id.img_swap_band, R.id.img_search, R.id.img_st, R.id.img_dnr})
+    public void OnCLick(View view) {
+        scanStop();
+        s();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
+        Boolean first_run = sharedPreferences.getBoolean("Firsts", true);
         switch (view.getId()) {
             case R.id.img_dnr:
-     /*           Intent intent=new Intent(this,RdsActivity.class);
-                intent.putExtra("Freq",mFreq);
-                intent.putExtra("mLocation",mLocation);
-                intent.putExtra("mBand",mBand);
-                intent.putExtra("mBand",mRadioManager.getPSText(mFreq));
+                if (mBand==0){
+                    return;
+                }
+            /*    Intent intent = new Intent(this, RdsActivity.class);
+                intent.putExtra("Freq", mFreq);
+                intent.putExtra("mLocation", mLocation);
+                intent.putExtra("mBand", mBand);
+                intent.putExtra("PS", mRadioManager.getPSText(mFreq));
+                intent.putExtra("PTY", mPty);
                 startActivity(intent);*/
                 break;
             case R.id.img_st:
@@ -881,38 +930,30 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
 
                 break;
             case R.id.txt_channel_list_one:
-                isChange=true;
                 isShortSearch = false;
                 getPresenter().select(0, Band, mLocation, first_run);
                 break;
             case R.id.txt_channel_list_two:
-                isChange=true;
                 isShortSearch = false;
                 getPresenter().select(1, Band, mLocation, first_run);
                 break;
             case R.id.txt_channel_list_three:
-                isChange=true;
                 isShortSearch = false;
                 getPresenter().select(2, Band, mLocation, first_run);
                 break;
             case R.id.txt_channel_list_four:
-                isChange=true;
                 isShortSearch = false;
                 getPresenter().select(3, Band, mLocation, first_run);
                 break;
             case R.id.txt_channel_list_fives:
-                isChange=true;
                 isShortSearch = false;
                 getPresenter().select(4, Band, mLocation, first_run);
                 break;
             case R.id.txt_channel_list_six:
-                isChange=true;
                 isShortSearch = false;
                 getPresenter().select(5, Band, mLocation, first_run);
                 break;
             case R.id.btn_left:
-                s();
-                isChange=true;
                 isShortSearch = false;
                 isMobile = false;
                 getPresenter().select(Band, mLocation, first_run);
@@ -925,11 +966,9 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                 //scheduled.
                 break;
             case R.id.btn_right:
-                s();
                 isShortSearch = false;
                 getPresenter().select(Band, mLocation, first_run);
                 isMobile = false;
-                isChange=true;
                 if (this.mRadioManager != null) {
                     this.mRadioManager.step(1);
                 }
@@ -943,6 +982,9 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                 Band++;
                 int band = Band % 5;
                 Band = band;
+                if (Band==3||Band==0){
+                    isChange=true;
+                }
                 Log.w("RadioActivity", Band + "");
                 setBand();
                 VarietyBand();
@@ -957,6 +999,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         }
         mNeedScanStop = false;
     }
+
 
     private void Brows() {
         pd = 0;
@@ -1098,7 +1141,10 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         } else {
 
             isShortSearch = false;
-            scheduled.shutdown();
+            if (scheduled!=null){
+
+                scheduled.shutdown();
+            }
         }
     }
 
@@ -1113,24 +1159,19 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             mMessage.what = 6;
             mMessage.arg1 = RadioWrapper.getFreqStart(mBand, mLocation) + event.getCount() * RadioWrapper.getFreqStep(mBand, mLocation);
             handler.sendMessage(mMessage);
-           /* final int freq =*/
-      /*      if (mRadioManager != null) {
-                mRadioManager.setFreq(freq);
-            }*/
-            isChange=true;
             isMobile = true;
         }
+
     }
 
     @Subscribe(threadMode = ThreadMode.ASYNC) //在异步执行 拖动条停止监听
     public void onDataSynEvents(RadioPresenter.DataSynEvents event) {
-        // final int freq = RadioWrapper.getFreqStart(mBand, mLocation) + event.getCount() * RadioWrapper.getFreqStep(mBand, mLocation);
         Message mMessage = new Message();
         mMessage.what = 6;
         mMessage.arg1 = RadioWrapper.getFreqStart(mBand, mLocation) + event.getCount() * RadioWrapper.getFreqStep(mBand, mLocation);
         handler.sendMessage(mMessage);
         isMobile = false;
-        isChange=true;
+
     }
 
     //拖动条开始监听
@@ -1147,6 +1188,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
         Boolean first_run = sharedPreferences.getBoolean("Firsts", true);
         getPresenter().select(Band, mLocation, first_run);
+
     }
 
     @Subscribe(threadMode = ThreadMode.ASYNC) //在ui线程执行
@@ -1220,7 +1262,11 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                 }
 
             }
-
+            Intent intent = new Intent();
+            intent.setAction(BROADCAST_RDS);
+            intent.putExtra("Type", 0);
+            intent.putExtra("ifreq", ifreq);
+            sendBroadcast(intent);
         }
     }
 
@@ -1254,7 +1300,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         if (bsave) {
             if (this.mScanResultList != null && this.mScanResultList.size() > 0) {
                 removeDuplicate(mScanResultList);
-              /*  if (mScanResultList.size())*/
+                /*  if (mScanResultList.size())*/
                 if (mBand == 1) {
                     for (int i = mScanResultList.size() - 1; i < 18; i++) {
                         RadioStation radioStation = new RadioStation();
@@ -1301,12 +1347,12 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                 ShowToast(this, getString(R.string.search_no_result));
                 //  Toast.makeText(this, R.string.search_no_result, Toast.LENGTH_SHORT).show();
             }
-            if (mBand==0){
+            if (mBand == 0) {
                 SharedPreferences.Editor editor = getSharedPreferences("Radio", MODE_PRIVATE).edit();
                 editor.putInt("mFreq" + 3, 0);
                 editor.putInt("mFreq" + 4, 0);
                 editor.commit();
-            }else {
+            } else {
                 SharedPreferences.Editor editor = getSharedPreferences("Radio", MODE_PRIVATE).edit();
                 editor.putInt("mFreq" + 0, 0);
                 editor.putInt("mFreq" + 1, 0);
@@ -1360,10 +1406,72 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         mNeedScanStop = false;
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRdsMaskChanged(RadioWrapper.EventRdsMask event) {
+        Logcat.d("RadioListener, pi = " + event.mPI + ", freq = " + event.mFreq + ", pty = " + event.mPTY + ", tp = " + event.mTP + ", ta = " + event.mTA);
+        onRdsMaskChanged(event.mPI, event.mFreq, event.mPTY, event.mTP, event.mTA);
+    }
+
+    private void onRdsMaskChanged(int mPI, int mFreq, int mPTY, int mTP, int mTA) {
+        Log.w("RadioListener", mTP + "");
+        if (mTP == 1) {
+            taTxt.setVisibility(View.VISIBLE);
+        } else {
+            taTxt.setVisibility(View.GONE);
+        }
+        if (mTA == 1) {
+            afTxt.setVisibility(View.VISIBLE);
+        } else {
+            afTxt.setVisibility(View.GONE);
+        }
+        RadioCacheUtil.getInstance(getApplicationContext()).setTA(mTP);
+        RadioCacheUtil.getInstance(getApplicationContext()).setAF(mTA);
+        mPty = mPTY;
+        Intent intent = new Intent();
+        intent.setAction(BROADCAST_RDS);
+        intent.putExtra("Type", 1);
+        intent.putExtra("mPty", mPTY);
+        sendBroadcast(intent);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRdsPsChanged(RadioWrapper.EventRdsPs event) {
+        Log.w("RadioListener", event.mText);
+        //Logcat.d("RadioListener, pi = " + event.mPI + ", freq = " + event.mFreq + ", ps = " + event.mText);
+        // Logcat.d("RadioListener, pi = " + event.mPI + ", freq = " + event.mFreq + ", ps = " + event.mText);
+        onRdsPsChanged(event.mPI, event.mFreq, event.mText);
+    }
+
+    private void onRdsPsChanged(int mPI, int mFreq, String mText) {
+        txt_name.setText(mText);
+        Intent intent = new Intent();
+        intent.setAction(BROADCAST_RDS);
+        intent.putExtra("Type", 2);
+        intent.putExtra("ps", mText);
+        sendBroadcast(intent);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRdsRtChanged(RadioWrapper.EventRdsRt event) {
+        Log.w("RadioListener", event.mText);
+        // Logcat.d("RadioListener, pi = " + event.mPI + ", freq = " + event.mFreq + ", rt = " + event.mText);
+        onRdsRtChanged(event.mPI, event.mFreq, event.mText);
+    }
+
+    private void onRdsRtChanged(int mPI, int mFreq, String mText) {
+        Intent intent = new Intent();
+        intent.setAction(BROADCAST_RDS);
+        intent.putExtra("Type", 3);
+        intent.putExtra("Rt", mText);
+        sendBroadcast(intent);
+        //   Logcat.d("RadioListener, pi = " + event.mPI + ", freq = " + event.mFreq + ", rt = " + event.mText);
+    }
+
     @Override
     public RadioContract.Presenter createPresenter() {
         return new RadioPresenter();
     }
+
 
     @Override
     public RadioContract.View getUiImplement() {
@@ -1378,13 +1486,13 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         EventBus.getDefault().unregister(this);
         Logcat.d("mRadioManager = " + this.mRadioManager);
         mAudioManager.abandonAudioFocus(mAudioFocusChange);
-        mJancarManager.abandonKeyFocus(keyFocusListener);
+        mJancarManager.abandonKeyFocus(keyFocusListener.asBinder());
         if (scheduleds != null) {
             scheduleds.shutdown();
         }
-        manager=null;
-        keyFocusListener=null;
-        mJancarManager=null;
+        manager = null;
+        keyFocusListener = null;
+        mJancarManager = null;
         resetFreqStart();
         closeManager();
         SharedPreferences.Editor editor = getSharedPreferences("Radio", MODE_PRIVATE).edit();
@@ -1398,12 +1506,13 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         radioStations = null;
         list = null;
         RuleView = null;
-        stringIntegerMap=null;
+        stringIntegerMap = null;
+        unregisterReceiver(myBroadcastReceiver);
     }
 
     private void resetFreqStart() {
         if (mRadioManager != null && mRadioManager.getScanAction() == 1) {
-            RadioCacheUtil.getInstance().setLastFreq(mBand, RadioWrapper.getFreqStart(mBand, RadioCacheUtil.getInstance().getLocation()));
+            RadioCacheUtil.getInstance(getApplicationContext()).setLastFreq(mBand, RadioWrapper.getFreqStart(mBand, RadioCacheUtil.getInstance(getApplicationContext()).getLocation()));
         }
     }
 
@@ -1469,36 +1578,36 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
     }
 
     protected void initCurFreq() {
-        final int location = RadioCacheUtil.getInstance().getLocation();
+        final int location = RadioCacheUtil.getInstance(getApplicationContext()).getLocation();
 
         if (RadioWrapper.isFreqValid(mFreq, location)) {
             this.mInitFreq = mFreq;
-            RadioCacheUtil.getInstance().setLastPage(getPresenter().getBandPage(this.mBand));
-            RadioCacheUtil.getInstance().setLastFreq(this.mBand, this.mInitFreq);
+            RadioCacheUtil.getInstance(getApplicationContext()).setLastPage(getPresenter().getBandPage(this.mBand));
+            RadioCacheUtil.getInstance(getApplicationContext()).setLastFreq(this.mBand, this.mInitFreq);
         } else {
-            final int lastPage = RadioCacheUtil.getInstance().getLastPage(1);
+            final int lastPage = RadioCacheUtil.getInstance(getApplicationContext()).getLastPage(1);
             if (-1 != mBand) {
-                RadioCacheUtil.getInstance().setLastPage(getPresenter().getBandPage(this.mBand));
+                RadioCacheUtil.getInstance(getApplicationContext()).setLastPage(getPresenter().getBandPage(this.mBand));
             } else {
-                this.mBand = RadioCacheUtil.getInstance().getBand();
+                this.mBand = RadioCacheUtil.getInstance(getApplicationContext()).getBand();
             }
 
             if (lastPage == PAGE_FM || PAGE_AM == lastPage) {
-                this.mInitFreq = RadioCacheUtil.getInstance().getLastFreq(this.mBand);
+                this.mInitFreq = RadioCacheUtil.getInstance(getApplicationContext()).getLastFreq(this.mBand);
             } else {
-                this.mInitFreq = RadioCacheUtil.getInstance().getLastFavoritesFreq();
+                this.mInitFreq = RadioCacheUtil.getInstance(getApplicationContext()).getLastFavoritesFreq();
             }
         }
         if (this.mRadioManager != null) {
-            this.mRadioManager.selectRdsTa(1 == RadioCacheUtil.getInstance().getTA());
+            this.mRadioManager.selectRdsTa(1 == RadioCacheUtil.getInstance(getApplicationContext()).getTA());
             final RadioManager mRadioManager = this.mRadioManager;
-            final int af = RadioCacheUtil.getInstance().getAF();
+            final int af = RadioCacheUtil.getInstance(getApplicationContext()).getAF();
             boolean bAf = false;
             if (af != 0) {
                 bAf = true;
             }
             mRadioManager.selectRdsAf(bAf);
-            this.mRadioManager.setLocation(RadioCacheUtil.getInstance().getLocation());
+            this.mRadioManager.setLocation(RadioCacheUtil.getInstance(getApplicationContext()).getLocation());
             this.mRadioManager.setFreq(this.mInitFreq);
             this.mRadioManager.open();
         }
@@ -1929,7 +2038,51 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
     protected void updateNotification(int mFreq) {
         if (mRadioNotification != null) {
             mRadioNotification.update(mFreq,
-                    mBand, RadioCacheUtil.getInstance().getLocation(), Band);
+                    mBand, RadioCacheUtil.getInstance(getApplicationContext()).getLocation(), Band);
         }
     }
+
+public class MyBroadcastReceiver extends BroadcastReceiver {
+    public static final String TAG = "MyBroadcastReceiver";
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        int Type = intent.getIntExtra("Type", 0);
+        switch (Type) {
+            case 1:
+                int Pty = intent.getIntExtra("Pty", 0);
+                mRadioManager.selectRdsPty(Pty);
+                Log.w(TAG, Pty + "");
+                break;
+            case 2:
+                boolean RdsTa = intent.getBooleanExtra("RdsTa", false);
+                mRadioManager.selectRdsTa(RdsTa);
+                if (RdsTa) {
+                    SharedPreferences sharedPreferencesdd = getActivity().getSharedPreferences("FirstRun", 0);
+                    sharedPreferencesdd.edit().putBoolean("Firsts", false).commit();
+
+                    isScanAll = false;
+                    if (mRadioManager != null) {
+                        mRadioManager.scanAll();
+                    }
+                    taTxt.setVisibility(View.VISIBLE);
+                } else {
+                    scanStop();
+                    taTxt.setVisibility(View.GONE);
+                }
+                Log.w(TAG, RdsTa + "");
+                break;
+            case 3:
+                boolean RdsAf = intent.getBooleanExtra("RdsAf", false);
+                mRadioManager.selectRdsAf(RdsAf);
+                Log.w(TAG, RdsAf + "");
+                if (RdsAf) {
+                    afTxt.setVisibility(View.VISIBLE);
+                } else {
+                    afTxt.setVisibility(View.GONE);
+                }
+                break;
+        }
+    }
+}
 }

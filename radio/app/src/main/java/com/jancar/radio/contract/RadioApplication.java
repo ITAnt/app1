@@ -9,26 +9,15 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 public class RadioApplication extends Application {
-    public static boolean InitDone;
-    public static int PlayState;
-    public static boolean RDSIsON;
-    public static boolean RadioIsRun;
-    protected static int ThemeType;
-    public static boolean isRadioBeforeTA;
-    public static boolean isThereRDSByDisplay;
-    private static RadioApplication pThis;
     private static DaoSession daoSession;
     private RefWatcher refWatcher;
 
 
-    public static RadioApplication getApplication() {
-        return RadioApplication.pThis;
-    }
+
     
     public void onCreate() {
         super.onCreate();
         refWatcher = setupLeakCanary();
-        RadioApplication.pThis = this;
         setupDatabase();
     }
     private RefWatcher setupLeakCanary() {

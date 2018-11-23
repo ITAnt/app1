@@ -46,9 +46,9 @@ public class RadioCacheUtil {
         this.initLocation();
     }
     
-    public static RadioCacheUtil getInstance() {
+    public static RadioCacheUtil getInstance(Context mContext) {
         if (RadioCacheUtil.pThis == null) {
-            RadioCacheUtil.pThis = new RadioCacheUtil((Context)RadioApplication.getApplication());
+            RadioCacheUtil.pThis = new RadioCacheUtil(mContext);
         }
         return RadioCacheUtil.pThis;
     }
