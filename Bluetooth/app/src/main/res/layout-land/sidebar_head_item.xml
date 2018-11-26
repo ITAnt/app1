@@ -16,8 +16,8 @@
         android:layout_marginStart="@dimen/px10"
         android:background="@null"
         android:gravity="center"
-        android:paddingBottom="@dimen/px15"
-        android:paddingTop="@dimen/px20"
+        android:paddingBottom="@dimen/px10"
+        android:paddingTop="@dimen/px10"
         android:text="A" />
 
     <!--<View-->
