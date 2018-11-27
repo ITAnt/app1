@@ -23,6 +23,7 @@ import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.contract.EquipmentContract;
 import com.jancar.bluetooth.phone.entity.Event;
 import com.jancar.bluetooth.phone.presenter.EquipmentPresenter;
+import com.jancar.bluetooth.phone.util.ApplicationUtil;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.ToastUtil;
 import com.ui.mvp.view.support.BaseFragment;
@@ -224,10 +225,11 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
     //跳转到设置界面
     private void go2Setting() {
         Intent intent = new Intent();
-        intent.setClassName("com.jancar.settingss", "com.jancar.settings.view.activity.MainActivity");
-        intent.putExtra("position", 1);
+        intent.setClassName(Constants.PACKNAME, Constants.CLASSNAME);
+        intent.putExtra(Constants.SETTING_POSITION, Constants.SETTING_POSITION_NUM);
         startActivity(intent);
     }
+
 
     @Override
     public Context getUIContext() {
@@ -277,7 +279,12 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
                 getPresenter().disConnectDevice();
                 break;
             case R.id.btn_equipment_setting:
-                go2Setting();
+                if (ApplicationUtil.hasApplication(mActivity, Constants.PACKNAME)) {
+                    go2Setting();
+                } else {
+//                    mToast.ShowTipText(mActivity, "应用不存在");
+                }
+
                 break;
             case R.id.btn_equipment_conn:
                 getConnect();

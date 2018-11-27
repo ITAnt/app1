@@ -6,6 +6,17 @@ package com.jancar.bluetooth.phone.util;
  * @describe 常量定义
  */
 public class Constants {
+    //跳转设置
+    public static final String PACKNAME = "com.jancar.settingss";
+    public static final String CLASSNAME = "com.jancar.settings.view.activity.MainActivity";
+    public static final String SETTING_POSITION = "position";
+    public static final int SETTING_POSITION_NUM = 1;
+    //开启电话服务
+    public static final String BTUISERVICE_PACKAGENAME = "com.jancar.bluetooth.phone";
+    public static final String BTUISERVICE_CLASSNAME = "com.jancar.bluetooth.phone.view.BTUIService";
+
+    public static final String BTDIAL_KEY = "btdial";
+
     public final static byte BT_CONNECT_IS_NONE = (byte) 0x01;//蓝牙未连接
     public final static byte BT_CONNECT_IS_CONNECTED = (byte) 0x02;//蓝牙已连接
     public final static byte BT_CONNECT_IS_CLOSE = (byte) 0x00;//蓝牙已关闭
@@ -14,7 +25,6 @@ public class Constants {
     public final static int BLUETOOTH_DEVICE_NOBOND = 1;
     public final static int BLUETOOTH_DEVICE_STATE_DISCONNECT = 2;
     public final static int BLUETOOTH_DEVICE_STATE_CONNECT = 3;
-
 
     public final static int PHONEBOOK_STATE_START = 1;//同步开始
     public final static int PHONEBOOK_STATE_STOP = 2;//同步中止

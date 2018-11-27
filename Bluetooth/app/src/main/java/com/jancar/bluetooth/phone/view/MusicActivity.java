@@ -21,6 +21,7 @@ import com.jancar.bluetooth.lib.BluetoothMusicData;
 import com.jancar.bluetooth.phone.R;
 import com.jancar.bluetooth.phone.contract.MusicContract;
 import com.jancar.bluetooth.phone.presenter.MusicPresenter;
+import com.jancar.bluetooth.phone.util.ApplicationUtil;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.TimeUtil;
 import com.jancar.bluetooth.phone.util.ToastUtil;
@@ -133,6 +134,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         registerListener();
         BluetoothRequestFocus.HandPaused = false;
         isConnect = bluetoothRequestFocus.isBTConnect();
+        Log.e(TAG, "isConnect==onResume==" + isConnect);
         isResume = true;
         if (!isConnect) {
             showDialog();
@@ -195,18 +197,22 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
             connectDialog.go2SettingOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent();
-                    intent.setClassName("com.jancar.settingss", "com.jancar.settings.view.activity.MainActivity");
-                    intent.putExtra("position", 1);
-                    startActivity(intent);
+                    go2Setting();
                 }
             });
             connectDialog.setCanceledOnTouchOutside(false);
             connectDialog.setCancelable(false);
-
             connectDialog.show();
         }
+    }
 
+    private void go2Setting() {
+        if (ApplicationUtil.hasApplication(this, Constants.PACKNAME)) {
+            Intent intent = new Intent();
+            intent.setClassName(Constants.PACKNAME, Constants.CLASSNAME);
+            intent.putExtra(Constants.SETTING_POSITION, Constants.SETTING_POSITION_NUM);
+            startActivity(intent);
+        }
     }
 
     private void registerListener() {

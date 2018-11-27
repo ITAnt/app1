@@ -24,6 +24,7 @@ import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
 import com.jancar.bluetooth.phone.entity.BtnNumberEntity;
 import com.jancar.bluetooth.phone.entity.Event;
+import com.jancar.bluetooth.phone.util.ApplicationUtil;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.view.fragment.ContactFragment;
 import com.jancar.bluetooth.phone.view.fragment.DialFragment;
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
     private void handleIntent(Intent intent) {
         tabKey = intent.getStringExtra("page");
         Log.e(TAG, "handleIntent===" + tabKey);
-        if (!TextUtils.isEmpty(tabKey) && tabKey.equals("btdial")) {
+        if (!TextUtils.isEmpty(tabKey) && tabKey.equals(Constants.BTDIAL_KEY)) {
             indexTab = TAB_DIAL_MANAGER;
             EventBus.getDefault().post(new BtnNumberEntity(true));
         }
@@ -150,15 +151,21 @@ public class MainActivity extends AppCompatActivity implements BTConnectStatusLi
         connectDialog.go2SettingOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClassName("com.jancar.settingss", "com.jancar.settings.view.activity.MainActivity");
-                intent.putExtra("position", 1);
-                startActivity(intent);
+                go2Setting();
             }
         });
         connectDialog.setCanceledOnTouchOutside(false);
         connectDialog.setCancelable(false);
         connectDialog.show();
+    }
+
+    private void go2Setting() {
+        if (ApplicationUtil.hasApplication(this, Constants.PACKNAME)) {
+            Intent intent = new Intent();
+            intent.setClassName(Constants.PACKNAME, Constants.CLASSNAME);
+            intent.putExtra(Constants.SETTING_POSITION, Constants.SETTING_POSITION_NUM);
+            startActivity(intent);
+        }
     }
 
     private void initComponent() {

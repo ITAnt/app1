@@ -3,7 +3,10 @@ package com.jancar.bluetooth.phone.view;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
+
+import com.jancar.bluetooth.phone.util.Constants;
 
 /**
  * @anthor Tzq
@@ -24,10 +27,17 @@ public class EasyLinkReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         BluetoothRequestFocus bluetoothRequestFocus = BluetoothRequestFocus.getBluetoothRequestFocusStance(context);
         Log.e(TAG, "action==" + action);
-        if (action.equals(BECOMING_NOISY)) {
+        if (action.equals(BECOMING_NOISY) || action.equals(BOOT_COMPLETE)) {
             Intent service = new Intent();
-            service.setClassName("com.jancar.bluetooth.phone", "com.jancar.bluetooth.phone.view.BTUIService");
-            context.startService(service);
+            service.setClassName(Constants.BTUISERVICE_PACKAGENAME, Constants.BTUISERVICE_CLASSNAME);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Log.e(TAG, "startForegroundService==");
+                context.startForegroundService(service);
+            } else {
+                Log.e(TAG, "startService==");
+                context.startService(service);
+            }
+//            context.startService(service);
 
         } else if (action.equals(EASY_LOSS_FOUS)) {
             //BluetoothManager.getBluetoothManagerInstance(context).setPlayerState(false);

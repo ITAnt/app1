@@ -5,6 +5,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -312,8 +313,16 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
 
     private void initView() {
         mWindowManager = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
-        mLayoutParams = new WindowManager.LayoutParams();
-        mLayoutParams.type = WindowManager.LayoutParams.TYPE_PRIORITY_PHONE;
+        mLayoutParams = new WindowManager.LayoutParams();//大屏
+        mLayoutParams1 = new WindowManager.LayoutParams();//小屏
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mLayoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+            mLayoutParams1.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+        } else {
+            mLayoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+            mLayoutParams1.type = WindowManager.LayoutParams.TYPE_PHONE;
+        }
+//        mLayoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         mLayoutParams.format = PixelFormat.RGBA_8888;
         mLayoutParams.flags = WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
         mLayoutParams.gravity = Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL;
@@ -322,8 +331,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         phoneView = LayoutInflater.from(this).inflate(R.layout.activity_communicate, null);
 
         // 小屏
-        mLayoutParams1 = new WindowManager.LayoutParams();
-        mLayoutParams1.type = WindowManager.LayoutParams.TYPE_PRIORITY_PHONE;
+//      mLayoutParams1.type = WindowManager.LayoutParams.TYPE_PRIORITY_PHONE;
         mLayoutParams1.format = PixelFormat.RGBA_8888;
         mLayoutParams1.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
         mLayoutParams1.gravity = Gravity.CENTER_HORIZONTAL;
