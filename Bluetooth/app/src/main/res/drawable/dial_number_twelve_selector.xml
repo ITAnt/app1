@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/btn_bt_dail_num12_h" android:state_pressed="true" />
-    <item android:drawable="@drawable/btn_bt_dail_num12_n" android:state_pressed="false" />
-</selector>

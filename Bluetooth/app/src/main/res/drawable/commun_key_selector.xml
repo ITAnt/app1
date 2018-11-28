@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/btn_bt_dial_keypad_d" android:state_enabled="false" />
-    <item android:drawable="@drawable/iv_commun_key_p" android:state_pressed="true" />
-    <item android:drawable="@drawable/iv_commun_key_n" android:state_pressed="false" />
-
-</selector>
