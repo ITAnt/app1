@@ -1,0 +1,47 @@
+<resources>
+    <!--波斯语RTL-->
+    <string name="app_name">تلفن بلوتوث</string>
+    <string name="calling_hangup">قطع کن</string>
+    <string name="calling_keypad">صفحه کلید</string>
+    <string name="calling_vehicle">اتومبیل</string>
+    <string name="calling_phone">تلفن همراه</string>
+    <string name="dial_show_voice">بی صدا</string>
+    <string name="str_phone_unkonow">شماره ناشناخته</string>
+    <string name="str_phone_mobile">موبایل</string>
+    <string name="str_phone_unicom">Unicom</string>
+    <string name="str_phone_telecom">چین مخابرات</string>
+    <string name="str_phone_outgoing">در یک تماس...</string>
+    <string name="str_phone_missed">تماس ورودی</string>
+    <string name="tv_equipment_other">تجهیزات دیگر</string>
+    <string name="tv_equipment_conn">اتصال</string>
+    <string name="tv_equipment_disconn">قطع کن</string>
+    <string name="tv_equipment_myequip">دستگاه من</string>
+    <string name="tv_bt_connect_is_none">بلوتوث متصل نیست</string>
+    <string name="tv_bt_connect_is_close">بلوتوث هنوز در دسترس نیست</string>
+    <string name="tv_dial_contact">لطفا ابتدا مخاطبین را همگامسازی کنید！</string>
+    <string name="tv_contact_empty">اطلاعات تماس خالی است！</string>
+    <string name="tv_syning_contact">همگام سازی مخاطبین...</string>
+    <string name="tv_syn_record">لطفا تاریخ تماس را همگام کنید！</string>
+    <string name="tv_record_empty">اطلاعات تماس خالی است！</string>
+    <string name="tv_syning_record">همگامسازی تاریخ تماس...</string>
+    <string name="tv_record_log">تاریخ تماس خالی است！</string>
+    <string name="tv_record_error">همگام سازی خطای تاریخچه تماس！</string>
+    <string name="tv_call_number_empty">شماره نمیتواند خالی باشد</string>
+    <string name="str_phone_name">ناشناخته</string>
+    <string name="tv_main_keypad">شماره گیری پد</string>
+    <string name="tv_mian_contact">تماس بگیرید</string>
+    <string name="tv_main_records">تاریخچه تماس ها</string>
+    <string name="tv_mian_mange">مدیریت تجهیزات</string>
+    <string name="tv_contact_search">جستجو</string>
+    <string name="tv_bluet_music">BtMusic</string>
+    <string name="tv_dial_no_contact">بدون تماس</string>
+    <string name="tv_yes">بله</string>
+    <string name="tv_no">خیر</string>
+    <string name="tv_title_tip">بلوتوث متصل نیست، نیاز به اتصال به بلوتوث است？</string>
+    <string name="tv_syn_contact">آیا شما نیاز به همگام سازی مخاطبین خود دارید؟ ？</string>
+    <string name="tv_confirm">تعیین کنید</string>
+    <string name="tv_cancel">لغو</string>
+    <string name="tv_equiment_bluetooth">تنظیمات بلوتوث</string>
+    <string name="tv_tip_down">دانلود ...</string>
+    <string name="tv_equiment_history_adress">آدرس بلوتوث نامعتبر است</string>
+</resources>
