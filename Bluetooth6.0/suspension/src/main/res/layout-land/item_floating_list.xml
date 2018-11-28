@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/px60"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/iv_list_icon"
+        android:layout_width="@dimen/px60"
+        android:layout_height="@dimen/px60"
+        android:src="@drawable/iv_select_power"
+        android:layout_marginStart="@dimen/px30"/>
+
+    <TextView
+        android:id="@+id/tv_list_title"
+        style="@style/txt_normal_px22"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/px40"
+        tools:text="电源"
+        android:layout_gravity="center_vertical"
+        android:layout_toRightOf="@id/iv_list_icon"/>
+
+</LinearLayout>

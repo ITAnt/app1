@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Floating settings</string>
+	<string name="tv_power">power supply</string>
+	<string name="tv_home">Home screen</string>
+	<string name="tv_vioce_add">Volume plus</string>
+	<string name="tv_vioce_dec">Volume reduction</string>
+	<string name="tv_back">Return</string>
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">悬浮按钮设置</string>
+    <string name="tv_power">电 源</string>
+    <string name="tv_home">主屏幕</string>
+    <string name="tv_vioce_add">音量加</string>
+    <string name="tv_vioce_dec">音量减</string>
+    <string name="tv_back">返 回</string>
+</resources>

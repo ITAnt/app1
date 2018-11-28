@@ -1,0 +1,134 @@
+apply plugin: 'com.android.application'
+//获取当前编译时间
+def getCreateTime() {
+    def createTime = new Date().format("yyyyMMdd", TimeZone.getTimeZone("GMT+08:00")).trim()
+    println createTime
+    return createTime
+}
+
+/**
+ * 获取Git 版本号
+ */
+def getGitSHA() {
+    def gitSHA = 'git rev-parse --short HEAD'.execute().text.trim()
+    return gitSHA
+}
+/**
+ * 获取Git 提交次数
+ */
+def getGitCommitCount() {
+    def gitCommitCount = 'git rev-list --count HEAD'.execute().text.trim();
+    return gitCommitCount;
+}
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
+    defaultConfig {
+        applicationId "com.jancar.bluetooth.phone"
+        minSdkVersion 23
+        targetSdkVersion 27
+        versionCode 1
+        versionName "2.0"
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        release {
+            v1SigningEnabled true
+            v2SigningEnabled true
+//            storeFile file("../platform.keystore")
+            storeFile file("../platform8.0.keystore")
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+
+        debug {
+            v1SigningEnabled true
+            v2SigningEnabled true
+//            storeFile file("../platform.keystore")
+            storeFile file("../platform8.0.keystore")
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+    }
+    buildTypes {
+        release {
+//            buildConfigField "boolean", "LOG_DEBUG", "false" //不显示log
+//            zipAlignEnabled true     //Zipalign优化
+//            shrinkResources true    // 移除无用的resource文件
+            minifyEnabled false     //混淆
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            aaptOptions.cruncherEnabled = false
+            aaptOptions.useNewCruncher = false
+        }
+        debug {
+            signingConfig signingConfigs.debug
+        }
+
+    }
+    //配置自定义打包名称
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def fileName
+            if (variant.buildType.name.equals('release')) {
+                fileName = "${getApkPrefixName()}_release_${gitSHA}_${gitCommitCount}_${createTime}.apk"
+            } else if (variant.buildType.name.equals('debug')) {
+                fileName = "${getApkPrefixName()}_debug_${gitSHA}_${gitCommitCount}_${createTime}.apk"
+            }
+            outputFileName = fileName;
+        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+// 用于aar库
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+}
+
+
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //    implementation 'com.android.support:appcompat-v7:28.0.0-rc01'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation files('libs/mvp.jar')
+    implementation 'com.android.support:multidex:1.0.1'
+//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'org.jetbrains:annotations-java5:15.0'
+    implementation 'org.greenrobot:eventbus:3.1.1'
+//    implementation 'com.github.orhanobut:hawk:1.21'
+    implementation 'com.android.support:support-v4:23.2.1'
+    //ANR
+    // 仅在debug包启用BlockCanary进行卡顿监控和提示的话，可以这么用
+//    debugCompile 'com.github.markzhai:blockcanary-android:1.5.0'
+//    releaseCompile 'com.github.markzhai:blockcanary-no-op:1.5.0'
+    // this way you only enable BlockCanary in debug package
+    //Leakcanary
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    //    implementation 'com.yanzhenjie:permission:2.0.0-rc12'
+    implementation files('libs/classes(19).jar')
+}
+
+//apk前缀名
+def getApkPrefixName() {
+    return "Bluetooth"
+}
+

@@ -1,0 +1,47 @@
+<resources>
+    <!--波兰语-->
+    <string name="app_name">Telefon Bluetooth</string>
+    <string name="calling_hangup">Rozłącz</string>
+    <string name="calling_keypad">Klucz</string>
+    <string name="calling_vehicle">Samochód</string>
+    <string name="calling_phone">Telefon</string>
+    <string name="dial_show_voice">Wycisz Głośność</string>
+    <string name="str_phone_unkonow">Nieznany numer</string>
+    <string name="str_phone_mobile">Mobilny</string>
+    <string name="str_phone_unicom">Unicom</string>
+    <string name="str_phone_telecom">Telekomunikacja</string>
+    <string name="str_phone_outgoing">W trakcie połączenia...</string>
+    <string name="str_phone_missed">Połączenie</string>
+    <string name="tv_equipment_other">Inne wyposażenie</string>
+    <string name="tv_equipment_conn">Nawet</string>
+    <string name="tv_equipment_disconn">Zepsuty</string>
+    <string name="tv_equipment_myequip">Moje urządzenie</string>
+    <string name="tv_bt_connect_is_none">nie połączony</string>
+    <string name="tv_bt_connect_is_close">Bluetooth wył.</string>
+    <string name="tv_dial_contact">Najpierw zsynchronizuj kontakty！</string>
+    <string name="tv_contact_empty">Dane kontaktowe są puste！</string>
+    <string name="tv_syning_contact">Pobieranie książki telefonicznej teraz...</string>
+    <string name="tv_syn_record">Zsynchronizuj historię połączeń！</string>
+    <string name="tv_record_empty">Dane kontaktowe są puste！</string>
+    <string name="tv_syning_record">Pobieranie historii połączeń teraz...</string>
+    <string name="tv_record_log">Historia połączeń jest pusta！</string>
+    <string name="tv_record_error">Zsynchronizuj błąd historii połączeń！</string>
+    <string name="tv_call_number_empty">Liczba połączeń jest pusty</string>
+    <string name="str_phone_name">nieznany</string>
+    <string name="tv_main_keypad">klawiatura</string>
+    <string name="tv_mian_contact">Kontakt</string>
+    <string name="tv_main_records">Historia połączeń</string>
+    <string name="tv_mian_mange">Zarządzanie sprzętem</string>
+    <string name="tv_contact_search">Szukaj</string>
+    <string name="tv_bluet_music">BtMusic</string>
+    <string name="tv_dial_no_contact">Brak kontaktu</string>
+    <string name="tv_yes">TAK</string>
+    <string name="tv_no">NIE</string>
+    <string name="tv_title_tip">Bluetooth nie jest podłączony, trzeba połączyć się z Bluetooth？</string>
+    <string name="tv_syn_contact">Czy chcesz zsynchronizować swoje kontakty?</string>
+    <string name="tv_confirm">OK</string>
+    <string name="tv_cancel">Anuluj</string>
+    <string name="tv_equiment_bluetooth">ustawienia Bluetooth</string>
+    <string name="tv_tip_down">Pobieranie...</string>
+    <string name="tv_equiment_history_adress">Adres Bluetooth jest nieprawidłowy</string>
+</resources>
