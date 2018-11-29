@@ -333,6 +333,7 @@ public class BluetoothFragment extends BaseFragments<BluetoothPresenter> impleme
                 }
             }
         });
+        settingDialog.setCanceledOnTouchOutside(false);
         settingDialog.show();
     }
 

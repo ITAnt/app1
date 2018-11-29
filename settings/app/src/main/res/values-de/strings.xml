@@ -36,9 +36,9 @@
     <string name="key_name_vedio">Vedio</string>
     <string name="key_name_hold">Hold</string>
     <string name="key_name_hungup">HungUp</string>
-    <string name="key_name_fm">Fm</string>
-    <string name="key_name_am">Am</string>
-    <string name="key_name_aux">Aux</string>
+    <string name="key_name_fm">FM</string>
+    <string name="key_name_am">AM</string>
+    <string name="key_name_aux">AUX</string>
     <string name="key_name_mute">Mute</string>
     <string name="key_name_btmusic">BTMusic</string>
     <string name="key_name_start">Start</string>
@@ -317,7 +317,7 @@
         
     <string name="tab_reverse_display"> Anpassung der Anzeigeeffekte umkehren </string>
         
-    <string name="tab_key_learning"> Schlüssel lernen </string>
+    <string name="tab_key_learning"> Parteigesteuertes Lernen </string>
         
     <string name="tab_mirror_normal"> normales Bild </string>
         

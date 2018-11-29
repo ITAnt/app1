@@ -23,6 +23,7 @@ public class SettingsReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         System.out.println("收到广播了");
         Log.e(TAG, "action==" + action);
+        Log.e(TAG, "收到广播了");
 
         if (action.equals(BOOT_COMPLETE)) {
 

@@ -221,7 +221,7 @@
     <string name="tab_model_selection">Επιλογή μοντέλου</string>
     <string name="tab_reversing_mirror">Οπίσθιο καθρέφτη</string>
     <string name="tab_reverse_display">Ρύθμιση εφέ αντίστροφης οθόνης</string>
-    <string name="tab_key_learning">Βασική μάθηση</string>
+    <string name="tab_key_learning">Ελεγχόμενη από τον Κόμμα μάθηση</string>
     <string name="tab_mirror_normal">Κανονικό</string>
     <string name="tab_up_down_normal">Πάνω και κάτω</string>
     <string name="tab_about_normal">Αριστερά και δεξιά</string>
@@ -342,9 +342,9 @@
     <string name="key_name_vedio">Vedio</string>
     <string name="key_name_hold">Hold</string>
     <string name="key_name_hungup">HungUp</string>
-    <string name="key_name_fm">Fm</string>
-    <string name="key_name_am">Am</string>
-    <string name="key_name_aux">Aux</string>
+    <string name="key_name_fm">FM</string>
+    <string name="key_name_am">AM</string>
+    <string name="key_name_aux">AUX</string>
     <string name="key_name_mute">Mute</string>
     <string name="key_name_btmusic">BTMusic</string>
     <string name="key_name_start">Start</string>

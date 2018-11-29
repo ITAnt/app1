@@ -223,7 +223,7 @@
     <string name = "tab_model_selection"> seleção de modelos </string>
         <string name = "tab_reversing_mirror"> invertendo a imagem </string>
         <string name = "tab_reverse_display"> reverter o ajuste do efeito de exibição </string>
-        <string name = "tab_key_learning"> Aprendizagem de chaves </string>
+        <string name = "tab_key_learning"> Aprendizagem controlada por partido </string>
         <string name = "tab_mirror_normal"> imagem normal </string>
         <string name = "tab_up_down_normal"> Espelhamento para cima e para baixo </string>
         <string name = "tab_about_normal"> espelho da esquerda e da direita </string>
@@ -343,9 +343,9 @@
     <string name="key_name_vedio">Vedio</string>
     <string name="key_name_hold">Hold</string>
     <string name="key_name_hungup">HungUp</string>
-    <string name="key_name_fm">Fm</string>
-    <string name="key_name_am">Am</string>
-    <string name="key_name_aux">Aux</string>
+    <string name="key_name_fm">FM</string>
+    <string name="key_name_am">AM</string>
+    <string name="key_name_aux">AUX</string>
     <string name="key_name_mute">Mute</string>
     <string name="key_name_btmusic">BTMusic</string>
     <string name="key_name_start">Start</string>

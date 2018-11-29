@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "E:\\work\\AC8227L-AP1\\Bluetooth\\suspension\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-en\\values-en.xml",
+            "map": [
+                {
+                    "source": "E:\\work\\AC8227L-AP1\\Bluetooth\\suspension\\src\\main\\res\\values-en\\strings.xml",
+                    "from": {
+                        "startLines": "2,7,4,3,5,6",
+                        "startColumns": "1,1,1,1,1,1",
+                        "startOffsets": "54,308,155,107,201,252",
+                        "endColumns": "51,39,44,46,49,54",
+                        "endOffsets": "104,346,198,152,249,305"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "55,110,153,201,251,304",
+                        "endColumns": "54,42,47,49,52,57",
+                        "endOffsets": "105,148,196,246,299,357"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -224,7 +224,7 @@
     <string name="tab_model_selection">车型选择</string>
     <string name="tab_reversing_mirror">倒车镜像</string>
     <string name="tab_reverse_display">倒车显示效果调节</string>
-    <string name="tab_key_learning">按键学习</string>
+    <string name="tab_key_learning">方控学习</string>
     <string name="tab_mirror_normal">正常镜像</string>
     <string name="tab_up_down_normal">上下镜像</string>
     <string name="tab_about_normal">左右镜像</string>
@@ -345,9 +345,9 @@
     <string name="key_name_vedio">视频</string>
     <string name="key_name_hold">接听</string>
     <string name="key_name_hungup">挂断</string>
-    <string name="key_name_fm">Fm</string>
-    <string name="key_name_am">Am</string>
-    <string name="key_name_aux">Aux</string>
+    <string name="key_name_fm">FM</string>
+    <string name="key_name_am">AM</string>
+    <string name="key_name_aux">AUX</string>
     <string name="key_name_mute">静音</string>
     <string name="key_name_btmusic">蓝牙音乐</string>
     <string name="key_name_start">开始</string>

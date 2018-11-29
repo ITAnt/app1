@@ -199,13 +199,13 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                 showSettingDialog();
                 break;
             case R.id.rlayout_reset:
-               showResetDialog();
+              //showResetDialog();
                 break;
             case R.id.rlayout_restore_default:
                 showRestoreDefaultDialog();
                 break;
             case R.id.rlayout_restart:
-                showRestartDialogs();
+               //showRestartDialogs();
 
                 break;
             case R.id.switch_video:
@@ -567,7 +567,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
              /*   GPS gps = new GPS();
                 gps.openGPSSettings(getContext(), 3);*/
                 settingManager.changeSystemLanguage(settingManager.locales[settingManager.getLanguage()], settingManager.getLanguage());
-                sharedPreferences.edit().putBoolean("DisplayFragmetn", false).commit();
+                sharedPreferences.edit().putBoolean("getNaviInfoDisplayFragmetn", false).commit();
                 AudioEffectManager mAudioEffectManager;
                 mAudioEffectManager = settingManager.getAudioEffectManager();
                 mAudioEffectManager.setAudioEffectTreble(0, true);

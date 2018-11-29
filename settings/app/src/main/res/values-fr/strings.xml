@@ -223,7 +223,7 @@
     <string name="tab_model_selection"> sélection de modèle </string>
     <string name="tab_reversing_mirror"> image inversée </string>
     <string name="tab_reverse_display"> inversion du réglage de l\'effet d'affichage </string>
-    <string name="tab_key_learning"> Apprentissage de la clé </string>
+    <string name="tab_key_learning">Apprentissage contrôlé par la fête</string>
     <string name="tab_mirror_normal">Normal</string>
     <string name="tab_up_down_normal">De haut en bas</string>
     <string name="tab_about_normal">Gauche et droite</string>
@@ -363,9 +363,9 @@
     <string name="key_name_vedio">Vedio</string>
     <string name="key_name_hold">Hold</string>
     <string name="key_name_hungup">HungUp</string>
-    <string name="key_name_fm">Fm</string>
-    <string name="key_name_am">Am</string>
-    <string name="key_name_aux">Aux</string>
+    <string name="key_name_fm">FM</string>
+    <string name="key_name_am">AM</string>
+    <string name="key_name_aux">AUX</string>
     <string name="key_name_mute">Mute</string>
     <string name="key_name_btmusic">BTMusic</string>
     <string name="key_name_start">Start</string>
