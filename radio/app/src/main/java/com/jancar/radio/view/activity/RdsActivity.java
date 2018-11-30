@@ -44,6 +44,8 @@ public class RdsActivity extends BaseActivity<RdsContract.Presenter, RdsContract
     TextView psTxt;
     @BindView(R.id.ta)
     TextView ta;
+    @BindView(R.id.tp)
+    TextView tp;
     @BindView(R.id.af)
     TextView af;
     @BindView(R.id.txt_rt)
@@ -56,6 +58,7 @@ public class RdsActivity extends BaseActivity<RdsContract.Presenter, RdsContract
     int TA=0;
     int AF=0;
     int mPty;
+    int mtp;
     int ifreq;
     String mPs;
      String mRt;
@@ -79,8 +82,22 @@ public class RdsActivity extends BaseActivity<RdsContract.Presenter, RdsContract
                     break;
                 case 1:
                     mPty =intent.getIntExtra("mPty", 0);
+                    mtp =intent.getIntExtra("mTP", 0);
+                    TA =intent.getIntExtra("mTA", 0);
+                  /*  intent.putExtra("mTP", mTP);
+                    intent.putExtra("mTA", mTA);*/
                     if (TextView!=null){
-                        TextView.setText("PTY: "+ptyList.get(mPty));
+                        if (TA==1){
+                            ta.setTextColor(Color.parseColor("#1336a3"));
+                        }else {
+                            ta.setTextColor(Color.parseColor("#ffffff"));
+                        }
+                        if (mtp==1){
+                            tp.setTextColor(Color.parseColor("#1336a3"));
+                        }else {
+                            tp.setTextColor(Color.parseColor("#ffffff"));
+                        }
+                    TextView.setText("PTY: "+ptyList.get(mPty));
                     }
                     break;
                 case 2:
@@ -131,7 +148,7 @@ public class RdsActivity extends BaseActivity<RdsContract.Presenter, RdsContract
         ptyList = Arrays.asList(RadioCacheUtil.ptyArr);
         adapter=new RtyAdapter(this,ptyList,RadioCacheUtil.getInstance(getApplicationContext()).getPty());
         gv_rty.setAdapter(adapter);
-        TextView.setText("PTY: "+ptyList.get(mPty));
+       TextView.setText("PTY: "+ptyList.get(mPty));
         psTxt.setText("PS: "+mPs);
         gv_rty.setOnItemClickListener(this);
         TA=RadioCacheUtil.getInstance(getApplicationContext()).getTA();

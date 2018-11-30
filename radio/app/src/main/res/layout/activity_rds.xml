@@ -41,6 +41,7 @@
         <TextView
             android:textColor="@color/white"
             android:textSize="@dimen/px28"
+            android:id="@+id/tp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/px15"
@@ -71,7 +72,6 @@
         android:background="@mipmap/background"
         android:layout_width="match_parent"
         android:layout_height="100px"
-
         android:layout_marginStart="@dimen/px50"
         android:layout_marginEnd="@dimen/px50"
         android:padding="@dimen/px10">

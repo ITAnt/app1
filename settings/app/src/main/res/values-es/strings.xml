@@ -294,7 +294,7 @@
         
     <string name="tab_reverse_display"> inversión del ajuste del efecto de visualización </string>
         
-    <string name="tab_key_learning"> Key learning </string>
+    <string name="tab_key_learning"> Aprendizaje controlado por el partido </string>
         
     <string name="tab_mirror_normal"> imagen normal </string>
         
@@ -487,9 +487,9 @@
     <string name="key_name_vedio">Vedio</string>
     <string name="key_name_hold">Hold</string>
     <string name="key_name_hungup">HungUp</string>
-    <string name="key_name_fm">Fm</string>
-    <string name="key_name_am">Am</string>
-    <string name="key_name_aux">Aux</string>
+    <string name="key_name_fm">FM</string>
+    <string name="key_name_am">AM</string>
+    <string name="key_name_aux">AUX</string>
     <string name="key_name_mute">Mute</string>
     <string name="key_name_btmusic">BTMusic</string>
     <string name="key_name_start">Start</string>
