@@ -319,8 +319,11 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
             mLayoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
             mLayoutParams1.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         } else {
-            mLayoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
-            mLayoutParams1.type = WindowManager.LayoutParams.TYPE_PHONE;
+            Log.d(TAG, "initView===");
+            mLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
+            mLayoutParams1.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
+//            mLayoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+//            mLayoutParams1.type = WindowManager.LayoutParams.TYPE_PHONE;
         }
 //        mLayoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         mLayoutParams.format = PixelFormat.RGBA_8888;
@@ -815,6 +818,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 bluetoothManager.acceptCall();
                 break;
             case R.id.iv_commun_half_phone:
+                Log.e(TAG, "onClick_half_phone==");
                 if (mCallScoState != BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT) {
                     //手机状态
                     bluetoothManager.switchAudioMode(false);
@@ -826,12 +830,12 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 }
                 break;
             case R.id.iv_commun_half_hang:
+                Log.e(TAG, "onClick_half_hang==挂断==");
                 if (mCallType == BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_INCOMING) {
                     bluetoothManager.rejectCall();
                 } else {
                     bluetoothManager.terminateCall();
                 }
-
                 if (isShowPhone) {
                     jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_HIDE);
                 }
