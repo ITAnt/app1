@@ -1,6 +1,9 @@
 package com.jancar.bluetooth.phone.view;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -139,6 +142,8 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
     public void onCreate() {
         super.onCreate();
         Log.e(TAG, "onCreate===");
+        //适配8.0service
+        startServiceForeground();
         initView();
         findView();
         bluetoothManager = BluetoothManager.getBluetoothManagerInstance(this.getApplicationContext());
@@ -166,6 +171,26 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         jancarServer = (JancarServer) getSystemService(JancarServer.JAC_SERVICE);
         jancarServer.registerJacStateListener(jacState.asBinder());
         jancarServer.registerPrompt(promptController.asBinder());
+    }
+
+    /**
+     * 适配8.0 开启服务 (context.startForegroundService(intent);)
+     */
+
+    private void startServiceForeground() {
+        Log.e(TAG, "startServiceForeground==");
+        // service的onCreate
+        NotificationChannel channel = new NotificationChannel("im_channel_id", "System", NotificationManager.IMPORTANCE_LOW);
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.createNotificationChannel(channel);
+        Notification notification = new Notification.Builder(this, "im_channel_id")
+                .setSmallIcon(R.drawable.ic_launcher)  // the status icon
+                .setWhen(System.currentTimeMillis())  // the time stamp
+                .setContentText("BTUIService")  // the contents of the entry
+                .build();
+
+        startForeground(1, notification);
+
     }
 
     PromptController promptController = new PromptController(PromptController.DisplayType.DT_PHONE) {
@@ -319,8 +344,10 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
             mLayoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
             mLayoutParams1.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         } else {
-            mLayoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
-            mLayoutParams1.type = WindowManager.LayoutParams.TYPE_PHONE;
+//            mLayoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+//            mLayoutParams1.type = WindowManager.LayoutParams.TYPE_PHONE;
+            mLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
+            mLayoutParams1.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
         }
 //        mLayoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         mLayoutParams.format = PixelFormat.RGBA_8888;

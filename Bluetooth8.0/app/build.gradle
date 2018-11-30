@@ -26,7 +26,7 @@ android {
     buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.jancar.bluetooth.phone"
-        minSdkVersion 23
+        minSdkVersion 26
         targetSdkVersion 27
         versionCode 1
         versionName "2.0"
@@ -108,23 +108,24 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation files('libs/mvp.jar')
     implementation 'com.android.support:multidex:1.0.1'
-//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    //    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'org.jetbrains:annotations-java5:15.0'
     implementation 'org.greenrobot:eventbus:3.1.1'
-//    implementation 'com.github.orhanobut:hawk:1.21'
+    //    implementation 'com.github.orhanobut:hawk:1.21'
     implementation 'com.android.support:support-v4:23.2.1'
     //ANR
     // 仅在debug包启用BlockCanary进行卡顿监控和提示的话，可以这么用
-//    debugCompile 'com.github.markzhai:blockcanary-android:1.5.0'
-//    releaseCompile 'com.github.markzhai:blockcanary-no-op:1.5.0'
+    //    debugCompile 'com.github.markzhai:blockcanary-android:1.5.0'
+    //    releaseCompile 'com.github.markzhai:blockcanary-no-op:1.5.0'
     // this way you only enable BlockCanary in debug package
     //Leakcanary
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     //    implementation 'com.yanzhenjie:permission:2.0.0-rc12'
-    implementation files('libs/classes(19).jar')
+    //    implementation files('libs/framework.jar')
+//    implementation files('libs/classes(19).jar')
+    implementation files('libs/framework.jar')
 }
 
 //apk前缀名

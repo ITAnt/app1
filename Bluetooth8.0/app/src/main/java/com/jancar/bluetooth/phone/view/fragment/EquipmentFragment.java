@@ -106,8 +106,11 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
         getManager().setBTConnectStatusListener(this);
         if (!hidden) {
             ConnShowView();
-            tvselfName.setText(getPresenter().getSelfName());
-            tvConnName.setText(getPresenter().getConnetName());
+            String selfName = getPresenter().getSelfName();
+            String ConnName = getPresenter().getConnetName();
+            tvselfName.setText(selfName);
+            tvConnName.setText(ConnName);
+            Log.e(TAG, "selfName==onResume=" + selfName + "===" + "ConnName===" + ConnName);
         }
     }
 
@@ -209,6 +212,7 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
         if (btOn) {
             try {
                 String historyAddress = getManager().getHistoryConnectDeviceAddress();
+                Log.e(TAG, "historyAddress===" + historyAddress);
                 if (!TextUtils.isEmpty(historyAddress)) {
                     getManager().connectDevice(historyAddress);
                 }
@@ -245,6 +249,7 @@ public class EquipmentFragment extends BaseFragment<EquipmentContract.Presenter,
             ConnShowView();
             tvselfName.setText(getPresenter().getSelfName());
             tvConnName.setText(getPresenter().getConnetName());
+            Log.e(TAG, "selfName==onHiddenChanged=" + getPresenter().getSelfName() + "===" + "ConnName===" + getPresenter().getConnetName());
         } else {
             getManager().setBTConnectStatusListener(null);
             if (mToast != null) {
