@@ -2,6 +2,7 @@ package com.jancar.bluetooth.phone.view.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -31,6 +32,7 @@ import com.jancar.bluetooth.phone.presenter.DialPresenter;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.NumberFormatUtil;
 import com.jancar.bluetooth.phone.util.ThreadUtils;
+import com.jancar.bluetooth.phone.view.BTUIService;
 import com.ui.mvp.view.support.BaseFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -504,6 +506,7 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
         switch (view.getId()) {
             case R.id.item_dial_number_1:
                 getStrKeyNum("1");
+//                startServices();
                 break;
             case R.id.item_dial_number_2:
                 getStrKeyNum("2");
@@ -549,6 +552,10 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
                 break;
         }
 
+    }
+
+    private void startServices() {
+        mActivity.startService(new Intent(mActivity, BTUIService.class));
     }
 
     private void CallNumber() {

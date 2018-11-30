@@ -118,7 +118,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/px12"
+        android:layout_marginTop="@dimen/px5"
         android:gravity="center"
         android:orientation="horizontal">
 

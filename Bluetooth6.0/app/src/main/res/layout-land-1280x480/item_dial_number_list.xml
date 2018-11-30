@@ -7,7 +7,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px52">
+        android:layout_height="@dimen/px52"
+        android:paddingStart="@dimen/px20">
 
         <TextView
             android:id="@+id/item_dial_number_type"

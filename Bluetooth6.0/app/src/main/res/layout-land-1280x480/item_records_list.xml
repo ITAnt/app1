@@ -16,7 +16,8 @@
             android:layout_width="@dimen/px45"
             android:layout_height="@dimen/px45"
             android:layout_centerVertical="true"
-            android:src="@drawable/iv_records_call_in" />
+            android:src="@drawable/iv_records_call_in"
+            android:layout_marginStart="@dimen/px40"/>
 
         <TextView
             android:id="@+id/iv_records_call_name"
@@ -38,7 +39,8 @@
             android:layout_height="@dimen/px45"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/contact_call_selector" />
+            android:background="@drawable/contact_call_selector"
+            android:layout_marginEnd="@dimen/px50"/>
 
         <TextView
             android:id="@+id/iv_records_call_number"

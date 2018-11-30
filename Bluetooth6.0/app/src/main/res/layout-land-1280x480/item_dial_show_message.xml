@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_calling"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px10"
+        android:background="@drawable/img_bt_reception" />
+
+    <TextView
+        android:id="@+id/tv_comm_message_type"
+        style="@style/txt_normal_px26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px10"
+        tools:text="中国移动" />
+
+    <TextView
+        android:id="@+id/tv_comm_message_number"
+        style="@style/txt_normal_px22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px10"
+        tools:text="100861100000" />
+
+    <TextView
+        android:id="@+id/tv_comm_message_direction"
+        style="@style/txt_normal_px22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px10"
+        tools:text="00:00:13" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px10"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/px60"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_comm_message_hangup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/commun_hang_selector" />
+
+            <TextView
+                android:id="@+id/tv_call_hangup"
+                style="@style/txt_normal_px22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/calling_hangup" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/line_voice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/px60"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_comm_message_voice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/commun_no_voice_selector" />
+
+            <TextView
+                android:id="@+id/tv_call_voice"
+                style="@style/txt_normal_px22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dial_show_voice" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/line_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/px60"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_comm_message_keypad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/commun_key_selector" />
+
+            <TextView
+                android:id="@+id/tv_call_keypad"
+                style="@style/txt_normal_px22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/calling_keypad" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/liner_vehicle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/px60"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_comm_message_vehicle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/commun_phone_selector" />
+
+            <TextView
+                android:id="@+id/tv_comm_vehicle"
+                style="@style/txt_normal_px22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/calling_phone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/px60"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_comm_message_answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/incoming_iv_answer_selector" />
+
+            <TextView
+                android:id="@+id/tv_call_comming"
+                style="@style/txt_normal_px22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_phone_missed" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

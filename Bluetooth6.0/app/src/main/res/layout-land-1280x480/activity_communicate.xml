@@ -22,7 +22,7 @@
             android:layout_height="@dimen/px56"
             android:layout_marginEnd="@dimen/px30"
             android:layout_marginStart="@dimen/px40"
-            android:layout_marginTop="@dimen/px20"
+            android:layout_marginTop="@dimen/px10"
             android:background="@drawable/ip_bt_reception_dail_480">
 
             <TextView

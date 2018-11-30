@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_music"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/liner_progress"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px120"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/music_bottom_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px15"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_music_playTime"
+                style="@style/txt_px18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00" />
+
+            <SeekBar
+                android:id="@+id/seekbar_btmusic"
+                android:layout_width="870px"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:progressDrawable="@drawable/music_seekbar_img"
+                android:splitTrack="false"
+                android:thumb="@drawable/music_progress_icon"
+                android:thumbOffset="@dimen/px3" />
+
+            <TextView
+                android:id="@+id/tv_music_play_total_time"
+                style="@style/txt_px18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layoutDirection="ltr">
+
+            <ImageView
+                android:id="@+id/iv_music_pre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/music_pre_selector" />
+
+            <ImageView
+                android:id="@+id/iv_music_play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/px100"
+                android:layout_marginStart="@dimen/px100"
+                android:src="@drawable/music_play_selector" />
+
+            <ImageView
+                android:id="@+id/iv_music_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/music_next_selector" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/liner_progress"
+        android:background="@color/black"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="@dimen/px249"
+            android:layout_height="@dimen/px249"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/px240">
+
+            <ImageView
+                android:layout_width="@dimen/px251"
+                android:layout_height="@dimen/px251"
+                android:src="@drawable/music_disc_bg" />
+
+            <com.jancar.bluetooth.phone.widget.CircleImageView
+                android:id="@+id/iv_music_rotating"
+                android:layout_width="@dimen/px154"
+                android:layout_height="@dimen/px154"
+                android:layout_marginStart="@dimen/px48"
+                android:layout_marginTop="@dimen/px47"
+                android:src="@drawable/iv_music_rotating" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/px100"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/music_name" />
+
+                <com.jancar.bluetooth.phone.widget.MarqueeTextView
+                    android:id="@+id/tv_music_title"
+                    style="@style/txt_normal_px30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="50px"
+                    android:layout_marginStart="20px"
+                    android:singleLine="true"
+                    tools:text="我的滑板鞋" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px44"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/music_disc" />
+
+                <com.jancar.bluetooth.phone.widget.MarqueeTextView
+                    android:id="@+id/tv_music_album"
+                    style="@style/txt_normal_px30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="50px"
+                    android:layout_marginStart="20px"
+                    android:singleLine="true"
+                    tools:text="天籁之战" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px44"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/music_author" />
+
+                <com.jancar.bluetooth.phone.widget.MarqueeTextView
+                    android:id="@+id/tv_music_artist"
+                    style="@style/txt_normal_px30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="50px"
+                    android:layout_marginStart="20px"
+                    android:singleLine="true"
+                    tools:text="华晨宇" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
