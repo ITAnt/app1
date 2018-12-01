@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="font_text_60_size">30.0sp</dimen>
+    <dimen name="font_text_48_size">24.0sp</dimen>
+    <dimen name="px60">60px</dimen>
+    <dimen name="px20">20px</dimen>
+    <dimen name="px15">15px</dimen>
+    <dimen name="px30">30px</dimen>
+    <dimen name="px70">70px</dimen>
+    <dimen name="px50">50px</dimen>
+    <dimen name="px28">28px</dimen>
+    <dimen name="px10">10px</dimen>
+    <dimen name="px40">40px</dimen>
+    <dimen name="px18">18px</dimen>
+</resources>

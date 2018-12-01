@@ -15,6 +15,7 @@ import android.graphics.Typeface;
 import android.location.LocationManager;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -569,7 +570,13 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
                 settingManager.changeSystemLanguage(settingManager.locales[settingManager.getLanguage()], settingManager.getLanguage());
                 sharedPreferences.edit().putBoolean("getNaviInfoDisplayFragmetn", false).commit();
                 AudioEffectManager mAudioEffectManager;
-                mAudioEffectManager = settingManager.getAudioEffectManager();
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+                    mAudioEffectManager=new AudioEffectManager(getContext(),this,getActivity().getLocalClassName());
+                }else {
+
+                    mAudioEffectManager = settingManager.getAudioEffectManager();
+                }
                 mAudioEffectManager.setAudioEffectTreble(0, true);
                 mAudioEffectManager.setAudioEffectMiddle(0, true);
                 mAudioEffectManager.setAudioEffectBass(0, true);

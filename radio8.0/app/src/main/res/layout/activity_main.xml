@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/LinearLayout_top"
+        android:layout_width="match_parent"
+        android:layout_height="400px">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <FrameLayout
+                android:id="@+id/FrameLayout_left"
+                android:layout_marginStart="-80dp"
+                android:layout_width="305px"
+                android:layout_alignParentStart="true"
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:id="@+id/RelativeLayout_left"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:background="@mipmap/bg_radio_list_left"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_channel_list_one"
+                        android:layout_width="120px"
+                        android:layout_height="70px"
+                        android:layout_marginStart="32px"
+                        android:gravity="center"
+                        android:text="87.65"
+                        android:layout_marginTop="5px"
+                        android:textColor="#fff"
+                        android:textSize="30px" />
+
+                    <TextView
+                        android:id="@+id/txt_channel_list_two"
+                        android:layout_width="120px"
+                        android:layout_height="70px"
+                        android:layout_below="@+id/txt_channel_list_one"
+                        android:layout_marginStart="22px"
+                        android:gravity="center"
+                        android:text="90.00"
+                        android:textColor="#fff"
+                        android:textSize="30px" />
+
+                    <TextView
+                        android:layout_marginBottom="50px"
+                        android:id="@+id/txt_channel_list_three"
+                        android:layout_width="120px"
+                        android:layout_height="70px"
+                        android:layout_below="@+id/txt_channel_list_two"
+                        android:layout_marginStart="22px"
+                        android:gravity="center"
+                        android:text="90.00"
+                        android:textColor="#fff"
+                        android:textSize="30px" />
+                </RelativeLayout>
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:id="@+id/FrameLayout_right"
+                android:layout_alignParentEnd="true"
+                android:layout_width="305px"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginEnd="-80dp">
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/txt_st"
+                        android:layout_width="60px"
+                        android:layout_height="30px"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginEnd="120px"
+                        android:layout_marginTop="20px"
+                        android:background="@drawable/cbb_bg_n"
+                        android:gravity="center"
+                        android:text="@string/ST"
+                        android:textColor="#fff"
+                        android:textSize="20px" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/RelativeLayout_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|start"
+                    android:background="@mipmap/bg_radio_list_right"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/txt_channel_list_four"
+                        android:layout_width="120px"
+                        android:layout_height="70px"
+                        android:layout_marginStart="22px"
+                        android:layout_marginTop="10px"
+                        android:gravity="center"
+                        android:text="87.65"
+                        android:textColor="#fff"
+                        android:textSize="30px" />
+
+                    <TextView
+                        android:id="@+id/txt_channel_list_fives"
+                        android:layout_width="120px"
+                        android:layout_height="70px"
+                        android:layout_below="@id/txt_channel_list_four"
+                        android:layout_marginStart="32px"
+                        android:gravity="center"
+                        android:text="90.00"
+                        android:textColor="#fff"
+                        android:textSize="30px" />
+
+                    <TextView
+                        android:id="@+id/txt_channel_list_six"
+                        android:layout_width="120px"
+                        android:layout_height="70px"
+                        android:layout_below="@id/txt_channel_list_fives"
+                        android:layout_marginStart="32px"
+                        android:gravity="center"
+                        android:textColor="#fff"
+                        android:textSize="30px" />
+                </RelativeLayout>
+            </FrameLayout>
+            <FrameLayout
+                android:layout_toStartOf="@+id/FrameLayout_right"
+                android:layout_toEndOf="@+id/FrameLayout_left"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/btn_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/bg_radio_arrow_left" />
+
+                    <ImageView
+                        android:id="@+id/btn_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/bg_radio_arrow_right" />
+
+                    <TextView
+                        android:id="@+id/txt_channel"
+                        android:layout_width="300px"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:tag="1"
+                        android:textColor="#fff"
+                        android:textSize="70px" />
+
+                    <TextView
+                        android:id="@+id/txt_unit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@id/txt_channel"
+                        android:layout_below="@+id/txt_channel"
+                        android:layout_marginEnd="55px"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/unit_khz"
+                        android:textColor="#fff"
+                        android:textSize="35px" />
+
+                    <TextView
+                        android:id="@+id/txt_band"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@id/txt_channel"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginStart="50px"
+                        android:layout_marginTop="110px"
+                        android:text="@string/fm1"
+                        android:textColor="#fff"
+                        android:textSize="35px" />
+                    <TextView
+                        android:visibility="gone"
+                        android:layout_marginTop="130px"
+                        android:layout_marginLeft="@dimen/px20"
+                        android:id="@+id/txt_ta"
+                        android:textSize="@dimen/px18"
+                        android:text="@string/Ta"
+                        android:textColor="@color/rty_background_n"
+                        android:layout_toRightOf="@id/txt_band"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:visibility="gone"
+                        android:textColor="@color/rty_background_n"
+                        android:layout_marginTop="130px"
+                        android:layout_marginLeft="@dimen/px20"
+                        android:id="@+id/txt_af"
+                        android:textSize="@dimen/px18"
+                        android:text="@string/AF"
+                        android:layout_toRightOf="@id/txt_ta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:visibility="gone"
+                        android:textColor="@color/rty_background_n"
+                        android:layout_marginTop="130px"
+                        android:layout_marginLeft="@dimen/px20"
+                        android:id="@+id/txt_rt"
+                        android:textSize="@dimen/px18"
+                        android:text="TP"
+                        android:layout_toRightOf="@id/txt_af"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/txt_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/px70"
+                        android:layout_alignStart="@id/txt_channel"
+                        android:layout_below="@+id/txt_channel"
+                        android:layout_marginEnd="55px"
+                        android:layout_marginTop="20dp"
+                        android:text=""
+                        android:textColor="#fff"
+                        android:textSize="@dimen/px18"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+                    <ImageView
+
+                        android:id="@+id/img_original"
+                        android:layout_width="400px"
+                        android:layout_height="400px"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/bg_radio_center" />
+
+                </LinearLayout>
+            </FrameLayout>
+
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="155px"
+            android:layout_marginRight="155px">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+                <com.jancar.radio.widget.RuleView
+                    android:id="@+id/gv_1_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="18px"
+                    app:gv_b="false"
+                    app:gv_currentValue="1051.2"
+                    app:gv_d="false"
+                    app:gv_gradationGap="18px"
+                    app:gv_gradationUnit="30.6"
+                    app:gv_longGradationLen="26px"
+                    app:gv_maxValue="1693.8"
+                    app:gv_minValue="439.2"
+                    app:gv_numberPerCount="5"
+                    app:gv_shortGradationLen="15px"
+                    app:zjun_bgColor="#000"
+                    app:zjun_textColor="#fff"
+                    app:zjun_textSize="16px" />
+
+                <com.jancar.radio.widget.RuleView
+                    android:id="@+id/gv_1_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="18px"
+                    app:gv_b="false"
+                    app:gv_currentValue="1043.6"
+                    app:gv_d="true"
+                    app:gv_gradationGap="18px"
+                    app:gv_gradationUnit="30.6"
+                    app:gv_longGradationLen="26px"
+                    app:gv_maxValue="1681.2"
+                    app:gv_minValue="430.2"
+                    app:gv_numberPerCount="5"
+                    app:gv_shortGradationLen="15px"
+                    app:zjun_bgColor="#000"
+                    app:zjun_textColor="#fff"
+                    app:zjun_textSize="16px" />
+
+                <com.jancar.radio.widget.RuleView
+                    android:id="@+id/gv_1_three"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="18px"
+                    app:gv_b="true"
+                    app:gv_currentValue="1098"
+                    app:gv_d="false"
+                    app:gv_gradationGap="18px"
+                    app:gv_gradationUnit="34"
+                    app:gv_longGradationLen="26px"
+                    app:gv_maxValue="1812"
+                    app:gv_minValue="418"
+                    app:gv_numberPerCount="5"
+                    app:gv_shortGradationLen="15px"
+                    app:zjun_bgColor="#000"
+                    app:zjun_textColor="#fff"
+                    app:zjun_textSize="16px" />
+
+                <com.jancar.radio.widget.RuleView
+                    android:id="@+id/gv_1_four"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="18px"
+                    app:gv_b="false"
+                    app:gv_currentValue="97.2"
+                    app:gv_d="false"
+                    app:gv_gradationGap="18px"
+                    app:gv_gradationUnit=" 0.6"
+                    app:gv_longGradationLen="26px"
+                    app:gv_maxValue="109.8"
+                    app:gv_minValue="84.6"
+                    app:gv_numberPerCount="5"
+                    app:gv_shortGradationLen="15px"
+                    app:zjun_bgColor="#000"
+                    app:zjun_textColor="#fff"
+                    app:zjun_textSize="16px" />
+
+            </FrameLayout>
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16px"
+                android:layout_marginTop="50px"
+                android:background="@mipmap/line"
+                android:scaleType="centerCrop" />
+
+            <SeekBar
+                android:id="@+id/FMFreqSeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom|center"
+                android:layout_marginLeft="17px"
+                android:layout_marginRight="42px"
+                android:max="205"
+                android:progress="0"
+                android:progressDrawable="@drawable/vertical_progress_transparent"
+                android:thumb="@mipmap/point"
+                android:thumbOffset="0.0px"
+                android:visibility="visible" />
+
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

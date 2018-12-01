@@ -1,0 +1,537 @@
+<resources>
+    <string name="app_name">設置</string>
+    <string name="tab_bluetooth">藍牙設置</string>
+    <string name="tab_display">顯示設置</string>
+    <string name="tab_sound_effect">音效設置</string>
+    <string name="tab_time">時間設置</string>
+    <string name="tab_system">系統設置</string>
+    <string name="tab_wifi">WIFI設置</string>
+    <string name="tab_navigation">導航設置</string>
+    <string name="tab_vehicle">車輛設置</string>
+    <string name="tab_on">關於</string>
+    <string name="tab_cache">儲存空間</string>
+    <string name="tab_wifi_spot">wifi熱點</string>
+    <string name="btn_clear_cache">清除緩存</string>
+    <string name="btn_clear_data">清除數據</string>
+    <string name="Start">開始</string>
+    <!--显示设置-->
+    <string name="rbtn_chinese">中文（简体）</string>
+    <string name="rbtn_chinese_">中文（繁体）</string>
+    <string name="rbtn_english">English</string>
+    <string name="title_automatic">自動調節亮度</string>
+    <string name="label_open">開</string>
+    <string name="label_off">關</string>
+    <string name="title_dimming_day">白天亮度調節</string>
+    <string name="title_dimming_night">夜間亮度調節</string>
+    <string name="label_Language_switching">語言切換</string>
+    <string name="label_restore_default">恢復默認設置</string>
+    <string name="dialog_restore_default">確定要恢復默認設置嗎？</string>
+    <string name="dialog_connect">確定</string>
+    <string name="tab_suspension_Setting">懸浮按鈕設置</string>
+    <!--悬浮按钮-->
+    <string name="tv_power">関 屏</string>
+    <string name="tv_home">主屏幕</string>
+    <string name="tv_vioce_add">音量加</string>
+    <string name="tv_vioce_dec">音量減</string>
+    <string name="tv_back">返回</string>
+
+    <!--wifi-->
+    <string name="wifi">WIFI</string>
+    <string name="toast_wifi_open">如需查看可用網絡，請打開WIFI</string>
+    <string name="wifi_error">wifi set fail</string>
+    <string name="wifi_text_scan">搜索到的AP</string>
+    <string name="wifi_text_saved">在範圍內已保存的AP</string>
+    <string name="wifi_text_password">請輸入密碼</string>
+    <string name="wifi_text_show_password">顯示密碼</string>
+    <string name="wifi_text_name">name</string>
+    <string name="wifi_text_connect">連接</string>
+    <string name="wifi_text_forget">忘記</string>
+    <string name="wifi_text_disconnect">斷開</string>
+    <string name="wifi_text_modify">修改</string>
+    <string name="wifi_text_cancel">取消</string>
+    <string name="wifi_add_network">添加網絡</string>
+    <string name="wifi_text_name_input">請輸入SSID</string>
+    <string name="wifi_text_need_password">需要密碼</string>
+    <string name="wifi_text_state_none"> </string>
+    <string name="wifi_text_state_connected">已連接</string>
+    <string name="wifi_text_state_connecting">正在連接</string>
+    <string name="wifi_text_state_disconnected">連接斷開</string>
+    <string name="wifi_text_state_disconnecting">正在斷開</string>
+    <string name="wifi_text_state_failed">連接失敗</string>
+    <string name="label_wrong_password">密碼錯誤</string>
+    <string name="wifi_text_state_authenticating">身份認證</string>
+    <string name="wifi_text_state_obtaining_ipaddr">獲取地址</string>
+    <string name="wifi_scan">掃描</string>
+    <string name="system">系統</string>
+    <string name="device_info">設備資訊</string>
+    <string name="version_info">版本資訊</string>
+    <string name="system_info">系統資訊</string>
+    <!--音效设置-->
+    <string name="label_treble">高音</string>
+    <string name="label_midrange">中音</string>
+    <string name="label_bass">低音</string>
+
+    <string name="str_eq_volume">音量</string>
+    <string name="str_tx_dsp_bass">低音</string>
+    <string name="str_tx_dsp_mid">中音</string>
+    <string name="str_tx_dsp_tre">高音</string>
+    <string name="str_tx_dsp_dbb">響度</string>
+    <string name="str_tx_dsp_asl">通道</string>
+    <string name="str_honda_dsp_off">主通道</string>
+    <string name="str_tx_dsp_surround">静音</string>
+    <string name="str_honda_dsp_low">次通道</string>
+    <string name="str_honda_dsp_mid">混通道</string>
+    <!--时间设置-->
+    <string name="label_time">時間</string>
+    <string name="label_date">日期</string>
+    <string name="label_time_system">選擇時間制式</string>
+    <string name="label_24_hour_system">24小時制</string>
+    <string name="label_12_hour_system">12小時制</string>
+    <string name="label_adjust">自動調節時鐘</string>
+    <string name="label_adjust_off">關閉</string>
+    <string name="label_adjust_open">打開</string>
+    <string name="label_time_zone">時區設定</string>
+    <string name="time_12_24">24</string>
+
+    <string name="hour_hint">時</string>
+    <string name="minute_hint">分</string>
+    <string name="year_hint">年</string>
+    <string name="month_hint">月</string>
+    <string name="day_hint">日</string>
+    <string name="tab_sound_mode">EQ模式</string>
+    <string name="tab_reset">復位</string>
+    <string name="tab_am">上午</string>
+    <string name="tab_pm">下午</string>
+    <string name="date">yyyy-MM-dd</string>
+    <string name="dialog_prompt">是否要保存為自定義?</string>
+    <string-array name="hour_apm">
+        <item>上午</item>
+        <item>下午</item>
+
+    </string-array>
+
+    <string-array name="hour_display">
+        <item>00</item>
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+    </string-array>
+    <string-array name="hour_12_display">
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+
+    <string-array name="minute_display">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>39</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+        <item>44</item>
+        <item>45</item>
+        <item>46</item>
+        <item>47</item>
+        <item>48</item>
+        <item>49</item>
+        <item>50</item>
+        <item>51</item>
+        <item>52</item>
+        <item>53</item>
+        <item>54</item>
+        <item>55</item>
+        <item>56</item>
+        <item>57</item>
+        <item>58</item>
+        <item>59</item>
+    </string-array>
+
+    <!--导航设置-->
+    <string name="tab_software_navigation">導航軟件</string>
+    <string name="tab_switch_mixing">導航混音開關</string>
+    <string name="tab_proportion_mixing">導航混合比例</string>
+    <string name="tab_sound_mixing">導航混音</string>
+
+    <!--车辆设置-->
+    <string name="tab_model_selection">車型選擇</string>
+    <string name="tab_reversing_mirror">倒車鏡像</string>
+    <string name="tab_reverse_display">倒車顯示效果調節</string>
+    <string name="tab_key_learning">方控學習</string>
+    <string name="tab_mirror_normal">正常鏡像</string>
+    <string name="tab_up_down_normal">上下鏡像</string>
+    <string name="tab_about_normal">左右鏡像</string>
+    <string name="tab_up_down_left_right_normal">上下左右鏡像</string>
+    <string name="dialog_title">操作說明</string>
+    <string name="dialog_default">倒車視頻時，兩指長按荧幕3秒調出半透明倒車視頻調節框，亮度，對比度，飽和度；點調節框外或不操作3秒後調節框消失。</string>
+    <string name="str_settings_wheel_begin">開始</string>
+    <string name="str_settings_wheel_reset">復位</string>
+    <string name="str_settings_wheel_finish">完成</string>
+    <string name="str_settings_wheel_type">短按</string>
+    <string name="str_settings_wheel_prev">上一個</string>
+    <string name="str_settings_wheel_next">下一個</string>
+    <string name="str_settings_wheel_vol_inc">音量+</string>
+    <string name="str_settings_wheel_vol_dec">音量-</string>
+    <string name="str_settings_wheel_mute">静音</string>
+    <string name="str_settings_wheel_bt">藍牙</string>
+    <string name="str_settings_wheel_hung">接聽/掛斷</string>
+    <string name="str_settings_wheel_voice">語音</string>
+    <string name="str_settings_wheel_mode">模式</string>
+    <string name="str_settings_wheel_power">電源</string>
+    <string name="str_settings_wheel_band">波段</string>
+    <string name="str_settings_wheel_navigation">導航</string>
+    <string name="str_settings_wheel_info_tips">點擊[開始]按鈕進行學習</string>
+    <string name="str_settings_wheel_title">點擊開始後，先點擊介面按鈕，再點擊對應的方控按鈕，全部學習完點擊結束</string>
+    <string name="str_settings_wheel_enter_learning">已進入學習狀態</string>
+    <string name="str_settings_wheel_touch_key">請按方控按鍵</string>
+    <string name="str_settings_wheel_exit_learning">已退出學習狀態</string>
+    <string name="str_settings_wheel_learn_success">學習成功</string>
+    <string name="str_settings_wheel_learn_error">學習失敗</string>
+    <!--关于-->
+    <string name="label_system_version_number">系統版本號：</string>
+    <string name="label_MCU_version_number">MCU版本號：</string>
+    <string name="label_CAN_version_number">CAN版本號：</string>
+    <string name="label_identifier">識別碼：</string>
+    <string name="label_android_version">安卓版本：</string>
+    <string name="label_kernel_version">内核版本：</string>
+    <string name="label_upgrade_update">陞級更新</string>
+    <string name="tab_prohibit_video_while_driving">行車時禁止視頻</string>
+    <string name="tab_touch_tone">按鍵音</string>
+    <string name="tab_system_cleanup">系統清理</string>
+    <string name="tab_factory_setting">工廠設定</string>
+    <string name="tab_reset_system">恢復出廠設定</string>
+    <string name="tab_restart">重新啟動</string>
+    <!--系统设置-->
+    <string name="tab_cleaning_up">清理中.....</string>
+    <string name="tab_clean_up">清理完成</string>
+    <string name="dialog_1">1</string>
+    <string name="dialog_2">2</string>
+    <string name="dialog_3">3</string>
+    <string name="dialog_4">4</string>
+    <string name="dialog_5">5</string>
+    <string name="dialog_6">6</string>
+    <string name="dialog_7">7</string>
+    <string name="dialog_8">8</string>
+    <string name="dialog_9">9</string>
+    <string name="dialog_0">0</string>
+    <string name="dialog_restore">確定恢復出廠設定嗎？</string>
+    <string name="device_restart">%1$d s後重新啟動</string>
+    <string name="device_restarts">5s後重新啟動</string>
+    <string name="str_scanning">掃描</string>
+    <string name="str_sound_7">7</string>
+    <string name="str_sound_negative_7">-7</string>
+
+    <!--蓝牙设置-->
+    <string name="tv_setting_name">本機藍牙</string>
+    <string name="tv_setting_bluetooth">藍牙</string>
+    <string name="tv_setting_close">關閉</string>
+    <string name="tv_setting_check">開啟檢測</string>
+    <string name="tv_setting_check_des">已關閉，只允許配對設備檢測</string>
+    <string name="tv_setting_check_">已開啟，只允許配對設備檢測</string>
+    <string name="tv_setting_pair">已配對設備</string>
+    <string name="tv_setting_del_all">删除全部</string>
+    <string name="tv_setting_search_ing">正在蒐索設備...</string>
+    <string name="tv_setting_start_search">開始蒐索</string>
+    <string name="tv_setting_available">可用設備</string>
+    <string name="tv_setting_update_name">名稱不能為空</string>
+    <string name="key_name_power">休眠</string>
+    <string name="key_name_search">搜索</string>
+    <string name="key_name_mode">模式</string>
+    <string name="key_name_increase_volum">音量+</string>
+    <string name="key_name_decrease_volum">音量-</string>
+    <string name="key_name_pre">上一曲</string>
+    <string name="key_name_next">下一曲</string>
+    <string name="key_name_settings">設置</string>
+    <string name="key_name_home">主頁</string>
+    <string name="key_name_menu">應用</string>
+    <string name="key_name_back">返回</string>
+    <string name="key_name_gps">導航</string>
+    <string name="key_name_music">音樂</string>
+    <string name="key_name_vedio">視頻</string>
+    <string name="key_name_hold">接聽</string>
+    <string name="key_name_hungup">掛斷</string>
+    <string name="key_name_fm">FM</string>
+    <string name="key_name_am">AM</string>
+    <string name="key_name_aux">AUX</string>
+    <string name="key_name_mute">靜音</string>
+    <string name="key_name_btmusic">藍牙音樂</string>
+    <string name="key_name_start">開始</string>
+    <string name="key_name_clear">清除</string>
+    <string name="key_name_end">結束</string>
+    <string name="key_name_short">短按</string>
+    <string name="key_name_long">長按</string>
+    <string name="txt_standard">標準</string>
+    <string name="txt_popular">流行</string>
+    <string name="txt_ock">搖滾</string>
+    <string name="txt_jazz">爵士</string>
+    <string name="txt_classical">古典</string>
+    <string name="txt_customize">自定義</string>
+    <string name="wifi_text_not_enabled">未啟用</string>
+    <string name="wifi_text_wifi_saved">已保存</string>
+    <string name="wifi_text_wifi_connected">已連接</string>
+    <string name="wifi_text_obtain_an_IP_address">獲取IP地址</string>
+    <string name="wifi_text_authentication">身份驗證</string>
+    <string name="wifi_text_disconnected">已斷開</string>
+    <string name="tv_open">打開</string>
+    <string name="tv_closed">關閉</string>
+    <string name="dialog_restore_defaults">確定恢復出廠設置嗎？</string>
+    <string name="clear">清除</string>
+    <string name="end">結束</string>
+    <string name="shorts">短按</string>
+    <string name="Long">長按</string>
+    <string name="label_Waiting">等響</string>
+    <string name="dialog_tab_restart">確定重新啟動嗎？</string>
+    <string name="tab_suspension_driving">懸浮按鈕開關</string>
+    <string name="password">密碼不能少於8位</string>
+    <string name="tab_android_system">安卓設置</string>
+    <string name="nonull" >夜間亮度不能超過白天亮度</string>
+    <string-array name="timezone_id">
+        <item>Pacific/Majuro</item>
+        <item>Pacific/Midway</item>
+        <item>Pacific/Honolulu</item>
+        <item>America/Anchorage</item>
+        <item>America/Los_Angeles</item>
+        <item>America/Tijuana</item>
+        <item>America/Phoenix</item>
+        <item>America/Chihuahua</item>
+        <item>America/Denver</item>
+        <item>America/Costa_Rica</item>
+
+        <item>America/Chicago</item>
+        <item>America/Mexico_City</item>
+        <item>America/Regina</item>
+        <item>America/Bogota</item>
+        <item>America/New_York</item>
+        <item>America/Barbados</item>
+        <item>America/Halifax</item>
+        <item>America/Manaus</item>                   
+        <item>America/Santiago</item>
+        <item>America/St_Johns</item>
+
+        <item>America/Sao_Paulo</item>
+        <item>America/Argentina/Buenos_Aires</item>
+        <item>America/Godthab</item>
+        <item>America/Montevideo</item>
+        <item>Atlantic/South_Georgia</item>
+        <item>Atlantic/Azores</item>
+        <item>Atlantic/Cape_Verde</item>             
+        <item>Africa/Casablanca</item> 
+        <item>Europe/London</item>
+        <item>Europe/Amsterdam</item>
+
+        <item>Europe/Belgrade</item>
+        <item>America/Caracas</item>
+        <item>Europe/Brussels</item>
+        <item>Europe/Sarajevo</item>
+        <item>Africa/Windhoek</item>
+        <item>Africa/Brazzaville</item>
+        <item>Asia/Amman</item>             
+        <item>Europe/Athens</item>
+        <item>Asia/Beirut</item>
+        <item>Africa/Cairo</item>
+
+        <item>Europe/Helsinki</item>
+        <item>Asia/Jerusalem</item>
+        <item>Europe/Minsk</item>
+        <item>Africa/Harare</item>
+        <item>Asia/Baghdad</item>
+        <item>Europe/Moscow</item>             
+        <item>Asia/Kuwait</item>                              
+        <item>Africa/Nairobi</item>
+        <item>Asia/Tehran</item>
+
+        <item>Asia/Baku</item>
+        <item>Asia/Tbilisi</item>
+        <item>Asia/Yerevan</item>
+        <item>Asia/Dubai</item>
+        <item>Asia/Kabul</item>
+        <item>Asia/Karachi</item>
+        <item>Asia/Oral</item>             
+        <item>Asia/Yekaterinburg</item>                           
+        <item>Asia/Calcutta</item>
+        <item>Asia/Colombo</item>
+
+        <item>Asia/Katmandu</item>
+        <item>Asia/Almaty</item>
+        <item>Asia/Rangoon</item>
+        <item>Asia/Krasnoyarsk</item>
+        <item>Asia/Bangkok</item>
+        <item>Asia/Shanghai</item>
+        <item>Asia/Hong_Kong</item>             
+        <item>Asia/Irkutsk</item>           
+        <item>Asia/Kuala_Lumpur</item>
+        <item>Australia/Perth</item>
+
+        <item>Asia/Taipei</item>
+        <item>Asia/Seoul</item>
+        <item>Asia/Tokyo</item>
+        <item>Asia/Yakutsk</item>
+        <item>Australia/Adelaide</item>
+        <item>Australia/Darwin</item>
+        <item>Australia/Brisbane</item>             
+        <item>Australia/Hobart</item>
+        <item>Australia/Sydney</item>
+        <item>Asia/Vladivostok</item>
+
+        <item>Pacific/Guam</item>
+        <item>Asia/Magadan</item>
+        <item>Pacific/Auckland</item>
+        <item>Pacific/Fiji</item>
+        <item>Pacific/Tongatapu</item>
+    </string-array>
+    <string-array name="timezone_name">
+        <item>馬朱羅</item>
+        <item>中途島</item>
+        <item>夏威夷</item>
+        <item>阿拉斯加州</item>
+        <item>洛杉磯</item>
+        <item>蒂華納</item>
+        <item>亞利桑那</item>
+        <item>奇瓦瓦</item>
+        <item>丹佛</item>
+        <item>哥斯達黎加</item>
+        <item>芝加哥</item>
+        <item>墨西哥城</item>
+        <item>里賈納</item>
+        <item>波哥大</item>
+        <item>紐約</item>
+        <item>巴巴多斯</item>
+        <item>加拿大</item>
+        <item>馬瑙斯</item>                   
+         
+        <item>聖地亞哥</item>
+        <item>紐芬蘭</item>
+        <item>巴西利亞</item>
+        <item>布宜諾斯艾利斯</item>
+        <item>格陵蘭</item>
+        <item>蒙特維多</item>
+        <item>南喬治亞</item>
+        <item>亞速爾群島</item>
+        <item>佛得角群岛</item>             
+        <item>卡薩布蘭卡</item> 
+        <item>倫敦</item>
+        <item>阿姆斯特丹</item>
+        <item>貝爾格萊德</item>
+        <item>委内瑞拉</item>
+        <item>布魯塞爾</item>
+        <item>薩拉熱窩</item>
+        <item>溫得和克</item>
+        <item>布拉扎維</item>
+        <item>約旦安曼</item>             
+        <item>伊斯坦布爾</item>
+        <item>貝魯特</item>
+        <item>開羅</item>
+        <item>赫爾辛基</item>
+        <item>耶路撒冷</item>
+        <item>明斯克</item>
+        <item>哈拉雷</item>
+        <item>巴格達</item>
+        <item>莫斯科</item>
+        <item>科威特</item>             
+        <item>內羅畢</item>                              
+           
+        <item>德黑蘭</item>
+        <item>巴庫</item>
+        <item>第比利斯</item>
+        <item>埃里溫</item>
+        <item>迪拜</item>
+        <item>喀布爾</item>
+        <item>伊斯蘭堡</item>
+        <item>烏拉爾</item>
+        <item>葉卡捷琳堡</item>             
+        <item>加爾各答</item>                           
+        <item>斯里蘭卡</item>
+        <item>加德滿都</item>
+        <item>阿斯塔納</item>
+        <item>仰光</item>
+        <item>克拉斯諾亞爾斯克</item>
+        <item>曼谷</item>
+        <item>中國標準時間</item>
+        <item>香港</item>
+        <item>伊爾庫次克</item>             
+        <item>吉隆坡</item>           
+        <item>珀斯</item>
+        <item>台北</item>
+        <item>漢城</item>
+        <item>東京</item>
+        <item>雅庫茨克</item>
+        <item>阿德萊德</item>
+        <item>達爾文</item>
+        <item>布里斯班</item>
+        <item>霍巴特</item>             
+        <item>悉尼</item>
+        <item>符拉迪沃斯托克</item>
+        <item>關島</item>
+        <item>馬加丹</item>
+        <item>奧克蘭</item>
+        <item>斐濟</item>
+        <item>東加塔布</item>
+    </string-array>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   style="@style/layout_default_px77"
+  >
+<RelativeLayout
+    android:id="@+id/rlayout_main"
+    android:layout_alignParentTop="true"
+   style="@style/layout_default_px76_">
+    <ImageView
+        android:id="@+id/img_icon"
+        style="@style/img_left_px55"
+        android:src="@mipmap/bg_bt_stp_scan" />
+
+    <TextView
+        android:id="@+id/txt_title"
+        style="@style/txt_px22"
+        android:layout_toRightOf="@id/img_icon"
+        android:text="@string/label_date" />
+</RelativeLayout>
+
+</RelativeLayout>

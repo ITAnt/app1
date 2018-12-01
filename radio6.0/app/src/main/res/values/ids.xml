@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item type="id" name="iv_notification_prev">false</item>
+    <item type="id" name="iv_notification_next">false</item>
+    <item type="id" name="iv_notification_exit">false</item>
+    <item type="id" name="iv_notification_art">false</item>
+    <item type="id" name="tv_app_name">false</item>
+    <item type="id" name="tv_notification_title">false</item>
+    <item type="id" name="tv_notification_artist">false</item>
+</resources>

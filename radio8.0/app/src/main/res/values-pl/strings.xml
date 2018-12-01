@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Radio</string>
+    <string name="txt_channel">%7s</string>
+    <string name="fm1">FM1</string>
+    <string name="fm2">FM2</string>
+    <string name="fm3">FM3</string>
+    <string name="am1">AM1</string>
+    <string name="am2">AM2</string>
+    <string name="am3">AM3</string>
+    <string name="search_no_result">Żadne radio nie zostało jeszcze przeszukane.</string>
+    <string name="unit_khz" >KHz</string>
+    <string name="unit_mhz" >MHz</string>
+    <string name="ST">ST</string>
+    <string name="radio_scaning" >Skanowanie listy stacji</string>
+    <string name="Ta">TA</string>
+    <string name="AF">AF</string>
+    <string name="TP">TP</string>
+    <string name="EON">EON</string>
+    <string name="REG">REG</string>
+    <string name="RT">RT</string>
+</resources>

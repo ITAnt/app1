@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/fragment_time_interface"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <RelativeLayout
+                android:id="@+id/fragment_time"
+                style="@style/style_rlayout">
+
+                <TextView
+                    android:id="@+id/txt_time_title"
+                    style="@style/style_txt"
+                    android:text="@string/label_time" />
+
+
+                <ImageView
+                    android:id="@+id/img_time_arrow"
+                    style="@style/style_img"
+                    android:src="@drawable/balance_btn_right_state" />
+
+                <TextView
+                    android:id="@+id/txt_time"
+                    style="@style/style_txt"
+                    android:layout_marginRight="5dp"
+                    android:layout_toStartOf="@+id/img_time_arrow" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_time_line"
+                style="@style/style_line_txt"
+                android:layout_below="@+id/fragment_time" />
+
+            <RelativeLayout
+                android:id="@+id/fragment_date"
+                style="@style/style_rlayout"
+                android:layout_below="@+id/txt_time_line">
+
+                <TextView
+                    android:id="@+id/txt_date_title"
+                    style="@style/style_txt"
+                    android:text="@string/label_date" />
+
+
+                <ImageView
+                    android:id="@+id/img_date_arrow"
+                    style="@style/style_img"
+                    android:src="@drawable/balance_btn_right_state" />
+
+                <TextView
+                    android:id="@+id/txt_date"
+                    style="@style/style_txt"
+                    android:layout_marginRight="5dp"
+                    android:layout_toStartOf="@+id/img_date_arrow" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_date_line"
+                style="@style/style_line_txt"
+                android:layout_below="@+id/fragment_date" />
+
+            <RelativeLayout
+                android:id="@+id/fragment_time_system"
+                style="@style/style_rlayout"
+                android:layout_below="@+id/txt_date_line">
+
+                <ImageView
+                    android:id="@+id/img_time_system_arrow"
+                    style="@style/style_img"
+                    android:src="@drawable/balance_btn_right_state" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/img_time_system_arrow"
+                    android:gravity="center|start"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_time_system_title"
+                        style="@style/style_title_txt"
+                        android:layout_marginBottom="2.5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/label_time_system" />
+
+                    <TextView
+                        android:id="@+id/txt_time_system_summary"
+                        style="@style/style_summary_txt"
+                        android:text="@string/label_24_hour_system" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <TextView
+
+                android:id="@+id/txt_time_system_line"
+                style="@style/style_line_txt"
+                android:layout_below="@+id/fragment_time_system" />
+
+            <RadioGroup
+                android:id="@+id/radio_system"
+                style="@style/style_group"
+                android:layout_below="@+id/txt_time_system_line"
+                android:visibility="gone">
+
+                <RadioButton
+                    android:id="@+id/rbtn_24_hour_system"
+                    style="@style/style_rbtn"
+                    android:button="@drawable/check_selector"
+                    android:paddingStart="@dimen/px10"
+                    android:text="@string/label_24_hour_system"
+                    tools:ignore="RtlSymmetry" />
+
+                <RadioButton
+                    android:id="@+id/rbtn_12_hour_system"
+                    style="@style/style_rbtn"
+                    android:button="@drawable/check_selector"
+                    android:paddingStart="@dimen/px10"
+                    android:text="@string/label_12_hour_system"
+                    tools:ignore="RtlSymmetry" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/txt_system_line"
+                style="@style/style_line_txt"
+                android:layout_below="@+id/radio_system"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/fragment_adjust"
+                style="@style/style_rlayout"
+                android:layout_below="@+id/txt_system_line">
+
+                <com.jancar.settings.widget.SwitchButton
+                    android:id="@+id/switch_adjust"
+                    style="@style/style_switch"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/switch_adjust"
+                    android:gravity="center|start"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_adjust_title"
+                        style="@style/style_title_txt"
+                        android:layout_marginBottom="2.5dp"
+                        android:layout_marginTop="5dp"
+
+                        android:text="@string/label_adjust" />
+
+                    <TextView
+                        android:id="@+id/txt_adjust_summary"
+                        style="@style/style_summary_txt"
+                        android:text="@string/label_adjust_off" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_adjust_line"
+                style="@style/style_line_txt"
+                android:layout_below="@+id/fragment_adjust" />
+
+            <RelativeLayout
+                android:id="@+id/fragment_time_zone"
+                style="@style/style_rlayout"
+                android:layout_below="@+id/txt_adjust_line">
+
+                <TextView
+                    android:id="@+id/txt_time_zone_title"
+                    style="@style/style_txt"
+                    android:text="@string/label_time_zone" />
+
+
+                <ImageView
+                    android:id="@+id/img_time_zone_arrow"
+                    style="@style/style_img"
+                    android:src="@drawable/balance_btn_right_state" />
+
+                <TextView
+                    android:id="@+id/txt_time_zone"
+                    style="@style/style_txt"
+                    android:layout_marginEnd="5dp"
+                    android:layout_toStartOf="@+id/img_time_zone_arrow" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_time_zone_line"
+                style="@style/style_line_txt"
+                android:layout_below="@+id/fragment_time_zone" />
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <ListView
+        android:id="@+id/list_time_zone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:visibility="gone">
+
+    </ListView>
+</FrameLayout>

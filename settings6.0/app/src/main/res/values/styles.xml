@@ -1,0 +1,387 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+
+    </style>
+    <!--textview默认设置-->
+    <style name="txt_default">
+        <item name="android:textDirection">locale</item>
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:lineSpacingExtra">4px</item>
+        <item name="android:ellipsize">start</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+    <!--textview提示语默认设置-->
+    <style name="txt_default_tip">
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:textDirection">locale</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColorHint">@color/tipColor</item>
+        <item name="android:textColor">@color/tipColor</item>
+        <item name="android:lineSpacingExtra">4px</item>
+        <item name="android:ellipsize">start</item>
+    </style>
+
+
+    <!--字体 mini-->
+    <style name="txt_px16" parent="txt_default">
+        <item name="android:textSize">@dimen/px16</item>
+    </style>
+
+
+    <!--字体 小-->
+    <style name="txt_px22" parent="txt_default">
+        <item name="android:textSize">@dimen/px22</item>
+    </style>
+
+    <!--字体 常用-->
+    <style name="txt_normal" parent="txt_default">
+        <item name="android:textSize">@dimen/px22</item>
+    </style>
+    <style name="txt_normal_px22" parent="txt_default">
+        <item name="android:textSize">@dimen/px22</item>
+    </style>
+    <style name="style_title_txt"  parent="txt_px22">
+        <item name="android:layout_marginBottom">@dimen/px2</item>
+        <item name="android:layout_marginTop">@dimen/px12</item>
+    </style>
+    <!--字体 常用 提示语-->
+    <style name="txt_normal_tip" parent="txt_default_tip">
+        <item name="android:textSize">@dimen/px16</item>
+    </style>
+    <style name="style_summary_txt"  parent="txt_normal_tip">
+        <item name="android:layout_marginTop">@dimen/px2</item>
+
+    </style>
+    <style name="txt_btn_normal_wifi"  parent="txt_px22">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:background">@color/bg_line_txt</item>
+        <item name="android:padding">@dimen/px15</item>
+        <item name="android:layout_marginRight">@dimen/px32</item>
+        <item name="android:layout_marginLeft">@dimen/px32</item>
+
+    </style>
+    <style name="txt_btn_normal" parent="txt_px22">
+        <item name="android:layout_width">@dimen/px88</item>
+        <item name="android:layout_height">@dimen/px50</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/normal_bg_wifi__btn</item>
+    </style>
+
+    <style name="txt_btn_normals" parent="txt_px22">
+        <item name="android:layout_width">@dimen/px110</item>
+        <item name="android:layout_height">@dimen/px50</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/normal_bg_wifi__btn</item>
+    </style>
+    <!--界面左边的字体-->
+    <style name="main_title_txt" parent="txt_px22">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+    <style name="llayout_spinner_left" parent="txt_px22">
+        <item name="android:layout_width">@dimen/px152</item>
+        <item name="android:layout_height">@dimen/px59</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:background">@drawable/cbb_bg_n</item>
+    </style>
+    <style name="layout_default">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="layout_default_px77" parent="layout_default">
+        <item name="android:layout_height">@dimen/px77</item>
+        <item name="android:background">@color/bg_llayout</item>
+    </style>
+
+    <style name="layout_default_px76" parent="layout_default">
+        <item name="android:layout_height">@dimen/px76</item>
+        <item name="android:layout_marginLeft">@dimen/px32</item>
+        <item name="android:layout_marginRight">@dimen/px32</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="layout_default_px76_" parent="layout_default">
+        <item name="android:layout_height">@dimen/px76</item>
+    </style>
+
+    <style name="layout_default_" parent="layout_default_px77">
+        <item name="android:paddingLeft">@dimen/px60</item>
+        <item name="android:paddingRight">@dimen/px40</item>
+    </style>
+
+
+    <style name="llayout_item_child" parent="layout_default_px76_">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">@dimen/px60</item>
+        <item name="android:layout_marginRight">@dimen/px40</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+
+
+    <style name="img_left_px55">
+        <item name="android:layout_width">@dimen/px55</item>
+        <item name="android:layout_height">@dimen/px55</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">@dimen/px13</item>
+        <item name="android:layout_marginRight">@dimen/px11</item>
+    </style>
+
+
+
+
+
+
+
+
+    <style name="record_voice_dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowBackground">@drawable/bg_dialog</item>
+
+    </style>
+
+    <style name="record_voice_dialogs">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+
+
+
+
+    <style name="style_txt">
+        <item name="android:textSize">@dimen/px22</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_txt</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:fadingEdge">horizontal</item>
+        <item name="android:singleLine">true</item>
+
+    </style>
+
+
+
+    <style name="style_rlayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/px77</item>
+        <item name="android:layout_marginLeft">@dimen/px60</item>
+        <item name="android:layout_marginRight">@dimen/px40</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="style_sound_rlayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/px77</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="style_group">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/px77</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginLeft">@dimen/px60</item>
+        <item name="android:layout_marginRight">@dimen/px40</item>
+    </style>
+
+    <style name="style_line_txt">
+        <item name="android:background">@color/bg_line_txt</item>
+        <item name="android:layout_marginRight">@dimen/px32</item>
+        <item name="android:layout_marginLeft">@dimen/px32</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/px1</item>
+    </style>
+
+    <style name="style_switch">
+
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="style_rbtn">
+        <item name="android:textSize">@dimen/px22</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:button">@null</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">@color/text_txt</item>
+
+    </style>
+
+    <style name="style_rbtns">
+        <item name="android:textSize">@dimen/px22</item>
+        <item name="android:layout_width">wrap_content</item>
+
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">@color/text_txt</item>
+
+    </style>
+
+    <style name="style_seekbar">
+        <item name="android:thumb">@drawable/seekbar_thumb</item>
+        <item name="android:thumbOffset">0px</item>
+        <item name="android:focusable">true</item>
+        <item name="android:mirrorForRtl">true</item>
+        <item name="android:paddingTop">@dimen/px20</item>
+        <item name="android:paddingBottom">@dimen/px20</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:progressDrawable">@drawable/seekbar_style</item>
+    </style>
+
+    <style name="style_img">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:src">@mipmap/balance_right_s</item>
+        <item name="android:paddingLeft">8dp</item>
+
+    </style>
+
+    <style name="style_txt_dialog">
+        <item name="android:background">@drawable/bg_btn_state</item>
+        <item name="android:textSize">@dimen/txt_title</item>
+        <item name="android:layout_width">101px</item>
+        <item name="android:layout_height">58px</item>
+        <item name="android:textColor">@color/text_txt</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:gravity">center</item>
+
+    </style>
+
+
+
+
+
+
+
+    <style name="llayout_item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/px77</item>
+    </style>
+
+    <style name="llayout_items">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/px77</item>
+    </style>
+
+
+    <style name="llayout_item_child_px32">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/px76</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">@dimen/px32</item>
+        <item name="android:layout_marginRight">@dimen/px32</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <!--ListView 列表中的标题根部局样式-->
+    <style name="llayout_item_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:paddingStart">@dimen/px28</item>
+        <item name="android:paddingEnd">@dimen/px18</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+    <!--自定义spinner 布局的标题布局样式-->
+    <style name="llayout_spinner_right">
+        <item name="android:layout_width">@dimen/px152</item>
+        <item name="android:layout_height">@dimen/px59</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:background">@drawable/cbb_bg_n</item>
+        <item name="android:gravity">center</item>
+
+    </style>
+
+    <style name="txt_default_sound"></style>
+
+    <style name="spinner">
+        <item name="android:layout_marginBottom">@dimen/px123</item>
+        <item name="android:layout_marginTop">@dimen/px38</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="dialog_bit">
+        <item name="android:layout_width">@dimen/px109</item>
+        <item name="android:layout_height">@dimen/px60</item>
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:background">@drawable/bg_btn_state</item>
+        <item name="android:textSize">@dimen/px22</item>
+        <item name="android:textColor">@color/text_txt</item>
+
+    </style>
+
+    <style name="txt_normal_tip_px22" parent="txt_default_tip">
+        <item name="android:textSize">@dimen/px22</item>
+    </style>
+
+
+    <style name="txt_tip_20" parent="txt_default_tip">
+        <item name="android:textSize">@dimen/px20</item>
+    </style>
+    <style name="AlertDialogCustom" parent="android:Theme.Material.Light.Dialog.Alert">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item><!--背景透明-->
+    </style>
+
+    <style name="AVLoadingIndicatorView">
+        <item name="minWidth">48dip</item>
+        <item name="maxWidth">48dip</item>
+        <item name="minHeight">48dip</item>
+        <item name="maxHeight">48dip</item>
+        <item name="indicatorName">BallPulseIndicator</item>
+    </style>
+
+    <style name="AVLoadingIndicatorView.Large">
+        <item name="minWidth">60px</item>
+        <item name="maxWidth">60px</item>
+        <item name="minHeight">60px</item>
+        <item name="maxHeight">60px</item>
+        <item name="indicatorName">BallSpinFadeLoaderIndicator</item>
+    </style>
+
+    <style name="AVLoadingIndicatorView.Small">
+        <item name="minWidth">24dip</item>
+        <item name="maxWidth">24dip</item>
+        <item name="minHeight">24dip</item>
+        <item name="maxHeight">24dip</item>
+        <item name="indicatorName">BallPulseIndicator</item>
+    </style>
+
+</resources>

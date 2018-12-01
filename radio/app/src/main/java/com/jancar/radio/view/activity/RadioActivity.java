@@ -387,7 +387,7 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
             Logcat.d("onAudioFocusChange, focusChange = " + focusChange);
             if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
                 mAudioManager.abandonAudioFocus(mAudioFocusChange);
-                mJancarManager.abandonKeyFocus(keyFocusListener.asBinder());
+                mJancarManager .abandonKeyFocus( keyFocusListener.asBinder());
                 if (scheduleds != null) {
                     scheduleds.shutdown();
                 }

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_dialogs"
+    android:gravity="center"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/brightImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="20dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_brightness" />
+
+        <SeekBar
+            style="@style/style_seekbar"
+            android:id="@+id/brightSeekbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px46"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:max="10"
+            android:padding="20dp" />
+
+        <TextView
+            android:id="@+id/brightValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="20dp"
+            android:singleLine="true"
+            android:text="15"
+            android:textSize="@dimen/px22" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/chromaImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="20dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_chroma" />
+
+        <SeekBar
+            style="@style/style_seekbar"
+            android:id="@+id/chromaSeekbar"
+            android:layout_width="@dimen/px280"
+            android:layout_height="@dimen/px46"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:max="10"
+            />
+
+        <TextView
+            android:id="@+id/chromaValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="20dp"
+            android:singleLine="true"
+            android:text="15"
+            android:textSize="@dimen/px22" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/contrastImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="20dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_contrast" />
+
+        <SeekBar
+            style="@style/style_seekbar"
+            android:id="@+id/contrastSeekbar"
+            android:layout_width="@dimen/px280"
+            android:layout_height="@dimen/px46"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:max="10"
+            />
+
+        <TextView
+            android:id="@+id/contrastValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="20dp"
+            android:singleLine="true"
+            android:text="15"
+            android:textSize="@dimen/px22" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
