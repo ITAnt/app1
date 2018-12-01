@@ -63,4 +63,16 @@ public class ContactPresenter extends BaseModelPresenter<ContactContract.View, C
 
         return isDomnLoading;
     }
+    @Override
+    public boolean isRecordDownLoading() {
+        boolean isDomnLoading = true;
+        int downState = getUi().getManager().getContactsDownState();
+        int callhistroyState = getUi().getManager().getContCallhistroyState();
+        Log.d("ContactPresenter", "downState:" + downState + "==callhistroyState==" + callhistroyState);
+        if ((downState == Constants.PHONEBOOK_STATE_FINSH || downState == Constants.PHONEBOOK_STATE_ERR || downState == Constants.PHONEBOOK_STATE_STOP) && callhistroyState != Constants.PHONEBOOK_STATE_START) {
+            isDomnLoading = false;
+        }
+
+        return isDomnLoading;
+    }
 }

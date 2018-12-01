@@ -525,10 +525,10 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
         switch (view.getId()) {
             case R.id.iv_contanct_synchronous:
                 if (isBluConn()) {
-                    if (!isDownLoding()) {
+                    if (!getPresenter().isRecordDownLoading()) {
                         showDialog();
                     } else {
-                        mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_tip_down));
+                        mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_syning_record));
                     }
 
                 } else {
