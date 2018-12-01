@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="@dimen/px60"
+    android:layout_height="@dimen/px80"
     android:layout_gravity="center_horizontal"
-    android:background="@drawable/iv_toast_bg"
+    android:background="@drawable/tip_shape_bg"
     android:gravity="center"
+    android:maxWidth="500px"
+    android:minWidth="@dimen/px200"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_toast"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/px10"
+        android:layout_marginStart="@dimen/px10"
         android:ellipsize="end"
         android:gravity="center"
+        android:paddingBottom="@dimen/px10"
+        android:paddingTop="@dimen/px10"
         android:singleLine="true"
         android:text="@string/tv_bt_connect_is_none"
         android:textColor="#c2c5c7"

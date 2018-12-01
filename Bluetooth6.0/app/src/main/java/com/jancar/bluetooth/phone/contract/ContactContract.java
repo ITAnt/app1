@@ -36,13 +36,15 @@ public interface ContactContract {
         void getSynContact();
 
         //搜索联系人
-        void getSearchConatct(String searchString,int type);
+        void getSearchConatct(String searchString, int type);
 
 
         //是否同步了联系人
         boolean isSynContact();
 
         boolean isDownLoading();
+
+        boolean isRecordDownLoading();
 
     }
 }
