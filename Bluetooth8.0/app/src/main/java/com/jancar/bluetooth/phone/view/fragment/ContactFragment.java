@@ -524,16 +524,7 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_contanct_synchronous:
-                if (isBluConn()) {
-                    if (!getPresenter().isRecordDownLoading()) {
-                        showDialog();
-                    } else {
-                        mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_syning_record));
-                    }
-
-                } else {
-                    mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_bt_connect_is_none));
-                }
+                synchronous();
                 break;
             case R.id.iv_syn_contact:
                 Log.e(TAG, "onClick==contact==");
@@ -549,6 +540,23 @@ public class ContactFragment extends BaseFragment<ContactContract.Presenter, Con
             case R.id.contact_search:
                 editSearch.setCursorVisible(true);
                 break;
+        }
+    }
+
+    private void synchronous() {
+        if (isBluConn()) {
+            if (!isDownLoding()) {
+                if (!getPresenter().isRecordDownLoading()) {
+                    showDialog();
+                } else {
+                    mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_syning_record));
+                }
+            } else {
+                mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_tip_down));
+            }
+
+        } else {
+            mToast.ShowTipText(mActivity, mActivity.getString(R.string.tv_bt_connect_is_none));
         }
 
     }
