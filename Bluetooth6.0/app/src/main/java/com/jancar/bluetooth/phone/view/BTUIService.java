@@ -320,9 +320,8 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
             mLayoutParams1.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         } else {
             Log.d(TAG, "initView===");
-            mLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
+            mLayoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
             mLayoutParams1.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
-//            mLayoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
 //            mLayoutParams1.type = WindowManager.LayoutParams.TYPE_PHONE;
         }
 //        mLayoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
