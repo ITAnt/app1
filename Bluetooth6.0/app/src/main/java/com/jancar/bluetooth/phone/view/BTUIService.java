@@ -435,6 +435,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         Log.e(TAG, "destroyView===");
         stopTimer();
         saveCallLog();
+        CleanNumberAndHideKey();
         if (isShowPhone) {
             if (isFull) {
                 mWindowManager.removeViewImmediate(phoneView);
@@ -448,6 +449,8 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
             mWindowManager.removeViewImmediate(saveView);
         }
         isShowPhone = false;
+
+
         mCallScoState = BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT;
         mCallType = BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_NONE;
         bluetoothManager.unregisterBTPhoneListener();
@@ -549,7 +552,6 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 if (isShowPhone) {
                     jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_HIDE);
                 }
-                CleanNumberAndHideKey();
         }
     }
 
@@ -774,7 +776,6 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                     bluetoothManager.terminateCall();
                 }
 
-                CleanNumberAndHideKey();
                 if (isShowPhone) {
                     jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_HIDE);
                 }
