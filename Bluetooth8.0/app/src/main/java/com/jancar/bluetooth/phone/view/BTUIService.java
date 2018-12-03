@@ -344,9 +344,8 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
             mLayoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
             mLayoutParams1.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         } else {
-//            mLayoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+            mLayoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
 //            mLayoutParams1.type = WindowManager.LayoutParams.TYPE_PHONE;
-            mLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
             mLayoutParams1.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
         }
 //        mLayoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
@@ -460,6 +459,7 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
         Log.e(TAG, "destroyView===");
         stopTimer();
         saveCallLog();
+        CleanNumberAndHideKey();
         if (isShowPhone) {
             if (isFull) {
                 mWindowManager.removeViewImmediate(phoneView);
@@ -574,7 +574,6 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 if (isShowPhone) {
                     jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_HIDE);
                 }
-                CleanNumberAndHideKey();
         }
     }
 
@@ -798,8 +797,6 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 } else {
                     bluetoothManager.terminateCall();
                 }
-
-                CleanNumberAndHideKey();
                 if (isShowPhone) {
                     jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_HIDE);
                 }
