@@ -100,6 +100,9 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
     private Timer mCallTimer;
     private int mCallTime;
     private boolean isShowKey = false;      //是否显示键盘
+    private boolean isClick = true;         //是否可以点击
+    private final static int BUTTON_SWITCH = 7;
+
 
     private int mCallType = BluetoothPhoneClass.BLUETOOTH_PHONE_CALL_STATE_NONE;
     private int mCallScoState = BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT;
@@ -289,6 +292,14 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                     Log.e(TAG, "MSG_BLUETOOTH_DESTROY_VIEW==isShowPhone==" + isShowPhone);
                     if (isShowPhone) {
                         jancarServer.requestPrompt(PromptController.DisplayType.DT_PHONE, PromptController.DisplayParam.DP_HIDE);
+                    }
+                    break;
+                case BUTTON_SWITCH:
+                    isClick = true;
+                    if (isFull) {
+                        ivVehicle.setClickable(true);
+                    } else {
+                        ivHalfCar.setClickable(true);
                     }
                     break;
 
@@ -819,18 +830,24 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 }
                 break;
             case R.id.iv_comm_message_vehicle:
-                if (mCallScoState != BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT) {
-                    //手机状态
-                    bluetoothManager.switchAudioMode(false);
-                    ivVehicle.setImageResource(R.drawable.commun_car_selector);
-                    tvVehicle.setText(R.string.calling_vehicle);
-                } else {
-                    //车机状态
-                    bluetoothManager.switchAudioMode(true);
-                    ivVehicle.setImageResource(R.drawable.commun_phone_selector);
-                    tvVehicle.setText(R.string.calling_phone);
+                if (isClick) {
+                    if (mCallScoState != BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT) {
+                        //手机状态
+                        bluetoothManager.switchAudioMode(false);
+                        ivVehicle.setImageResource(R.drawable.commun_car_selector);
+                        tvVehicle.setText(R.string.calling_vehicle);
+                    } else {
+                        //车机状态
+                        bluetoothManager.switchAudioMode(true);
+                        ivVehicle.setImageResource(R.drawable.commun_phone_selector);
+                        tvVehicle.setText(R.string.calling_phone);
 
+                    }
+                    isClick = false;
+                    ivVehicle.setClickable(false);
+                    mHandler.sendEmptyMessageDelayed(BUTTON_SWITCH, 3000);
                 }
+
                 break;
             case R.id.iv_comm_message_answer:
                 bluetoothManager.acceptCall();
@@ -839,14 +856,20 @@ public class BTUIService extends Service implements BTPhoneCallListener, View.On
                 bluetoothManager.acceptCall();
                 break;
             case R.id.iv_commun_half_phone:
-                if (mCallScoState != BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT) {
-                    //手机状态
-                    bluetoothManager.switchAudioMode(false);
-                    ivHalfCar.setImageResource(R.drawable.half_car_selector);
-                } else {
-                    //车机状态
-                    bluetoothManager.switchAudioMode(true);
-                    ivHalfCar.setImageResource(R.drawable.half_phone_selector);
+                Log.e(TAG, "onClick_half_phone==");
+                if (isClick) {
+                    if (mCallScoState != BluetoothPhoneClass.BLUETOOTH_PHONE_SCO_CONNECT) {
+                        //手机状态
+                        bluetoothManager.switchAudioMode(false);
+                        ivHalfCar.setImageResource(R.drawable.half_car_selector);
+                    } else {
+                        //车机状态
+                        bluetoothManager.switchAudioMode(true);
+                        ivHalfCar.setImageResource(R.drawable.half_phone_selector);
+                    }
+                    isClick = false;
+                    ivHalfCar.setClickable(false);
+                    mHandler.sendEmptyMessageDelayed(BUTTON_SWITCH, 3000);
                 }
                 break;
             case R.id.iv_commun_half_hang:
