@@ -69,7 +69,9 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".view.BTUIService" />
+        <service
+            android:name=".view.BTUIService"
+            android:exported="true" />
 
     </application>
 
