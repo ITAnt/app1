@@ -1,3 +1,0 @@
-# Referenced at E:\work\AC8227L-AP1\Bluetooth\suspension\build\intermediates\manifests\full\debug\AndroidManifest.xml:13
--keep class com.ancar.suspension.SuspensionApplication { <init>(...); }
-
