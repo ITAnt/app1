@@ -124,7 +124,7 @@ dependencies {
 
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     //    implementation 'com.yanzhenjie:permission:2.0.0-rc12'
-    implementation files('libs/classes(19).jar')
+    implementation files('libs/classes.jar')
 }
 
 //apk前缀名
