@@ -30,7 +30,14 @@ public class EasyLinkReceiver extends BroadcastReceiver {
         if (action.equals(BECOMING_NOISY) || action.equals(BOOT_COMPLETE)) {
             Intent service = new Intent();
             service.setClassName(Constants.BTUISERVICE_PACKAGENAME, Constants.BTUISERVICE_CLASSNAME);
-            context.startService(service);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Log.e(TAG, "startForegroundService==");
+                context.startForegroundService(service);
+            } else {
+                Log.e(TAG, "startService==");
+                context.startService(service);
+            }
+//            context.startService(service);
 
         } else if (action.equals(EASY_LOSS_FOUS)) {
             //BluetoothManager.getBluetoothManagerInstance(context).setPlayerState(false);

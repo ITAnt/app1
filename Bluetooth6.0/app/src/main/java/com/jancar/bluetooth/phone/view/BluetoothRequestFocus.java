@@ -3,6 +3,7 @@ package com.jancar.bluetooth.phone.view;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.SystemProperties;
 import android.util.Log;
 
@@ -160,20 +161,33 @@ public class BluetoothRequestFocus {
     public void requestAudioFocus() {
         isNeedGainFocus = true;
         Log.e(TAG, "requestAudioFoucse==");
-        audioManager.requestAudioFocus(mAudioFocusListener, AudioManager.STREAM_MUSIC,
-                AudioManager.AUDIOFOCUS_GAIN);
+        if (!versionO()) {
+            audioManager.requestAudioFocus(mAudioFocusListener, AudioManager.STREAM_MUSIC,
+                    AudioManager.AUDIOFOCUS_GAIN);
+        }
         setCurrentBTStatus(BT_INIT);
     }
 
     public void releaseAudioFocus() {
         Log.e(TAG, "releaseAudioFocus==");
         isNeedGainFocus = false;
-        if (mAudioFocusListener != null) {
-            audioManager.abandonAudioFocus(mAudioFocusListener);
+        if (!versionO()) {
+            if (mAudioFocusListener != null) {
+                audioManager.abandonAudioFocus(mAudioFocusListener);
+            }
         }
         setBTPlayStatus(false);
         btMusicPause();
         setCurrentBTStatus(BT_NONE);
+    }
+
+    private boolean versionO() {
+        boolean isO = false;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            isO = true;
+        }
+        return isO;
+
     }
 
     private AudioManager.OnAudioFocusChangeListener mAudioFocusListener = new AudioManager.OnAudioFocusChangeListener() {

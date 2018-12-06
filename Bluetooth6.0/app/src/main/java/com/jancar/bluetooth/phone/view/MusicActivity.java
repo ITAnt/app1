@@ -41,7 +41,7 @@ import static com.jancar.key.KeyDef.KeyAction.KEY_ACTION_UP;
  * @author Tzq
  * @date 2018-9-4 16:00:22
  */
-public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicContract.View> implements MusicContract.View, View.OnClickListener, BTMusicListener, BTConnectStatusListener, BluetoothRequestFocus.BackCarListener {
+public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicContract.View> implements MusicContract.View, View.OnClickListener, BTMusicListener, BTConnectStatusListener, BluetoothRequestFocus.BackCarListener, JacMediaSessionUtils.KeyEventListener {
 
     private static final String TAG = "MusicActivity";
     private static final int MSG_INIT_OK = 0;
@@ -63,7 +63,6 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     MarqueeTextView tvArtist;
     CircleImageView circleImageView;
     private boolean isPlay = false;
-    //    private RegisterMediaSession registerMediaSession;
     private BluetoothRequestFocus bluetoothRequestFocus;
     private boolean isConnect;
     private boolean isResume;
@@ -171,7 +170,6 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         BluetoothRequestFocus.HandPaused = false;
         bluetoothRequestFocus.setBackCarListener(null);
         bluetoothRequestFocus.releaseAudioFocus();
-//        registerMediaSession.releaseMediaButton();
         bluetoothManager.unRegisterBTMusicListener();
         bluetoothManager.setBTConnectStatusListener(null);
         jacMediaSession.setActive(false);
@@ -215,15 +213,10 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
 
     private void registerListener() {
         bluetoothRequestFocus = BTUIService.bluetoothRequestFocus;
-//        registerMediaSession = BTUIService.registerMediaSession;
         if (bluetoothRequestFocus == null) {
             bluetoothRequestFocus = BluetoothRequestFocus.getBluetoothRequestFocusStance(this);
         }
-//        if (registerMediaSession == null) {
-//            registerMediaSession = new RegisterMediaSession(this, bluetoothManager);
-//        }
-//        Log.e("MusicActivity", "registerMediaSession===" + registerMediaSession);
-//        registerMediaSession.requestMediaButton();
+
         bluetoothManager.registerBTMusicListener(this);
 
         bluetoothManager.setBTConnectStatusListener(this);
@@ -294,6 +287,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                     Log.e(TAG, "MSG_UI_REFRESH_PLAY_STATE===");
                     BluetoothMusicData blueMusicStatus = (BluetoothMusicData) msg.obj;
                     updatePlaybackStatus(blueMusicStatus.getPlay_status(), blueMusicStatus.getSong_len(), blueMusicStatus.getSong_pos());
+
                     break;
             }
         }
@@ -336,7 +330,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     private void updatePlaybackStatus(byte play_status, int song_len, int song_pos) {
         Log.e(TAG, "updatePlaybackStatus===" + play_status);
         jacMediaSession.notifyPlayState(play_status);
-        jacMediaSession.notifyProgress(song_len, song_pos);
+        jacMediaSession.notifyProgress(song_pos, song_len);
         int btStatus = bluetoothRequestFocus.getCurrentBTStatus();
         switch (play_status) {
             case BluetoothManager.MUSIC_STATE_PLAY:
@@ -649,5 +643,23 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     public void onLowMemory() {
         super.onLowMemory();
         Log.e(TAG, "onLowMemory===");
+    }
+
+    @Override
+    public void keyCallBack(int keyType) {
+        switch (keyType) {
+            case 0:
+                bluetoothManager.prev();
+                break;
+            case 1:
+                bluetoothManager.next();
+                break;
+            case 2:
+                bluetoothManager.pause();
+                break;
+            case 3:
+                bluetoothManager.play();
+                break;
+        }
     }
 }
