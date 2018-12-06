@@ -6,6 +6,9 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.app.Application;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
@@ -18,6 +21,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -54,6 +58,7 @@ import static android.view.WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
 import static android.view.WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
 import static com.jancar.settings.suspension.utils.Contacts.CLASS_NAME;
 import static com.jancar.settings.suspension.utils.Contacts.PACKAGE_NAME;
+import static com.mediatek.aee.ExceptionLog.TAG;
 
 
 public class SettingsUIService extends Service implements SeekBar.OnSeekBarChangeListener {
@@ -103,6 +108,10 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
     public void onCreate() {
         super.onCreate();
         Log.e(TAG, "onCreate");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Log.e(TAG, "startForegroundService==");
+            startServiceForeground();
+        }
         settingManager = SettingManager.getSettingManager(this);
         jancarManager = (JancarManager) getSystemService(JancarManager.JAC_SERVICE);
         displayController = new DisplayController();
@@ -114,7 +123,22 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
         GPS gps = new GPS();
         gps.openGPSSettings(getApplicationContext(), 3);
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void startServiceForeground() {
+        Log.e(TAG, "startServiceForeground==");
+        // service的onCreate
+        NotificationChannel channel = new NotificationChannel("im_channel_id", "System", NotificationManager.IMPORTANCE_LOW);
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.createNotificationChannel(channel);
+        Notification notification = new Notification.Builder(this, "im_channel_id")
+                .setSmallIcon(R.mipmap.ic_settings)  // the status icon
+                .setWhen(System.currentTimeMillis())  // the time stamp
+                .setContentText("BTUIService")  // the contents of the entry
+                .build();
 
+        startForeground(1, notification);
+
+    }
 
 
     JacState jacState = new JacState() {

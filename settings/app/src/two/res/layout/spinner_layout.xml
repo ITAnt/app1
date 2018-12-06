@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+
+            android:id="@+id/txt_operating"
+            android:text="@string/tab_sound_mode"
+            style="@style/llayout_spinner_left"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+
+            style="@style/llayout_spinner_right"
+            android:id="@+id/llayout_spinner_operating"
+          >
+
+            <TextView
+
+                android:id="@+id/txt_spinner_operating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/px22"
+                android:text="自定义"
+
+                />
+
+            <ImageView
+                android:layout_marginLeft="5px"
+                android:layout_marginRight="5px"
+                android:src="@mipmap/balance_down_d"
+                android:layout_width="35px"
+                android:layout_height="35px" />
+        </LinearLayout>
+
+
+        <ListView
+            android:background="@color/bg_llayout"
+            android:scrollbars="none"
+            android:fadeScrollbars="false"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/px2"
+            android:id="@+id/spinner_operating_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/llayout_spinner_operating"
+            android:layout_below="@+id/llayout_spinner_operating">
+
+        </ListView>
+    </RelativeLayout>
+
+
+</FrameLayout>

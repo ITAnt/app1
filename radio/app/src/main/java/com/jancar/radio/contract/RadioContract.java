@@ -71,5 +71,7 @@ public interface RadioContract {
         void save(ArrayList<RadioStation> mScanResultList, int mBand, int Band, int mLocation,boolean first_run);
 
         List<RadioStation> queryFrequency(int band, int mLocation);
+
+        void addRadioStation(int position, RadioStation mRadioStation, List<RadioStation> radioStations);
     }
 }

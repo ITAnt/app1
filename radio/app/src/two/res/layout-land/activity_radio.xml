@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_llayout"
+    android:orientation="vertical">
+
+    <LinearLayout
+
+        android:id="@+id/radio_llayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_llayout"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <include layout="@layout/activity_main" />
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/txt_st"
+                        android:layout_width="60px"
+                        android:layout_height="30px"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="20px"
+                        android:layout_marginStart="30px"
+                        android:background="@drawable/cbb_bg_n"
+                        android:gravity="center"
+                        android:text="@string/ST"
+                        android:textColor="#fff"
+                        android:textSize="20px" />
+
+                    <TextView
+                        android:id="@+id/txt_ta"
+                        android:layout_width="60px"
+                        android:layout_height="30px"
+                        android:layout_marginLeft="@dimen/px20"
+                        android:layout_marginTop="20px"
+                        android:layout_marginStart="@dimen/px30"
+                        android:layout_toRightOf="@id/txt_st"
+
+                        android:gravity="center"
+                        android:text="@string/Ta"
+                        android:textColor="@color/rty_background_n"
+                        android:textSize="@dimen/px18" />
+
+                    <TextView
+                        android:id="@+id/txt_af"
+                        android:layout_width="60px"
+                        android:layout_height="30px"
+                        android:layout_marginStart="@dimen/px30"
+                        android:layout_marginTop="20px"
+                        android:layout_toRightOf="@id/txt_ta"
+
+                        android:gravity="center"
+                        android:text="@string/AF"
+                        android:textColor="@color/rty_background_n"
+                        android:textSize="@dimen/px18" />
+
+                    <TextView
+                        android:id="@+id/txt_rt"
+                        android:layout_width="60px"
+                        android:layout_height="30px"
+                        android:layout_marginStart="@dimen/px30"
+                        android:layout_marginTop="20px"
+                        android:layout_toRightOf="@id/txt_af"
+
+                        android:gravity="center"
+                        android:text="TP"
+                        android:textColor="@color/rty_background_n"
+                        android:textSize="@dimen/px18" />
+                </RelativeLayout>
+
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/bg_main">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:gravity="center">
+
+                <ImageView
+                    android:padding="@dimen/px30"
+                    android:id="@+id/img_swap_band"
+                    android:layout_width="@dimen/px120"
+                    android:layout_height="@dimen/px120"
+                    android:layout_marginRight="60px"
+                    android:src="@drawable/btn_radio_band" />
+
+                <ImageView
+                    android:padding="@dimen/px30"
+                    android:id="@+id/img_search"
+                    android:layout_width="@dimen/px120"
+                    android:layout_height="@dimen/px120"
+                    android:layout_marginLeft="60px"
+                    android:layout_marginRight="60px"
+                    android:src="@drawable/btn_radio_search" />
+
+                <ImageView
+                    android:padding="@dimen/px30"
+                    android:id="@+id/img_dnr"
+                    android:layout_width="@dimen/px120"
+                    android:layout_height="@dimen/px120"
+                    android:layout_marginLeft="60px"
+                    android:layout_marginRight="60px"
+                    android:src="@mipmap/btn_radio_rds_d" />
+
+                <ImageView
+                    android:padding="@dimen/px30"
+                    android:id="@+id/img_st"
+                    android:layout_width="@dimen/px120"
+                    android:layout_height="@dimen/px120"
+                    android:layout_marginLeft="60px"
+                    android:src="@drawable/btn_radio_st" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Rds_llayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

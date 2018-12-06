@@ -111,11 +111,12 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".broadcast.SettingsReceiver"
-            android:exported="true">
-            <intent-filter>
+            android:name=".broadcast.SettingsReceiver">
+            <intent-filter android:priority="10000">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                />
+                <action android:name="android.media.AUDIO_BECOMING_NOISY" />
+                <action android:name="android.intent.action.TEST_GKP"
+                    />
             </intent-filter>
         </receiver>
 

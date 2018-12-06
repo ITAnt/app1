@@ -297,8 +297,8 @@
     <string name="tv_setting_check_">已開啟，只允許配對設備檢測</string>
     <string name="tv_setting_pair">已配對設備</string>
     <string name="tv_setting_del_all">删除全部</string>
-    <string name="tv_setting_search_ing">正在蒐索設備...</string>
-    <string name="tv_setting_start_search">開始蒐索</string>
+    <string name="tv_setting_search_ing">正在搜索設備...</string>
+    <string name="tv_setting_start_search">開始搜索</string>
     <string name="tv_setting_available">可用設備</string>
     <string name="tv_setting_update_name">名稱不能為空</string>
     <string name="key_name_power">休眠</string>

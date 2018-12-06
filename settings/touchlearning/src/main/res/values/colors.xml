@@ -3,7 +3,4 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="normal_bg_wifi__btn">#0068B7</color>
-    <color name="bg_dialog_btn">#FF2C2E34</color>
-    <color name="bg_dialog">#fd0800</color>
 </resources>

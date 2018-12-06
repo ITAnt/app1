@@ -34,6 +34,7 @@ android {
         versionName "v1.0." + gitSHA
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        flavorDimensions "versionCode"
     }
     signingConfigs {
         release {
@@ -58,6 +59,31 @@ android {
         }
         debug {
             signingConfig signingConfigs.debug
+        }
+    }
+    sourceSets {
+        one {
+//            manifest.srcFile 'src/default1/defaultAndroidManifest.xml'
+            java.srcDir 'src/one/java' // 指定源码目录
+            resources.srcDir 'src/one/res' //资源目录
+        }
+        two {
+//            manifest.srcFile 'src/volkswagen/volkswagenAndroidManifest.xml'
+            java.srcDir 'src/two/java' // 指定源码目录
+            resources.srcDir 'src/two/res' //资源目录
+        }
+    }
+
+    productFlavors {
+        one {
+//            manifestPlaceholders = [app_name:"ViewDVR",package_name:"com.longhorn.viewdvr"]
+//            applicationId = "com.longhorn.viewdvr"
+            versionName "v1.0."+gitSHA
+        }
+        two {
+//            manifestPlaceholders = [app_name:"VWDVR",package_name:"com.longhorn.viewdvr"]
+//            applicationId = "com.longhorn.vwdvr"
+            versionName "v2.0."+gitSHA
         }
     }
 //配置自定义打包名称
@@ -95,5 +121,5 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     implementation 'org.greenrobot:greendao:3.2.2'
     // add library
-    compileOnly files('libs/classes.jar')
+    compileOnly files('libs/framework.jar')
 }
