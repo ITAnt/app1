@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#1f0dcd</color>
+    <color name="windowBackground">#80bebebe</color>
+    <color name="windowBackgrounds">#00bebebe</color>
+    <color name="bg_llayout">#000000</color>
+    <color name="bg_main_rlayout_n">#1e1f23</color>
+    <color name="bg_main_rlayout_h">#0068B7</color>
+    <color name="text_txt">#ffffff</color>
+    <color name="summary_txt">#57686f</color>
+    <color name="tipColor">#57686f</color>
+    <color name="bg_line_txt">#1b1f29</color>
+    <color name="normal_bg_wifi__btn">#0068B7</color>
+    <color name="normal_bg_wifi__btns">#088bee</color>
+    <color name="selected_bg_wifi__btn">#2c2e34</color>
+    <color name="bg_dialog">#1f1f1f</color>
+    <color name="bg_dialogs">#81323232</color>
+    <color name="div_dialog">#474747</color>
+    <color name="bg_dialog_btn">#FF2C2E34</color>
+    <color name="bg_dialog_edt">#FF2C2C2C</color>
+    <color name="bg_sound_rlayout_n">#28292b</color>
+    <color name="bg_d">#484949</color>
+    <color name="bgSelected">#0068b7</color>
+
+
+    <!-- 透明色 -->
+    <color name="lucency">#00000000</color>
+    <color name="lucencys">#44ffffff</color>
+    <!-- 白色 -->
+    <color name="white">#FFFFFF</color>
+    <!-- 半白色 -->
+    <color name="white_half">#50FFFFFF</color>
+    <!-- 黑色 -->
+    <color name="black">#000000</color>
+    <!-- 红色 -->
+    <color name="red">#FF0000</color>
+    <!-- 灰色 -->
+    <color name="gray">#ff000000</color>
+    <!-- 绿色 -->
+    <color name="green">#00FF00</color>
+    <!-- 透明绿色 -->
+    <color name="lucencygreen">#8000FF00</color>
+    <!-- 蓝色 -->
+    <color name="blue">#0000FF</color>
+    <!-- 透明蓝色 -->
+    <color name="lucencyblue">#800000FF</color>
+    <!-- 橙色 -->
+    <color name="orange">#FFA500</color>
+    <!-- 透明橙色 -->
+    <color name="lucencyorange">#80FFA500</color>
+    <!-- 灰色 -->
+    <color name="grey">#808080</color>
+    <!-- APP背景色 -->
+    <color name="appbackground">#0A2758</color>
+    <!-- 文本高亮颜色 -->
+    <color name="textpresscolor">#00326F</color>
+    <!-- 文本颜色 -->
+    <color name="textselcolor">#FDCB01</color>
+    <!-- 半透明 -->
+    <color name="translucent">#99000000</color>
+</resources>

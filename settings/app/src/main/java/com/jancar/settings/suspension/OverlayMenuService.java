@@ -1,15 +1,21 @@
 package com.jancar.settings.suspension;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Binder;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -35,6 +41,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import static com.jancar.settings.suspension.widget.MagneticMenu.OnDragListener.FLOAT_LEFT;
 import static com.jancar.settings.suspension.widget.MagneticMenu.OnDragListener.FLOAT_RIGHT;
+import static com.mediatek.aee.ExceptionLog.TAG;
 
 
 public class OverlayMenuService extends Service implements View.OnClickListener {
@@ -122,6 +129,10 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
     public void onCreate() {
         super.onCreate();
         Log.e("OverlayMenuService", "onCreate===");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            startServiceForeground();
+        }
         jancarManager = (JancarManager) getSystemService("jancar_manager");
         jancarManager.registerJacStateListener(jacState.asBinder());
         EventBus.getDefault().register(this);
@@ -238,6 +249,22 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
         });
 
         jancarManager.registerJacStateListener(jacState.asBinder());
+
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void startServiceForeground() {
+        Log.e(TAG, "startServiceForeground==");
+        // service的onCreate
+        NotificationChannel channel = new NotificationChannel("im_channel_id", "System", NotificationManager.IMPORTANCE_LOW);
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.createNotificationChannel(channel);
+        Notification notification = new Notification.Builder(this, "im_channel_id")
+                .setSmallIcon(R.mipmap.ic_settings)  // the status icon
+                .setWhen(System.currentTimeMillis())  // the time stamp
+                .setContentText("BTUIService")  // the contents of the entry
+                .build();
+
+        startForeground(1, notification);
 
     }
 

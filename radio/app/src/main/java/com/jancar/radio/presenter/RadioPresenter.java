@@ -3,10 +3,9 @@ package com.jancar.radio.presenter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
-import android.widget.RadioButton;
 import android.widget.SeekBar;
-
 
 import com.jancar.radio.RadioManager;
 import com.jancar.radio.RadioWrapper;
@@ -20,8 +19,6 @@ import com.ui.mvp.presenter.BaseModelPresenter;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -100,7 +97,7 @@ public class RadioPresenter extends BaseModelPresenter<RadioContract.View, Radio
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        EventBus.getDefault().post(new RadioPresenter.DataSynEvent(fromUser, progress));
+        EventBus.getDefault().post(new DataSynEvent(fromUser, progress));
 
     }
 
@@ -113,7 +110,7 @@ public class RadioPresenter extends BaseModelPresenter<RadioContract.View, Radio
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-        EventBus.getDefault().post(new RadioPresenter.DataSynEvents(seekBar.callOnClick(), seekBar.getProgress()));
+        EventBus.getDefault().post(new DataSynEvents(seekBar.callOnClick(), seekBar.getProgress()));
 
     }
 
@@ -410,5 +407,20 @@ public class RadioPresenter extends BaseModelPresenter<RadioContract.View, Radio
     @Override
     public List<RadioStation> queryFrequency(int band, int mLocation) {
         return getModel().initText(band, mLocation, false);
+    }
+
+    @Override
+    public void addRadioStation(int position, RadioStation mRadioStation, List<RadioStation> radioStations) {
+
+            RadioStation mRadioStationd = null;
+            for (RadioStation mRadioStations : radioStations) {
+                if (mRadioStations.getPosition() == position) {
+                    mRadioStationd = mRadioStations;
+                }
+            }
+            mRadioStation.setPosition(position);
+            SharedPreferences sharedPreferences = getUi().getActivity().getSharedPreferences("FirstRun", 0);
+            Boolean first_run = sharedPreferences.getBoolean("Firsts", true);
+            Replace(mRadioStation, mRadioStationd, first_run);
     }
 }

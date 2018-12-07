@@ -23,13 +23,11 @@ public class ResetReceiver extends BroadcastReceiver implements AudioEffectManag
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
-        if(action.equals("com.jancar.action.reset.default.settings")){
-            WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-            wifiManager.setWifiEnabled(true);
-            Log.w("ResetReceiver","true");
-            BluetoothSettingManager manager = BluetoothSettingManager.getBluetoothSettingManager(context);
-            manager.openBluetooth();
-        }
+        WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        wifiManager.setWifiEnabled(true);
+        Log.w("ResetReceiver","true");
+        BluetoothSettingManager manager = BluetoothSettingManager.getBluetoothSettingManager(context);
+        manager.openBluetooth();
 
     }
 

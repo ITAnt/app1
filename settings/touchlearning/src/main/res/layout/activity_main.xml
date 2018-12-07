@@ -2,48 +2,42 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/tabMode"
-    android:background="#000"
+    android:background="#fff"
     android:layout_height="match_parent">
 
   <Button
       android:id="@+id/touch_one"
       android:text="1"
       android:clickable="false"
-      android:background="@drawable/bg_btn_state"
       android:layout_alignParentTop="true"
       android:layout_alignParentLeft="true"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content" />
-
     <Button
-        android:background="@drawable/bg_btn_state"
         android:clickable="false"
         android:id="@+id/touch_tow"
-        android:text="4"
+        android:text="2"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <Button
-        android:background="@drawable/bg_btn_state"
         android:clickable="false"
         android:id="@+id/touch_three"
-        android:text="2"
+        android:text="3"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <Button
-        android:background="@drawable/bg_btn_state"
         android:clickable="false"
         android:id="@+id/touch_four"
-        android:text="3"
+        android:text="4"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <Button
-        android:background="@drawable/bg_btn_state"
         android:clickable="false"
         android:text="5"
         android:id="@+id/touch_fives"
@@ -51,7 +45,4 @@
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-<!--  <ImageView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content" />-->
 </RelativeLayout>

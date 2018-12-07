@@ -21,10 +21,6 @@ import android.widget.Toast;
 
 import com.kongqw.permissionslibrary.PermissionsManager;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlSerializer;
 
 import java.io.File;
@@ -37,10 +33,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.ZERO;
 
@@ -51,30 +43,19 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     float[] locations_one, locations_tow, locations_three, locations_four, locations_fives;
     RelativeLayout tabMode;
     boolean isClick;
-    public static final int failure = 0;
-    public static final int success = 1;
+   public static final   int failure=0;
+    public static final  int success=1;
     PermissionsManager mPermissionsManager;
     @SuppressLint("HandlerLeak")
-    Handler handler = new Handler() {
+    Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what) {
+            switch (msg.what){
                 case failure:
                     Looper.prepare();
-                    anInt++;
-
                     Toast.makeText(MainActivity.this, "触摸学习失败", Toast.LENGTH_SHORT).show();
-                    List<String> ListString = readXml("/jancar/config/pointercal.xml");
-                    if (ListString.size() > 0) {
-                        Log.w("ListString", ListString.toString());
-                        generate(ListString.get(0), ListString.get(1), ListString.get(2), ListString.get(3), ListString.get(4),
-                                ListString.get(5), ListString.get(6));
-
-                    }
                     MainActivity.this.finish();
-                    //generate(ListString.get(0) + "", 0 + "", 0 + "", 0 + "", 1 + "", 0 + "", 1 + "");
-
                     Looper.loop();
                     break;
                 case success:
@@ -87,68 +68,16 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
         }
     };
-
-    public List<String> readXml(String fileName) {
-        File f = new File(fileName);
-        List<String> keyWords = new ArrayList<>();
-        //创建一个DocumentBuilderFactory的对象
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        //创建一个DocumentBuilder的对象
-        try {
-            //创建DocumentBuilder对象
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            //通过DocumentBuilder对象的parser方法加载books.xml文件到当前项目下
-            Document document = db.parse(f);
-            //获取所有book节点的集合
-            NodeList GISName = document.getElementsByTagName("item");
-            //通过nodelist的getLength()方法可以获取bookList的长度
-            //遍历每一个book节点
-            for (int i = 0; i < GISName.getLength(); i++) {
-                Node mNode = GISName.item(i);
-                String attrs = mNode.getNodeName();
-                Node s = mNode.getFirstChild();
-                String attsrs = s.getNodeValue();
-                keyWords.add(attsrs);
-                System.out.println("=================" + attrs + "=================");
-                System.out.println("=================" + attsrs + "=================");
-            }
-
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-            e.printStackTrace();
-        }
-        return keyWords;
-    }
-
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_main);
         Toast.makeText(this, "已进入触摸学习", Toast.LENGTH_SHORT).show();
-        try {
-            File a=new File("/sys/devices/soc/soc:touch@");
-            Runtime.getRuntime().exec("adb root");
-            Runtime.getRuntime().exec("adb shell");
-            Runtime.getRuntime().exec("chmod 777  " + a.getAbsolutePath());
-            File c=new File("/jancar/config/pointercal.xml");
-         //   String commands = "chmod 777 " + "/jancar/config/pointercal.xml";
-            Runtime.getRuntime().exec("chmod 777  " + c.getAbsolutePath());
-
-            String command = "chmod 777 " + "/sys/devices/soc/soc:touch@/gt9xx_props";
-            String commands = "chmod 777 " + "/jancar/config/pointercal.xml";
-            Log.i("zyl", "command = " + command);
-            //Runtime runtime = Runtime.getRuntime();
-
-
-            //proc.destroy();
-        } catch (IOException e) {
-            Log.i("zyl", "chmod fail!!!!");
-            e.printStackTrace();
-        }
         touch_one = (Button) findViewById(R.id.touch_one);
         touch_tow = (Button) findViewById(R.id.touch_tow);
         touch_three = (Button) findViewById(R.id.touch_three);
@@ -167,14 +96,13 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         locations_four = new float[2];
         locations_fives = new float[2];
         generate(1 + "", 0 + "", 0 + "", 0 + "", 1 + "", 0 + "", 1 + "");
-        touch_one.setBackgroundResource(R.drawable.cbb_bg_w);
+
     }
 
     View m;
-    boolean isCorrect[] = new boolean[5];
-    List<Integer> List = new ArrayList<>();
-    int anInt = 0;
-
+    boolean isCorrect[]=new boolean[5];
+    List<Integer> List=new ArrayList<>();
+    int anInt =0;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
@@ -182,20 +110,13 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             case MotionEvent.ACTION_UP:
                 float x2 = event.getX();
                 float y2 = event.getY();
-                if (anInt >= 5) {
-                    Toast.makeText(MainActivity.this, "触摸学习失败", Toast.LENGTH_SHORT).show();
-                    List<String> ListString = readXml("/jancar/config/pointercal.xml");
-                    if (ListString.size() > 0) {
-                        Log.w("ListString", ListString.toString());
-                        generate(ListString.get(0), ListString.get(1), ListString.get(2), ListString.get(3), ListString.get(4),
-                                ListString.get(5), ListString.get(6));
-
-                    }
-                    MainActivity.this.finish();
-                    return false;
+                if (anInt>=5){
+                   Toast.makeText(this, "触摸学习失败", Toast.LENGTH_SHORT).show();
+                   MainActivity.this.finish();
+                   return false;
                 }
 
-                isCorrect[anInt] = isClick;
+                isCorrect[anInt]=isClick;
 
                 if (isClick) {
                     switch (m.getId()) {
@@ -211,27 +132,24 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                         case R.id.touch_tow:
 
                             List.add(2);
-                            locations_four[0] = 42;
-                            locations_four[1] = 590;
-
+                            locations_tow[0] = 966;
+                            locations_tow[1] = 593;
                             location_tow = x2;
                             location_tows = y2;
                             isClick = false;
                             break;
                         case R.id.touch_three:
-
                             List.add(3);
-                            locations_tow[0] = 966;
-                            locations_tow[1] = 593;
+                            locations_three[0] = 43;
+                            locations_three[1] = 15;
                             location_three = x2;
                             location_threes = y2;
                             isClick = false;
                             break;
                         case R.id.touch_four:
                             List.add(4);
-                            locations_three[0] = 43;
-                            locations_three[1] = 15;
-
+                            locations_four[0] = 42;
+                            locations_four[1] = 590;
                             location_four = x2;
                             location_fours = y2;
                             isClick = false;
@@ -243,33 +161,22 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                             location_fives = x2;
                             location_fivess = y2;
                             floats.clear();
-                            if (anInt == 4) {
-                                for (int i = 0; i < isCorrect.length; i++) {
-                                    if (!isCorrect[i]) {
-                                        Toast.makeText(MainActivity.this, "触摸学习失败", Toast.LENGTH_SHORT).show();
-                                        List<String> ListString = readXml("/jancar/config/pointercal.xml");
-                                        if (ListString.size() > 0) {
-                                            Log.w("ListString", ListString.toString());
-                                            generate(ListString.get(0), ListString.get(1), ListString.get(2), ListString.get(3), ListString.get(4),
-                                                    ListString.get(5), ListString.get(6));
-
-                                        }
+                            if (anInt==4){
+                                for (int i=0;i<isCorrect.length;i++){
+                                    if (!isCorrect[i]){
+                                        Toast.makeText(this, "触摸学习失败", Toast.LENGTH_SHORT).show();
                                         MainActivity.this.finish();
                                         return false;
                                     }
                                 }
-                                for (int i = 0; i < List.size() - 1; i++) {
+                                for (int i = 0; i < List.size() - 1; i++)
+                                {
                                     int temp = List.get(i);
-                                    for (int j = i + 1; j < List.size(); j++) {
-                                        if (temp == List.get(j)) {
-                                            Toast.makeText(MainActivity.this, "触摸学习失败", Toast.LENGTH_SHORT).show();
-                                            List<String> ListString = readXml("/jancar/config/pointercal.xml");
-                                            if (ListString.size() > 0) {
-                                                Log.w("ListString", ListString.toString());
-                                                generate(ListString.get(0), ListString.get(1), ListString.get(2), ListString.get(3), ListString.get(4),
-                                                        ListString.get(5), ListString.get(6));
-
-                                            }
+                                    for (int j = i + 1; j < List.size(); j++)
+                                    {
+                                        if (temp==List.get(j))
+                                        {
+                                            Toast.makeText(this, "触摸学习失败", Toast.LENGTH_SHORT).show();
                                             MainActivity.this.finish();
                                             return false;
                                         }
@@ -329,33 +236,22 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     }
 
                 }
-                if (anInt == 4) {
-                    for (int i = 0; i < isCorrect.length; i++) {
-                        if (!isCorrect[i]) {
-                            Toast.makeText(MainActivity.this, "触摸学习失败", Toast.LENGTH_SHORT).show();
-                            List<String> ListString = readXml("/jancar/config/pointercal.xml");
-                            if (ListString.size() > 0) {
-                                Log.w("ListString", ListString.toString());
-                                generate(ListString.get(0), ListString.get(1), ListString.get(2), ListString.get(3), ListString.get(4),
-                                        ListString.get(5), ListString.get(6));
-
-                            }
+                if (anInt==4){
+                    for (int i=0;i<isCorrect.length;i++){
+                        if (!isCorrect[i]){
+                            Toast.makeText(this, "触摸学习失败", Toast.LENGTH_SHORT).show();
                             MainActivity.this.finish();
                             return false;
                         }
                     }
-                    for (int i = 0; i < List.size() - 1; i++) {
-                        int temp = List.get(i);
-                        for (int j = i + 1; j < List.size(); j++) {
-                            if (temp == List.get(j)) {
-                                Toast.makeText(MainActivity.this, "触摸学习失败", Toast.LENGTH_SHORT).show();
-                                List<String> ListString = readXml("/jancar/config/pointercal.xml");
-                                if (ListString.size() > 0) {
-                                    Log.w("ListString", ListString.toString());
-                                    generate(ListString.get(0), ListString.get(1), ListString.get(2), ListString.get(3), ListString.get(4),
-                                            ListString.get(5), ListString.get(6));
-
-                                }
+                    for (int i = 0; i < List.size() - 1; i++)
+                    {
+                       int temp = List.get(i);
+                        for (int j = i + 1; j < List.size(); j++)
+                        {
+                            if (temp==List.get(j))
+                            {
+                                Toast.makeText(this, "触摸学习失败", Toast.LENGTH_SHORT).show();
                                 MainActivity.this.finish();
                                 return false;
                             }
@@ -370,26 +266,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                             return false;
                         }*//*
                     }*/
-                switch (anInt){
-                    case 0:
-                        touch_one.setBackgroundResource(R.drawable.cbb_bg_h);
-                        touch_three.setBackgroundResource(R.drawable.cbb_bg_w);
-                        break;
-                    case 1:
-                        touch_three.setBackgroundResource(R.drawable.cbb_bg_h);
-                        touch_four.setBackgroundResource(R.drawable.cbb_bg_w);
-                        break;
-                    case 2:
-                        touch_four.setBackgroundResource(R.drawable.cbb_bg_h);
-                        touch_tow.setBackgroundResource(R.drawable.cbb_bg_w);
-                        break;
-                    case 3:
-                        touch_tow.setBackgroundResource(R.drawable.cbb_bg_h);
-                        touch_fives.setBackgroundResource(R.drawable.cbb_bg_w);
-                        break;
-                    case 4:
-                        break;
-                }
 
                 anInt++;
                 Log.w("ACTION_UP", "x2:" + x2 + "y2:" + y2);
@@ -482,7 +358,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         BigDecimal bigDecimalF = new BigDecimal(F);
         generate(bigDecimalA.setScale(0, BigDecimal.ROUND_HALF_UP) + "", bigDecimalB.setScale(0, BigDecimal.ROUND_HALF_UP) + "", bigDecimalC.setScale(0, BigDecimal.ROUND_HALF_UP) + "",
                 bigDecimalD.setScale(0, BigDecimal.ROUND_HALF_UP) + "", bigDecimalE.setScale(0, BigDecimal.ROUND_HALF_UP) + "", bigDecimalF.setScale(0, BigDecimal.ROUND_HALF_UP) + "", 65536 + "");
-    }
+           }
 
     List<String> floats = new ArrayList<>();
     float x1;
@@ -498,9 +374,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         Log.w("ACTION_UP", "a:x1=" + x1 + "y1=" + y1);
         return false;
     }
-
     //默认是没有换行的
-    public void initSettings(final String a, final String b, final String c, final String d, final String e, final String f, final String div) {
+    public  void initSettings(final String a, final String b, final String c, final String d, final String e, final String f, final String div) {
         final File file = new File("/jancar/config/");
         try {
             if (!file.exists()) {
@@ -529,66 +404,66 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     serializer.setOutput(fos, "UTF-8");
                     serializer.startDocument("UTF-8", true);
                     serializer.startTag(null, "config");
-
+                    serializer.startTag(null, "category");
+                    serializer.attribute(null, "name", "hot");
                     // server
                     serializer.startTag(null, "item");
                     serializer.attribute(null, "id", "A");
-                    serializer.text(a);
+                    serializer.attribute(null, "value", a);
                     serializer.endTag(null, "item");
                     // hid
                     serializer.startTag(null, "item");
                     serializer.attribute(null, "id", "B");
-                    // serializer.attribute(null, "value", b);
-                    serializer.text(b);
+                    serializer.attribute(null, "value", b);
                     serializer.endTag(null, "item");
                     // room
                     serializer.startTag(null, "item");
                     serializer.attribute(null, "id", "C");
-                    serializer.text(c);
+                    serializer.attribute(null, "value", c);
                     serializer.endTag(null, "item");
                     // room
                     serializer.startTag(null, "item");
                     serializer.attribute(null, "id", "D");
-                    serializer.text(d);
+                    serializer.attribute(null, "value", d);
                     serializer.endTag(null, "item");
 
                     // room
                     serializer.startTag(null, "item");
                     serializer.attribute(null, "id", "E");
-                    serializer.text(e);
+                    serializer.attribute(null, "value", e);
                     serializer.endTag(null, "item");
 
                     // room
                     serializer.startTag(null, "item");
                     serializer.attribute(null, "id", "F");
-                    serializer.text(f);
+                    serializer.attribute(null, "value", f);
                     serializer.endTag(null, "item");
 
                     // room
                     serializer.startTag(null, "item");
                     serializer.attribute(null, "id", "Div");
-                    serializer.text(div);
+                    serializer.attribute(null, "value", div);
                     serializer.endTag(null, "item");
 
-
+                    serializer.endTag(null, "category");
                     serializer.endTag(null, "config");
                     serializer.endDocument();
                     serializer.flush();
                 } catch (FileNotFoundException e) {
-                    Message message = new Message();
-                    message.what = failure;
+                    Message message=   new Message();
+                    message.what=failure;
                     handler.handleMessage(message);
                 } catch (IllegalArgumentException e) {
-                    Message message = new Message();
-                    message.what = failure;
+                    Message message=   new Message();
+                    message.what=failure;
                     handler.handleMessage(message);
                 } catch (IllegalStateException e) {
-                    Message message = new Message();
-                    message.what = failure;
+                    Message message=   new Message();
+                    message.what=failure;
                     handler.handleMessage(message);
                 } catch (IOException e) {
-                    Message message = new Message();
-                    message.what = failure;
+                    Message message=   new Message();
+                    message.what=failure;
                     handler.handleMessage(message);
                 } finally {
                     if (fos != null) {
@@ -599,15 +474,14 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                         }
                     }
                 }
-                Message message = new Message();
-                message.what = success;
+                Message message=   new Message();
+                message.what=success;
                 handler.handleMessage(message);
 
             }
         }).start();
 
     }
-
     public void generate(final String a, final String b, final String c, final String d, final String e, final String f, final String div) {
         File file = new File("/sys/devices/soc/soc:touch@");
         try {
@@ -653,8 +527,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                         fop.write(contentInBytes);
                         fop.flush();
                         fop.close();
-                        if (anInt == 5) {
-                            initSettings(a, b, c,
+                        if (anInt==5){
+                            initSettings(a, b, c ,
                                     d, e, f, 65536 + "");
 
                         }
@@ -662,12 +536,12 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                         System.out.println("Done");
 
                     } catch (IOException e) {
-                        if (anInt == 5) {
-                            Message message = new Message();
-                            message.what = failure;
+                        if (anInt==5){
+                            Message message=   new Message();
+                            message.what=failure;
                             handler.handleMessage(message);
                         }
-                        //  e.printStackTrace();
+                      //  e.printStackTrace();
                     }
                 }
 
