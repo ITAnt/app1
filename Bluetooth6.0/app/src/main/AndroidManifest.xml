@@ -58,7 +58,6 @@
             </intent-filter>
         </activity>
 
-
         <receiver android:name=".view.EasyLinkReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -66,6 +65,11 @@
                 <!--<action android:name="com.jancar.bt.state.change" />-->
                 <action android:name="net.easyconn.a2dp.acquire" />
                 <action android:name="net.easyconn.a2dp.release" />
+                <action android:name="net.easyconn.bt.connected" />
+                <action android:name="net.easyconn.bt.notconnected" />
+                <action android:name="net.easyconn.android.mirror.out" />
+                <action android:name="net.easyconn.screen.pause" />
+                <action android:name="net.easyconn.iphone.inner.mirror.out" />
             </intent-filter>
         </receiver>
 
