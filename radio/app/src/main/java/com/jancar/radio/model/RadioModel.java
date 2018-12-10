@@ -1,5 +1,6 @@
 package com.jancar.radio.model;
 
+import com.jancar.radio.entity.Collection;
 import com.jancar.radio.entity.RadioStation;
 import com.ui.mvp.model.Model;
 
@@ -24,6 +25,16 @@ public interface RadioModel extends Model {
     void processAndSave(ArrayList<RadioStation> mScanResultList, int mBand ,int mLocation);
 
     void Change(List<RadioStation> radioStations);
+
+    boolean isFrequency(int mFreq);
+
+    List<Collection> addCollection(Collection mRadioStation);
+
+    List<Collection> deleteCollection(int mFreq);
+
+    List<Collection> setCollection();
+
+    List<Collection> deleteAll();
 
     interface Callback {
 

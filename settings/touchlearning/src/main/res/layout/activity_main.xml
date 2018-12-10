@@ -1,48 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:id="@+id/tabMode"
-    android:background="#fff"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
 
-  <Button
-      android:id="@+id/touch_one"
-      android:text="1"
-      android:clickable="false"
-      android:layout_alignParentTop="true"
-      android:layout_alignParentLeft="true"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content" />
     <Button
-        android:clickable="false"
-        android:id="@+id/touch_tow"
-        android:text="2"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/touch_one"
+        android:layout_width="60px"
+        android:layout_height="60px"
         android:layout_alignParentLeft="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <Button
+        android:layout_alignParentTop="true"
+        android:layout_margin="60px"
+        android:background="@drawable/bg_btn_state"
         android:clickable="false"
-        android:id="@+id/touch_three"
-        android:text="3"
+        android:text="1" />
+
+    <Button
+        android:id="@+id/touch_four"
+        android:layout_width="60px"
+        android:layout_height="60px"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="60px"
+        android:background="@drawable/bg_btn_state"
+        android:clickable="false"
+        android:text="4" />
+
+    <Button
+        android:id="@+id/touch_tow"
+        android:layout_width="60px"
+        android:layout_height="60px"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <Button
+        android:layout_margin="60px"
+        android:background="@drawable/bg_btn_state"
         android:clickable="false"
-        android:id="@+id/touch_four"
-        android:text="4"
-        android:layout_alignParentBottom="true"
+        android:text="2" />
+
+    <Button
+        android:id="@+id/touch_three"
+        android:layout_width="60px"
+        android:layout_height="60px"
         android:layout_alignParentRight="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <Button
+        android:layout_alignParentBottom="true"
+        android:layout_margin="60px"
+        android:background="@drawable/bg_btn_state"
         android:clickable="false"
-        android:text="5"
+        android:text="3" />
+
+    <Button
         android:id="@+id/touch_fives"
+        android:layout_width="60px"
+        android:layout_height="60px"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:background="@drawable/bg_btn_state"
+        android:clickable="false"
+        android:text="5" />
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/one"
+        android:layout_marginTop="60px"
+        android:layout_marginLeft="200px"
+        android:layout_marginRight="200px"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/touch_tow"
+        android:layout_toRightOf="@+id/touch_one"
+        android:src="@mipmap/ic_on_scan_result" />
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/two"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="60px"
+        android:layout_marginLeft="60px"
+        android:layout_marginRight="60px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/touch_tow"
+        android:layout_above="@+id/touch_three"
+        android:src="@mipmap/ic_on_scan_result_under" />
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/three"
+        android:layout_toLeftOf="@+id/touch_tow"
+        android:layout_toRightOf="@+id/touch_one"
+        android:layout_marginTop="100px"
+        android:layout_marginLeft="200px"
+        android:layout_marginRight="200px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:src="@mipmap/ic_on_scan_result_left" />
+
+    <ImageView
+        android:id="@+id/four"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/touch_three"
+        android:layout_below="@+id/touch_tow"
+        android:layout_marginLeft="-47dp"
+        android:layout_marginTop="73dp"
+android:visibility="gone"
+        android:layout_marginBottom="-48dp"
+        android:layout_toLeftOf="@id/touch_fives"
+        android:layout_toRightOf="@id/touch_four"
+        android:rotation="60"
+        android:src="@mipmap/ic_on_scan_result_top" />
 </RelativeLayout>

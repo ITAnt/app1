@@ -90,6 +90,7 @@ public class RdsFragment extends BaseFragment<RdsContract.Presenter, RdsContract
     }
 
     public void getData(Object data){
+        String mps;
         Bundle mBundle = (Bundle) ((Message) data).getData();
         switch (((Message) data).what) {
             case CONTEXT:
@@ -109,11 +110,15 @@ public class RdsFragment extends BaseFragment<RdsContract.Presenter, RdsContract
 
                     TextView.setText("PTY: "+ptyList.get(mPty));
                 }
-                psTxt.setText("PS: "+mPs);
+                 mps=mPs==null?"":mPs;
+                psTxt.setText("PS: "+mps);
+               // psTxt.setText("PS: "+mPs);
                 break;
             case PSTXT:
                 mPs=  mBundle.getString("PS");
-                psTxt.setText("PS: "+mPs);
+                 mps=mPs==null?"":mPs;
+                psTxt.setText("PS: "+mps);
+               // psTxt.setText("PS: "+mPs);
                 //mCustomer = mBundle.getParcelable("Customer");//得到对客户详情请求的参数 客户ID
                // context = (Context) ((Message) data).obj;//得到该界面context
                 break;
@@ -150,8 +155,12 @@ public class RdsFragment extends BaseFragment<RdsContract.Presenter, RdsContract
         }
         gv_rty.setOnItemClickListener(this);
         txt_frequency.setText( RadioWrapper.getFreqString(Freq, mBand, mLocation));
-        TextView.setText("PTY: "+ptyList.get(mPty));
-        psTxt.setText("PS: "+mPs);
+        if(mPty<ptyList.size()){
+
+            TextView.setText("PTY: "+ptyList.get(mPty));
+        }
+        String mps=mPs==null?"":mPs;
+        psTxt.setText("PS: "+mps);
 
     }
 

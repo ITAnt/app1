@@ -10,6 +10,7 @@ import android.widget.SeekBar;
 import com.jancar.radio.RadioManager;
 import com.jancar.radio.RadioWrapper;
 import com.jancar.radio.contract.RadioContract;
+import com.jancar.radio.entity.Collection;
 import com.jancar.radio.entity.RadioStation;
 import com.jancar.radio.model.RadioModel;
 import com.jancar.radio.model.RadioRepository;
@@ -422,5 +423,33 @@ public class RadioPresenter extends BaseModelPresenter<RadioContract.View, Radio
             SharedPreferences sharedPreferences = getUi().getActivity().getSharedPreferences("FirstRun", 0);
             Boolean first_run = sharedPreferences.getBoolean("Firsts", true);
             Replace(mRadioStation, mRadioStationd, first_run);
+    }
+
+    @Override
+    public boolean isFrequency(int mFreq) {
+
+        return    getModel().isFrequency(mFreq);
+    }
+
+    @Override
+    public void addCollection(Collection mRadioStation) {
+
+        getUi().setCollection( getModel().addCollection(mRadioStation));
+    }
+    @Override
+    public void setCollection() {
+
+        getUi().setCollection( getModel().setCollection());
+    }
+
+    @Override
+    public void deleteAll() {
+        getUi().setCollection( getModel().deleteAll());
+    }
+
+    @Override
+    public void deleteCollection(int mFreq) {
+
+        getUi().setCollection( getModel().deleteCollection(mFreq));
     }
 }
