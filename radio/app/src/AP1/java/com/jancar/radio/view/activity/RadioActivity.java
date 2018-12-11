@@ -313,6 +313,14 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                         handler.sendMessage(mMessage);
                     }
                     if (!isChange) {
+
+
+                        if (mFreq < RadioWrapper.getFreqStart(mBand, mLocation)) {
+                            mFreq = RadioWrapper.getFreqStart(mBand, mLocation);
+                        }
+                        if (mFreq > RadioWrapper.getFreqEnd(mBand, mLocation)) {
+                            mFreq= RadioWrapper.getFreqStart(mBand, mLocation);
+                        }
                         channelTxt.setText(RadioWrapper.getFreqString(mFreq, mBand, mLocation));
                     }
 
@@ -739,6 +747,13 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
         // channelTxt.setText(RadioWrapper.getFreqString(mFreq, mBand, mLocation));
         if (isChange) {
 
+
+            if (mFreq < RadioWrapper.getFreqStart(mBand, mLocation)) {
+                mFreq = RadioWrapper.getFreqStart(mBand, mLocation);
+            }
+            if (mFreq > RadioWrapper.getFreqEnd(mBand, mLocation)) {
+                mFreq= RadioWrapper.getFreqStart(mBand, mLocation);
+            }
             channelTxt.setText(RadioWrapper.getFreqString(mFreq, mBand, mLocation));
         }
         if (isSetting) {
@@ -1285,7 +1300,14 @@ public class RadioActivity extends BaseActivity<RadioContract.Presenter, RadioCo
                 String sAgeFormat = getResources().getString(R.string.txt_channel);
                 String sFinalAge = String.format(sAgeFormat, RadioWrapper.getFreqString(event.mFreq, mBand, mLocation));
                 Log.d("sFinalAge", sFinalAge);
-                channelTxt.setText(RadioWrapper.getFreqString(event.mFreq, mBand, mLocation));
+                if (mFreq < RadioWrapper.getFreqStart(mBand, mLocation)) {
+                    mFreq = RadioWrapper.getFreqStart(mBand, mLocation);
+                }
+                if (mFreq > RadioWrapper.getFreqEnd(mBand, mLocation)) {
+                    mFreq= RadioWrapper.getFreqStart(mBand, mLocation);
+                }
+                channelTxt.setText(RadioWrapper.getFreqString(mFreq, mBand, mLocation));
+
             }
         });
 

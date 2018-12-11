@@ -147,8 +147,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             String commands = "chmod 777 " + "/jancar/config/pointercal.xml";
             Log.i("zyl", "command = " + command);
             //Runtime runtime = Runtime.getRuntime();
-
-
             //proc.destroy();
         } catch (IOException e) {
             Log.i("zyl", "chmod fail!!!!");
@@ -269,61 +267,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                         Log.w("ACTION_UP", "XL:" + locations_fives[0] + "   YL:" + locations_fives[1]);
                         Log.w("ACTION_UP", "XT:" + x2 + "   YT:" + y2);
                         anInts = 1;
-                        break;
-                }
-                if (isClick) {
-                    switch (m.getId()) {
-                        case R.id.touch_one:
-                            List.add(1);
-                            isClick = false;
-                            break;
-                        case R.id.touch_tow:
-                            List.add(2);
-                            isClick = false;
-                            break;
-                        case R.id.touch_three:
-                            List.add(3);
-                            isClick = false;
-                            break;
-                        case R.id.touch_four:
-                            List.add(4);
-                            isClick = false;
-                            break;
-                        case R.id.touch_fives:
-                            List.add(5);
-                            if (anInt == 4) {
-                                for (int i = 0; i < isCorrect.length; i++) {
-                                    if (!isCorrect[i]) {
-                                        Toast.makeText(MainActivity.this, "触摸学习失败", Toast.LENGTH_SHORT).show();
-                                        List<String> ListString = readXml("/jancar/config/pointercal.xml");
-                                        if (ListString.size() > 0) {
-                                            Log.w("ListString", ListString.toString());
-                                            generate(ListString.get(0), ListString.get(1), ListString.get(2), ListString.get(3), ListString.get(4),
-                                                    ListString.get(5), ListString.get(6));
 
-                                        }
-                                        MainActivity.this.finish();
-                                        return false;
-                                    }
-                                }
-                                for (int i = 0; i < List.size() - 1; i++) {
-                                    int temp = List.get(i);
-                                    for (int j = i + 1; j < List.size(); j++) {
-                                        if (temp == List.get(j)) {
-                                            Toast.makeText(MainActivity.this, "触摸学习失败", Toast.LENGTH_SHORT).show();
-                                            List<String> ListString = readXml("/jancar/config/pointercal.xml");
-                                            if (ListString.size() > 0) {
-                                                Log.w("ListString", ListString.toString());
-                                                generate(ListString.get(0), ListString.get(1), ListString.get(2), ListString.get(3), ListString.get(4),
-                                                        ListString.get(5), ListString.get(6));
-
-                                            }
-                                            MainActivity.this.finish();
-                                            return false;
-                                        }
-                                    }
-                                }
-                            }
+                        if (Math.abs(location_ones-location_tows)<12&&Math.abs(location_tow-location_three)<12&&Math.abs(location_threes-location_fours)<12){
                             float one = locations_one[0] * 65536 - locations_tow[0] * 65536;
                             float tow = locations_tow[0] * 65536 - locations_three[0] * 65536;
                             float three = locations_three[0] * 65536 - locations_four[0] * 65536;
@@ -368,14 +313,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
                             set(A, B, C);
                             isClick = false;
-                            break;
-                    }
-
-                }
-                if (anInt == 4) {
-                    for (int i = 0; i < isCorrect.length; i++) {
-                        if (!isCorrect[i]) {
-                            Toast.makeText(MainActivity.this, "触摸学习失败", Toast.LENGTH_SHORT).show();
+                        }else {
+                         Toast.makeText(MainActivity.this, "触摸学习失败", Toast.LENGTH_SHORT).show();
                             List<String> ListString = readXml("/jancar/config/pointercal.xml");
                             if (ListString.size() > 0) {
                                 Log.w("ListString", ListString.toString());
@@ -384,35 +323,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
                             }
                             MainActivity.this.finish();
-                            return false;
                         }
-                    }
-                    for (int i = 0; i < List.size() - 1; i++) {
-                        int temp = List.get(i);
-                        for (int j = i + 1; j < List.size(); j++) {
-                            if (temp == List.get(j)) {
-                                Toast.makeText(MainActivity.this, "触摸学习失败", Toast.LENGTH_SHORT).show();
-                                List<String> ListString = readXml("/jancar/config/pointercal.xml");
-                                if (ListString.size() > 0) {
-                                    Log.w("ListString", ListString.toString());
-                                    generate(ListString.get(0), ListString.get(1), ListString.get(2), ListString.get(3), ListString.get(4),
-                                            ListString.get(5), ListString.get(6));
-
-                                }
-                                MainActivity.this.finish();
-                                return false;
-                            }
-                        }
-                    }
+                        break;
                 }
-                  /*  for (int i=0;i<List.size();i++){
-                        if (List.get(i))
-                       *//* if (!isCorrect[i]){
-                            Toast.makeText(this, "触摸学习失败", Toast.LENGTH_SHORT).show();
-                            MainActivity.this.finish();
-                            return false;
-                        }*//*
-                    }*/
                 switch (anInt) {
                     case 0:
                         touch_one.setBackgroundResource(R.drawable.cbb_bg_h);
@@ -528,6 +441,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         double xT3 = (D * location_four + E * location_fours + F) / 65536;
         double xT4 = (D * location_fives + E * location_fivess + F) / 65536;
         Log.w("ACTION_UP_B", "xT:" + xT + "  xT1:" + xT1 + "  xT2:" + xT2 + "  xT3:" + xT3 + "  xT4:" + xT4);*/
+        Log.w("ACTION_UP_B", "D:" + D + "  E:" + E + "  F:" + F);
+
         BigDecimal bigDecimalA = new BigDecimal(A);
         BigDecimal bigDecimalB = new BigDecimal(B);
         BigDecimal bigDecimalC = new BigDecimal(C);
