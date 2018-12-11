@@ -505,8 +505,8 @@ public class DialFragment extends BaseFragment<DialContract.Presenter, DialContr
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.item_dial_number_1:
-                getStrKeyNum("1");
-//                startServices();
+//                getStrKeyNum("1");
+                startServices();
                 break;
             case R.id.item_dial_number_2:
                 getStrKeyNum("2");

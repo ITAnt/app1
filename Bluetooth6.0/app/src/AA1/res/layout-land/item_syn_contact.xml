@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear_syn_contact"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical|center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_contact_syn"
+        style="@style/txt_normal_tip_px22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="请先同步联系人" />
+
+
+    <com.jancar.bluetooth.phone.widget.AVLoadingIndicatorView
+        android:id="@+id/iv_syn_contact_ing"
+        style="@style/AVLoadingIndicatorView.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px20"
+        app:indicatorColor="#fff" />
+</LinearLayout>

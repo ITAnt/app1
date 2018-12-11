@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@drawable/btn_bt_dail_n"
+    android:orientation="horizontal">
+    <!--拨号键盘-->
+    <RelativeLayout
+        android:id="@+id/tab_dial_manager"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0">
+
+        <TextView
+            style="@style/txt_px16"
+            android:layout_centerHorizontal="true"
+            android:drawablePadding="@dimen/bar"
+            android:drawableTop="@drawable/relative_selector_dial"
+            android:gravity="center_horizontal"
+            android:paddingTop="@dimen/px2"
+            android:text="@string/tv_main_keypad"
+            android:textColor="@color/color_home_bottom_negavation" />
+    </RelativeLayout>
+
+
+    <!--联系人-->
+    <RelativeLayout
+        android:id="@+id/tab_contact_manager"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0">
+
+        <TextView
+            style="@style/txt_px16"
+            android:layout_centerHorizontal="true"
+            android:drawablePadding="@dimen/bar"
+            android:drawableTop="@drawable/relative_selector_contact"
+            android:gravity="center_horizontal"
+            android:paddingTop="@dimen/px2"
+            android:text="@string/tv_mian_contact"
+            android:textColor="@color/color_home_bottom_negavation" />
+
+    </RelativeLayout>
+
+
+    <!--通话记录-->
+    <RelativeLayout
+        android:id="@+id/tab_records_manager"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0">
+
+        <TextView
+            style="@style/txt_px16"
+            android:layout_centerHorizontal="true"
+            android:drawablePadding="@dimen/bar"
+            android:drawableTop="@drawable/relative_selector_records"
+            android:gravity="center_horizontal"
+            android:paddingTop="@dimen/px2"
+            android:text="@string/tv_main_records"
+            android:textColor="@color/color_home_bottom_negavation" />
+    </RelativeLayout>
+
+    <!--设备管理-->
+    <RelativeLayout
+        android:id="@+id/tab_statics_manager"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0">
+
+        <TextView
+            style="@style/txt_px16"
+            android:layout_centerHorizontal="true"
+            android:drawablePadding="@dimen/bar"
+            android:drawableTop="@drawable/relative_selector_equement"
+            android:gravity="center_horizontal"
+            android:paddingTop="@dimen/px2"
+            android:text="@string/tv_mian_mange"
+            android:textColor="@color/color_home_bottom_negavation" />
+    </RelativeLayout>
+
+</LinearLayout>
+
+

@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/px10"
+    android:background="@drawable/iv_records_bg"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/px40"
+    android:layout_marginBottom="@dimen/px5">
+
+    <LinearLayout
+        android:id="@+id/linear_syn_records"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_syn_record"
+            style="@style/txt_normal_tip_px22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请先同步通话记录" />
+
+        <ImageView
+            android:id="@+id/iv_syn_records"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px15"
+            android:background="@drawable/dial_syn_contanct_selector" />
+
+        <ImageView
+            android:id="@+id/iv_syn_records_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px15"
+            android:background="@drawable/dial_syn_contanct_error_selector"
+            android:visibility="gone" />
+
+        <com.jancar.bluetooth.phone.widget.AVLoadingIndicatorView
+            android:id="@+id/iv_syn_records_ing"
+            style="@style/AVLoadingIndicatorView.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px15"
+            app:indicatorColor="#fff" />
+
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/records_recycler_list"
+        android:layout_width="match_parent"
+        android:layout_height="400px"
+        android:divider="#00000000"
+        android:layout_marginStart="@dimen/px30"
+        android:layout_marginEnd="@dimen/px30"
+        android:dividerHeight="@dimen/px5"
+        android:paddingBottom="@dimen/px10"
+        android:paddingEnd="@dimen/px15"
+        android:paddingStart="@dimen/px15"
+        android:scrollbars="none"
+        tools:listitem="@layout/item_records_list" />
+
+</LinearLayout>
