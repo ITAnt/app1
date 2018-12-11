@@ -6,7 +6,7 @@ android {
 
 
     defaultConfig {
-        applicationId "settings.jancar.com.touchlearning"
+        applicationId "com.jancar.settings.touchlearning"
         minSdkVersion 15
         targetSdkVersion 28
         versionCode 1

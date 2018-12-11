@@ -155,5 +155,14 @@ public class RadioStationDaos {
     public static List<RadioStation> queryAll() {
         return RadioApplication.getDaoInstant().getRadioStationDao().loadAll();
     }
+    /**
+     * 查询所有数据
+     *
+     * @return
+     */
+    public static boolean queryFreq(int Freq) {
+        return (RadioApplication.getDaoInstant().getRadioStationDao().queryBuilder().where(RadioStationDao.Properties.MFreq.eq(Freq)).count())!=0;
+
+    }
 
 }

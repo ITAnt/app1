@@ -26,9 +26,9 @@ public class SettingsReceiver extends BroadcastReceiver {
         System.out.println("收到广播了");
         Log.e(TAG, "action==" + action);
         Log.e(TAG, "收到广播了");
+
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED) ||  android.media.AudioManager.ACTION_AUDIO_BECOMING_NOISY.equals(intent.getAction())) {
             Log.e(TAG, "action=" + intent.getAction());
-
             Intent serviced = new Intent();
             serviced.setClassName("com.jancar.settingss", "com.jancar.settings.MyService");
          /*   context.startService(serviced);*/

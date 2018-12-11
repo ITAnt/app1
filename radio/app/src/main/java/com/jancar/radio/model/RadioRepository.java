@@ -4,7 +4,9 @@ package com.jancar.radio.model;
 import android.view.View;
 
 import com.jancar.radio.RadioWrapper;
+import com.jancar.radio.entity.Collection;
 import com.jancar.radio.entity.RadioStation;
+import com.jancar.radio.listener.utils.CollectionStationDaos;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,6 +19,7 @@ import static com.jancar.radio.listener.utils.RadioStationDaos.deletes;
 import static com.jancar.radio.listener.utils.RadioStationDaos.insertRadioList;
 import static com.jancar.radio.listener.utils.RadioStationDaos.insertRadioStation;
 import static com.jancar.radio.listener.utils.RadioStationDaos.insertRadioStationList;
+import static com.jancar.radio.listener.utils.RadioStationDaos.queryFreq;
 import static com.jancar.radio.listener.utils.RadioStationDaos.queryFrequency;
 import static com.jancar.radio.listener.utils.RadioStationDaos.queryFrequencyFreq;
 import static com.jancar.radio.listener.utils.RadioStationDaos.updateRadioStation;
@@ -39,7 +42,8 @@ public class RadioRepository implements RadioModel {
         List<RadioStation> mRadioStationList = queryFrequency(band, mLocation);
 
             if (mRadioStationList.size() <= 0) {
-                return initData(band, mLocation,first_run);
+                initData(band, mLocation,first_run);
+                return queryFrequency(band, mLocation);
             }
 
         return mRadioStationList;
@@ -150,7 +154,7 @@ public class RadioRepository implements RadioModel {
                 break;
         }
 
-        deletes(band,mLocation);
+
         insertRadioStationList(radioStationList);
         return radioStationList;
     }
@@ -345,5 +349,34 @@ public class RadioRepository implements RadioModel {
     @Override
     public void Change(List<RadioStation> radioStations) {
         updateRadioStationList(radioStations);
+    }
+
+    @Override
+    public boolean isFrequency(int mFreq) {
+
+        return CollectionStationDaos.queryFreq(mFreq);
+    }
+
+    @Override
+    public List<Collection> addCollection(Collection mRadioStation) {
+        CollectionStationDaos.insertCollectionStation(mRadioStation);
+        return CollectionStationDaos.queryAll();
+    }
+
+    @Override
+    public List<Collection> deleteCollection(int mFreq) {
+        CollectionStationDaos.deleteCollectionStation(mFreq);
+        return CollectionStationDaos.queryAll();
+    }
+
+    @Override
+    public List<Collection> setCollection() {
+        return CollectionStationDaos.queryAll();
+    }
+
+    @Override
+    public List<Collection> deleteAll() {
+        CollectionStationDaos.deleteAll();
+        return CollectionStationDaos.queryAll();
     }
 }

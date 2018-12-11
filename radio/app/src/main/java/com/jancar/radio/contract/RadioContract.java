@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.widget.SeekBar;
 
 import com.jancar.radio.RadioManager;
+import com.jancar.radio.entity.Collection;
 import com.jancar.radio.entity.RadioStation;
 import com.ui.mvp.presenter.IPresenter;
 import com.ui.mvp.view.Ui;
@@ -36,6 +37,8 @@ public interface RadioContract {
         void onStereo(int i, boolean b);
 
         void onStartTrackingTouch();
+
+        void setCollection(List<Collection> collections);
     }
 
     interface Presenter extends IPresenter, SeekBar.OnSeekBarChangeListener {
@@ -73,5 +76,15 @@ public interface RadioContract {
         List<RadioStation> queryFrequency(int band, int mLocation);
 
         void addRadioStation(int position, RadioStation mRadioStation, List<RadioStation> radioStations);
+
+        boolean isFrequency(int mFreq);
+
+        void addCollection(Collection mRadioStation);
+
+        void deleteCollection(int mFreq);
+
+        void setCollection();
+
+        void deleteAll();
     }
 }
