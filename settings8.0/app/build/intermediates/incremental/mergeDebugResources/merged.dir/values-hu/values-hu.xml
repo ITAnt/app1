@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <string-array name="hour_12_display">
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+    <string-array name="hour_apm">
+        <item>reggeli</item>
+        <item>délután</item>
+
+    </string-array>
+    <string-array name="hour_display">
+        <item>00</item>
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+    </string-array>
+    <string-array name="minute_display">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>39</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+        <item>44</item>
+        <item>45</item>
+        <item>46</item>
+        <item>47</item>
+        <item>48</item>
+        <item>49</item>
+        <item>50</item>
+        <item>51</item>
+        <item>52</item>
+        <item>53</item>
+        <item>54</item>
+        <item>55</item>
+        <item>56</item>
+        <item>57</item>
+        <item>58</item>
+        <item>59</item>
+    </string-array>
+    <string-array name="timezone_id">
+        <item>Pacific/Majuro</item>
+        <item>Pacific/Midway</item>
+        <item>Pacific/Honolulu</item>
+        <item>America/Anchorage</item>
+        <item>America/Los_Angeles</item>
+        <item>America/Tijuana</item>
+        <item>America/Phoenix</item>
+        <item>America/Chihuahua</item>
+        <item>America/Denver</item>
+        <item>America/Costa_Rica</item>
+
+        <item>America/Chicago</item>
+        <item>America/Mexico_City</item>
+        <item>America/Regina</item>
+        <item>America/Bogota</item>
+        <item>America/New_York</item>
+        <item>America/Barbados</item>
+        <item>America/Halifax</item>
+        <item>America/Manaus</item>                   
+        <item>America/Santiago</item>
+        <item>America/St_Johns</item>
+
+        <item>America/Sao_Paulo</item>
+        <item>America/Argentina/Buenos_Aires</item>
+        <item>America/Godthab</item>
+        <item>America/Montevideo</item>
+        <item>Atlantic/South_Georgia</item>
+        <item>Atlantic/Azores</item>
+        <item>Atlantic/Cape_Verde</item>             
+        <item>Africa/Casablanca</item> 
+        <item>Europe/London</item>
+        <item>Europe/Amsterdam</item>
+
+        <item>Europe/Belgrade</item>
+        <item>America/Caracas</item>
+        <item>Europe/Brussels</item>
+        <item>Europe/Sarajevo</item>
+        <item>Africa/Windhoek</item>
+        <item>Africa/Brazzaville</item>
+        <item>Asia/Amman</item>             
+        <item>Europe/Athens</item>
+        <item>Asia/Beirut</item>
+        <item>Africa/Cairo</item>
+
+        <item>Europe/Helsinki</item>
+        <item>Asia/Jerusalem</item>
+        <item>Europe/Minsk</item>
+        <item>Africa/Harare</item>
+        <item>Asia/Baghdad</item>
+        <item>Europe/Moscow</item>             
+        <item>Asia/Kuwait</item>                              
+        <item>Africa/Nairobi</item>
+        <item>Asia/Tehran</item>
+
+        <item>Asia/Baku</item>
+        <item>Asia/Tbilisi</item>
+        <item>Asia/Yerevan</item>
+        <item>Asia/Dubai</item>
+        <item>Asia/Kabul</item>
+        <item>Asia/Karachi</item>
+        <item>Asia/Oral</item>             
+        <item>Asia/Yekaterinburg</item>                           
+        <item>Asia/Calcutta</item>
+        <item>Asia/Colombo</item>
+
+        <item>Asia/Katmandu</item>
+        <item>Asia/Almaty</item>
+        <item>Asia/Rangoon</item>
+        <item>Asia/Krasnoyarsk</item>
+        <item>Asia/Bangkok</item>
+        <item>Asia/Shanghai</item>
+        <item>Asia/Hong_Kong</item>             
+        <item>Asia/Irkutsk</item>           
+        <item>Asia/Kuala_Lumpur</item>
+        <item>Australia/Perth</item>
+
+        <item>Asia/Taipei</item>
+        <item>Asia/Seoul</item>
+        <item>Asia/Tokyo</item>
+        <item>Asia/Yakutsk</item>
+        <item>Australia/Adelaide</item>
+        <item>Australia/Darwin</item>
+        <item>Australia/Brisbane</item>             
+        <item>Australia/Hobart</item>
+        <item>Australia/Sydney</item>
+        <item>Asia/Vladivostok</item>
+
+        <item>Pacific/Guam</item>
+        <item>Asia/Magadan</item>
+        <item>Pacific/Auckland</item>
+        <item>Pacific/Fiji</item>
+        <item>Pacific/Tongatapu</item>
+    </string-array>
+    <string-array name="timezone_name">
+        <item> Majuro </item>
+                
+        <item> Midway </item>
+                
+        <item> Hawaii </item>
+                
+        <item> AK </item>
+                
+        <item> Los Angeles </item>
+                
+        <item> Tijuana </item>
+                
+        <item> Arizona </item>
+                
+        <item> Chihuahua </item>
+                
+        <item> Denver </item>
+                
+        <item> Costa Rica </item>
+
+                
+        <item> Chicago </item>
+                
+        <item> Mexico City </item>
+                
+        <item> Regina </item>
+                
+        <item> Bogota </item>
+                
+        <item> New York </item>
+                
+        <item> Barbados </item>
+                
+        <item> Kanada </item>
+                
+        <item> Manaus </item>
+                
+        <item> San Diego </item>
+                
+        <item> Newfoundland </item>
+
+                
+        <item> Brasilia </item>
+                
+        <item> Buenos Aires </item>
+                
+        <item> Greenland </item>
+                
+        <item> Montevideo </item>
+                
+        <item> Dél-Georgia </item>
+                
+        <item> Azori </item>
+                
+        <item> Zöld-foki-szigetek </item>
+                
+        <item> Casablanca </item>
+                
+        <item> London </item>
+                
+        <item> Amsterdam </item>
+
+                
+        <item> Belgrád </item>
+                
+        <item> venezuelai </item>
+                
+        <item> Brüsszel </item>
+                
+        <item> Szarajevó </item>
+                
+        <item> Windhoek </item>
+                
+        <item> Brazavi </item>
+                
+        <item> Amman, Jordan </item>
+                
+        <item> Isztambul </item>
+                
+        <item> Bejrút </item>
+                
+        <item> Cairo </item>
+
+                
+        <item> Helsinki </item>
+                
+        <item> Jeruzsálem </item>
+                
+        <item> Minsk </item>
+                
+        <item> Harare </item>
+                
+        <item> Bagdad </item>
+                
+        <item> Moszkva </item>
+                
+        <item> Kuvait </item>
+                
+        <item> Nairobi </item>
+                
+        <item> Teherán </item>
+                
+        <item> Baku </item>
+
+                
+        <item> Tbiliszi </item>
+                
+        <item> Yerevan </item>
+                
+        <item> Dubai </item>
+                
+        <item> Kabul </item>
+                
+        <item> Iszlámábád </item>
+                
+        <item> Ural </item>
+                
+        <item> Jekatyerinburg </item>
+                
+        <item> Kolkata </item>
+                
+        <item> Sri Lanka </item>
+                
+        <item> Kathmandu </item>
+
+                
+        <item> Astana </item>
+                
+        <item> Yangon </item>
+                
+        <item> Krasnoyarsk </item>
+                
+        <item> Bangkok </item>
+                
+        <item> Kína szabványos idő </item>
+                
+        <item> Hong Kong </item>
+                
+        <item> Irkutsk </item>
+                
+        <item> Kuala Lumpur </item>
+                
+        <item> Perth </item>
+                
+        <item> Taipei </item>
+
+                
+        <item> Szöul </item>
+                
+        <item> Tokyo </item>
+                
+        <item> Jakutszki </item>
+                
+        <item> Adelaide </item>
+                
+        <item> Darwin </item>
+                
+        <item> Brisbane </item>
+                
+        <item> Hobart </item>
+                
+        <item> Sydney, Canberra </item>
+                
+        <item> Vlagyivosztok </item>
+                
+        <item> Guam </item>
+
+                
+        <item> Magadan </item>
+                
+        <item> Auckland </item>
+                
+        <item> Fiji </item>
+                
+        <item> Tongatapu </item>
+    </string-array>
+    <string name="Long"> hosszú </string>
+    <string name="Start">kezdődik</string>
+    <string msgid="4600421777120114993" name="abc_action_bar_home_description">"Ugrás a főoldalra"</string>
+    <string msgid="1594238315039666878" name="abc_action_bar_up_description">"Felfelé mozgatás"</string>
+    <string msgid="3588849162933574182" name="abc_action_menu_overflow_description">"További lehetőségek"</string>
+    <string msgid="4076576682505996667" name="abc_action_mode_done">"Kész"</string>
+    <string msgid="7468859129482906941" name="abc_activity_chooser_view_see_all">"Összes megtekintése"</string>
+    <string msgid="2031811694353399454" name="abc_activitychooserview_choose_application">"Válasszon ki egy alkalmazást"</string>
+    <string msgid="121134116657445385" name="abc_capital_off">"KI"</string>
+    <string msgid="3405795526292276155" name="abc_capital_on">"BE"</string>
+    <string msgid="7723749260725869598" name="abc_search_hint">"Keresés…"</string>
+    <string msgid="3691816814315814921" name="abc_searchview_description_clear">"Lekérdezés törlése"</string>
+    <string msgid="2550479030709304392" name="abc_searchview_description_query">"Keresési lekérdezés"</string>
+    <string msgid="8264924765203268293" name="abc_searchview_description_search">"Keresés"</string>
+    <string msgid="8928215447528550784" name="abc_searchview_description_submit">"Lekérdezés küldése"</string>
+    <string msgid="893419373245838918" name="abc_searchview_description_voice">"Hangalapú keresés"</string>
+    <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"Megosztás a következővel:"</string>
+    <string msgid="3300176832234831527" name="abc_shareactionprovider_share_with_application">"Megosztás a következő alkalmazással: <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
+    <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"Összecsukás"</string>
+    <string name="app_name">beállítása</string>
+    <string name="btn_clear_cache">清除缓存</string>
+    <string name="btn_clear_data">清除数据</string>
+    <string name="clear"> clear </string>
+    <string name="date">yyyy-MM-dd</string>
+    <string name="day_hint"> day </string>
+    <string name="device_info"> eszközinformációk </string>
+    <string name="device_restart"> újraindítás %1$d s </string>
+    <string name="device_restarts"> újraindítás 5s után </string>
+    <string name="dialog_0">0</string>
+    <string name="dialog_1">1</string>
+    <string name="dialog_2">2</string>
+    <string name="dialog_3">3</string>
+    <string name="dialog_4">4</string>
+    <string name="dialog_5">5</string>
+    <string name="dialog_6">6</string>
+    <string name="dialog_7">7</string>
+    <string name="dialog_8">8</string>
+    <string name="dialog_9">9</string>
+    <string name="dialog_connect"> OK </string>
+    <string name="dialog_default"> videó visszafordítása, két ujjal nyomja meg a képernyőt 3 másodpercig, hogy előhívja az áttetsző blokk inverz beállítás, fényerő, kontraszt, telítettség pont beállítás vagy működő külső váz 3 másodpercig állítjuk doboz eltűnik. </string>
+    <string name="dialog_prompt"> Menteni szeretné, mint egyéni? </string>
+    <string name="dialog_restore"> Biztosan visszaállítja a gyári beállításokat? </string>
+    <string name="dialog_restore_default"> Biztosan vissza szeretné állítani az alapértelmezett beállításokat? </string>
+    <string name="dialog_restore_defaults"> Biztosan visszaállítja a gyári beállításokat? </string>
+    <string name="dialog_tab_restart"> Biztosan újraindul? </string>
+    <string name="dialog_title"> Műveleti leírás </string>
+    <string name="end"> end </string>
+    <string name="hour_hint"> amikor </string>
+    <string name="key_name_am">AM</string>
+    <string name="key_name_aux">AUX</string>
+    <string name="key_name_back">Back</string>
+    <string name="key_name_btmusic">BTMusic</string>
+    <string name="key_name_clear">Clear</string>
+    <string name="key_name_decrease_volum">Volum-</string>
+    <string name="key_name_end">End</string>
+    <string name="key_name_fm">FM</string>
+    <string name="key_name_gps">Navi</string>
+    <string name="key_name_hold">Hold</string>
+    <string name="key_name_home">Home</string>
+    <string name="key_name_hungup">HungUp</string>
+    <string name="key_name_increase_volum">Volum+</string>
+    <string name="key_name_long">Long</string>
+    <string name="key_name_menu">App</string>
+    <string name="key_name_mode">Mode</string>
+    <string name="key_name_music">Music</string>
+    <string name="key_name_mute">Mute</string>
+    <string name="key_name_next">Next</string>
+    <string name="key_name_power">Power</string>
+    <string name="key_name_pre">Pre</string>
+    <string name="key_name_search">Search</string>
+    <string name="key_name_settings">Settings</string>
+    <string name="key_name_short">Short</string>
+    <string name="key_name_start">Start</string>
+    <string name="key_name_vedio">Vedio</string>
+    <string name="label_12_hour_system"> 12 órás rendszer </string>
+    <string name="label_24_hour_system"> 24 órás rendszer </string>
+    <string name="label_CAN_version_number"> CAN verziószáma: </string>
+    <string name="label_Language_switching"> nyelvkapcsoló </string>
+    <string name="label_MCU_version_number"> MCU verziószáma: </string>
+    <string name="label_Waiting"> stb. </string>
+    <string name="label_adjust"> Automatikusan állítsa be az órát </string>
+    <string name="label_adjust_off"> bezár </string>
+    <string name="label_adjust_open"> Nyitott </string>
+    <string name="label_android_version"> Android verzió: </string>
+    <string name="label_bass"> Bass </string>
+    <string name="label_date"> dátum </string>
+    <string name="label_identifier"> Azonosító: </string>
+    <string name="label_kernel_version"> kernelverzió: </string>
+    <string name="label_midrange"> alt </string>
+    <string name="label_off"> ki </string>
+    <string name="label_open"> nyitott </string>
+    <string name="label_restore_default"> Alapértelmezett beállítások visszaállítása </string>
+    <string name="label_system_version_number"> Rendszer verziószáma: </string>
+    <string name="label_time"> time </string>
+    <string name="label_time_system"> Válassza ki az időformátumot </string>
+    <string name="label_time_zone"> Időzóna beállításai </string>
+    <string name="label_treble"> treble </string>
+    <string name="label_upgrade_update"> Frissítésfrissítés </string>
+    <string name="label_wrong_password"> Jelszóhiba </string>
+    <string name="minute_hint"> perc </string>
+    <string name="month_hint"> hónap </string>
+    <string name="nonull">Az éjszakai fényerő nem haladhatja meg a nappali fényerőt</string>
+    <string name="password"> A jelszó nem lehet kevesebb, mint 8 bit </string>
+    <string name="rbtn_chinese">中文（简体）</string>
+    <string name="rbtn_chinese_">中文（繁体）</string>
+    <string name="rbtn_english">English</string>
+    <string msgid="146198913615257606" name="search_menu_title">"Keresés"</string>
+    <string name="shorts"> short </string>
+    <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="str_eq_volume">音量</string>
+    <string name="str_honda_dsp_low">次通道</string>
+    <string name="str_honda_dsp_mid">混通道</string>
+    <string name="str_honda_dsp_off">主通道</string>
+    <string name="str_scanning"> szkennelés </string>
+    <string name="str_settings_wheel_band"> sáv </string>
+    <string name="str_settings_wheel_begin"> start </string>
+    <string name="str_settings_wheel_bt"> Bluetooth </string>
+    <string name="str_settings_wheel_enter_learning"> megadta a tanulási állapotot </string>
+    <string name="str_settings_wheel_exit_learning"> elhagyta a tanulási állapotot </string>
+    <string name="str_settings_wheel_finish"> Teljes </string>
+    <string name="str_settings_wheel_hung"> válasz / felakasztása </string>
+    <string name="str_settings_wheel_info_tips"> Kattintson a [Start] gombra a </string>
+    <string name="str_settings_wheel_learn_error"> tanulási hiba </string>
+    <string name="str_settings_wheel_learn_success"> tanulási siker </string>
+    <string name="str_settings_wheel_mode"> mód </string>
+    <string name="str_settings_wheel_mute"> némítás </string>
+    <string name="str_settings_wheel_navigation"> Navigáció </string>
+    <string name="str_settings_wheel_next"> Következő </string>
+    <string name="str_settings_wheel_power"> power </string>
+    <string name="str_settings_wheel_prev"> előző </string>
+    <string name="str_settings_wheel_reset"> reset </string>
+    <string name="str_settings_wheel_title"> Kattintson a Start első click interface gombra, majd kattintson a megfelelő oldalon gombok, minden tanulási kattintás után vége </string>
+    <string name="str_settings_wheel_touch_key"> Nyomja meg a vezérlőgombot </string>
+    <string name="str_settings_wheel_type"> rövid sajtó </string>
+    <string name="str_settings_wheel_voice"> hang </string>
+    <string name="str_settings_wheel_vol_dec"> Hangerő - </string>
+    <string name="str_settings_wheel_vol_inc"> kötet + </string>
+    <string name="str_sound_7">7</string>
+    <string name="str_sound_negative_7">-7</string>
+    <string name="str_tx_dsp_asl">通道</string>
+    <string name="str_tx_dsp_bass">低音</string>
+    <string name="str_tx_dsp_dbb">响度</string>
+    <string name="str_tx_dsp_mid">中音</string>
+    <string name="str_tx_dsp_surround">静音</string>
+    <string name="str_tx_dsp_tre">高音</string>
+    <string name="system"> rendszer </string>
+    <string name="system_info"> Rendszerinformációk </string>
+    <string name="tab_about_normal"> bal és jobb oldali tükör </string>
+    <string name="tab_am"> reggeli </string>
+    <string name="tab_android_system"> Android beállítások </string>
+    <string name="tab_bluetooth">Bluetooth</string>
+    <string name="tab_cache">储存空间</string>
+    <string name="tab_clean_up"> javítás befejeződött </string>
+    <string name="tab_cleaning_up"> tisztítás ..... </string>
+    <string name="tab_display">kijelző</string>
+    <string name="tab_factory_setting"> gyári beállítások </string>
+    <string name="tab_key_learning"> Pártvezérelt tanulás </string>
+    <string name="tab_mirror_normal"> normál kép </string>
+    <string name="tab_model_selection"> modellkiválasztás </string>
+    <string name="tab_navigation">navigáció</string>
+    <string name="tab_on">tovább</string>
+    <string name="tab_pm"> délután </string>
+    <string name="tab_prohibit_video_while_driving"> A videofelvétel kikapcsolása vezetés közben </string>
+    <string name="tab_proportion_mixing"> Navigációs keverési arány </string>
+    <string name="tab_reset"> reset </string>
+    <string name="tab_reset_system"> gyári beállítások visszaállítása </string>
+    <string name="tab_restart"> újraindítás </string>
+    <string name="tab_reverse_display"> a kijelző hatásának módosítása </string>
+    <string name="tab_reversing_mirror"> fordított kép </string>
+    <string name="tab_software_navigation"> Navigációs szoftver </string>
+    <string name="tab_sound_effect">Hanghatás</string>
+    <string name="tab_sound_mixing"> Navigációs keverés </string>
+    <string name="tab_sound_mode"> EQ mód </string>
+    <string name="tab_suspension_Setting"> Hover gomb beállításai </string>
+    <string name="tab_suspension_driving"> Hover gombkapcsoló </string>
+    <string name="tab_switch_mixing"> Navigációs keverő kapcsoló </string>
+    <string name="tab_system">rendszer</string>
+    <string name="tab_system_cleanup"> rendszer tisztítása </string>
+    <string name="tab_time">idő</string>
+    <string name="tab_touch_tone"> gomb hangja </string>
+    <string name="tab_up_down_left_right_normal"> Fel és le tükrözés </string>
+    <string name="tab_up_down_normal"> Fel és le tükrözés </string>
+    <string name="tab_vehicle">jármű</string>
+    <string name="tab_wifi">WIFI</string>
+    <string name="tab_wifi_spot">wifi热点</string>
+    <string name="time_12_24"> 24 </string>
+    <string name="title_automatic"> A fényerő automatikus beállítása </string>
+    <string name="title_dimming_day"> napi fényerő beállítása </string>
+    <string name="title_dimming_night"> éjszakai fényerő beállítása </string>
+    <string name="toast_wifi_open"> A rendelkezésre álló hálózatok megtekintéséhez nyissa meg a WIFI </string>
+    <string name="tv_back"> return </string>
+    <string name="tv_closed"> bezár </string>
+    <string name="tv_home"> kezdőképernyő </string>
+    <string name="tv_open"> Nyitott </string>
+    <string name="tv_power"> kikapcsolt képernyő </string>
+    <string name="tv_setting_available"> Elérhető eszközök </string>
+    <string name="tv_setting_bluetooth"> Bluetooth </string>
+    <string name="tv_setting_check"> az észlelés bekapcsolása </string>
+    <string name="tv_setting_check_"> be van kapcsolva, csak az engedélyezett párosított eszköz észlelése </string>
+    <string name="tv_setting_check_des"> ki van kapcsolva, csak engedélyezett párosított eszköz észlelése </string>
+    <string name="tv_setting_close"> bezár </string>
+    <string name="tv_setting_del_all"> összes </string>
+    <string name="tv_setting_name"> Helyi Bluetooth </string>
+    <string name="tv_setting_pair"> párosított eszköz </string>
+    <string name="tv_setting_search_ing"> Eszközök keresése ... </string>
+    <string name="tv_setting_start_search"> indítsa el a keresést </string>
+    <string name="tv_setting_update_name"> a név nem lehet üres </string>
+    <string name="tv_vioce_add"> kötet plusz </string>
+    <string name="tv_vioce_dec"> Hangerő mínusz </string>
+    <string name="txt_classical"> klasszikus </string>
+    <string name="txt_customize"> egyedi </string>
+    <string name="txt_jazz"> Jazz </string>
+    <string name="txt_ock"> rock </string>
+    <string name="txt_popular"> pop </string>
+    <string name="txt_standard"> standard </string>
+    <string name="version_info"> verzióinformációk </string>
+    <string name="wifi">WIFI</string>
+    <string name="wifi_add_network"> hálózati hozzáadása </string>
+    <string name="wifi_error"> wifi set fail </string>
+    <string name="wifi_scan"> szkennelés </string>
+    <string name="wifi_text_authentication"> hitelesítés </string>
+    <string name="wifi_text_cancel"> törlés </string>
+    <string name="wifi_text_connect"> kapcsolat </string>
+    <string name="wifi_text_disconnect"> szétkapcsolás </string>
+    <string name="wifi_text_disconnected"> leválasztva </string>
+    <string name="wifi_text_forget"> elfelejtett </string>
+    <string name="wifi_text_modify"> módosítsa </string>
+    <string name="wifi_text_name"> név </string>
+    <string name="wifi_text_name_input"> Kérjük, adja meg az SSID </string>
+    <string name="wifi_text_need_password"> jelszó szükséges </string>
+    <string name="wifi_text_not_enabled"> nincs engedélyezve </string>
+    <string name="wifi_text_obtain_an_IP_address"> Get IP address </string>
+    <string name="wifi_text_password"> Kérjük, adjon meg egy </string>
+    <string name="wifi_text_saved"> mentett AP-ek a hatókörben </string>
+    <string name="wifi_text_scan"> Keresett AP </string>
+    <string name="wifi_text_show_password"> jelszó megjelenítése </string>
+    <string name="wifi_text_state_authenticating"> azonosítási hitelesítés </string>
+    <string name="wifi_text_state_connected"> csatlakoztatva </string>
+    <string name="wifi_text_state_connecting"> csatlakozik </string>
+    <string name="wifi_text_state_disconnected"> leválasztva </string>
+    <string name="wifi_text_state_disconnecting"> leválasztja a </string>
+    <string name="wifi_text_state_failed"> kapcsolat sikertelen </string>
+    <string name="wifi_text_state_none"> </string>
+    <string name="wifi_text_state_obtaining_ipaddr"> A cím elérése </string>
+    <string name="wifi_text_wifi_connected"> csatlakoztatva </string>
+    <string name="wifi_text_wifi_saved"> mentett </string>
+    <string name="year_hint"> év </string>
+</resources>
