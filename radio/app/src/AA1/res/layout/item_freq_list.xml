@@ -12,7 +12,7 @@
         android:orientation="horizontal"
         android:id="@+id/mLinearLayout"
         android:background="@color/rty"
-        android:layout_margin="15dp"
+        android:layout_margin="11px"
         android:layout_marginLeft="@dimen/px15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -23,7 +23,7 @@
             android:textColor="@color/white"
             android:text="@string/am2"
             android:layout_marginLeft="@dimen/px15"
-            android:textSize="@dimen/px20"
+            android:textSize="@dimen/px25"
             android:gravity="left|center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -34,7 +34,7 @@
             android:textColor="@color/white"
             android:text="@string/am2"
             android:visibility="gone"
-            android:textSize="@dimen/px20"
+            android:textSize="@dimen/px25"
             android:gravity="left|center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -44,7 +44,7 @@
             android:id="@+id/tv_freq"
             android:textColor="@color/white"
             android:text="@string/am2"
-            android:textSize="@dimen/px20"
+            android:textSize="@dimen/px25"
             android:gravity="left|center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

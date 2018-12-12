@@ -4,6 +4,7 @@
     <dimen name="font_text_48_size">24.0sp</dimen>
     <dimen name="px60">60px</dimen>
     <dimen name="px20">20px</dimen>
+    <dimen name="px25">25px</dimen>
     <dimen name="px15">15px</dimen>
     <dimen name="px30">30px</dimen>
     <dimen name="px70">70px</dimen>
@@ -14,4 +15,5 @@
     <dimen name="px18">18px</dimen>
     <dimen name="px90">90px</dimen>
     <dimen name="px80">80px</dimen>
+    <dimen name="px16">16px</dimen>
 </resources>
