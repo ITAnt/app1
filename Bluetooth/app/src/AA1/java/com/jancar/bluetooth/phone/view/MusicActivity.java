@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.RemoteException;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -25,10 +26,12 @@ import com.jancar.bluetooth.phone.util.ApplicationUtil;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.TimeUtil;
 import com.jancar.bluetooth.phone.util.ToastUtil;
+import com.jancar.bluetooth.phone.widget.CircleImageView;
 import com.jancar.bluetooth.phone.widget.ConnectDialog;
 import com.jancar.bluetooth.phone.widget.MarqueeTextView;
 import com.jancar.key.KeyDef;
 import com.jancar.key.keyFocuser;
+import com.jancar.media.JacMediaSession;
 import com.ui.mvp.view.BaseActivity;
 
 import static com.jancar.key.KeyDef.KeyAction.KEY_ACTION_UP;
@@ -38,7 +41,7 @@ import static com.jancar.key.KeyDef.KeyAction.KEY_ACTION_UP;
  * @author Tzq
  * @date 2018-9-4 16:00:22
  */
-public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicContract.View> implements MusicContract.View, View.OnClickListener, BTMusicListener, BTConnectStatusListener, BluetoothRequestFocus.BackCarListener {
+public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicContract.View> implements MusicContract.View, View.OnClickListener, BTMusicListener, BTConnectStatusListener, BluetoothRequestFocus.BackCarListener, JacMediaSessionUtils.KeyEventListener {
 
     private static final String TAG = "MusicActivity";
     private static final int MSG_INIT_OK = 0;
@@ -58,9 +61,8 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     MarqueeTextView tvTitle;
     MarqueeTextView tvAlbum;
     MarqueeTextView tvArtist;
-    //    CircleImageView circleImageView;
+//    CircleImageView circleImageView;
     private boolean isPlay = false;
-    //    private RegisterMediaSession registerMediaSession;
     private BluetoothRequestFocus bluetoothRequestFocus;
     private boolean isConnect;
     private boolean isResume;
@@ -69,44 +71,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
 
     private JancarManager jancarManager;
     public ToastUtil mToast;
-    keyFocuser keyFocusListener = new keyFocuser() {
-        @Override
-        public boolean OnKeyEvent(int key, int state) {
-            boolean bRet = true;
-            try {
-                KeyDef.KeyType keyType = KeyDef.KeyType.nativeToType(key);
-                KeyDef.KeyAction keyAction = KeyDef.KeyAction.nativeToType(state);
-                if (keyAction == KEY_ACTION_UP) {
-                    switch (keyType) {
-                        case KEY_PREV:
-                            bluetoothManager.prev();
-                            break;
-                        case KEY_NEXT:
-                            bluetoothManager.next();
-                            break;
-                        case KEY_PAUSE:
-                            Log.e(TAG, "KEY_PAUSE===");
-                            bluetoothManager.pause();
-                            break;
-                        case KEY_PLAY:
-                            bluetoothManager.play();
-                            break;
-                        default:
-                            bRet = false;
-                            break;
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return bRet;
-        }
-
-        @Override
-        public void OnKeyFocusChange(int i) {
-
-        }
-    };
+    JacMediaSession jacMediaSession;
 
     @SuppressLint("WrongConstant")
     @Override
@@ -115,6 +80,42 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         Log.e(TAG, "onCreate===");
         setContentView(R.layout.activity_music);
         mToast = new ToastUtil(this);
+        jacMediaSession = new JacMediaSession(this) {
+            @Override
+            public boolean OnKeyEvent(int key, int state) throws RemoteException {
+                boolean bRet = true;
+                try {
+                    KeyDef.KeyType keyType = KeyDef.KeyType.nativeToType(key);
+                    KeyDef.KeyAction keyAction = KeyDef.KeyAction.nativeToType(state);
+                    bRet = true;
+                    switch (keyType) {
+                        case KEY_PREV:
+                            if (keyAction == KEY_ACTION_UP)
+                                bluetoothManager.prev();
+                            break;
+                        case KEY_NEXT:
+                            if (keyAction == KEY_ACTION_UP)
+                                bluetoothManager.next();
+                            break;
+                        case KEY_PAUSE:
+                            Log.e(TAG, "KEY_PAUSE===");
+                            if (keyAction == KEY_ACTION_UP)
+                                bluetoothManager.pause();
+                            break;
+                        case KEY_PLAY:
+                            if (keyAction == KEY_ACTION_UP)
+                                bluetoothManager.play();
+                            break;
+                        default:
+                            bRet = false;
+                            break;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return bRet;
+            }
+        };
         initView();
         jancarManager = (JancarManager) getSystemService(JancarManager.JAC_SERVICE);
     }
@@ -123,7 +124,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     protected void onStart() {
         Log.e(TAG, "onStart===");
         super.onStart();
-        jancarManager.requestKeyFocus(keyFocusListener.asBinder());
+        jacMediaSession.setActive(true);
     }
 
     @Override
@@ -133,6 +134,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         registerListener();
         BluetoothRequestFocus.HandPaused = false;
         isConnect = bluetoothRequestFocus.isBTConnect();
+        Log.e(TAG, "isConnect==onResume==" + isConnect);
         isResume = true;
         if (!isConnect) {
             showDialog();
@@ -171,10 +173,9 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         BluetoothRequestFocus.HandPaused = false;
         bluetoothRequestFocus.setBackCarListener(null);
         bluetoothRequestFocus.releaseAudioFocus();
-//        registerMediaSession.releaseMediaButton();
         bluetoothManager.unRegisterBTMusicListener();
         bluetoothManager.setBTConnectStatusListener(null);
-        jancarManager.abandonKeyFocus(keyFocusListener.asBinder());
+        jacMediaSession.setActive(false);
     }
 
     private void initView() {
@@ -215,15 +216,10 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
 
     private void registerListener() {
         bluetoothRequestFocus = BTUIService.bluetoothRequestFocus;
-//        registerMediaSession = BTUIService.registerMediaSession;
         if (bluetoothRequestFocus == null) {
             bluetoothRequestFocus = BluetoothRequestFocus.getBluetoothRequestFocusStance(this);
         }
-//        if (registerMediaSession == null) {
-//            registerMediaSession = new RegisterMediaSession(this, bluetoothManager);
-//        }
-//        Log.e("MusicActivity", "registerMediaSession===" + registerMediaSession);
-//        registerMediaSession.requestMediaButton();
+
         bluetoothManager.registerBTMusicListener(this);
 
         bluetoothManager.setBTConnectStatusListener(this);
@@ -294,6 +290,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                     Log.e(TAG, "MSG_UI_REFRESH_PLAY_STATE===");
                     BluetoothMusicData blueMusicStatus = (BluetoothMusicData) msg.obj;
                     updatePlaybackStatus(blueMusicStatus.getPlay_status(), blueMusicStatus.getSong_len(), blueMusicStatus.getSong_pos());
+
                     break;
             }
         }
@@ -320,6 +317,8 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         if (!TextUtils.isEmpty(album.trim())) {
             tvAlbum.setText(album);
         }
+        jacMediaSession.notifyPlayUri(title);
+        jacMediaSession.notifyId3(title, artist, album, null);
     }
 
     /**
@@ -333,6 +332,8 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
 
     private void updatePlaybackStatus(byte play_status, int song_len, int song_pos) {
         Log.e(TAG, "updatePlaybackStatus===" + play_status);
+        jacMediaSession.notifyPlayState(play_status);
+        jacMediaSession.notifyProgress(song_pos, song_len);
         int btStatus = bluetoothRequestFocus.getCurrentBTStatus();
         switch (play_status) {
             case BluetoothManager.MUSIC_STATE_PLAY:
@@ -645,5 +646,23 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     public void onLowMemory() {
         super.onLowMemory();
         Log.e(TAG, "onLowMemory===");
+    }
+
+    @Override
+    public void keyCallBack(int keyType) {
+        switch (keyType) {
+            case 0:
+                bluetoothManager.prev();
+                break;
+            case 1:
+                bluetoothManager.next();
+                break;
+            case 2:
+                bluetoothManager.pause();
+                break;
+            case 3:
+                bluetoothManager.play();
+                break;
+        }
     }
 }

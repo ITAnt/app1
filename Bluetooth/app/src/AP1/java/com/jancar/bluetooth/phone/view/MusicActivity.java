@@ -87,26 +87,29 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                 try {
                     KeyDef.KeyType keyType = KeyDef.KeyType.nativeToType(key);
                     KeyDef.KeyAction keyAction = KeyDef.KeyAction.nativeToType(state);
-                    if (keyAction == KEY_ACTION_UP) {
+                    bRet = true;
                         switch (keyType) {
                             case KEY_PREV:
+                                if (keyAction == KEY_ACTION_UP)
                                 bluetoothManager.prev();
                                 break;
                             case KEY_NEXT:
+                                if (keyAction == KEY_ACTION_UP)
                                 bluetoothManager.next();
                                 break;
                             case KEY_PAUSE:
                                 Log.e(TAG, "KEY_PAUSE===");
+                                if (keyAction == KEY_ACTION_UP)
                                 bluetoothManager.pause();
                                 break;
                             case KEY_PLAY:
+                                if (keyAction == KEY_ACTION_UP)
                                 bluetoothManager.play();
                                 break;
                             default:
                                 bRet = false;
                                 break;
                         }
-                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
