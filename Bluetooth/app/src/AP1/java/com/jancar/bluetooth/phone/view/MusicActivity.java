@@ -68,6 +68,10 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     private boolean isResume;
     private ConnectDialog connectDialog;
     private int saveConnect = Constants.BT_CONNECT_IS_NONE;
+    private static final int KEYTYPE_PREV = 40;
+    private static final int KEYTYPE_NEXT = 41;
+    private static final int KEYTYPE_PAUSE = 42;
+    private static final int KEYTYPE_PLAY = 43;
 
     private JancarManager jancarManager;
     public ToastUtil mToast;
@@ -88,28 +92,28 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                     KeyDef.KeyType keyType = KeyDef.KeyType.nativeToType(key);
                     KeyDef.KeyAction keyAction = KeyDef.KeyAction.nativeToType(state);
                     bRet = true;
-                        switch (keyType) {
-                            case KEY_PREV:
-                                if (keyAction == KEY_ACTION_UP)
-                                bluetoothManager.prev();
-                                break;
-                            case KEY_NEXT:
-                                if (keyAction == KEY_ACTION_UP)
-                                bluetoothManager.next();
-                                break;
-                            case KEY_PAUSE:
-                                Log.e(TAG, "KEY_PAUSE===");
-                                if (keyAction == KEY_ACTION_UP)
-                                bluetoothManager.pause();
-                                break;
-                            case KEY_PLAY:
-                                if (keyAction == KEY_ACTION_UP)
-                                bluetoothManager.play();
-                                break;
-                            default:
-                                bRet = false;
-                                break;
-                        }
+                    switch (keyType) {
+                        case KEY_PREV:
+                            if (keyAction == KEY_ACTION_UP)
+                                handler.sendEmptyMessage(KEYTYPE_PREV);
+                            break;
+                        case KEY_NEXT:
+                            if (keyAction == KEY_ACTION_UP)
+                                handler.sendEmptyMessage(KEYTYPE_NEXT);
+                            break;
+                        case KEY_PAUSE:
+                            Log.e(TAG, "KEY_PAUSE===");
+                            if (keyAction == KEY_ACTION_UP)
+                                handler.sendEmptyMessage(KEYTYPE_PAUSE);
+                            break;
+                        case KEY_PLAY:
+                            if (keyAction == KEY_ACTION_UP)
+                                handler.sendEmptyMessage(KEYTYPE_PLAY);
+                            break;
+                        default:
+                            bRet = false;
+                            break;
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -592,6 +596,18 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                         bluetoothRequestFocus.setCurrentBTStatus(BluetoothRequestFocus.BT_IDL);
 
                     }
+                    break;
+                case KEYTYPE_PREV:
+                    bluetoothManager.prev();
+                    break;
+                case KEYTYPE_NEXT:
+                    bluetoothManager.next();
+                    break;
+                case KEYTYPE_PAUSE:
+                    bluetoothManager.pause();
+                    break;
+                case KEYTYPE_PLAY:
+                    bluetoothManager.play();
                     break;
             }
         }

@@ -61,7 +61,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     MarqueeTextView tvTitle;
     MarqueeTextView tvAlbum;
     MarqueeTextView tvArtist;
-//    CircleImageView circleImageView;
+    //    CircleImageView circleImageView;
     private boolean isPlay = false;
     private BluetoothRequestFocus bluetoothRequestFocus;
     private boolean isConnect;
@@ -91,20 +91,42 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
                     switch (keyType) {
                         case KEY_PREV:
                             if (keyAction == KEY_ACTION_UP)
-                                bluetoothManager.prev();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        bluetoothManager.prev();
+                                    }
+                                });
                             break;
                         case KEY_NEXT:
                             if (keyAction == KEY_ACTION_UP)
-                                bluetoothManager.next();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        bluetoothManager.next();
+                                    }
+                                });
+
                             break;
                         case KEY_PAUSE:
                             Log.e(TAG, "KEY_PAUSE===");
                             if (keyAction == KEY_ACTION_UP)
-                                bluetoothManager.pause();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        bluetoothManager.pause();
+                                    }
+                                });
+
                             break;
                         case KEY_PLAY:
                             if (keyAction == KEY_ACTION_UP)
-                                bluetoothManager.play();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        bluetoothManager.play();
+                                    }
+                                });
                             break;
                         default:
                             bRet = false;
