@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string msgid="4600421777120114993" name="abc_action_bar_home_description">"التنقل إلى الشاشة الرئيسية"</string>
+    <string msgid="1397052879051804371" name="abc_action_bar_home_description_format">"%1$s، %2$s"</string>
+    <string msgid="6623331958280229229" name="abc_action_bar_home_subtitle_description_format">"%1$s، %2$s، %3$s"</string>
+    <string msgid="1594238315039666878" name="abc_action_bar_up_description">"التنقل إلى أعلى"</string>
+    <string msgid="3588849162933574182" name="abc_action_menu_overflow_description">"خيارات إضافية"</string>
+    <string msgid="4076576682505996667" name="abc_action_mode_done">"تم"</string>
+    <string msgid="7468859129482906941" name="abc_activity_chooser_view_see_all">"عرض الكل"</string>
+    <string msgid="2031811694353399454" name="abc_activitychooserview_choose_application">"اختيار تطبيق"</string>
+    <string msgid="121134116657445385" name="abc_capital_off">"إيقاف"</string>
+    <string msgid="3405795526292276155" name="abc_capital_on">"تشغيل"</string>
+    <string msgid="7723749260725869598" name="abc_search_hint">"بحث…"</string>
+    <string msgid="3691816814315814921" name="abc_searchview_description_clear">"محو طلب البحث"</string>
+    <string msgid="2550479030709304392" name="abc_searchview_description_query">"طلب البحث"</string>
+    <string msgid="8264924765203268293" name="abc_searchview_description_search">"بحث"</string>
+    <string msgid="8928215447528550784" name="abc_searchview_description_submit">"إرسال طلب البحث"</string>
+    <string msgid="893419373245838918" name="abc_searchview_description_voice">"البحث الصوتي"</string>
+    <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"مشاركة مع"</string>
+    <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"‏مشاركة مع %s"</string>
+    <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"تصغير"</string>
+    <string name="app_name">إعدادات البلوتوث</string>
+    <string name="calling_hangup">قطع الاتصال</string>
+    <string name="calling_keypad">لوحة المفاتيح</string>
+    <string name="calling_phone">الهاتف المحمول</string>
+    <string name="calling_vehicle">سيارة</string>
+    <string name="dial_show_voice">حجم كتم</string>
+    <string msgid="146198913615257606" name="search_menu_title">"البحث"</string>
+    <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"+999"</string>
+    <string name="str_phone_missed">مكالمة واردة</string>
+    <string name="str_phone_mobile">متحرك</string>
+    <string name="str_phone_name">غير معروف</string>
+    <string name="str_phone_outgoing">...في المكالمة</string>
+    <string name="str_phone_telecom">الاتصالات السلكية و اللاسلكية</string>
+    <string name="str_phone_unicom">صلة</string>
+    <string name="str_phone_unkonow">رقم غير معروف</string>
+    <string name="tv_bluet_music">BtMusic</string>
+    <string name="tv_bt_connect_is_close">بلوتوث معطلة</string>
+    <string name="tv_bt_connect_is_none">غير متصل</string>
+    <string name="tv_call_number_empty">لا يمكن أن يكون الرقم فارغًا</string>
+    <string name="tv_cancel">موافق</string>
+    <string name="tv_confirm">إلغاء</string>
+    <string name="tv_contact_empty">بيانات جهة الاتصال فارغة</string>
+    <string name="tv_contact_search">بحث</string>
+    <string name="tv_dial_contact">يرجى مزامنة جهات الاتصال أولاً</string>
+    <string name="tv_dial_no_contact">لا اتصال</string>
+    <string name="tv_equiment_bluetooth">ضبط Bluetooth</string>
+    <string name="tv_equiment_history_adress">عنوان البلوتوث غير صالح</string>
+    <string name="tv_equipment_conn">صلة</string>
+    <string name="tv_equipment_disconn">قطع</string>
+    <string name="tv_equipment_myequip">جهازي</string>
+    <string name="tv_equipment_other">معدات أخرى</string>
+    <string name="tv_main_keypad">لوحة المفاتيح</string>
+    <string name="tv_main_records">سجل المكالمات</string>
+    <string name="tv_mian_contact">الاتصال بـ</string>
+    <string name="tv_mian_mange">إدارة المعدات</string>
+    <string name="tv_no">لا</string>
+    <string name="tv_record_empty">بيانات جهة الاتصال فارغة</string>
+    <string name="tv_record_error">مزامنة سجل المكالمات خطأ</string>
+    <string name="tv_record_log">سجل المكالمات فارغ</string>
+    <string name="tv_syn_contact">هل تحتاج لمزامنة جهات الاتصال الخاصة بك</string>
+    <string name="tv_syn_record">يرجى مزامنة سجل المكالمات</string>
+    <string name="tv_syning_contact">تحميل دليل الهاتف الآن، من فضلك انتظر ...</string>
+    <string name="tv_syning_record">تحميل تاريخ الدعوة الآن، من فضلك انتظر ...</string>
+    <string name="tv_tip_down">تحميل …</string>
+    <string name="tv_title_tip">غير متصل ، تحتاج إلى الاتصال بلوتو</string>
+    <string name="tv_yes">نعم</string>
+</resources>
