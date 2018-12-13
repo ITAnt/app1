@@ -65,6 +65,7 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
     private String tcTitle4;
     private String tcTitle5;
     private int Flag = 0;
+    private boolean bPhoneState;
 
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
@@ -105,6 +106,7 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
         public void OnPhone(boolean bState) {
             super.OnPhone(bState);
             Log.e("OverlayMenuService", "OnPhone===");
+            bPhoneState = bState;
             if (bState) {
                 mainCenterButton.setVisibility(View.GONE);
             } else {
@@ -119,7 +121,11 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
             if (bState) {
                 mainCenterButton.setVisibility(View.GONE);
             } else {
-                mainCenterButton.setVisibility(View.VISIBLE);
+                if (!bPhoneState) {
+                    mainCenterButton.setVisibility(View.VISIBLE);
+                } else {
+                    mainCenterButton.setVisibility(View.GONE);
+                }
             }
         }
     };
@@ -251,6 +257,7 @@ public class OverlayMenuService extends Service implements View.OnClickListener 
         jancarManager.registerJacStateListener(jacState.asBinder());
 
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void startServiceForeground() {
         Log.e(TAG, "startServiceForeground==");
