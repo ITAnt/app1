@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.jancar.JancarManager;
 import com.jancar.bluetooth.Listener.BTConnectStatusListener;
 import com.jancar.bluetooth.Listener.BTMusicListener;
 import com.jancar.bluetooth.lib.BluetoothManager;
@@ -26,11 +25,9 @@ import com.jancar.bluetooth.phone.util.ApplicationUtil;
 import com.jancar.bluetooth.phone.util.Constants;
 import com.jancar.bluetooth.phone.util.TimeUtil;
 import com.jancar.bluetooth.phone.util.ToastUtil;
-import com.jancar.bluetooth.phone.widget.CircleImageView;
 import com.jancar.bluetooth.phone.widget.ConnectDialog;
 import com.jancar.bluetooth.phone.widget.MarqueeTextView;
 import com.jancar.key.KeyDef;
-import com.jancar.key.keyFocuser;
 import com.jancar.media.JacMediaSession;
 import com.ui.mvp.view.BaseActivity;
 
@@ -69,7 +66,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     private ConnectDialog connectDialog;
     private int saveConnect = Constants.BT_CONNECT_IS_NONE;
 
-    private JancarManager jancarManager;
+    //    private JancarManager jancarManager;
     public ToastUtil mToast;
     JacMediaSession jacMediaSession;
 
@@ -139,7 +136,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
             }
         };
         initView();
-        jancarManager = (JancarManager) getSystemService(JancarManager.JAC_SERVICE);
+//        jancarManager = (JancarManager) getSystemService(JancarManager.JAC_SERVICE);
     }
 
     @Override
@@ -354,8 +351,8 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
 
     private void updatePlaybackStatus(byte play_status, int song_len, int song_pos) {
         Log.e(TAG, "updatePlaybackStatus===" + play_status);
-        jacMediaSession.notifyPlayState(play_status);
-        jacMediaSession.notifyProgress(song_pos, song_len);
+//        jacMediaSession.notifyPlayState(play_status);
+//        jacMediaSession.notifyProgress(song_pos, song_len);
         int btStatus = bluetoothRequestFocus.getCurrentBTStatus();
         switch (play_status) {
             case BluetoothManager.MUSIC_STATE_PLAY:
@@ -464,7 +461,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
      */
 
     private void updateMusicPlayingProgress(byte cmdType, int total_long, int playing_time) {
-
+        jacMediaSession.notifyProgress(playing_time, total_long);
         switch (cmdType) {
             case CMD_UPDATE_PLAY_STATUS: {
                 if (total_long == (int) 0xFFFFFFFF) {
@@ -503,6 +500,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         }
         tvPlayTotalTime.setText(length);//总时间
         tvPlayTime.setText(pos);//播放的时间
+        jacMediaSession.notifyPlayState(play_status);
     }
 
     @Override
