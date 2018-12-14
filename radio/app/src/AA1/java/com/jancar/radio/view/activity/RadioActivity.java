@@ -148,6 +148,7 @@ public class RadioActivity extends BasesActivity implements AdapterView.OnItemCl
     @SuppressLint("HandlerLeak")
     public FreqAdapter adapter;
     public CollectionAdapter adapters;
+    @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

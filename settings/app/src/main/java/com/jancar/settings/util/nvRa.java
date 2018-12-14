@@ -21,4 +21,23 @@ public class nvRa {
             e.printStackTrace();
         }
     }
+
+    public  boolean getSerialNumber(int serial){
+        boolean isSuccess=false;
+        IBinder binder=ServiceManager.getService("NvRAMAgent");
+        NvRAMAgent agent=NvRAMAgent.Stub.asInterface(binder);
+        try {
+            byte[] buff=agent.readFile(serial);
+            int flag=agent.writeFile(serial,buff);
+            for (byte aBuff : buff) {
+                Log.w("NavigationSoftware", aBuff + " ");
+            }
+            isSuccess=true;
+            Log.w("NavigationSoftware", buff.toString() + " ");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return isSuccess;
+    }
+
 }

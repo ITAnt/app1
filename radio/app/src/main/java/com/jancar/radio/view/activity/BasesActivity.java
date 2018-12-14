@@ -102,8 +102,6 @@ public abstract class BasesActivity extends com.ui.mvp.view.BaseActivity<RadioCo
     LinearLayout rds_Llayout;
     @BindView(R.id.radio_llayout)
     LinearLayout radio_Llayout;
-
-
     int Band;
     public RadioManager mRadioManager;
     public AudioManager mAudioManager = null;
@@ -691,7 +689,6 @@ public abstract class BasesActivity extends com.ui.mvp.view.BaseActivity<RadioCo
             isSwitc = true;
             isSwitch = true;
             isSetting = true;
-
             Handler(2, 0);
             isSwitchs = false;
             stringIntegerMap.clear();

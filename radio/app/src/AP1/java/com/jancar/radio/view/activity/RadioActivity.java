@@ -237,10 +237,7 @@ public class RadioActivity extends BasesActivity{
 
                     } else {
                         mFreq = getmFreq();
-                        Message mMessage = new Message();
-                        mMessage.what = 0;
-                        mMessage.arg1 = mFreq;
-                        handler.sendMessage(mMessage);
+                        Handler(0, mFreq);
                     }
                     if (!isChange) {
 
@@ -264,10 +261,8 @@ public class RadioActivity extends BasesActivity{
                     setMediaInfo(mFreq);
                     break;
                 case 6:
-                    Message mMessage = new Message();
-                    mMessage.what = 0;
-                    mMessage.arg1 = msg.arg1;
-                    handler. sendMessage(mMessage);
+
+                    Handler(0,  msg.arg1);
                     break;
                 case 7:
 
@@ -588,10 +583,8 @@ public class RadioActivity extends BasesActivity{
             channelTxt.setText(RadioWrapper.getFreqString(mFreq, mBand, mLocation));
         }
         if (isSetting) {
-            Message mMessage = new Message();
-            mMessage.what = 0;
-            mMessage.arg1 = mFreq;
-            handler.sendMessage(mMessage);
+
+            Handler(0,  mFreq);
         }
     }
 
@@ -810,9 +803,8 @@ public class RadioActivity extends BasesActivity{
                 VarietyBand();
                 Log.w("RadioActivity", mBand + "");
                 setBandEditor(Band);
-                Message mMessage = new Message();
-                mMessage.what = 4;
-                handler.sendMessage(mMessage);
+
+                Handler(4,  0);
                 break;
         }
         mNeedScanStop = false;
@@ -852,10 +844,8 @@ public class RadioActivity extends BasesActivity{
                             pds = pd;
                             list.get(radioStations.get(pd).getPosition()).setTag("0");
                             list.get(radioStations.get(pd).getPosition()).setTextColor(Color.parseColor("#FF0B49E7"));
-                            Message mMessage = new Message();
-                            mMessage.what = 0;
-                            mMessage.arg1 = radioStations.get(pd).getMFreq();
-                            handler.sendMessage(mMessage);
+
+                            Handler(0,  radioStations.get(pd).getMFreq());
                             //mRadioManager.setFreq(radioStations.get(pd).getMFreq());
                             pd++;
                         } else {
@@ -872,10 +862,8 @@ public class RadioActivity extends BasesActivity{
                                         m.setTextColor(Color.parseColor("#ffffff"));
                                         m.setTag("1");
                                     }
-                                    Message mMessage = new Message();
-                                    mMessage.what = 0;
-                                    mMessage.arg1 = radioStations.get(pd).getMFreq();
-                                    handler.sendMessage(mMessage);
+
+                                    Handler(0,  radioStations.get(pd).getMFreq());
                                     //mRadioManager.setFreq(radioStations.get(pd).getMFreq());
                                     list.get(radioStations.get(0).getPosition()).setTag("0");
                                     list.get(radioStations.get(0).getPosition()).setTextColor(Color.parseColor("#FF0B49E7"));
@@ -887,10 +875,8 @@ public class RadioActivity extends BasesActivity{
                                         m.setTextColor(Color.parseColor("#ffffff"));
                                         m.setTag("1");
                                     }
-                                    Message mMessage = new Message();
-                                    mMessage.what = 0;
-                                    mMessage.arg1 = radioStations.get(0).getMFreq();
-                                    handler.sendMessage(mMessage);
+
+                                    Handler(0,   radioStations.get(0).getMFreq());
                                     // mRadioManager.setFreq();
                                     list.get(radioStations.get(0).getPosition()).setTextColor(Color.parseColor("#FF0B49E7"));
                                     isShortSearch = false;
@@ -912,11 +898,7 @@ public class RadioActivity extends BasesActivity{
                                         m.setTextColor(Color.parseColor("#ffffff"));
                                         m.setTag("1");
                                     }
-                                    Message mMessage = new Message();
-                                    mMessage.what = 0;
-                                    mMessage.arg1 = radioStations.get(pd).getMFreq();
-                                    handler.sendMessage(mMessage);
-
+                                    Handler(0,   radioStations.get(pd).getMFreq());
                                     list.get(radioStations.get(0).getPosition()).setTag("0");
                                     list.get(radioStations.get(0).getPosition()).setTextColor(Color.parseColor("#FF0B49E7"));
                                 } else {
@@ -926,10 +908,8 @@ public class RadioActivity extends BasesActivity{
                                         m.setTextColor(Color.parseColor("#ffffff"));
                                         m.setTag("1");
                                     }
-                                    Message mMessage = new Message();
-                                    mMessage.what = 0;
-                                    mMessage.arg1 = radioStations.get(0).getMFreq();
-                                    handler.sendMessage(mMessage);
+
+                                    Handler(0,   radioStations.get(0).getMFreq());
                                     //mRadioManager.setFreq();
                                     list.get(radioStations.get(0).getPosition()).setTextColor(Color.parseColor("#FF0B49E7"));
                                     isShortSearch = false;
@@ -1004,25 +984,23 @@ public class RadioActivity extends BasesActivity{
             isSwitch = false;
             if (stringIntegerMap.size() > 0) {
                 isSwitch = true;
-                Message mMessage = new Message();
-                Log.w("isSwitchs", stringIntegerMap.get("scheduled") + "");
-                mMessage.what = stringIntegerMap.get("scheduled");
+               int arg1;
                 if (stringIntegerMap.get("scheduled") == 2) {
-                    mMessage.arg1 = 0;
+                    arg1= 0;
                 } else {
-                    mMessage.arg1 = 3;
+                    arg1= 3;
                 }
-                handler.sendMessage(mMessage);
+                Handler( stringIntegerMap.get("scheduled"), arg1);
+
                 stringIntegerMap.clear();
             }
             isChange = false;
             setMediaInfo(event.mFreq);
         } else {
             Log.w("isSwitchs___dd", stringIntegerMap.get("scheduled") + "");
-            Message mMessage = new Message();
-            mMessage.what = 5;
-            mMessage.arg1 = event.mFreq;
-            handler.sendMessage(mMessage);
+
+            Handler( 5,  event.mFreq);
+
         }
 
     }
@@ -1132,10 +1110,8 @@ public class RadioActivity extends BasesActivity{
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences("FirstRun", 0);
                 Boolean first_run = sharedPreferences.getBoolean("Firsts", true);
                 getPresenter().save(mScanResultList, mBand, Band, mLocation, first_run);
-                Message mMessage = new Message();
-                mMessage.what = 0;
-                mMessage.arg1 = mScanResultList.get(0).getMFreq();
-                handler.sendMessage(mMessage);
+
+                Handler( 0,  mScanResultList.get(0).getMFreq());
                 //this.mRadioManager.setFreq();
                 list.get(0).setTextColor(Color.parseColor("#FF0B49E7"));
             } else {
@@ -1144,10 +1120,8 @@ public class RadioActivity extends BasesActivity{
                 } else {
                     mFreq = RadioWrapper.getFreqStart(this.mBand, this.mLocation);
                     isChange = false;
-                    Message mMessage = new Message();
-                    mMessage.what = 0;
-                    mMessage.arg1 = mFreq;
-                    handler.sendMessage(mMessage);
+
+                    Handler( 0, mFreq);
                     //  mRadioManager.setFreq();
                 }
                 delete(mBand, mLocation);
