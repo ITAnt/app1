@@ -1,0 +1,149 @@
+apply plugin: 'com.android.application'
+//获取当前编译时间
+def getCreateTime() {
+    def createTime = new Date().format("yyyyMMdd", TimeZone.getTimeZone("GMT+08:00")).trim()
+    return createTime
+}
+
+/**
+ * 获取Git 版本号
+ */
+def getGitSHA() {
+    def gitSHA = 'git rev-parse --short HEAD'.execute().text.trim()
+    return gitSHA
+}
+
+/**
+ * 获取Git 提交次数
+ */
+def getGitCommitCount() {
+    def gitCommitCount = 'git rev-list --count HEAD'.execute().text.trim();
+    return gitCommitCount;
+}
+
+android {
+
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.jancar.app"
+        minSdkVersion rootProject.ext.minSdk
+        targetSdkVersion rootProject.ext.targetSdk
+        versionCode gitCommitCount.toInteger()
+        versionName "v1.0."+gitSHA
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        ndk {
+            abiFilters "armeabi" ,"x86", "armeabi-v7a"
+        }
+        flavorDimensions "versionCode"
+    }
+    signingConfigs {
+        release {
+            storeFile file("../platform.keystore")
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+
+        debug {
+            storeFile file("../platform.keystore")
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+    }
+    sourceSets {
+        AP1 {
+//            manifest.srcFile 'src/default1/defaultAndroidManifest.xml'
+            java.srcDir 'src/AP1/java' // 指定源码目录
+            resources.srcDir 'src/AP1/res' //资源目录
+        }
+        AA1 {
+//            manifest.srcFile 'src/volkswagen/volkswagenAndroidManifest.xml'
+            java.srcDir 'src/AA1/java' // 指定源码目录
+            resources.srcDir 'src/AA1/res' //资源目录
+        }
+    }
+
+    productFlavors {
+        AP1 {
+//            manifestPlaceholders = [app_name:"ViewDVR",package_name:"com.longhorn.viewdvr"]
+//            applicationId = "com.longhorn.viewdvr"
+            versionName "v1.0."+gitSHA
+        }
+        AA1 {
+//            manifestPlaceholders = [app_name:"VWDVR",package_name:"com.longhorn.viewdvr"]
+//            applicationId = "com.longhorn.vwdvr"
+            versionName "v2.0."+gitSHA
+        }
+    }
+    //配置自定义打包名称
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def fileName
+            if (variant.buildType.name.equals('release')) {
+                fileName = "${applicationId}_release_${gitSHA}_${gitCommitCount}_${createTime}.apk"
+            } else if (variant.buildType.name.equals('debug')) {
+                fileName = "${applicationId}_debug_${gitSHA}_${gitCommitCount}_${createTime}.apk"
+            }
+            outputFileName = fileName;
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        sourceSets.main {
+            jni.srcDirs = []
+            jniLibs.srcDir "src/main/libs"
+        }
+    }
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+
+}
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+
+            url "https://jitpack.io"
+        }
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url "https://jitpack.io"
+        }
+    }
+}
+dependencies {
+    //    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:multidex:1.0.3'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    // compile project(path: ':lib')
+    compile 'com.google.zxing:core:3.3.0'
+    //Leakcanary
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    //    compile 'com.github.orhanobut:hawk:1.21'
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    compileOnly files('libs/framework.jar')
+}

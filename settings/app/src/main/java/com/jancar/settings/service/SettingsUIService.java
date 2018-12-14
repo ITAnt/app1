@@ -10,15 +10,22 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.PixelFormat;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.os.RemoteException;
+import android.os.ServiceManager;
+import android.os.SystemProperties;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -41,6 +48,7 @@ import com.jancar.settings.R;
 import com.jancar.settings.lib.SettingManager;
 import com.jancar.settings.suspension.utils.Contacts;
 import com.jancar.settings.util.GPS;
+import com.jancar.settings.util.NvRAMAgent;
 import com.jancar.settings.view.activity.MainActivity;
 import com.jancar.settings.view.activity.SettingsApplication;
 import com.jancar.state.JacState;
@@ -65,6 +73,8 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
     private final String TAG = SettingsUIService.class.getSimpleName();
     private final String ACTION_SHOW_BRIGHT_ADJUST = "com.jancar.adjust.bright";
     private final String EXTRA_BRIGHT_ADJUST = "extra.bright.adjust";
+    private final String NVRAMA = "android.jancar.settings.NvRAMA";
+    private final String NVRAMAs = "android.jancar.settings.NvRAMA.read";
     private final String TYPE_BACKCAR = "type_backcar";
     private final String TYPE_VEDIO = "type_vedio";
     private final String TYPE_ALL = "type_all";
@@ -82,7 +92,8 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
     private JancarManager jancarManager;
     private DisplayController displayController;
     private boolean isShow;
-
+    NetworkChangeReceiver networkChangeReceiver;
+    IntentFilter intentFilter;
     @SuppressLint("HandlerLeak")
     private Handler UIHandler = new Handler() {
         @Override
@@ -118,11 +129,19 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
         initView();
         jancarManager.registerJacStateListener(jacState.asBinder());
         jancarManager.registerPrompt(promptController.asBinder());
+        //NvRAMA();
         Log.e(TAG, "onCreate end");
         Settings.Secure.setLocationProviderEnabled(getApplicationContext().getContentResolver(), LocationManager.GPS_PROVIDER, false);
         GPS gps = new GPS();
         gps.openGPSSettings(getApplicationContext(), 3);
+        //动态接受网络变化的广播接收器
+        intentFilter = new IntentFilter();
+        intentFilter.addAction(NVRAMA);
+        networkChangeReceiver = new NetworkChangeReceiver();
+        registerReceiver(networkChangeReceiver, intentFilter);
+
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void startServiceForeground() {
         Log.e(TAG, "startServiceForeground==");
@@ -140,12 +159,11 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
 
     }
 
-
     JacState jacState = new JacState() {
         @Override
         public void OnBackCar(boolean bState) {
             super.OnBackCar(bState);
-            Log.e(TAG, "--"+bState);
+            Log.e(TAG, "--" + bState);
             if (bState) {
                 displayController.nativeSetContrastAdjIndex(settingManager.getDisplayBackCarContrast());
                 displayController.nativeSetBrightnessAdjIndex(settingManager.getDisplayBackCarBrightness());
@@ -200,11 +218,109 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
         }
     };
 
+
+    class NetworkChangeReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String Type = intent.getStringExtra("Type");
+            if (Type.equals("read")) {
+
+                byte[] buff=  Read();
+                for (byte butt:buff){
+                    Log.w("SettingsUIService",butt+" butt");
+                }
+                Intent intents = new Intent(NVRAMAs);
+                intents.putExtra("Data",buff);
+                sendBroadcast(intents);
+            } else {
+
+                byte[] buff = intent.getByteArrayExtra("Data");
+                if (buff!=null){
+                    for (byte butt:buff){
+                        Log.w("SettingsUIService",butt+" butt");
+                    }
+                    if (buff.length>256){
+
+                       return;
+                    }
+                    writeFile(buff);
+                }
+            }
+
+
+
+        }
+    }
+
+    public byte[] Read() {
+        IBinder binder = ServiceManager.getService("NvRAMAgent");
+        NvRAMAgent agent = NvRAMAgent.Stub.asInterface(binder);
+        byte[] buff = new byte[0];
+        try {
+            buff = agent.readFile(45);
+            Log.w("NavigationSoftware", buff.toString() + " ");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return buff;
+    }
+
+    ;
+
+    public int writeFile(byte[] buff) {
+        IBinder binder = ServiceManager.getService("NvRAMAgent");
+        NvRAMAgent agent = NvRAMAgent.Stub.asInterface(binder);
+        int flag = 0;
+        try {
+            flag = agent.writeFile(45, buff);
+            Log.w("NavigationSoftware", buff.toString() + " ");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    ;
+
+    public static boolean NvRAMA() {
+        IBinder binder = ServiceManager.getService("NvRAMAgent");
+        NvRAMAgent agent = NvRAMAgent.Stub.asInterface(binder);
+        Log.w("NavigationSoftware", binder + " ");
+        boolean isSuccess = false;
+        try {
+            byte[] buff = agent.readFile(45);
+            int flag = agent.writeFile(45, buff);
+            isSuccess = true;
+            Log.w("NavigationSoftware", buff.toString() + " ");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return isSuccess;
+    }
+
+    /* public static String getSerialNumber(){
+         String serial = null;
+         serial = SystemProperties.get("ro.serialno");
+
+         return serial;
+     }
+
+     public static String getCustomerName(){
+         return "JAC";
+     }
+
+     public static String getManufacturer(){
+         String serial = null;
+         serial = SystemProperties.get("ro.product.version");
+
+         return serial.substring(6,9);
+     }*/
     @Override
     public void onDestroy() {
         super.onDestroy();
         jancarManager.unregisterJacStateListener(jacState.asBinder());
         jancarManager.unregisterPrompt(promptController.asBinder());
+        unregisterReceiver(networkChangeReceiver);
         Log.e(TAG, "onDestroy");
     }
 
@@ -217,7 +333,7 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
         mLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
         mLayoutParams.format = PixelFormat.RGBA_8888;
 
-        mLayoutParams.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN ;
+        mLayoutParams.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN;
         mLayoutParams.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
                 View.STATUS_BAR_HIDDEN | View.SYSTEM_UI_FLAG_FULLSCREEN |
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;

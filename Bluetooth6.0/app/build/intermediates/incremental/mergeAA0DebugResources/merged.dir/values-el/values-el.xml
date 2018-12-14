@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string msgid="4600421777120114993" name="abc_action_bar_home_description">"Πλοήγηση στην αρχική σελίδα"</string>
+    <string msgid="1397052879051804371" name="abc_action_bar_home_description_format">"%1$s, %2$s"</string>
+    <string msgid="6623331958280229229" name="abc_action_bar_home_subtitle_description_format">"%1$s, %2$s, %3$s"</string>
+    <string msgid="1594238315039666878" name="abc_action_bar_up_description">"Πλοήγηση προς τα επάνω"</string>
+    <string msgid="3588849162933574182" name="abc_action_menu_overflow_description">"Περισσότερες επιλογές"</string>
+    <string msgid="4076576682505996667" name="abc_action_mode_done">"Τέλος"</string>
+    <string msgid="7468859129482906941" name="abc_activity_chooser_view_see_all">"Προβολή όλων"</string>
+    <string msgid="2031811694353399454" name="abc_activitychooserview_choose_application">"Επιλέξτε κάποια εφαρμογή"</string>
+    <string msgid="121134116657445385" name="abc_capital_off">"ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ"</string>
+    <string msgid="3405795526292276155" name="abc_capital_on">"ΕΝΕΡΓΟΠΟΙΗΣΗ"</string>
+    <string msgid="7723749260725869598" name="abc_search_hint">"Αναζήτηση…"</string>
+    <string msgid="3691816814315814921" name="abc_searchview_description_clear">"Διαγραφή ερωτήματος"</string>
+    <string msgid="2550479030709304392" name="abc_searchview_description_query">"Ερώτημα αναζήτησης"</string>
+    <string msgid="8264924765203268293" name="abc_searchview_description_search">"Αναζήτηση"</string>
+    <string msgid="8928215447528550784" name="abc_searchview_description_submit">"Υποβολή ερωτήματος"</string>
+    <string msgid="893419373245838918" name="abc_searchview_description_voice">"Φωνητική αναζήτηση"</string>
+    <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"Κοινή χρήση με"</string>
+    <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"Κοινή χρήση με %s"</string>
+    <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"Σύμπτυξη"</string>
+    <string name="app_name">Τηλέφωνο</string>
+    <string name="calling_hangup">Τερματισμός κλήσης</string>
+    <string name="calling_keypad">Πληκτρολόγιο</string>
+    <string name="calling_phone">Κινητό τηλέφωνο</string>
+    <string name="calling_vehicle">Αυτοκίνητο</string>
+    <string name="dial_show_voice">Ένταση Σίγαση</string>
+    <string msgid="146198913615257606" name="search_menu_title">"Αναζήτηση"</string>
+    <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="str_phone_missed">Εισερχόμενη κλήση</string>
+    <string name="str_phone_mobile">Κινητό</string>
+    <string name="str_phone_name">Άγνωστο</string>
+    <string name="str_phone_outgoing">Σε μια κλήση...</string>
+    <string name="str_phone_telecom">Τηλεπικοινωνίες</string>
+    <string name="str_phone_unicom">Unicom</string>
+    <string name="str_phone_unkonow">Άγνωστο</string>
+    <string name="tv_bluet_music">BtMusic</string>
+    <string name="tv_bt_connect_is_close">Κλειστό</string>
+    <string name="tv_bt_connect_is_none">μη συνδεδεμένο</string>
+    <string name="tv_call_number_empty">Άδειασμα</string>
+    <string name="tv_cancel">Ακύρωση</string>
+    <string name="tv_confirm">OK</string>
+    <string name="tv_contact_empty">Τα δεδομένα είναι κενά！</string>
+    <string name="tv_contact_search">Αναζήτηση</string>
+    <string name="tv_dial_contact">Αρχικά συγχρονίστε τις επαφές！</string>
+    <string name="tv_dial_no_contact">Καμία επαφή</string>
+    <string name="tv_equiment_bluetooth">ρυθμίσεις Bluetooth</string>
+    <string name="tv_equiment_history_adress">Η διεύθυνση Bluetooth δεν είναι έγκυρη</string>
+    <string name="tv_equipment_conn">Ακόμη</string>
+    <string name="tv_equipment_disconn">Σπασμένο</string>
+    <string name="tv_equipment_myequip">Μου</string>
+    <string name="tv_equipment_other">Άλλος εξοπλισμός</string>
+    <string name="tv_main_keypad">πληκτρολόγιο</string>
+    <string name="tv_main_records">Ιστορικό κλήσεων</string>
+    <string name="tv_mian_contact">Επαφή</string>
+    <string name="tv_mian_mange">Εξοπλισμός</string>
+    <string name="tv_no">ΟΧΙ</string>
+    <string name="tv_record_empty">Τα δεδομένα είναι κενά！</string>
+    <string name="tv_record_error">Συγχρονισμός σφαλμάτων ιστορικού κλήσεων！</string>
+    <string name="tv_record_log">Το ιστορικό κλήσεων είναι κενό！</string>
+    <string name="tv_setting_available">Διαθέσιμο</string>
+    <string name="tv_setting_bluetooth">Bluetooth</string>
+    <string name="tv_setting_check">Ανοίξτε</string>
+    <string name="tv_setting_check_des">Κλείσιμο,Ανίχνευση ζευγαρώματος</string>
+    <string name="tv_setting_close">Κλείσιμο</string>
+    <string name="tv_setting_del_all">Διαγραφή</string>
+    <string name="tv_setting_name">Τοπικό</string>
+    <string name="tv_setting_pair">Συνενώθηκε</string>
+    <string name="tv_setting_search_ing">Αναζήτηση συσκευών...</string>
+    <string name="tv_setting_start_search">Ξεκινήστε</string>
+    <string name="tv_syn_contact">Χρειάζεται να συγχρονίσετε τις επαφές σας ？</string>
+    <string name="tv_syn_record">Συντονίστε το ιστορικό κλήσεων！</string>
+    <string name="tv_syning_contact">Λήψη του τηλεφωνικού καταλόγου τώρα...</string>
+    <string name="tv_syning_record">Κατεβάζοντας το ιστορικό κλήσεων τώρα...</string>
+    <string name="tv_tip_down">Λήψη …</string>
+    <string name="tv_title_tip">Δεν είναι συνδεδεμένο, πρέπει να συνδεθείτε！</string>
+    <string name="tv_yes">ΝΑΙ</string>
+</resources>
