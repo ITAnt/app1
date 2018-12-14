@@ -29,7 +29,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 27
         versionCode 1
-        versionName "2.0"
+        versionName "2.0"+gitSHA
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         flavorDimensions "versionCode"
