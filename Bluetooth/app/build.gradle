@@ -102,9 +102,9 @@ android {
         variant.outputs.all {
             def fileName
             if (variant.buildType.name.equals('release')) {
-                fileName = "${getApkPrefixName()}_release_${gitSHA}_${gitCommitCount}_${createTime}.apk"
+                fileName = "${getApkPrefixName()}_release_${gitSHA}_${gitCommitCount}_${createTime}_${versionName}.apk"
             } else if (variant.buildType.name.equals('debug')) {
-                fileName = "${getApkPrefixName()}_debug_${gitSHA}_${gitCommitCount}_${createTime}.apk"
+                fileName = "${getApkPrefixName()}_debug_${gitSHA}_${gitCommitCount}_${createTime}_${versionName}.apk"
             }
             outputFileName = fileName;
         }
