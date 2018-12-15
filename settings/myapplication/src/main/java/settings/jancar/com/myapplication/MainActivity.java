@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+/*
         Intent intents = new Intent("android.jancar.settings.NvRAMA");
         intents.putExtra("Type","read");
         sendBroadcast(intents);
@@ -35,9 +36,10 @@ public class MainActivity extends AppCompatActivity {
         intentFilter.addAction("android.jancar.settings.NvRAMA.read");
         networkChangeReceiver = new NetworkChangeReceiver();
         registerReceiver(networkChangeReceiver, intentFilter);
+*/
 
 
-        //getThreeMethod(this,CLASS_NAME);
+       getThreeMethod(this,CLASS_NAME);
     }
     class NetworkChangeReceiver extends BroadcastReceiver {
         @Override

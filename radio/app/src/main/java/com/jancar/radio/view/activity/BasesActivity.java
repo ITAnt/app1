@@ -152,10 +152,13 @@ public abstract class BasesActivity extends com.ui.mvp.view.BaseActivity<RadioCo
             Logcat.d("onAudioFocusChange, focusChange = " + focusChange);
             if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
                 mAudioManager.abandonAudioFocus(mAudioFocusChange);
-                mjacMediaSession.setActive(true);
+                mjacMediaSession.setActive(false);
+
             } else if (focusChange == AUDIOFOCUS_LOSS_TRANSIENT) {
 
             } else if (focusChange == AUDIOFOCUS_GAIN) {
+
+
                 //  mRadioManager.scanStop();
                 // mRadioManager = new RadioManager(RadioActivity.this, RadioActivity.this, getPresenter().getRadioListener(), getPackageName());
             }
@@ -167,7 +170,113 @@ public abstract class BasesActivity extends com.ui.mvp.view.BaseActivity<RadioCo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radio);
+
         initStatusBar();
+        mjacMediaSession = new JacMediaSession(this) {
+            @Override
+            public boolean OnKeyEvent(int key, int state) {
+                boolean bRet = true;
+                KeyDef.KeyType keyType = KeyDef.KeyType.nativeToType(key);
+                KeyDef.KeyAction keyAction = KeyDef.KeyAction.nativeToType(state);
+                switch (keyType) {
+                    case KEY_PREV:
+                        if (keyAction == KEY_ACTION_DOWN_LONG) {
+                            //getCurRadioFragment().scanUp();
+                        } else {
+                            if (keyAction == KEY_ACTION_UP) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        scanStop();
+                                        shutdown();
+                                        favoriteNext();
+                                    }
+                                });
+                            }
+                        }
+                        break;
+                    case KEY_NEXT:
+                        if (keyAction == KEY_ACTION_DOWN_LONG) {
+                            //getCurRadioFragment().scanDown();
+                        } else {
+                            if (keyAction == KEY_ACTION_UP) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        scanStop();
+                                        shutdown();
+                                        favoritePrev();
+                                    }
+                                });
+
+                            }
+                        }
+                        break;
+                    case KEY_AS:
+                        if (keyAction == KEY_ACTION_DOWN_LONG) {
+                            //getCurRadioFragment().scanDown();
+                        } else {
+
+                            if (keyAction == KEY_ACTION_UP) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        scanStop();
+                                        shutdown();
+                                        KEY_AS();
+                                    }
+                                });
+
+                            }
+                        }
+                        break;
+                    case KEY_AM:
+
+                        if (keyAction == KEY_ACTION_DOWN_LONG) {
+                            //getCurRadioFragment().scanDown();
+                        } else {
+
+                            if (keyAction == KEY_ACTION_UP) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        scanStop();
+                                        shutdown();
+                                        KEY_AM();
+                                    }
+                                });
+
+                            }
+                        }
+                        break;
+                    case KEY_FM:
+                        if (keyAction == KEY_ACTION_DOWN_LONG) {
+                            //getCurRadioFragment().scanDown();
+                        } else {
+                            if (keyAction == KEY_ACTION_UP) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        scanStop();
+                                        shutdown();
+                                        KEY_FM();
+                                    }
+                                });
+
+                            }
+                        }
+                        break;
+                    case KEY_SCAN:
+
+                        break;
+                    default:
+                        bRet = false;
+                        break;
+                }
+                return bRet;
+            }
+        };
+
         handler=getHandler();
         stringIntegerMap = new HashMap<>();
         unbinder = ButterKnife.bind(this);
@@ -338,6 +447,8 @@ public abstract class BasesActivity extends com.ui.mvp.view.BaseActivity<RadioCo
 
     @Override
     public void requestRadioFocus() {
+        SystemProperties.set(PROPERTY_GIS_COMPENNSATE, "1");
+        mjacMediaSession.setActive(true);
         Log.w("Radio", "requestRadioFocus");
         if (mRadioManager != null) {
 
@@ -345,14 +456,13 @@ public abstract class BasesActivity extends com.ui.mvp.view.BaseActivity<RadioCo
         }
         mAudioManager.requestAudioFocus(mAudioFocusChange, AudioManager.STREAM_MUSIC, AUDIOFOCUS_GAIN);
 
-        SystemProperties.set(PROPERTY_GIS_COMPENNSATE, "1");
     }
 
     @Override
     public void abandonRadioFocus() {
-        mAudioManager.abandonAudioFocus(mAudioFocusChange);
-
         SystemProperties.set(PROPERTY_GIS_COMPENNSATE, "0");
+        mjacMediaSession.setActive(false);
+        mAudioManager.abandonAudioFocus(mAudioFocusChange);
     }
     public void setMediaInfo(int mFreq) {
         Bundle mBundle = new Bundle();

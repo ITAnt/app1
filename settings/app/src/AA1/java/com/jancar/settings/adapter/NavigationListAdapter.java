@@ -63,7 +63,7 @@ public class NavigationListAdapter extends BaseAdapter {
         if (nameList.get(pos).isUp()){
             holder.timeListItemRlayout.setBackgroundResource(R.color.bg_main_rlayout_h);
         } else {
-            holder.timeListItemRlayout.setBackgroundResource(R.color.colorPrimary);
+            holder.timeListItemRlayout.setBackgroundResource(R.color.lucency);
         }
         holder.nameTitleTxt.setText(nameList.get(pos).getName());
         holder.img_icon.setBackground(nameList.get(pos).getImg());

@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.kongqw.permissionslibrary.PermissionsManager;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -38,7 +39,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -53,10 +57,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     float location_ones, location_tows, location_threes, location_fours, location_fivess;
     float[] locations_one, locations_tow, locations_three, locations_four, locations_fives;
     RelativeLayout tabMode;
-    ImageView one,tow,three,four;
+    ImageView one, tow, three, four;
     boolean isClick;
     int heigth;
     int width;
+
     public static final int failure = 0;
     public static final int success = 1;
     PermissionsManager mPermissionsManager;
@@ -71,13 +76,13 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     anInt++;
 
                     Toast.makeText(MainActivity.this, "触摸学习失败", Toast.LENGTH_SHORT).show();
-                    List<String> ListString = readXml("/jancar/config/pointercal.xml");
+                /*    List<String> ListString = readXml("/jancar/config/pointercal.xml");
                     if (ListString.size() > 0) {
                         Log.w("ListString", ListString.toString());
                         generate(ListString.get(0), ListString.get(1), ListString.get(2), ListString.get(3), ListString.get(4),
                                 ListString.get(5), ListString.get(6));
 
-                    }
+                    }*/
                     // MainActivity.this.finish();
                     //generate(ListString.get(0) + "", 0 + "", 0 + "", 0 + "", 1 + "", 0 + "", 1 + "");
 
@@ -94,9 +99,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         }
     };
 
-    public List<String> readXml(String fileName) {
+    public Map<Object, List<String>> readXml(String fileName) {
         File f = new File(fileName);
-        List<String> keyWords = new ArrayList<>();
+        Map<Object, List<String>> list = new HashMap<>();
         //创建一个DocumentBuilderFactory的对象
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         //创建一个DocumentBuilder的对象
@@ -106,23 +111,37 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             //通过DocumentBuilder对象的parser方法加载books.xml文件到当前项目下
             Document document = db.parse(f);
             //获取所有book节点的集合
-            NodeList GISName = document.getElementsByTagName("item");
+            NodeList GISName = document.getElementsByTagName("picel");
             //通过nodelist的getLength()方法可以获取bookList的长度
             //遍历每一个book节点
             for (int i = 0; i < GISName.getLength(); i++) {
                 Node mNode = GISName.item(i);
-                String attrs = mNode.getNodeName();
-                Node s = mNode.getFirstChild();
-                String attsrs = s.getNodeValue();
-                keyWords.add(attsrs);
+                NamedNodeMap atd = mNode.getAttributes();
+                Node mNodes = atd.item(0);
+                String attrs = mNodes.getNodeValue();
+                List<String> keyWords = new ArrayList<>();
                 System.out.println("=================" + attrs + "=================");
-                System.out.println("=================" + attsrs + "=================");
+                for (int j = 0; j < mNode.getChildNodes().getLength(); j++) {
+                    Node ChildNode = mNode.getChildNodes().item(j);
+                    Node s = ChildNode.getFirstChild();
+                    String attsrs = s.getNodeValue();
+                    keyWords.add(attsrs);
+
+                }
+                list.put(attrs, keyWords);
+              /* Node mNode = GISName.item(i);
+
+               String attrs = mNode.getNodeName();
+               Node s = mNode.getFirstChild();
+               String attsrs = s.getNodeValue();
+               keyWords.add(attsrs);*/
             }
+
 
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
-        return keyWords;
+        return list;
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -198,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 int viewHeight = relativeLayout.height;
                 int top = touch_one.getTop();
                 if (anInt >= 5) {
-                    Toast.makeText(MainActivity.this, "触摸学习失败", Toast.LENGTH_SHORT).show();
+                   /* Toast.makeText(MainActivity.this, "触摸学习失败", Toast.LENGTH_SHORT).show();
                     List<String> ListString = readXml("/jancar/config/pointercal.xml");
                     if (ListString.size() > 0) {
                         Log.w("ListString", ListString.toString());
@@ -206,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                                 ListString.get(5), ListString.get(6));
 
                     }
-                    MainActivity.this.finish();
+                    MainActivity.this.finish();*/
                     return false;
                 }
                 if (x1 > viewWidth / 2) {
@@ -264,11 +283,12 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                         location_fivess = y2;
                         ;
                         floats.clear();
-                        Log.w("ACTION_UP", "XL:" + locations_fives[0] + "   YL:" + locations_fives[1]);
-                        Log.w("ACTION_UP", "XT:" + x2 + "   YT:" + y2);
                         anInts = 1;
 
-                        if (Math.abs(location_ones-location_tows)<12&&Math.abs(location_tow-location_three)<12&&Math.abs(location_threes-location_fours)<12){
+                        if (Math.abs(location_ones - location_tows) < 12 && Math.abs(location_tow - location_three) < 12
+                                && Math.abs(location_threes - location_fours) < 12 && Math.abs(location_one - location_four) < 12
+                                && Math.abs((Math.abs(location_tow - location_one) / 2 - location_fives)) < (12 + (top + viewWidth / 2))
+                                && Math.abs((Math.abs(location_tows - location_threes) / 2 - location_fivess)) < (12 + (top + viewWidth / 2))) {
                             float one = locations_one[0] * 65536 - locations_tow[0] * 65536;
                             float tow = locations_tow[0] * 65536 - locations_three[0] * 65536;
                             float three = locations_three[0] * 65536 - locations_four[0] * 65536;
@@ -313,15 +333,15 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
                             set(A, B, C);
                             isClick = false;
-                        }else {
-                         Toast.makeText(MainActivity.this, "触摸学习失败", Toast.LENGTH_SHORT).show();
+                        } else {
+                           /* Toast.makeText(MainActivity.this, "触摸学习失败", Toast.LENGTH_SHORT).show();
                             List<String> ListString = readXml("/jancar/config/pointercal.xml");
                             if (ListString.size() > 0) {
                                 Log.w("ListString", ListString.toString());
                                 generate(ListString.get(0), ListString.get(1), ListString.get(2), ListString.get(3), ListString.get(4),
                                         ListString.get(5), ListString.get(6));
 
-                            }
+                            }*/
                             MainActivity.this.finish();
                         }
                         break;
@@ -469,7 +489,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
     //默认是没有换行的
-    public void initSettings(final String a, final String b, final String c, final String d, final String e, final String f, final String div) {
+    public void initSettings(final String a, final String b, final String c, final String d, final String e, final String f, final String div, final Map<Object, List<String>> objectListMap) {
         final File file = new File("/jancar/config/");
         try {
             if (!file.exists()) {
@@ -497,8 +517,25 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     XmlSerializer serializer = Xml.newSerializer();
                     serializer.setOutput(fos, "UTF-8");
                     serializer.startDocument("UTF-8", true);
-                    serializer.startTag(null, "config");
 
+                    serializer.startTag(null, "config");
+                    Iterator<Map.Entry<Object, List<String>>> it = objectListMap.entrySet().iterator();
+                    while (it.hasNext()) {
+                        Map.Entry<Object, List<String>> entry = it.next();
+                        System.out.println("key= " + entry.getKey() + " and value= " + entry.getValue());
+
+                    }
+                   /* for (int i=0;i<objectListMap.size();i++){
+                        objectListMap.
+                    }   for (Map.Entry<Integer, String> entry : objectListMap.entrySet()) {
+                                   //Map.entry<Integer,String> 映射项（键-值对）  有几个方法：用上面的名字entry
+                                   //entry.getKey() ;entry.getValue(); entry.setValue();
+                                   //map.entrySet()  返回此映射中包含的映射关系的 Set视图。
+                                   System.out.println("key= " + entry.getKey() + " and value= "
+                                            + entry.getValue());
+                               }*/
+                    serializer.startTag(null, "node");
+                    serializer.attribute(null, "touch", "1024*600");
                     // server
                     serializer.startTag(null, "item");
                     serializer.attribute(null, "id", "A");
@@ -540,6 +577,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     serializer.endTag(null, "item");
 
 
+                    serializer.endTag(null, "node");
                     serializer.endTag(null, "config");
                     serializer.endDocument();
                     serializer.flush();
@@ -623,9 +661,26 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                         fop.flush();
                         fop.close();
                         if (anInt == 5) {
+                            Map<Object, List<String>> objectListMap = readXml("/jancar/config/pointercal.xml");
+                            List<String> stringList = objectListMap.get("1248*468");
+                            if (stringList != null) {
+                                objectListMap.remove("1248*468");
+                                stringList.clear();
+                            } else {
+                                stringList = new ArrayList<>();
+                            }
+                            stringList.add(a + "");
+                            stringList.add(b + "");
+                            stringList.add(c + "");
+                            stringList.add(d + "");
+                            stringList.add(e + "");
+                            stringList.add(f + "");
+                            stringList.add(65536 + "");
+                            objectListMap.put("1248*468", stringList);
                             initSettings(a, b, c,
-                                    d, e, f, 65536 + "");
-
+                                    d, e, f, 65536 + "", objectListMap);
+                            /*  */
+                            System.out.println("Done");
                         }
 
                         System.out.println("Done");

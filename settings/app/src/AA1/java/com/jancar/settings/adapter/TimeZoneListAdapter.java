@@ -67,7 +67,7 @@ public class TimeZoneListAdapter extends BaseAdapter {
             anInt=pos;
             holder.timeListItemRlayout.setBackgroundResource(R.color.bg_main_rlayout_h);
         } else {
-            holder.timeListItemRlayout.setBackgroundResource(R.color.colorPrimary);
+            holder.timeListItemRlayout.setBackgroundResource(R.color.lucency);
         }
         holder.nameTitleTxt.setText(nameList.get(pos).getName());
         holder.summaryTxt.setText(nameList.get(pos).getTime());

@@ -94,10 +94,10 @@ public class Spinner extends LinearLayout implements AdapterView.OnItemClickList
                 spinnerOperatingList.setVisibility(VISIBLE);
                 adapter.setID(getSpinnerOperatingText());
                 adapter.notifyDataSetInvalidated();
-                spinnerOperatingLlayout.setBackgroundResource(R.drawable.cbb_bg_h);
+                spinnerOperatingLlayout.setBackgroundResource(R.mipmap.cbb_bg_h);
             } else {
                 spinnerOperatingList.setVisibility(GONE);
-                spinnerOperatingLlayout.setBackgroundResource(R.drawable.cbb_bg_n);
+                spinnerOperatingLlayout.setBackgroundResource(R.mipmap.cbb_bg_n);
             }
         }
 

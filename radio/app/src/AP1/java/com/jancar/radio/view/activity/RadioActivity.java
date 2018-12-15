@@ -360,90 +360,10 @@ public class RadioActivity extends BasesActivity{
     @Override
     protected void onStart() {
         super.onStart();
-        mjacMediaSession = new JacMediaSession(this) {
-            @Override
-            public boolean OnKeyEvent(int key, int state) throws RemoteException {
-                boolean bRet = true;
-                KeyDef.KeyType keyType = KeyDef.KeyType.nativeToType(key);
-                KeyDef.KeyAction keyAction = KeyDef.KeyAction.nativeToType(state);
 
-                switch (keyType) {
-                    case KEY_PREV:
-                        if (keyAction == KEY_ACTION_DOWN_LONG) {
-                            //getCurRadioFragment().scanUp();
-                        } else {
-                            if (keyAction == KEY_ACTION_UP) {
-                                scanStop();
-                                shutdown();
-                                favoriteNext();
-                            }
-                        }
-                        break;
-                    case KEY_NEXT:
-                        if (keyAction == KEY_ACTION_DOWN_LONG) {
-                            //getCurRadioFragment().scanDown();
-                        } else {
-                            if (keyAction == KEY_ACTION_UP) {
-                                scanStop();
-                                shutdown();
-                                favoritePrev();
-                            }
-                        }
-                        break;
-                    case KEY_AS:
-                        if (keyAction == KEY_ACTION_DOWN_LONG) {
-                            //getCurRadioFragment().scanDown();
-                        } else {
-
-                            if (keyAction == KEY_ACTION_UP) {
-                                scanStop();
-                                shutdown();
-                                KEY_AS();
-                            }
-                        }
-                        break;
-                    case KEY_AM:
-
-                        if (keyAction == KEY_ACTION_DOWN_LONG) {
-                            //getCurRadioFragment().scanDown();
-                        } else {
-
-                            if (keyAction == KEY_ACTION_UP) {
-                                scanStop();
-                                shutdown();
-                                KEY_AM();
-                            }
-                        }
-                        break;
-                    case KEY_FM:
-                        if (keyAction == KEY_ACTION_DOWN_LONG) {
-                            //getCurRadioFragment().scanDown();
-                        } else {
-                            if (keyAction == KEY_ACTION_UP) {
-                                scanStop();
-                                shutdown();
-                                KEY_FM();
-                            }
-                        }
-                        break;
-                    case KEY_SCAN:
-
-                        break;
-                    default:
-                        bRet = false;
-                        break;
-                }
-                return bRet;
-            }
-
-            @Override
-            public void onCustomAction(String action, Bundle extras) {
-                super.onCustomAction(action, extras);
-            }
-        };
         Log.w("RadioAcitivity", "onStart");
         Log.w("RadioAcitivity", manager.getRadioLocal() + "");
-        mjacMediaSession.setActive(true);
+
         if (manager.getRadioLocal() != RadioCacheUtil.getInstance(getApplicationContext()).getLocation()) {
             Band = 0;
             setBandEditor(Band);
@@ -1279,7 +1199,7 @@ public class RadioActivity extends BasesActivity{
 
         RuleView = null;
         stringIntegerMap = null;
-        mjacMediaSession.setActive(false);
+
     }
 
     private void resetFreqStart() {

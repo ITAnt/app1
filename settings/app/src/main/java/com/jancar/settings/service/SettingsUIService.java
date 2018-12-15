@@ -220,6 +220,7 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
 
 
     class NetworkChangeReceiver extends BroadcastReceiver {
+        @SuppressLint("ShowToast")
         @Override
         public void onReceive(Context context, Intent intent) {
             String Type = intent.getStringExtra("Type");
@@ -233,18 +234,16 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
                 intents.putExtra("Data",buff);
                 sendBroadcast(intents);
             } else {
-
-                byte[] buff = intent.getByteArrayExtra("Data");
-                if (buff!=null){
-                    for (byte butt:buff){
-                        Log.w("SettingsUIService",butt+" butt");
-                    }
-                    if (buff.length>256){
-
-                       return;
-                    }
-                    writeFile(buff);
+                byte[] buff=new byte[64];
+                byte[] buff1 = intent.getByteArrayExtra("Data");
+                System.arraycopy(buff1,0,buff,0,64);
+                for (byte butt:buff){
+                    Log.w("SettingsUIService",butt+" butt");
                 }
+                if (buff1.length>64){
+                    Toast.makeText(context," ",Toast.LENGTH_LONG);
+                }
+                writeFile(buff);
             }
 
 

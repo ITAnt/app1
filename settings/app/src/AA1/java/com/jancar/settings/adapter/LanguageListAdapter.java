@@ -64,7 +64,7 @@ public class LanguageListAdapter extends BaseAdapter {
         if (ID==pos){
             holder.timeListItemRlayout.setBackgroundResource(R.color.bg_main_rlayout_h);
         } else {
-            holder.timeListItemRlayout.setBackgroundResource(R.color.colorPrimary);
+            holder.timeListItemRlayout.setBackgroundResource(R.color.lucency);
         }
         holder.nameTitleTxt.setText(nameList.get(pos));
         return view;

@@ -52,7 +52,7 @@ import com.jancar.globallib.globaldatamanager.GlobaldataManager;
 import com.jancar.key.KeyDef;
 import com.jancar.key.keyFocuser;
 import com.jancar.media.JacMediaSession;
-import com.jancar.radio.BuildConfig;
+
 import com.jancar.radio.R;
 import com.jancar.radio.RadioManager;
 import com.jancar.radio.RadioWrapper;
@@ -402,9 +402,9 @@ public class RadioActivity extends BasesActivity implements AdapterView.OnItemCl
         getPresenter().addRadioStation(position, mRadioStation, radioStations);
         return false;
     }
-
     @SuppressLint("WrongConstant")
     public   void initData() {
+
         RuleView = new ArrayList<>();
         radioStations = new ArrayList<>();
         Log.w("RadioAcitivity", "onCreate");
@@ -443,88 +443,7 @@ public class RadioActivity extends BasesActivity implements AdapterView.OnItemCl
     protected void onStart() {
         super.onStart();
         Log.w("RadioAcitivity", "onStart");
-        mjacMediaSession = new JacMediaSession(this) {
-            @Override
-            public boolean OnKeyEvent(int key, int state) throws RemoteException {
-                boolean bRet = true;
-                KeyDef.KeyType keyType = KeyDef.KeyType.nativeToType(key);
-                KeyDef.KeyAction keyAction = KeyDef.KeyAction.nativeToType(state);
 
-                switch (keyType) {
-                    case KEY_PREV:
-                        if (keyAction == KEY_ACTION_DOWN_LONG) {
-                            //getCurRadioFragment().scanUp();
-                        } else {
-                            if (keyAction == KEY_ACTION_UP) {
-                                scanStop();
-                                shutdown();
-                                favoriteNext();
-                            }
-                        }
-                        break;
-                    case KEY_NEXT:
-                        if (keyAction == KEY_ACTION_DOWN_LONG) {
-                            //getCurRadioFragment().scanDown();
-                        } else {
-                            if (keyAction == KEY_ACTION_UP) {
-                                scanStop();
-                                shutdown();
-                                favoritePrev();
-                            }
-                        }
-                        break;
-                    case KEY_AS:
-                        if (keyAction == KEY_ACTION_DOWN_LONG) {
-                            //getCurRadioFragment().scanDown();
-                        } else {
-
-                            if (keyAction == KEY_ACTION_UP) {
-                                scanStop();
-                                shutdown();
-                                KEY_AS();
-                            }
-                        }
-                        break;
-                    case KEY_AM:
-
-                        if (keyAction == KEY_ACTION_DOWN_LONG) {
-                            //getCurRadioFragment().scanDown();
-                        } else {
-
-                            if (keyAction == KEY_ACTION_UP) {
-                                scanStop();
-                                shutdown();
-                                KEY_AM();
-                            }
-                        }
-                        break;
-                    case KEY_FM:
-                        if (keyAction == KEY_ACTION_DOWN_LONG) {
-                            //getCurRadioFragment().scanDown();
-                        } else {
-                            if (keyAction == KEY_ACTION_UP) {
-                                scanStop();
-                                shutdown();
-                                KEY_FM();
-                            }
-                        }
-                        break;
-                    case KEY_SCAN:
-
-                        break;
-                    default:
-                        bRet = false;
-                        break;
-                }
-                return bRet;
-            }
-
-            @Override
-            public void onCustomAction(String action, Bundle extras) {
-                super.onCustomAction(action, extras);
-            }
-        };
-        mjacMediaSession.setActive(true);
         if (manager.getRadioLocal() != RadioCacheUtil.getInstance(getApplicationContext()).getLocation()) {
             Band = 0;
             setBandEditor(Band);
@@ -697,7 +616,7 @@ public class RadioActivity extends BasesActivity implements AdapterView.OnItemCl
 
         switch (v.getId()) {
             case R.id.btn_left:
-
+                adapter.Refresh(radioStations);
                 getPresenter().select(Band, mLocation, first_run);
                 isScanAll = false;
                 SharedPreferences sharedPrefere = getActivity().getSharedPreferences("FirstRun", 0);
@@ -708,6 +627,7 @@ public class RadioActivity extends BasesActivity implements AdapterView.OnItemCl
                 }
                 break;
             case R.id.btn_right:
+                adapter.Refresh(radioStations);
                 getPresenter().select(Band, mLocation, first_run);
                 SharedPreferences sharedPreferencesdd = getActivity().getSharedPreferences("FirstRun", 0);
                 sharedPreferencesdd.edit().putBoolean("Firsts", false).commit();
@@ -718,6 +638,7 @@ public class RadioActivity extends BasesActivity implements AdapterView.OnItemCl
                 }
                 break;
             case R.id.img_search:
+                adapter.Refresh(radioStations);
                 if (mBand == 0) {
                     Band = 3;
                 } else {
@@ -1102,6 +1023,7 @@ public class RadioActivity extends BasesActivity implements AdapterView.OnItemCl
 
     //扫描结束，添加数据
     public void onScanEnd(final boolean bsave) {
+        mAudioManager.requestAudioFocus(mAudioFocusChange, AudioManager.STREAM_MUSIC, AUDIOFOCUS_GAIN);
         if (bsave) {
             isShortSearch = false;
             if (this.mScanResultList != null && this.mScanResultList.size() > 0) {
@@ -1185,6 +1107,7 @@ public class RadioActivity extends BasesActivity implements AdapterView.OnItemCl
                 isTinTai = false;
             }
         }
+
     }
 
     //搜索开始
@@ -1193,6 +1116,7 @@ public class RadioActivity extends BasesActivity implements AdapterView.OnItemCl
         for (Collection mCollections :collectionsStations){
             mCollections.setSelect(false);
         }
+        mAudioManager.abandonAudioFocus(mAudioFocusChange);
         adapters.Refresh(collectionsStations);
         radioStations = getPresenter().queryFrequency(Band, mLocation);
         init(radioStations);
@@ -1306,11 +1230,9 @@ public class RadioActivity extends BasesActivity implements AdapterView.OnItemCl
         RuleView.clear();
         stringIntegerMap.clear();
         radioStations = null;
-        //list = null;
-
         RuleView = null;
         stringIntegerMap = null;
-        mjacMediaSession.setActive(false);
+
     }
 
     private void resetFreqStart() {
