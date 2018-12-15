@@ -70,6 +70,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
     private static final int KEYTYPE_NEXT = 41;
     private static final int KEYTYPE_PAUSE = 42;
     private static final int KEYTYPE_PLAY = 43;
+    private byte PlayStatus = 5;
 
     //    private JancarManager jancarManager;
     public ToastUtil mToast;
@@ -178,6 +179,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         bluetoothManager.unRegisterBTMusicListener();
         bluetoothManager.setBTConnectStatusListener(null);
         jacMediaSession.setActive(false);
+        PlayStatus = 5;
     }
 
     private void initView() {
@@ -334,7 +336,7 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
 
     private void updatePlaybackStatus(byte play_status, int song_len, int song_pos) {
         Log.e(TAG, "updatePlaybackStatus===" + play_status);
-//        jacMediaSession.notifyPlayState(play_status);
+        notifyPlayState(play_status);
 //        jacMediaSession.notifyProgress(song_pos, song_len);
         int btStatus = bluetoothRequestFocus.getCurrentBTStatus();
         switch (play_status) {
@@ -423,6 +425,22 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
 
     }
 
+    private void notifyPlayState(byte play_status) {
+        if (PlayStatus == 5) {
+            setPlayState(play_status);
+        } else {
+            if (PlayStatus != play_status) {
+                setPlayState(play_status);
+            }
+        }
+    }
+
+    private void setPlayState(byte play_status) {
+        jacMediaSession.notifyPlayState(play_status);
+        PlayStatus = play_status;
+
+    }
+
     /**
      * @param pos 播放时长
      */
@@ -483,7 +501,8 @@ public class MusicActivity extends BaseActivity<MusicContract.Presenter, MusicCo
         }
         tvPlayTotalTime.setText(length);//总时间
         tvPlayTime.setText(pos);//播放的时间
-        jacMediaSession.notifyPlayState(play_status);
+        Log.e("Success", "play_status===" + play_status);
+//        jacMediaSession.notifyPlayState(play_status);
 
     }
 
