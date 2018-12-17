@@ -93,6 +93,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
     private RelativeLayout restoreDefaultRlayout;
     private RelativeLayout systemRlayout;
     private RelativeLayout systemRlayouts;
+    private RelativeLayout rlayout_screen;
     private LinearLayout suspensionLlayout;
     SuspensionFragment mSuspensionFragment;
     @SuppressLint("HandlerLeak")
@@ -123,6 +124,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
             suspensionRlayout = (RelativeLayout) view.findViewById(R.id.rlayout_suspension);
             resetRlayout = (RelativeLayout) view.findViewById(R.id.rlayout_reset);
             restartRlayout = (RelativeLayout) view.findViewById(R.id.rlayout_restart);
+            rlayout_screen = (RelativeLayout) view.findViewById(R.id.rlayout_screen);
             restoreDefaultRlayout = (RelativeLayout) view.findViewById(R.id.rlayout_restore_default);
             systemRlayout = (RelativeLayout) view.findViewById(R.id.llayout_system);
             systemRlayouts = (RelativeLayout) view.findViewById(R.id.rlayout_system);
@@ -170,6 +172,7 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
         settingManager.setListener(this);
         suspensionRlayout.setOnClickListener(this);
         systemRlayouts.setOnClickListener(this);
+        rlayout_screen.setOnClickListener(this);
         mSuspensionFragment = newInstance(false);
         getFragmentManager().beginTransaction()
                 .replace(R.id.llayout_suspension, mSuspensionFragment)
@@ -179,6 +182,9 @@ public class SystemFragment extends BaseFragments<SystemPresenter> implements Sy
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.rlayout_screen:
+
+                break;
             case R.id.rlayout_suspension:
                 //showCleanupDialog();
                 if (suspensionLlayout.getVisibility() == View.GONE) {

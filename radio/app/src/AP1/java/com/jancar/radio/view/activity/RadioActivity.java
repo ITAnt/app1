@@ -122,7 +122,7 @@ public class RadioActivity extends BasesActivity{
     public static final String BROADCAST_ACTION = "RadioActivity";
     @BindView(R.id.txt_channel)
     TextView channelTxt;
-    Unbinder unbinder;
+
     @BindView(R.id.gv_1_one)
     RuleView gv_1_one;
     @BindView(R.id.gv_1_two)
@@ -1182,8 +1182,6 @@ public class RadioActivity extends BasesActivity{
         mAudioManager.abandonAudioFocus(mAudioFocusChange);
         //mJancarManager.abandonKeyFocus(keyFocusListener.asBinder());
         manager = null;
-
-
         resetFreqStart();
         closeManager();
         SharedPreferences.Editor editor = getSharedPreferences("Radio", MODE_PRIVATE).edit();

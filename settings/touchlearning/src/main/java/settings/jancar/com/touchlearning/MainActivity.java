@@ -32,9 +32,11 @@ import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlSerializer;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -61,7 +63,10 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     boolean isClick;
     int heigth;
     int width;
-
+    int VendorID;
+    int SensorID;
+    int  X;
+    int  Y;
     public static final int failure = 0;
     public static final int success = 1;
     PermissionsManager mPermissionsManager;
@@ -74,18 +79,16 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 case failure:
                     Looper.prepare();
                     anInt++;
-
                     Toast.makeText(MainActivity.this, "触摸学习失败", Toast.LENGTH_SHORT).show();
-                /*    List<String> ListString = readXml("/jancar/config/pointercal.xml");
-                    if (ListString.size() > 0) {
+                    Map<Object, List<String>> ListStrings = readXml("/jancar/config/pointercal.xml");
+                    java.util.List<String> ListString = ListStrings.get((VendorID+"_"+SensorID+"_"+X+"_"+Y));
+                    if (ListString != null && ListString.size() > 0) {
                         Log.w("ListString", ListString.toString());
                         generate(ListString.get(0), ListString.get(1), ListString.get(2), ListString.get(3), ListString.get(4),
                                 ListString.get(5), ListString.get(6));
+                    }
 
-                    }*/
-                    // MainActivity.this.finish();
-                    //generate(ListString.get(0) + "", 0 + "", 0 + "", 0 + "", 1 + "", 0 + "", 1 + "");
-
+                    MainActivity.this.finish();
                     Looper.loop();
                     break;
                 case success:
@@ -111,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             //通过DocumentBuilder对象的parser方法加载books.xml文件到当前项目下
             Document document = db.parse(f);
             //获取所有book节点的集合
-            NodeList GISName = document.getElementsByTagName("picel");
+            NodeList GISName = document.getElementsByTagName("node");
             //通过nodelist的getLength()方法可以获取bookList的长度
             //遍历每一个book节点
             for (int i = 0; i < GISName.getLength(); i++) {
@@ -153,6 +156,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+    byte[] tempbytes=     readFileByBytes("/proc/gt9xx_config");
+        VendorID = tempbytes[0];
+        SensorID = tempbytes[5];
+        X = tempbytes[2] << 8 + tempbytes[1];
+        Y = tempbytes[4] << 8 + tempbytes[3];
         Toast.makeText(this, "已进入触摸学习", Toast.LENGTH_SHORT).show();
         try {
             File a = new File("/sys/devices/soc/soc:touch@/gt9xx_props");
@@ -162,11 +170,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             //   String commands = "chmod 777 " + "/jancar/config/pointercal.xml";
             Runtime.getRuntime().exec("chmod 777  " + c.getAbsolutePath());
 
-            String command = "chmod 777 " + "/sys/devices/soc/soc:touch@/gt9xx_props";
-            String commands = "chmod 777 " + "/jancar/config/pointercal.xml";
-            Log.i("zyl", "command = " + command);
-            //Runtime runtime = Runtime.getRuntime();
-            //proc.destroy();
         } catch (IOException e) {
             Log.i("zyl", "chmod fail!!!!");
             e.printStackTrace();
@@ -217,15 +220,16 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 int viewHeight = relativeLayout.height;
                 int top = touch_one.getTop();
                 if (anInt >= 5) {
-                   /* Toast.makeText(MainActivity.this, "触摸学习失败", Toast.LENGTH_SHORT).show();
-                    List<String> ListString = readXml("/jancar/config/pointercal.xml");
-                    if (ListString.size() > 0) {
+                    Toast.makeText(MainActivity.this, "触摸学习失败", Toast.LENGTH_SHORT).show();
+                    Map<Object, List<String>> ListStrings = readXml("/jancar/config/pointercal.xml");
+                    java.util.List<String> ListString = ListStrings.get(VendorID+"_"+SensorID+"_"+X+"_"+Y);
+                    if (ListString != null && ListString.size() > 0) {
                         Log.w("ListString", ListString.toString());
                         generate(ListString.get(0), ListString.get(1), ListString.get(2), ListString.get(3), ListString.get(4),
                                 ListString.get(5), ListString.get(6));
-
                     }
-                    MainActivity.this.finish();*/
+
+                    MainActivity.this.finish();
                     return false;
                 }
                 if (x1 > viewWidth / 2) {
@@ -334,15 +338,17 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                             set(A, B, C);
                             isClick = false;
                         } else {
-                           /* Toast.makeText(MainActivity.this, "触摸学习失败", Toast.LENGTH_SHORT).show();
-                            List<String> ListString = readXml("/jancar/config/pointercal.xml");
-                            if (ListString.size() > 0) {
+                            Toast.makeText(MainActivity.this, "触摸学习失败", Toast.LENGTH_SHORT).show();
+                            Map<Object, List<String>> ListStrings = readXml("/jancar/config/pointercal.xml");
+                            java.util.List<String> ListString = ListStrings.get((VendorID+"_"+SensorID+"_"+X+"_"+Y));
+                            if (ListString != null && ListString.size() > 0) {
                                 Log.w("ListString", ListString.toString());
                                 generate(ListString.get(0), ListString.get(1), ListString.get(2), ListString.get(3), ListString.get(4),
                                         ListString.get(5), ListString.get(6));
+                            }
 
-                            }*/
                             MainActivity.this.finish();
+
                         }
                         break;
                 }
@@ -523,61 +529,51 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     while (it.hasNext()) {
                         Map.Entry<Object, List<String>> entry = it.next();
                         System.out.println("key= " + entry.getKey() + " and value= " + entry.getValue());
+                        serializer.startTag(null, "node");
+                        serializer.attribute(null, "touch", entry.getKey() + "");
+                        // server
+                        List<String> stringList = entry.getValue();
 
+                        serializer.startTag(null, "item");
+                        serializer.attribute(null, "id", "A");
+                        serializer.text(stringList.get(0));
+                        serializer.endTag(null, "item");
+                        // hid
+                        serializer.startTag(null, "item");
+                        serializer.attribute(null, "id", "B");
+                        // serializer.attribute(null, "value", b);
+                        serializer.text(stringList.get(1));
+                        serializer.endTag(null, "item");
+                        // room
+                        serializer.startTag(null, "item");
+                        serializer.attribute(null, "id", "C");
+                        serializer.text(stringList.get(2));
+                        serializer.endTag(null, "item");
+                        // room
+                        serializer.startTag(null, "item");
+                        serializer.attribute(null, "id", "D");
+                        serializer.text(stringList.get(3));
+                        serializer.endTag(null, "item");
+
+                        // room
+                        serializer.startTag(null, "item");
+                        serializer.attribute(null, "id", "E");
+                        serializer.text(stringList.get(4));
+                        serializer.endTag(null, "item");
+
+                        // room
+                        serializer.startTag(null, "item");
+                        serializer.attribute(null, "id", "F");
+                        serializer.text(stringList.get(5));
+                        serializer.endTag(null, "item");
+
+                        // room
+                        serializer.startTag(null, "item");
+                        serializer.attribute(null, "id", "Div");
+                        serializer.text(stringList.get(6));
+                        serializer.endTag(null, "item");
+                        serializer.endTag(null, "node");
                     }
-                   /* for (int i=0;i<objectListMap.size();i++){
-                        objectListMap.
-                    }   for (Map.Entry<Integer, String> entry : objectListMap.entrySet()) {
-                                   //Map.entry<Integer,String> 映射项（键-值对）  有几个方法：用上面的名字entry
-                                   //entry.getKey() ;entry.getValue(); entry.setValue();
-                                   //map.entrySet()  返回此映射中包含的映射关系的 Set视图。
-                                   System.out.println("key= " + entry.getKey() + " and value= "
-                                            + entry.getValue());
-                               }*/
-                    serializer.startTag(null, "node");
-                    serializer.attribute(null, "touch", "1024*600");
-                    // server
-                    serializer.startTag(null, "item");
-                    serializer.attribute(null, "id", "A");
-                    serializer.text(a);
-                    serializer.endTag(null, "item");
-                    // hid
-                    serializer.startTag(null, "item");
-                    serializer.attribute(null, "id", "B");
-                    // serializer.attribute(null, "value", b);
-                    serializer.text(b);
-                    serializer.endTag(null, "item");
-                    // room
-                    serializer.startTag(null, "item");
-                    serializer.attribute(null, "id", "C");
-                    serializer.text(c);
-                    serializer.endTag(null, "item");
-                    // room
-                    serializer.startTag(null, "item");
-                    serializer.attribute(null, "id", "D");
-                    serializer.text(d);
-                    serializer.endTag(null, "item");
-
-                    // room
-                    serializer.startTag(null, "item");
-                    serializer.attribute(null, "id", "E");
-                    serializer.text(e);
-                    serializer.endTag(null, "item");
-
-                    // room
-                    serializer.startTag(null, "item");
-                    serializer.attribute(null, "id", "F");
-                    serializer.text(f);
-                    serializer.endTag(null, "item");
-
-                    // room
-                    serializer.startTag(null, "item");
-                    serializer.attribute(null, "id", "Div");
-                    serializer.text(div);
-                    serializer.endTag(null, "item");
-
-
-                    serializer.endTag(null, "node");
                     serializer.endTag(null, "config");
                     serializer.endDocument();
                     serializer.flush();
@@ -613,6 +609,35 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             }
         }).start();
 
+    }
+
+    public static byte[] readFileByBytes(String fileName) {
+        File file = new File(fileName);
+        InputStream in = null;
+        byte[] tempbytes = new byte[186];
+        try {
+            System.out.println("以字节为单位读取文件内容，一次读多个字节：");
+            // 一次读多个字节
+
+            int byteread = 0;
+            in = new FileInputStream(fileName);
+            //    ReadFromFile.showAvailableBytes(in);
+            // 读入多个字节到字节数组中，byteread为一次读入的字节数
+            while ((byteread = in.read(tempbytes)) != -1) {
+                System.out.write(tempbytes, 0, byteread);
+            }
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e1) {
+                }
+            }
+        }
+
+        return tempbytes;
     }
 
     public void generate(final String a, final String b, final String c, final String d, final String e, final String f, final String div) {
@@ -662,9 +687,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                         fop.close();
                         if (anInt == 5) {
                             Map<Object, List<String>> objectListMap = readXml("/jancar/config/pointercal.xml");
-                            List<String> stringList = objectListMap.get("1248*468");
+                            List<String> stringList = objectListMap.get((VendorID+"_"+SensorID+"_"+X+"_"+Y));
                             if (stringList != null) {
-                                objectListMap.remove("1248*468");
+                                objectListMap.remove((VendorID+"_"+SensorID+"_"+X+"_"+Y));
                                 stringList.clear();
                             } else {
                                 stringList = new ArrayList<>();
@@ -676,7 +701,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                             stringList.add(e + "");
                             stringList.add(f + "");
                             stringList.add(65536 + "");
-                            objectListMap.put("1248*468", stringList);
+                            objectListMap.put(VendorID+"_"+SensorID+"_"+X+"_"+Y, stringList);
                             initSettings(a, b, c,
                                     d, e, f, 65536 + "", objectListMap);
                             /*  */

@@ -143,11 +143,32 @@
                         android:id="@+id/txt_suspension_system_line"
                         style="@style/style_line_txt"
                         android:layout_below="@+id/rlayout_suspension" />
+                    <RelativeLayout
+                        android:id="@+id/rlayout_screen"
+                        style="@style/style_rlayout"
+                        android:layout_below="@+id/txt_suspension_system_line">
 
+                        <TextView
+                            android:id="@+id/txt_screen_title"
+                            style="@style/style_txt"
+                            android:text="屏幕信息" />
+
+
+                        <ImageView
+                            android:id="@+id/img_screen_arrow"
+                            style="@style/style_img"
+                            android:src="@drawable/balance_btn_right_state" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/txt_screen_line"
+                        style="@style/style_line_txt"
+                        android:layout_below="@+id/rlayout_screen" />
                     <RelativeLayout
                         android:id="@+id/rlayout_system_cleanup"
                         style="@style/style_rlayout"
-                        android:layout_below="@+id/txt_suspension_system_line">
+                        android:layout_below="@+id/txt_screen_line">
 
                         <TextView
                             android:id="@+id/txt_system_cleanup_title"

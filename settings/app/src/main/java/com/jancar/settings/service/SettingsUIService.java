@@ -255,12 +255,16 @@ public class SettingsUIService extends Service implements SeekBar.OnSeekBarChang
         IBinder binder = ServiceManager.getService("NvRAMAgent");
         NvRAMAgent agent = NvRAMAgent.Stub.asInterface(binder);
         byte[] buff = new byte[0];
-        try {
-            buff = agent.readFile(45);
-            Log.w("NavigationSoftware", buff.toString() + " ");
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        if (agent!=null){
+            try {
+                buff = agent.readFile(45);
+                Log.w("NavigationSoftware", buff.toString() + " ");
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
+
+
         return buff;
     }
 
